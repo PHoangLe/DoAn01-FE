@@ -1,0 +1,108 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+.container-fluid{
+  height: 100vh;
+}
+#form-container{
+  min-width: 300px;
+}
+
+#header-background{
+  border-radius: 0px 0px 0px 50px;
+}
+
+#float-input{
+  width: 20vw;
+  border-radius: 0;
+  border-top: none ;
+  border-left: none;
+  border-right: none;
+}
+#float-input:focus{
+  box-shadow: none;
+}
+#sign-in-gg{
+  background-color: #F2F4F6;
+}
+
+.logo img{
+  max-width: 50%;
+}
+
+#sign-in-gg{
+  min-width: 240px;
+  max-width: 280px;
+}
+#sign-in-gg img{
+  margin: auto;
+  width: 20px;
+  height: 20px;
+}
+
+#sign-in-gg{
+  color: #000;
+}
+.forgot-password >div{
+  width: 60%;
+}
+.forgot-password  a{
+  margin: auto;
+  text-decoration: none;
+  color: #000;
+}
+.btn-primary{
+  max-height: 60px;
+  min-height: 30px;
+  height: 6vh;
+  width: 20vw;
+}
+.sign-up a{
+  text-decoration: none;
+}
+
+//side-background
+.side-background{
+  background-image: url('https://i.ibb.co/J2wsnZJ/jonas-vincent-xul-IYVIb-YIc-unsplash-2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center ;
+}
+
+//responsive
+@media(max-width: 575.98px) {
+  #side-background{
+    display: none;
+  }
+  #header-background{
+    display: block;
+    height: 15%;
+  }
+  #form-container{
+    height: 85%;
+  }
+  #sign-in-gg > p{
+    font-size: 14px;
+  }
+  #float-input{
+    width: 60vw;
+  }
+  .btn-primary{
+    height: 40px;
+    width: 60vw;
+  }
+}
+
+@media(min-width: 576px) {
+  #side-background{
+    display: block;
+  }
+  #header-background{
+    display: none;
+  }
+  #form-container{
+    height: 100%;
+  }
+}
+
