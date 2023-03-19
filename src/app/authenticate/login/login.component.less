@@ -94,16 +94,18 @@
     width: 60vw
   }
 }
-
-@media(min-width: 576px) {
-  #side-background{
-    display: block;
+:host ::ng-deep{
+  @media(min-width: 576px) {
+    #side-background{
+      display: block;
+    }
+    #header-background{
+      display: none;
+    }
+    #form-container{
+      height: 100%;
+    }
   }
-  #header-background{
-    display: none;
-  }
-  #form-container{
-    height: 100%;
-  }
+  
 }
 

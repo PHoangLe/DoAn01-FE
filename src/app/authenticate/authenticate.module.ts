@@ -6,10 +6,10 @@ import { LoginComponent } from './login/login.component';
 import {ButtonModule} from 'primeng/button';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import {
-  GoogleLoginProvider,
-  FacebookLoginProvider
+  GoogleLoginProvider
 } from '@abacritt/angularx-social-login';
 import { RegisterComponent } from './register/register.component';
+import { AuthenticateRoutingModule } from './authenticate-routing.module';
 
 
 
@@ -19,7 +19,8 @@ import { RegisterComponent } from './register/register.component';
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    SocialLoginModule
+    SocialLoginModule,
+    AuthenticateRoutingModule
   ],
   providers: [
     {
