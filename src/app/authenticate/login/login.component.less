@@ -13,14 +13,14 @@
   border-radius: 0px 0px 0px 50px;
 }
 
-#float-input{
-  width: 20vw;
-  border-radius: 0;
-  border-top: none ;
-  border-left: none;
-  border-right: none;
+
+:host ::ng-deep .p-password input, .inputtext {
+  width: 20vw
 }
-#float-input:focus{
+:host ::ng-deep .p-password input:focus {
+  box-shadow: none;
+}
+.inputtext:focus{
   box-shadow: none;
 }
 #sign-in-gg{
@@ -72,8 +72,9 @@
 
 //responsive
 @media(max-width: 575.98px) {
-  #side-background{
+  .side-background{
     display: none;
+    background-image:none
   }
   #header-background{
     display: block;
@@ -85,12 +86,12 @@
   #sign-in-gg > p{
     font-size: 14px;
   }
-  #float-input{
-    width: 60vw;
-  }
   .btn-primary{
     height: 40px;
     width: 60vw;
+  }
+  :host ::ng-deep .p-password input,  .inputtext{
+    width: 60vw
   }
 }
 
