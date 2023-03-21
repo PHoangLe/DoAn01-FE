@@ -10,7 +10,8 @@ import {
 } from '@abacritt/angularx-social-login';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticateRoutingModule } from './authenticate-routing.module';
-
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -20,7 +21,10 @@ import { AuthenticateRoutingModule } from './authenticate-routing.module';
     PasswordModule,
     ButtonModule,
     SocialLoginModule,
-    AuthenticateRoutingModule
+    AuthenticateRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

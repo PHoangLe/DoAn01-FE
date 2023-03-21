@@ -14,13 +14,14 @@
 }
 
 
+.inputtext{
+  height: 40px;
+}
 :host ::ng-deep .p-password input, .inputtext {
-  width: 20vw
+  width: 20vw;
+  border-radius: 7px;
 }
 :host ::ng-deep .p-password input:focus {
-  box-shadow: none;
-}
-.inputtext:focus{
   box-shadow: none;
 }
 #sign-in-gg{
@@ -69,7 +70,10 @@
   background-size: cover;
   background-position: center ;
 }
-
+.btn-primary{
+  background-color: var(--primary-color);
+  border: none;
+}
 //responsive
 @media(max-width: 575.98px) {
   .side-background{

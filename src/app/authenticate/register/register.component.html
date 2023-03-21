@@ -9,6 +9,45 @@
           alt="Logo"
         />
       </div>
+      <div class="forgot-password d-flex justify-content-center">
+        <div class="d-flex">
+          <div class="me-auto mb-2">
+            <h4>Nhập thông tin của bạn</h4>
+          </div>
+        </div>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Email</h6>
+          <input class="inputtext ps-1" id="float-input" type="text" pInputText />
+        </span>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Password</h6>
+          <p-password class="inputtext ps-1" [toggleMask]="true"></p-password>
+        </span>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Họ và tên</h6>
+          <input class="inputtext ps-1" id="float-input" type="text" pInputText />
+        </span>
+      </div>
+
+      <div class="btn-container d-flex justify-content-center pt-4">
+        <button type="button" class="btn btn-primary text-nowrap rounded-3">
+          Tạo tài khoản
+        </button>
+      </div>
+      <div class="sign-up d-flex justify-content-center mt-2">
+        <div>
+          <p>Bạn đã có tài khoản? <a routerLink="/login">Đăng nhập ngay</a></p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center p-2 my-2">
+        <p>Hoặc</p>
+      </div>
       <div class="d-flex justify-content-center p-2">
         <asl-google-signin-button
           type="standard"
@@ -16,38 +55,7 @@
           s
         ></asl-google-signin-button>
       </div>
-      <div class="d-flex justify-content-center p-2">
-        <p>Hoặc</p>
-      </div>
-      <div class="input-textbox d-flex justify-content-center">
-        <span class="p-float-label m-4 mb-1">
-          <h5>Email</h5>
-          <input class="inputtext ps-1" id="float-input" type="text" pInputText />
-        </span>
-      </div>
-      <div class="input-textbox d-flex justify-content-center">
-        <span class="p-float-label m-4 mb-1">
-          <h5>Password</h5>
-          <p-password class="inputtext ps-1" [toggleMask]="true"></p-password>
-        </span>
-      </div>
-      <div class="forgot-password d-flex justify-content-center">
-        <div class="d-flex">
-          <div class="ms-auto">
-            <a class="fw-light fs-9" href="#">Quên mật khẩu</a>
-          </div>
-        </div>
-      </div>
-      <div class="btn-container d-flex justify-content-center pt-4">
-        <button type="button" class="text-nowrap rounded-3">
-          Đăng nhập
-        </button>
-      </div>
-      <div class="sign-up d-flex justify-content-center mt-2">
-        <div>
-          <p>Bạn đã có tài khoản? <a routerLink="/register">Đăng nhập ngay</a></p>
-        </div>
-      </div>
+
     </div>
   </div>
   <div

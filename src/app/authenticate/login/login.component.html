@@ -1,7 +1,7 @@
 <div class="container-fluid row">
   <div class="col-sm-5 col-md-4 h-100">
     <div class="bg-secondary h-20" id="header-background"></div>
-    <div class="bg-white" id="form-container">
+    <form class="bg-white" id="form-container" [formGroup] = "loginForm" (ngSubmit)="login()">
       <div class="logo mb-4 pt-4 d-flex justify-content-center align-items-end">
         <img
           class="mt-4"
@@ -21,14 +21,14 @@
       </div>
       <div class="input-textbox d-flex justify-content-center">
         <span class="p-float-label m-4 mb-1">
-          <h5>Email</h5>
-          <input class="inputtext ps-1" id="float-input" type="text" pInputText />
+          <h6>Email</h6>
+          <input class="inputtext ps-1" id="float-input" type="text" pInputText formControlName = "userEmail"/>
         </span>
       </div>
       <div class="input-textbox d-flex justify-content-center">
         <span class="p-float-label m-4 mb-1">
-          <h5>Password</h5>
-          <p-password class="inputtext ps-1" [toggleMask]="true"></p-password>
+          <h6>Password</h6>
+          <p-password class="inputtext ps-1" [toggleMask]="true" formControlName = "userPassword"></p-password>
         </span>
       </div>
       <div class="forgot-password d-flex justify-content-center">
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="btn-container d-flex justify-content-center pt-4">
-        <button type="button" class="text-nowrap rounded-3">
+        <button type="submit" class="btn btn-primary text-nowrap rounded-3">
           Đăng nhập
         </button>
       </div>
@@ -48,7 +48,7 @@
           <p>Bạn chưa có tài khoản? <a routerLink="/register">Đăng ký ngay</a></p>
         </div>
       </div>
-    </div>
+    </form>
   </div>
   <div
     class="side-background col-sm-7 col-md-8 bg-secondary h-100 rounded-start-5"
