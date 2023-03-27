@@ -12,6 +12,11 @@ import { RegisterComponent } from './register/register.component';
 import { AuthenticateRoutingModule } from './authenticate-routing.module';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VerifyComponent } from './verify/verify.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+// import { AuthInterceptor } from './auth.interceptor';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from '../services/auth.service';
 
 
 @NgModule({
@@ -43,12 +48,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
           console.error(err);
         }
       } as SocialAuthServiceConfig,
-    }
+    },
+    // AuthGuard,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true
+    // },
+    // AuthService
   ],
 
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    VerifyComponent
   ]
 })
 export class AuthenticateModule { }

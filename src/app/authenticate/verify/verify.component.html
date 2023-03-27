@@ -1,0 +1,41 @@
+<div class="container-fluid row">
+  <div class="col-sm-5 col-md-4 h-100">
+    <div class="bg-secondary h-20" id="header-background"></div>
+    <form class="bg-white" id="form-container" [formGroup] = "verifyForm" >
+      <div class="logo mb-4 pt-4 d-flex justify-content-center align-items-end">
+        <img
+          class="my-4"
+          src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
+          alt="Logo"
+        />
+      </div>
+      <div class="forgot-password d-flex justify-content-center">
+        <div class="d-flex">
+          <div class="me-auto mb-2">
+            <h4>Xác nhận tài khoản</h4>
+            <h6>Chúng tôi đã gửi mã xác minh đến email của bạn</h6>
+          </div>
+        </div>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 mb-1">
+          <h6>Mã xác nhận</h6>
+          <input class="inputtext ps-1" id="float-input" type="text" pInputText formControlName = "userEmail"/>
+        </span>
+      </div>
+      <div class="btn-container d-flex justify-content-center pt-3">
+        <button type="submit" class="btn btn-primary text-nowrap rounded-3">
+          Kích hoạt tài khoản
+        </button>
+      </div>
+      <div class="sign-up d-flex justify-content-center mt-2">
+        <div>
+          <p>Bạn chưa nhận được mã? <a routerLink="">Gửi lại</a></p>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div
+    class="side-background col-sm-7 col-md-8 bg-secondary h-100 rounded-start-5"
+  ></div>
+</div>
