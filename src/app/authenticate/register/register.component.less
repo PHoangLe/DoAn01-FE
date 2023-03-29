@@ -12,6 +12,8 @@
 #header-background{
   border-radius: 0px 0px 0px 50px;
 }
+
+
 .inputtext{
   height: 40px;
 }
@@ -20,9 +22,6 @@
   border-radius: 7px;
 }
 :host ::ng-deep .p-password input:focus {
-  box-shadow: none;
-}
-.inputtext:focus{
   box-shadow: none;
 }
 #sign-in-gg{
@@ -63,10 +62,7 @@
 .sign-up a{
   text-decoration: none;
 }
-.btn-primary{
-  background-color: var(--primary-color);
-  border: none;
-}
+
 //side-background
 .side-background{
   background-image: url('https://i.ibb.co/J2wsnZJ/jonas-vincent-xul-IYVIb-YIc-unsplash-2.jpg');
@@ -74,7 +70,10 @@
   background-size: cover;
   background-position: center ;
 }
-
+.btn-primary{
+  background-color: var(--primary-color);
+  border: none;
+}
 //responsive
 @media(max-width: 575.98px) {
   .side-background{
@@ -99,18 +98,16 @@
     width: 60vw
   }
 }
-:host ::ng-deep{
-  @media(min-width: 576px) {
-    #side-background{
-      display: block;
-    }
-    #header-background{
-      display: none;
-    }
-    #form-container{
-      height: 100%;
-    }
-  }
 
+@media(min-width: 576px) {
+  #side-background{
+    display: block;
+  }
+  #header-background{
+    display: none;
+  }
+  #form-container{
+    height: 100%;
+  }
 }
 

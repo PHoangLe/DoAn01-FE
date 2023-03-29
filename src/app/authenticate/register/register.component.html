@@ -1,13 +1,52 @@
 <div class="container-fluid row">
   <div class="col-sm-5 col-md-4 h-100">
     <div class="bg-secondary h-20" id="header-background"></div>
-    <form class="bg-white" id="form-container" [formGroup] = "loginForm" (ngSubmit)="login()">
+    <form class="bg-white" id="form-container" [formGroup] = "registerForm" (ngSubmit)="registerNewUser()">
       <div class="logo mb-4 pt-4 d-flex justify-content-center align-items-end">
         <img
           class="mt-4"
           src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
           alt="Logo"
         />
+      </div>
+      <div class="forgot-password d-flex justify-content-center">
+        <div class="d-flex">
+          <div class="me-auto mb-2">
+            <h4>Nhập thông tin của bạn</h4>
+          </div>
+        </div>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Email</h6>
+          <input class="inputtext ps-1" id="float-input" type="text" pInputText formControlName = "userEmail"/>
+        </span>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Password</h6>
+          <p-password class="inputtext ps-1" [toggleMask]="true" formControlName = "userPassword"></p-password>
+        </span>
+      </div>
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Họ và tên</h6>
+          <input class="inputtext ps-1" id="float-input" type="text" pInputText formControlName = "userName"/>
+        </span>
+      </div>
+
+      <div class="btn-container d-flex justify-content-center pt-4">
+        <button type="submit" class="btn btn-primary text-nowrap rounded-3">
+          Tạo tài khoản
+        </button>
+      </div>
+      <div class="sign-up d-flex justify-content-center mt-2">
+        <div>
+          <p>Bạn đã có tài khoản? <a routerLink="/login">Đăng nhập ngay</a></p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center p-2 my-2">
+        <p>Hoặc</p>
       </div>
       <div class="d-flex justify-content-center p-2">
         <asl-google-signin-button
@@ -16,38 +55,7 @@
           s
         ></asl-google-signin-button>
       </div>
-      <div class="d-flex justify-content-center p-2">
-        <p>Hoặc</p>
-      </div>
-      <div class="input-textbox d-flex justify-content-center">
-        <span class="p-float-label m-4 mb-1">
-          <h6>Email</h6>
-          <input class="inputtext ps-1" id="float-input" type="text" pInputText formControlName = "userEmail"/>
-        </span>
-      </div>
-      <div class="input-textbox d-flex justify-content-center">
-        <span class="p-float-label m-4 mb-1">
-          <h6>Password</h6>
-          <p-password class="inputtext ps-1" [toggleMask]="true" formControlName = "userPassword"></p-password>
-        </span>
-      </div>
-      <div class="forgot-password d-flex justify-content-center">
-        <div class="d-flex">
-          <div class="ms-auto">
-            <a class="fw-light fs-9" href="#">Quên mật khẩu</a>
-          </div>
-        </div>
-      </div>
-      <div class="btn-container d-flex justify-content-center pt-4">
-        <button type="submit" class="btn btn-primary text-nowrap rounded-3">
-          Đăng nhập
-        </button>
-      </div>
-      <div class="sign-up d-flex justify-content-center mt-2">
-        <div>
-          <p>Bạn chưa có tài khoản? <a routerLink="/register">Đăng ký ngay</a></p>
-        </div>
-      </div>
+
     </form>
   </div>
   <div
