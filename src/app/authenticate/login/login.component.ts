@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   private accessToken = '';
   user: User;
   userData: any;
-  constructor(private socialLoginService: SocialAuthService, private userService: AuthService, private builder: FormBuilder, private router: Router) { }
+  constructor(private socialLoginService: SocialAuthService, private authService: AuthService, private builder: FormBuilder, private router: Router) { }
 
 
   loginForm = this.builder.group({
@@ -41,11 +41,29 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.logIn(this.loginForm.value).subscribe(response => {
-      this.userData = response
-      this.router.navigate(['user'])
+    this.authService.logIn(this.loginForm.value).subscribe(
+      (response) => {
+        // console.log(response);
+        this.userData = response
+        this.router.navigate(['/user'])
+        this.authService.setRoles(response.userRoles)
+        this.authService.setToken(response.jwtToken)
+        console.log(this.authService.getRoles())
+        console.log(this.authService.getToken())
 
-    })
+        const roles = response.userRoles[0]
+        if(roles === "ROLE_ADMIN") {
+          console.log("admin")
+          this.router.navigate(['/admin'])
+        }
+        else{
+          console.log("None")
+          this.router.navigate(['/user'])
+
+        }
+
+      }
+      );
   }
 
   // getAccessToken(): void {

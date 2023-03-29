@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class VerifyComponent implements OnInit {
 
-  constructor( private userService: AuthService, private builder: FormBuilder, private router: Router) { }
+  constructor( private authService: AuthService, private builder: FormBuilder, private router: Router) { }
 
   verifyForm = this.builder.group({
     userEmail: this.builder.control(''),
@@ -20,7 +20,9 @@ export class VerifyComponent implements OnInit {
   ngOnInit() {
   }
   verifyEmail(){
+    this.authService.verifyEmail(this.verifyForm.value).subscribe(response => {
 
+    })
   }
 
 }
