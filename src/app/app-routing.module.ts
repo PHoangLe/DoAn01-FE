@@ -16,6 +16,13 @@ const routes: Routes = [
     canActivate: [AuthGuard], data: {
       userRoles: ['ROLE_ADMIN']
     }
+  },
+  {
+    path: 'shelter',
+    loadChildren: () => import('./shelter/shelter.module').then(m => m.ShelterModule),
+    canActivate: [AuthGuard], data: {
+      userRoles: ['ROLE_SHELTER_MANAGER']
+    }
   }
 ];
 
