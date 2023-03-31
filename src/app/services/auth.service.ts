@@ -104,15 +104,13 @@ export class AuthService {
   }
 
   roleMatch(allowedRoles: any): boolean {
-    let isMatch = false
     const userRoles: any = this.getRoles();
     console.log("current userRoles: " + userRoles)
-    console.log("allowed role: " + allowedRoles)
-    console.log(userRoles.includes(allowedRoles))
+    console.log("allowed role: " + allowedRoles[0])
+    console.log("Is " + allowedRoles[0] + " in " + userRoles + " " + userRoles.includes(allowedRoles))
     if (userRoles != null && userRoles)
-      if (userRoles.includes(allowedRoles))
+      if (userRoles.includes(allowedRoles[0]))
         return true
-
     return false
   }
 }
