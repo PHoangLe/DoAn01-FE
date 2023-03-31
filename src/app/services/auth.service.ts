@@ -6,9 +6,8 @@ import { Token } from '@angular/compiler';
 
 const apiBaseUrl = "/api/v1/auth/authenticate"
 const httpOptions = {
-  headers : new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-// const httpOptions = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
 @Injectable({
   providedIn: 'root'
 })
@@ -19,15 +18,15 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  logIn(inputData: any): Observable<any>{
+  logIn(inputData: any): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/authenticate', {
       userEmail: inputData.userEmail,
       userPassword: inputData.userPassword
-    },httpOptions
+    }, httpOptions
     );
   }
 
-  registerNewUser(inputData: any): Observable<any>{
+  registerNewUser(inputData: any): Observable<any> {
     return this.http.post(this.baseUrl + 'auth/userRegister', {
       userEmail: inputData.userEmail,
       userPassword: inputData.userPassword,
@@ -38,58 +37,69 @@ export class AuthService {
     );
   }
 
-  sendOTPVerifyEmail(inputData: any): Observable<any>{
+  sendOTPVerifyEmail(inputData: any): Observable<any> {
+    // console.log("sent email: " + inputData)
     return this.http.post(this.baseUrl + 'otp/sendOTPConfirmEmail', {
-      emailAddress: inputData.userEmail,
-    },httpOptions
+      emailAddress: inputData,
+    }, httpOptions
     );
   }
-  verifyEmail(inputData: any): Observable<any>{
+  verifyEmail(inputData: any): Observable<any> {
     console.log(this.userEmail)
     return this.http.post(this.baseUrl + 'otp/validateOTPConfirmEmail', {
       emailAddress: this.userEmail,
       otp: inputData.otp
-    },httpOptions
+    }, httpOptions
     );
   }
 
-  getFirstName(userName: string){
+  loginGoogle(inputData: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'auth/googleUserAuthenticate', {
+      userEmail: inputData.userEmail,
+      userFirstName: inputData.firstName,
+      userLastName: inputData.lastName,
+      userAvatar: inputData.photoUrl
+    }, httpOptions
+    );
+  }
+
+  getFirstName(userName: string) {
     // console.log(userName.split(" ", 1)[0].trim());
     return userName.split(" ", 1)[0].trim()
   }
-  getLastName(userName: string){
+  getLastName(userName: string) {
     // console.log(userName.slice((userName.trim().indexOf(" ") + 1)));
     return userName.slice((userName.trim().indexOf(" ") + 1))
   }
 
-  setUserEmail(email: any){
+  setUserEmail(email: any) {
     this.userEmail = email
   }
 
-  getUserEmail(){
+  getUserEmail() {
     return this.userEmail
   }
 
-  setRoles(userRoles :[]){
+  setRoles(userRoles: []) {
     localStorage.setItem("userRoles", JSON.stringify(userRoles))
   }
-  getRoles(): []{
+  getRoles(): [] {
     return JSON.parse(localStorage.getItem('userRoles') || '{}')
   }
 
-  setToken(jwtToken: string){
+  setToken(jwtToken: string) {
     localStorage.setItem("jwtToken", jwtToken)
   }
 
-  getToken(): string | null{
+  getToken(): string | null {
     return localStorage.getItem('jwtToken')
   }
 
-  clear(){
+  clear() {
     localStorage.clear();
   }
 
-  isLoggedIn(){
+  isLoggedIn() {
     return this.getRoles() && this.getToken()
   }
 
@@ -97,19 +107,12 @@ export class AuthService {
     let isMatch = false
     const userRoles: any = this.getRoles();
     console.log("current userRoles: " + userRoles)
-    if(userRoles != null && userRoles){
-      for(let i = 0; i < userRoles.length; i ++){
-        for(let j = 0; j < allowedRoles.length; j++){
-          if(userRoles[i] === allowedRoles[j]){
-            isMatch = true;
-            return isMatch
-          }
-          else{
-            return isMatch
-          }
-        }
-      }
-    }
-    return isMatch
+    console.log("allowed role: " + allowedRoles)
+    console.log(userRoles.includes(allowedRoles))
+    if (userRoles != null && userRoles)
+      if (userRoles.includes(allowedRoles))
+        return true
+
+    return false
   }
 }

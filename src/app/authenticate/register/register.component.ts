@@ -14,7 +14,10 @@ import { FormBuilder } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private socialService: SocialAuthService, private authService: AuthService, private builder: FormBuilder, private router: Router) { }
+  constructor(private socialService: SocialAuthService,
+    private authService: AuthService,
+    private builder: FormBuilder,
+    private router: Router) { }
 
 
   registerForm = this.builder.group({
@@ -27,10 +30,14 @@ export class RegisterComponent implements OnInit {
   }
 
   registerNewUser() {
-    this.authService.registerNewUser(this.registerForm.value).subscribe(response => {
-    })
+    // this.authService.registerNewUser(this.registerForm.value).subscribe(response => {
+    //   console.log("register response: " + response)
+    // })
     this.authService.setUserEmail(this.registerForm.value.userEmail)
-    this.authService.sendOTPVerifyEmail(this.registerForm.value).subscribe(response => {
+    console.log("user email: " + this.registerForm.value.userEmail)
+
+    this.authService.sendOTPVerifyEmail(this.registerForm.value.userEmail).subscribe(response => {
+      console.log("send otp response: " + response)
     })
     this.router.navigate(['verify'])
   }

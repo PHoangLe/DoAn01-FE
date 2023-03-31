@@ -16,28 +16,28 @@ export class LoginComponent implements OnInit {
 
   loggedIn: any;
   private accessToken = '';
-  user: User;
   userData: any;
-  constructor(private socialLoginService: SocialAuthService, private authService: AuthService, private builder: FormBuilder, private router: Router) { }
-
+  constructor(
+    private socialLoginService: SocialAuthService,
+    private authService: AuthService,
+    private builder: FormBuilder,
+    private router: Router) { }
 
   loginForm = this.builder.group({
     userEmail: this.builder.control(''),
     userPassword: this.builder.control('')
   })
   ngOnInit(): void {
-    // this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+    this.loginWithGoogle()
+  }
 
-    // this.authService.authState.subscribe((user) => {
-    //   // this.user.email = user.email;
-    //   // this.user.name = user.name;
-    //   // this.user.photoURL = user.photoUrl;
-    //   this.user = user;
-    //   this.loggedIn = (user != null);
-    //   console.log(this.user);
-    //   this.getAccessToken();
-    // });
-
+  loginWithGoogle() {
+    this.signOut()
+    this.socialLoginService.authState.subscribe((user) => {
+      // console.log(user)
+      this.authService.loginGoogle(user)
+      // this.getAccessToken();
+    });
   }
 
   login() {
@@ -48,31 +48,34 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/user'])
         this.authService.setRoles(response.userRoles)
         this.authService.setToken(response.jwtToken)
-        console.log(this.authService.getRoles())
-        console.log(this.authService.getToken())
+        // console.log(this.authService.getRoles())
+        // console.log(this.authService.getToken())
 
-        const roles = response.userRoles[0]
-        console.log("login response: " + response.userRoles)
-        if(roles === "ROLE_ADMIN") {
+        const roles = response.userRoles
+        // console.log("login response: " + response.userRoles)
+        if (roles.includes('ROLE_ADMIN')) {
           console.log("ADMIN")
-          // this.router.navigate(['/admin'])
+          this.router.navigate(['/admin'])
         }
-        else{
-          console.log("Not ADMIN")
-          // this.router.navigate(['/user'])
-
+        else if (roles.includes('ROLE_SHELTER_MANAGER')) {
+          console.log("SHELTER")
+          this.router.navigate(['/shelter'])
         }
-
+        else {
+          console.log("USER")
+          this.router.navigate(['/user'])
+        }
       }
-      );
+    );
   }
 
-  // getAccessToken(): void {
-  //   this.authService.getAccessToken(GoogleLoginProvider.PROVIDER_ID).then(accessToken => this.accessToken = accessToken);
-  // }
-  // signOut(): void {
-  //   this.authService.signOut();
-  // }
+  getAccessToken(): void {
+    this.socialLoginService.getAccessToken(GoogleLoginProvider.PROVIDER_ID).then(
+      accessToken => this.accessToken = accessToken);
+  }
+  signOut(): void {
+    this.socialLoginService.signOut();
+  }
   refreshToken(): void {
     this.socialLoginService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }

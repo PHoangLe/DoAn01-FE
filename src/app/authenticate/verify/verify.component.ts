@@ -10,18 +10,21 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class VerifyComponent implements OnInit {
 
-  constructor( private authService: AuthService, private builder: FormBuilder, private router: Router) { }
+  constructor( private authService: AuthService,
+    private builder: FormBuilder,
+    private router: Router) { }
 
   verifyForm = this.builder.group({
-    userEmail: this.builder.control(''),
-    userPassword: this.builder.control(''),
-    userName: this.builder.control('')
+    otp: this.builder.control(''),
   })
   ngOnInit() {
   }
   verifyEmail(){
+    console.log(this.verifyForm.value)
+    // console.log("email: " + this.authService.getUserEmail())
     this.authService.verifyEmail(this.verifyForm.value).subscribe(response => {
-
+      console.log(response.console.error()
+      )
     })
   }
 
