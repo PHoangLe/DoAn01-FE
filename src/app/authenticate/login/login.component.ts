@@ -52,13 +52,14 @@ export class LoginComponent implements OnInit {
         console.log(this.authService.getToken())
 
         const roles = response.userRoles[0]
+        console.log("login response: " + response.userRoles)
         if(roles === "ROLE_ADMIN") {
-          console.log("admin")
-          this.router.navigate(['/admin'])
+          console.log("ADMIN")
+          // this.router.navigate(['/admin'])
         }
         else{
-          console.log("None")
-          this.router.navigate(['/user'])
+          console.log("Not ADMIN")
+          // this.router.navigate(['/user'])
 
         }
 
