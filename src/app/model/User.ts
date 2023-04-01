@@ -6,4 +6,12 @@ export class User {
   userAvatar: string;
   userRole: string;
   isLock: boolean;
+
+  getUser(user : any){
+    this.userEmail = user.userEmail
+    this.userFirstName = user.firstName
+    this.userLastName = user.lastName
+    this.userAvatar = user.photoUrl
+  }
+
 }

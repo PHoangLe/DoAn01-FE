@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
   loginWithGoogle() {
     this.signOut()
     this.socialLoginService.authState.subscribe((user) => {
-      // console.log(user)
+      console.log(user)
       this.authService.loginGoogle(user)
-      // this.getAccessToken();
+      this.router.navigate(['/user'])
     });
   }
 
@@ -48,8 +48,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/user'])
         this.authService.setRoles(response.userRoles)
         this.authService.setToken(response.jwtToken)
-        // console.log(this.authService.getRoles())
-        // console.log(this.authService.getToken())
 
         const roles = response.userRoles
         // console.log("login response: " + response.userRoles)
@@ -66,7 +64,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/user'])
         }
       }
-    );
+    )
+
   }
 
   getAccessToken(): void {

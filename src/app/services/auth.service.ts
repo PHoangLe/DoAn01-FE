@@ -45,7 +45,7 @@ export class AuthService {
     );
   }
   verifyEmail(inputData: any): Observable<any> {
-    console.log(this.userEmail)
+    // console.log(this.userEmail)
     return this.http.post(this.baseUrl + 'otp/validateOTPConfirmEmail', {
       emailAddress: this.userEmail,
       otp: inputData.otp
@@ -105,9 +105,6 @@ export class AuthService {
 
   roleMatch(allowedRoles: any): boolean {
     const userRoles: any = this.getRoles();
-    console.log("current userRoles: " + userRoles)
-    console.log("allowed role: " + allowedRoles[0])
-    console.log("Is " + allowedRoles[0] + " in " + userRoles + " " + userRoles.includes(allowedRoles))
     if (userRoles != null && userRoles)
       if (userRoles.includes(allowedRoles[0]))
         return true
