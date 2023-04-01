@@ -43,24 +43,20 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
-        // console.log(response);
+        console.log(response);
         this.userData = response
         this.router.navigate(['/user'])
         this.authService.setRoles(response.userRoles)
         this.authService.setToken(response.jwtToken)
 
         const roles = response.userRoles
-        // console.log("login response: " + response.userRoles)
         if (roles.includes('ROLE_ADMIN')) {
-          console.log("ADMIN")
           this.router.navigate(['/admin'])
         }
         else if (roles.includes('ROLE_SHELTER_MANAGER')) {
-          console.log("SHELTER")
           this.router.navigate(['/shelter'])
         }
         else {
-          console.log("USER")
           this.router.navigate(['/user'])
         }
       }
