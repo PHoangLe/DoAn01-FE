@@ -3,19 +3,25 @@ import { CommonModule } from '@angular/common';
 import { AppSharedModule } from '../shared/shared.module';
 import { LandingComponent } from './landing/landing.component';
 import { ShelterRoutingModule } from './shelter-routing.module';
-import { RequestAccountComponent } from './request-account/request-account.component';
-
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     LandingComponent,
-    RequestAccountComponent
   ],
   imports: [
     CommonModule,
     AppSharedModule,
-    ShelterRoutingModule
+    ShelterRoutingModule,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule
 
   ]
 })

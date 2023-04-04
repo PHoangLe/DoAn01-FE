@@ -8,6 +8,7 @@ import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-s
 import {
   GoogleLoginProvider
 } from '@abacritt/angularx-social-login';
+import { DividerModule } from 'primeng/divider';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticateRoutingModule } from './authenticate-routing.module';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,7 +30,8 @@ import { AuthService } from '../services/auth.service';
     AuthenticateRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DividerModule
   ],
   providers: [
     {

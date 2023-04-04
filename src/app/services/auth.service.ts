@@ -27,6 +27,7 @@ export class AuthService {
   }
 
   registerNewUser(inputData: any): Observable<any> {
+    this.setUserEmail(inputData.userEmail)
     return this.http.post(this.baseUrl + 'auth/userRegister', {
       userEmail: inputData.userEmail,
       userPassword: inputData.userPassword,
@@ -38,14 +39,15 @@ export class AuthService {
   }
 
   sendOTPVerifyEmail(inputData: any): Observable<any> {
-    // console.log("sent email: " + inputData)
+    console.log("type of sent email: " + typeof inputData)
+    console.log("sent email: " + inputData)
     return this.http.post(this.baseUrl + 'otp/sendOTPConfirmEmail', {
       emailAddress: inputData,
     }, httpOptions
     );
   }
   verifyEmail(inputData: any): Observable<any> {
-    // console.log(this.userEmail)
+    console.log(this.userEmail)
     return this.http.post(this.baseUrl + 'otp/validateOTPConfirmEmail', {
       emailAddress: this.userEmail,
       otp: inputData.otp
@@ -64,11 +66,9 @@ export class AuthService {
   }
 
   getFirstName(userName: string) {
-    // console.log(userName.split(" ", 1)[0].trim());
-    return userName.split(" ", 1)[0].trim()
+    return userName.slice(0, userName.indexOf(" "))
   }
   getLastName(userName: string) {
-    // console.log(userName.slice((userName.trim().indexOf(" ") + 1)));
     return userName.slice((userName.trim().indexOf(" ") + 1))
   }
 

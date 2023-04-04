@@ -27,18 +27,19 @@ export class RegisterComponent implements OnInit {
   })
 
   ngOnInit() {
+
   }
 
   registerNewUser() {
-    // this.authService.registerNewUser(this.registerForm.value).subscribe(response => {
-    //   console.log("register response: " + response)
-    // })
-    this.authService.setUserEmail(this.registerForm.value.userEmail)
-    console.log("user email: " + this.registerForm.value.userEmail)
+    this.authService.registerNewUser(this.registerForm.value).subscribe(response => {
+      console.log("register response: " + response)
+    })
 
     this.authService.sendOTPVerifyEmail(this.registerForm.value.userEmail).subscribe(response => {
       console.log("send otp response: " + response)
     })
     this.router.navigate(['verify'])
   }
+
+
 }

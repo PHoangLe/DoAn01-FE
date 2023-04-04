@@ -59,9 +59,11 @@ export class LoginComponent implements OnInit {
         else {
           this.router.navigate(['/user'])
         }
+      },
+      err => {
+        console.log(err.error.message)
       }
-    )
-
+    );
   }
 
   getAccessToken(): void {
@@ -73,6 +75,12 @@ export class LoginComponent implements OnInit {
   }
   refreshToken(): void {
     this.socialLoginService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  isEmptyEmail(): boolean {
+    if (this.loginForm.controls['userEmail'].value === "")
+      return true
+    return false
   }
 
 }

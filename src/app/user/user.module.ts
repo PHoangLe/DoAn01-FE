@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { AppSharedModule } from '../shared/shared.module';
 import { LandingComponent } from './landing/landing.component';
 import { UserRoutingModule } from './user-routing.module';
+import { RequestAccountComponent } from './request-account/request-account.component';
 
 
 
 @NgModule({
   declarations: [
-    LandingComponent
+    LandingComponent,
+    RequestAccountComponent
   ],
   imports: [
     CommonModule,
