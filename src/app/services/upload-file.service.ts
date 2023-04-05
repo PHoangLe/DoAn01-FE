@@ -22,10 +22,11 @@ export class UploadFileService {
   constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
   pushFileToStorage(fileUpload: File, fileType: string): Observable<number> {
     let basePath = '/RelatedDocuments';
+    let filePath = `${basePath}/${localStorage.getItem("userInfor.userID")}/${fileUpload.name}`;
     if (fileType === "avatar") {
       basePath = '/Avatar'
+      filePath = `${basePath}/ava-${localStorage.getItem("userInfor.userID")}`;
     }
-    const filePath = `${basePath}/${fileUpload.name}`;
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, fileUpload);
 

@@ -1,4 +1,5 @@
 export class User {
+  userID: string;
   userEmail: string;
   userPassword: string;
   userFirstName: string;
@@ -8,6 +9,7 @@ export class User {
   isLock: boolean;
 
   getUser(user : any){
+    this.userID = user.userID
     this.userEmail = user.userEmail
     this.userFirstName = user.firstName
     this.userLastName = user.lastName

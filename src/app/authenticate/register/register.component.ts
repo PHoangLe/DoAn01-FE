@@ -32,11 +32,11 @@ export class RegisterComponent implements OnInit {
 
   registerNewUser() {
     this.authService.registerNewUser(this.registerForm.value).subscribe(response => {
-      console.log("register response: " + response)
+      // console.log("register response: " + response)
     })
 
     this.authService.sendOTPVerifyEmail(this.registerForm.value.userEmail).subscribe(response => {
-      console.log("send otp response: " + response)
+      // console.log("send otp response: " + response)
     })
     this.router.navigate(['verify'])
   }

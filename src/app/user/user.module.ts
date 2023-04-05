@@ -4,6 +4,8 @@ import { AppSharedModule } from '../shared/shared.module';
 import { LandingComponent } from './landing/landing.component';
 import { UserRoutingModule } from './user-routing.module';
 import { RequestAccountComponent } from './request-account/request-account.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +17,10 @@ import { RequestAccountComponent } from './request-account/request-account.compo
   imports: [
     CommonModule,
     AppSharedModule,
-    UserRoutingModule
+    UserRoutingModule,
+    FileUploadModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }

@@ -28,27 +28,28 @@ export class LoginComponent implements OnInit {
     userPassword: this.builder.control('')
   })
   ngOnInit(): void {
-    this.loginWithGoogle()
+    // this.loginWithGoogle()
   }
 
   loginWithGoogle() {
     this.signOut()
-    this.socialLoginService.authState.subscribe((user) => {
-      console.log(user)
-      this.authService.loginGoogle(user)
-      this.router.navigate(['/user'])
+    this.socialLoginService.authState.subscribe(
+      (user) => {
+      this.authService.loginGoogle(user).subscribe(
+        response => {
+          console.log("response " + response)
+          // localStorage.setItem("userInfor.userID", response.userID)
+        }
+      )
+          // console.log("user id: " + localStorage.getItem("userInfor.userID"))
+          // this.router.navigate(['/user'])
     });
   }
 
   login() {
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
-        console.log(response);
-        this.userData = response
-        this.router.navigate(['/user'])
-        this.authService.setRoles(response.userRoles)
-        this.authService.setToken(response.jwtToken)
-
+        localStorage.setItem("userInfor.userID", response.userID)
         const roles = response.userRoles
         if (roles.includes('ROLE_ADMIN')) {
           this.router.navigate(['/admin'])

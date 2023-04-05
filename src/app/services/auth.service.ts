@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { User } from '../model/User';
 import { Token } from '@angular/compiler';
 
-const apiBaseUrl = "/api/v1/auth/authenticate"
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
