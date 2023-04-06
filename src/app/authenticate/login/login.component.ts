@@ -28,21 +28,24 @@ export class LoginComponent implements OnInit {
     userPassword: this.builder.control('')
   })
   ngOnInit(): void {
-    // this.loginWithGoogle()
+    this.loginWithGoogle()
   }
 
   loginWithGoogle() {
-    this.signOut()
     this.socialLoginService.authState.subscribe(
       (user) => {
+        // console.log("email " + user.email)
+        // console.log("first name " + user.firstName)
+        // console.log("last name " + user.lastName)
+        // console.log("photo " + user.photoUrl)
+
       this.authService.loginGoogle(user).subscribe(
         response => {
-          console.log("response " + response)
-          // localStorage.setItem("userInfor.userID", response.userID)
+          localStorage.setItem("userInfor.userID", response.userID)
         }
       )
           // console.log("user id: " + localStorage.getItem("userInfor.userID"))
-          // this.router.navigate(['/user'])
+          this.router.navigate(['/user'])
     });
   }
 
@@ -50,6 +53,8 @@ export class LoginComponent implements OnInit {
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
         localStorage.setItem("userInfor.userID", response.userID)
+        this.authService.setToken(response.jwtToken)
+        this.authService.setRoles(response.userRoles)
         const roles = response.userRoles
         if (roles.includes('ROLE_ADMIN')) {
           this.router.navigate(['/admin'])

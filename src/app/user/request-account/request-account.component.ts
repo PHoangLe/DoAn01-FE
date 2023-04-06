@@ -12,7 +12,7 @@ import { UploadFileService } from 'src/app/services/upload-file.service';
 })
 export class RequestAccountComponent implements OnInit {
   avatarFile: FileList
-  documentList: File[]
+  documentList: Array<File> = new Array
 
   constructor(
     private builder: FormBuilder,
@@ -28,23 +28,24 @@ export class RequestAccountComponent implements OnInit {
       shelterDistrict: this.builder.control(''),
       shelterWard: this.builder.control(''),
       shelterPhoneNum: this.builder.control(''),
-      shelterRelatedDoc: this.builder.control(''),
+      shelterRelatedDoc: this.builder.control('')
     })
 
   ngOnInit() {
   }
 
   upload(evnet: any){
-    console.log("document : " + this.documentList[0])
+    console.log(this.documentList)
+    console.log("document : " + this.documentList)
 
-    this.fileUpload.pushFileToStorage(this.avatarFile[0], "avatar").subscribe(
-      percentage =>{
+    // this.fileUpload.pushFileToStorage(this.avatarFile[0], "avatar").subscribe(
+    //   percentage =>{
 
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
 
     for(let i = 0; i < this.documentList.length; i++){
       this.fileUpload.pushFileToStorage(this.documentList[i], "document").subscribe(
@@ -76,8 +77,12 @@ export class RequestAccountComponent implements OnInit {
     this.documentList = event.target.files;
   }
   public onSelectFiles(event) {
-    // console.log("file: " + event.files)
-    this.documentList = event.files;
+    // this.documentList = event.files.items(0);
+    // console.log("file: " + (event.files as FileList))
+
+    for(let i = 0; i < (event.files as FileList).length; i++){
+      this.documentList.push((event.files as FileList).item(i));
+    }
  }
 
 

@@ -94,7 +94,7 @@
       </div>
       <h6 class="ms-4 mt-4">Giấy phép hoạt động và các giấy tờ có liên quan khác</h6>
       <div class="d-flex justify-content-center w-100">
-        <p-fileUpload name="files[]" class="w-100 m-4 my-1" name="demo[]" [multiple]="true" [maxFileSize]="10000000" [showUploadButton] = "false" (onSelect)="onSelectFiles($event)" >
+        <p-fileUpload name="file[]" (onSelect)="onSelectFiles($event)" class="w-100 m-4 my-1" name="demo[]" [multiple]="true" [maxFileSize]="10000000">
           <ng-template pTemplate="content">
             <!-- <ul *ngIf="uploadedFiles.length">
               <li *ngFor="let file of uploadedFiles">
