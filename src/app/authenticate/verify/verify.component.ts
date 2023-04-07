@@ -23,8 +23,7 @@ export class VerifyComponent implements OnInit {
     console.log(this.verifyForm.value)
     // console.log("email: " + this.authService.getUserEmail())
     this.authService.verifyEmail(this.verifyForm.value).subscribe(response => {
-      console.log(response.console.error()
-      )
+
     })
   }
 

@@ -17,7 +17,7 @@ export class UploadFileService {
   private basePathFile = '/RelatedDocuments';
   private basePathAvatar = '/Avatar'
   private avatarUrl = "";
-  fileUrl: Array<string> = []
+  fileUrl: Array<string> = new Array;
 
   constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
   pushFileToStorage(fileUpload: File, fileType: string): Observable<number> {
@@ -31,35 +31,36 @@ export class UploadFileService {
     const uploadTask = this.storage.upload(filePath, fileUpload);
 
     uploadTask.snapshotChanges().pipe(
-      finalize(() => {
-        storageRef.getDownloadURL().subscribe(downloadURL => {
+      finalize(async() => {
+        await storageRef.getDownloadURL().subscribe(downloadURL => {
           if (fileType === "avatar") {
             this.setAvatarUrl(downloadURL)
           }
           else {
-            this.setFileUrl(downloadURL)
+            this.fileUrl.push(downloadURL)
+            console.log("this is url: " + this.getFileUrl())
           }
           this.db.list(basePath).push(fileUpload);
         });
       })
     ).subscribe();
-
     return uploadTask.percentageChanges();
   }
 
   setFileUrl(url: any) {
     this.fileUrl.push(url)
+    console.log("this is url: " + url)
   }
 
   setAvatarUrl(url: string) {
     this.avatarUrl = url
   }
 
-  getFileUrl(): Array<string> {
+  public getFileUrl(): Array<string> {
     return this.fileUrl
   }
 
-  getAvatarUrl(): string {
+  public getAvatarUrl(): string {
     return this.avatarUrl
   }
 

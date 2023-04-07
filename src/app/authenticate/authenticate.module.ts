@@ -15,7 +15,6 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerifyComponent } from './verify/verify.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { AuthInterceptor } from './auth.interceptor';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from '../services/auth.service';
 import { AuthInterceptor } from './auth.interceptor';
@@ -52,12 +51,13 @@ import { AuthInterceptor } from './auth.interceptor';
         }
       } as SocialAuthServiceConfig,
     },
-    AuthGuard, {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
-    AuthService
+    // AuthGuard,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true
+    // },
+    // AuthService
   ],
 
   declarations: [

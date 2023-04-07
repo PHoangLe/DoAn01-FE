@@ -10,9 +10,11 @@ import { UploadFileService } from 'src/app/services/upload-file.service';
   templateUrl: './request-account.component.html',
   styleUrls: ['./request-account.component.less']
 })
+
 export class RequestAccountComponent implements OnInit {
   avatarFile: FileList
   documentList: Array<File> = new Array
+  relatedDoc: string[] = new Array
 
   constructor(
     private builder: FormBuilder,
@@ -23,7 +25,7 @@ export class RequestAccountComponent implements OnInit {
     requestForm = this.builder.group({
       shelterName: this.builder.control(''),
       shelterFacebookUrl: this.builder.control(''),
-      shelterAddress: this.builder.control(''),
+      shelterNo: this.builder.control(''),
       shelterProvince: this.builder.control(''),
       shelterDistrict: this.builder.control(''),
       shelterWard: this.builder.control(''),
@@ -34,19 +36,21 @@ export class RequestAccountComponent implements OnInit {
   ngOnInit() {
   }
 
-  upload(evnet: any){
-    console.log(this.documentList)
-    console.log("document : " + this.documentList)
+  async upload(evnet: any){
+    await this.pushFileToCloud();
+    let uploadedDocUrl = this.fileUpload.getFileUrl()
+    this.sendRequest.sendRequest(this.requestForm.value, this.relatedDoc).subscribe(
+      response => {
 
-    // this.fileUpload.pushFileToStorage(this.avatarFile[0], "avatar").subscribe(
-    //   percentage =>{
+      },
+      err => {
+        console.log(err.message)
+      }
 
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    )
+  }
 
+  pushFileToCloud(){
     for(let i = 0; i < this.documentList.length; i++){
       this.fileUpload.pushFileToStorage(this.documentList[i], "document").subscribe(
         percentage => {
@@ -57,28 +61,24 @@ export class RequestAccountComponent implements OnInit {
         }
       );
     }
-    this.sendRequest.sendRequest(this.requestForm.value).subscribe(
-      response => {
-
-      },
-      err => {
-        console.log(err.error.message)
-      }
-
-    )
   }
 
   selectedAvatar(event): void{
     this.avatarFile = event.target.files;
+    this.fileUpload.pushFileToStorage(this.avatarFile[0], "avatar").subscribe(
+      percentage =>{
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   selectFile(event: any): void {
-    // console.log("file: " + event.target.files.name)
     this.documentList = event.target.files;
   }
   public onSelectFiles(event) {
-    // this.documentList = event.files.items(0);
-    // console.log("file: " + (event.files as FileList))
 
     for(let i = 0; i < (event.files as FileList).length; i++){
       this.documentList.push((event.files as FileList).item(i));

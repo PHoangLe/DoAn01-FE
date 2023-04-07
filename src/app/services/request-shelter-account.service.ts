@@ -4,23 +4,51 @@ import { Observable } from 'rxjs';
 import { UploadFileService } from './upload-file.service';
 
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+let httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    Authorization: `Bearer `
+  })
 };
 @Injectable({
   providedIn: 'root'
 })
 export class RequestShelterAccountService {
 
+
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/shelter/";
 
   constructor(private http: HttpClient) { }
 
-  sendRequest(inputData : any):  Observable<any> {
+  sendRequest(inputData: any, relatedDoc: string[]): Observable<any> {
+    const token = localStorage.getItem("jwtToken")
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin':'*',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`});
+
+      console.log("this is http header token: " + headers)
+
     return this.http.post(this.baseUrl + 'registerShelter', {
-      userEmail: inputData.userEmail,
-      userPassword: inputData.userPassword
-    }, httpOptions
+      userID: localStorage.getItem("user.userID"),
+      representativeEmailAddress: localStorage.getItem("user.userEmail"),
+      shelterName: inputData.shelterName,
+      representativeFacebookLink: inputData.shelterFacebookUrl,
+      unitNoAndStreet: inputData.shelterNo,
+      ward: inputData.shelterWard,
+      district: inputData.shelterDistrict,
+      city: inputData.shelterProvince,
+      shelterPhoneNo: inputData.shelterPhoneNum,
+      shelterLogo: "",
+      relatedDocuments: relatedDoc
+    }, {headers}
     );
   }
+
+  // getHeaders(): HttpHeaders {
+  //   const headers = new HttpHeaders()
+  //     .set('Content-Type', 'application/json')
+  //     .set('Authorization', 'Bearer ' + localStorage.getItem("jwtToken"));
+  //   return headers;
+  // }
 }

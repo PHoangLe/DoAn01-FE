@@ -40,46 +40,73 @@
         <span class="p-float-label ms-4 mt-2">
           <h6>Địa chỉ</h6>
         </span>
+
       </div>
-      <div class="input-textbox d-flex justify-content-center w-100">
-        <span class="p-float-label m-4 my-2 mt-0 w-100">
-          <h6 class="addressLabel">Số nhà, tên đường</h6>
-          <input
-            class="inputtext ps-1 w-100 mt-1"
-            id="float-input"
-            type="text"
-            formControlName="shelterAddress"
-          />
-        </span>
-        <span class="p-float-label m-4 my-2 mt-0 w-100">
-          <h6 class="addressLabel">Thành phố/Tỉnh</h6>
-          <input
-            class="inputtext ps-1 w-100 mt-1"
-            id="float-input"
-            type="text"
-            formControlName="shelterProvince"
-          />
-        </span>
-      </div>
-      <div class="input-textbox d-flex justify-content-center w-100">
-        <span class="p-float-label m-4 my-2 mt-0 w-100">
-          <h6 class="addressLabel">Quận/Huyện</h6>
-          <input
-            class="inputtext ps-1 w-100 mt-1"
-            id="float-input"
-            type="text"
-            formControlName="shelterDistrict"
-          />
-        </span>
-        <span class="p-float-label m-4 my-2 mt-0 w-100">
-          <h6 class="addressLabel">Phường/Xã</h6>
-          <input
-            class="inputtext ps-1 w-100 mt-1"
-            id="float-input"
-            type="text"
-            formControlName="shelterWard"
-          />
-        </span>
+      <div class="row row-cols-2 m-4 my-2 mt-0 w-100">
+        <div class="input-textbox d-flex justify-content-center w-100">
+          <span class="p-float-label m-4 my-2 mt-0 w-100">
+            <h6 class="addressLabel">Số nhà, tên đường</h6>
+            <p-dropdown optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+              <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                      <!-- <div>{{ selectedCountry.name }}</div> -->
+                  </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                      <!-- <div>{{ country.name }}</div> -->
+                  </div>
+              </ng-template>
+          </p-dropdown>
+          </span>
+          <span class="p-float-label m-4 my-2 mt-0 w-100">
+            <h6 class="addressLabel">Thành phố/Tỉnh</h6>
+            <p-dropdown optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+              <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                      <!-- <div>{{ selectedCountry.name }}</div> -->
+                  </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                      <!-- <div>{{ country.name }}</div> -->
+                  </div>
+              </ng-template>
+          </p-dropdown>
+          </span>
+        </div>
+        <div class="input-textbox d-flex justify-content-center w-100">
+          <span class="p-float-label m-4 my-2 mt-0 w-100">
+            <h6 class="addressLabel">Quận/Huyện</h6>
+            <p-dropdown optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+              <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                      <!-- <div>{{ selectedCountry.name }}</div> -->
+                  </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                      <!-- <div>{{ country.name }}</div> -->
+                  </div>
+              </ng-template>
+          </p-dropdown>
+          </span>
+          <span class="p-float-label m-4 my-2 mt-0 w-100">
+            <h6 class="addressLabel">Phường/Xã</h6>
+            <p-dropdown optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+              <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                      <!-- <div>{{ selectedCountry.name }}</div> -->
+                  </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                      <!-- <div>{{ country.name }}</div> -->
+                  </div>
+              </ng-template>
+          </p-dropdown>
+          </span>
+        </div>
       </div>
       <div class="input-textbox d-flex justify-content-center w-100">
         <span class="p-float-label m-4 my-2 w-100">
