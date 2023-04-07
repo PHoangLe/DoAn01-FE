@@ -23,7 +23,7 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="loggedIn()">
+      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="!loggedIn()">
         <li class="nav-item p-1">
           <a class="nav-link" [routerLink]="['/login']">Đăng nhập</a>
         </li>
@@ -32,7 +32,7 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="!loggedIn()">
+      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="loggedIn()">
         <li class="nav-item p-1">
           <p-menu #menu [model]="menuItems" [popup]="true"></p-menu>
           <p-avatar (click)="menu.toggle($event)" image="https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2FDefault_pet_pfp.png?alt=media&token=387d65b9-f3d1-4210-aaf3-1617131af786" styleClass="mr-2"

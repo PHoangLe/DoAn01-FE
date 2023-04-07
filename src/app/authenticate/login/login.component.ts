@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/model/User';
 import { FormBuilder } from '@angular/forms';
+import { DownloadFileService } from 'src/app/services/download-file.service';
+import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,9 @@ export class LoginComponent implements OnInit {
     private socialLoginService: SocialAuthService,
     private authService: AuthService,
     private builder: FormBuilder,
-    private router: Router) { }
+    private fileUpload : UploadFileService,
+    private router: Router,
+    ) { }
 
   loginForm = this.builder.group({
     userEmail: this.builder.control(''),
@@ -34,25 +38,24 @@ export class LoginComponent implements OnInit {
   loginWithGoogle() {
     this.socialLoginService.authState.subscribe(
       (user) => {
-        // console.log("email " + user.email)
-        // console.log("first name " + user.firstName)
-        // console.log("last name " + user.lastName)
-        // console.log("photo " + user.photoUrl)
+        console.log("email " + user.email)
+        console.log("first name " + user.firstName)
+        console.log("last name " + user.lastName)
+        console.log("photo " + user.photoUrl)
 
-      this.authService.loginGoogle(user).subscribe(
-        response => {
-          localStorage.setItem("userInfor.userID", response.userID)
-        }
-      )
-          // console.log("user id: " + localStorage.getItem("userInfor.userID"))
-          this.router.navigate(['/user'])
-    });
+        this.authService.loginGoogle(user).subscribe(
+          response => {
+            this.setLocalUser(response)
+          }
+        )
+        this.router.navigate(['/user'])
+      });
   }
 
   login() {
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
-        localStorage.setItem("userInfor.userID", response.userID)
+        this.setLocalUser(response)
         this.authService.setToken(response.jwtToken)
         this.authService.setRoles(response.userRoles)
         const roles = response.userRoles
@@ -86,6 +89,17 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.controls['userEmail'].value === "")
       return true
     return false
+  }
+
+  setLocalUser(inputData: any) {
+    console.log(inputData)
+    localStorage.setItem("jwtToken", inputData.jwtToken);
+    localStorage.setItem("userRoles", inputData.userRoles);
+    localStorage.setItem("userID", inputData.userID);
+    localStorage.setItem("userName", inputData.userFullName);
+    localStorage.setItem("userEmail", inputData.userEmail);
+    localStorage.setItem("userAvatar", inputData.userAvatar);
+
   }
 
 }

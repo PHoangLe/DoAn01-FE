@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore'
-import { provideStorage, getStorage } from '@angular/fire/storage'
+import { provideStorage, getStorage, ref } from '@angular/fire/storage'
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { finalize } from 'rxjs/operators';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import * as firebase from 'firebase/compat';
+import { FileUpload } from 'primeng/fileupload';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,23 @@ export class UploadFileService {
 
   setAvatarUrl(url: string) {
     this.avatarUrl = url
+  }
+
+  getFiles(numberItems: number): AngularFireList<File> {
+    return this.db.list(this.basePathFile, ref =>
+      ref.limitToLast(numberItems));
+  }
+
+  getAvatar(numberItems: number): AngularFireList<File> {
+    return this.db.list(this.basePathAvatar, ref =>
+      ref.limitToLast(numberItems));
+  }
+
+  getAvatarURL(){
+    const filePath = `${this.basePathAvatar}/ava-${localStorage.getItem("userID")}`
+    const storage = getStorage();
+    const starsRef = ref(storage, filePath);
+    console.log(starsRef)
   }
 
   public getFileUrl(): Array<string> {

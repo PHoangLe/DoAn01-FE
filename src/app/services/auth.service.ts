@@ -55,6 +55,7 @@ export class AuthService {
   }
 
   loginGoogle(inputData: any): Observable<any> {
+    console.log("input: " + inputData)
     return this.http.post(this.baseUrl + 'auth/googleUserAuthenticate', {
       userEmail: inputData.email,
       userFirstName: inputData.firstName,

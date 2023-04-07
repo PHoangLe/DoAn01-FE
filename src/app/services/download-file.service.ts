@@ -13,17 +13,18 @@ getAvatar(){
   const filePath = `${this.basePathAvatar}/ava-${localStorage.getItem("userInfor.userID")}`
   const storage = getStorage();
   const starsRef = ref(storage, filePath);
+  console.log(starsRef)
 
-  getDownloadURL(starsRef).then((url) => {
+  // getDownloadURL(starsRef).then((url) => {
 
-  })
-  .catch((error) => {
-    switch (error.code) {
-      case 'storage/object-not-found':
-        // File doesn't exist
-        break;
-    }
-  });
+  // })
+  // .catch((error) => {
+  //   switch (error.code) {
+  //     case 'storage/object-not-found':
+  //       // File doesn't exist
+  //       break;
+  //   }
+  // });
 }
 
 }
