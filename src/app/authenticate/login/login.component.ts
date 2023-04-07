@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/model/User';
 import { FormBuilder } from '@angular/forms';
-import { DownloadFileService } from 'src/app/services/download-file.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Menu, MenuItemContent } from 'primeng/menu';
-import { DownloadFileService } from 'src/app/services/download-file.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
@@ -12,8 +11,16 @@ import { UploadFileService } from 'src/app/services/upload-file.service';
 })
 export class HeaderComponent implements OnInit {
 
+  imageUrl: string = "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/Avatar%2FDefault_pet_pfp.png?alt=media&token=387d65b9-f3d1-4210-aaf3-1617131af786";
   menuItems: MenuItem[]
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    fileUploadService : UploadFileService) {
+      fileUploadService.getAvatarImageUrl().subscribe(url => {
+        this.imageUrl = url;
+        console.log("avatar url : " + url)
+      });
+     }
   ngOnInit() {
     this.menuItems = [
       {

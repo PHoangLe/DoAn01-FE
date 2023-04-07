@@ -82,4 +82,8 @@ export class UploadFileService {
     return this.avatarUrl
   }
 
+  getAvatarImageUrl() {
+    return this.storage.ref(`Avatar/ava-${localStorage.getItem("userID")}`).getDownloadURL();
+  }
+
 }
