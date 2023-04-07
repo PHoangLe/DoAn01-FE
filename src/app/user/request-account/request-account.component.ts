@@ -22,36 +22,35 @@ export class RequestAccountComponent implements OnInit {
     private sendRequest: RequestShelterAccountService,
     private fileUpload: UploadFileService) { }
 
-    requestForm = this.builder.group({
-      shelterName: this.builder.control(''),
-      shelterFacebookUrl: this.builder.control(''),
-      shelterNo: this.builder.control(''),
-      shelterProvince: this.builder.control(''),
-      shelterDistrict: this.builder.control(''),
-      shelterWard: this.builder.control(''),
-      shelterPhoneNum: this.builder.control(''),
-      shelterRelatedDoc: this.builder.control('')
-    })
+  requestForm = this.builder.group({
+    shelterName: this.builder.control(''),
+    shelterFacebookUrl: this.builder.control(''),
+    shelterNo: this.builder.control(''),
+    shelterProvince: this.builder.control(''),
+    shelterDistrict: this.builder.control(''),
+    shelterWard: this.builder.control(''),
+    shelterPhoneNum: this.builder.control(''),
+    shelterRelatedDoc: this.builder.control('')
+  })
 
   ngOnInit() {
   }
 
-  async upload(evnet: any){
-    await this.pushFileToCloud();
+  upload(evnet: any) {
+    this.pushFileToCloud();
     let uploadedDocUrl = this.fileUpload.getFileUrl()
     this.sendRequest.sendRequest(this.requestForm.value, this.relatedDoc).subscribe(
       response => {
-
+        console.log(response)
       },
       err => {
         console.log(err.message)
       }
-
     )
   }
 
-  pushFileToCloud(){
-    for(let i = 0; i < this.documentList.length; i++){
+  pushFileToCloud() {
+    for (let i = 0; i < this.documentList.length; i++) {
       this.fileUpload.pushFileToStorage(this.documentList[i], "document").subscribe(
         percentage => {
 
@@ -63,10 +62,10 @@ export class RequestAccountComponent implements OnInit {
     }
   }
 
-  selectedAvatar(event): void{
+  selectedAvatar(event): void {
     this.avatarFile = event.target.files;
     this.fileUpload.pushFileToStorage(this.avatarFile[0], "avatar").subscribe(
-      percentage =>{
+      percentage => {
 
       },
       error => {
@@ -80,10 +79,10 @@ export class RequestAccountComponent implements OnInit {
   }
   public onSelectFiles(event) {
 
-    for(let i = 0; i < (event.files as FileList).length; i++){
+    for (let i = 0; i < (event.files as FileList).length; i++) {
       this.documentList.push((event.files as FileList).item(i));
     }
- }
+  }
 
 
 

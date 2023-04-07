@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { UploadFileService } from './upload-file.service';
 
 
@@ -23,11 +23,10 @@ export class RequestShelterAccountService {
   sendRequest(inputData: any, relatedDoc: string[]): Observable<any> {
     const token = localStorage.getItem("jwtToken")
     let headers = new HttpHeaders({
-      'Access-Control-Allow-Origin':'*',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`});
+      'Authorization': `Bearer ${token}`,
+    });
 
-      console.log("this is http header token: " + headers)
+    console.log("this is http header token: " + headers)
 
     return this.http.post(this.baseUrl + 'registerShelter', {
       userID: localStorage.getItem("user.userID"),
@@ -41,8 +40,8 @@ export class RequestShelterAccountService {
       shelterPhoneNo: inputData.shelterPhoneNum,
       shelterLogo: "",
       relatedDocuments: relatedDoc
-    }, {headers}
-    );
+
+    }, { headers }).pipe()
   }
 
   // getHeaders(): HttpHeaders {

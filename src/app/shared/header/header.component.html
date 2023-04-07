@@ -1,23 +1,19 @@
-<nav class="navbar navbar-expand-sm bg-body-tertiary">
+<nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container-fluid">
-    <img
-          class="me-3"
-          src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
-          alt="Logo"
-        />
+    <img class="me-3" src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png" alt="Logo" />
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="true" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav m-auto mb-lg-0">
         <li class="nav-item m-3">
-          <a class="nav-link" href="#" >Trang chủ</a>
+          <a class="nav-link" href="#">Trang chủ</a>
         </li>
         <li class="nav-item m-3">
-          <a class="nav-link" href="#" >Cứu trợ</a>
+          <a class="nav-link" href="#">Cứu trợ</a>
         </li>
         <li class="nav-item m-3">
           <a class="nav-link" href="#">Nhận nuôi</a>
@@ -27,14 +23,22 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav ms-3 me-2 mb-lg-0">
-        <li class="nav-item p-1" >
-          <a class="nav-link" [routerLink] = "['/login']">Đăng nhập</a>
+      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="loggedIn()">
+        <li class="nav-item p-1">
+          <a class="nav-link" [routerLink]="['/login']">Đăng nhập</a>
         </li>
-        <li class="nav-item" id = "btn-sign-up">
-          <a class="nav-link p-1 mx-4" [routerLink] = "'/register'">Đăng ký</a>
+        <li class="nav-item" id="btn-sign-up">
+          <a class="nav-link p-1 mx-4" [routerLink]="'/register'">Đăng ký</a>
         </li>
-        </ul>
+      </ul>
+
+      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="!loggedIn()">
+        <li class="nav-item p-1">
+          <p-menu #menu [model]="menuItems" [popup]="true"></p-menu>
+          <p-avatar (click)="menu.toggle($event)" image="https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2FDefault_pet_pfp.png?alt=media&token=387d65b9-f3d1-4210-aaf3-1617131af786" styleClass="mr-2"
+            size="xlarge" shape="circle"></p-avatar>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

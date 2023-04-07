@@ -1,6 +1,10 @@
 <div class="container-fluid row">
   <div class="col-sm-5 col-md-4 h-100">
-    <div class="bg-secondary h-20" id="header-background"></div>
+    <div class="h-20 d-flex justify-content-center align-items-center" id="header-background">
+      <!-- <div class="logo pt-4 d-flex justify-content-center align-items-end"> -->
+        <img class="header-logo h-75" src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png" alt="Logo" />
+      <!-- </div> -->
+    </div>
     <form class="bg-white" id="form-container" [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="logo mb-4 pt-4 d-flex justify-content-center align-items-end">
         <img class="mt-4" src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png" alt="Logo" />

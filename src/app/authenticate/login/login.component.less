@@ -1,116 +1,132 @@
-*{
+* {
   padding: 0;
   margin: 0;
 }
-.container-fluid{
+.container-fluid {
   height: 100vh;
 }
-#form-container{
+#form-container {
   min-width: 300px;
 }
 
-#header-background{
+#header-background {
+  display: none;
   border-radius: 0px 0px 0px 50px;
+  img {
+    display: none;
+  }
 }
-.inputtext{
+.inputtext {
   height: 40px;
 }
-:host ::ng-deep .p-password input, .inputtext {
+:host ::ng-deep .p-password input,
+.inputtext {
   width: 20vw;
   border-radius: 7px;
 }
 :host ::ng-deep .p-password input:focus {
   box-shadow: none;
 }
-.inputtext:focus{
+.inputtext:focus {
   box-shadow: none;
 }
-#sign-in-gg{
-  background-color: #F2F4F6;
+#sign-in-gg {
+  background-color: #f2f4f6;
 }
 
-.logo img{
+.logo img {
   max-width: 50%;
 }
 
-#sign-in-gg{
+#sign-in-gg {
   min-width: 240px;
   max-width: 280px;
 }
-#sign-in-gg img{
+#sign-in-gg img {
   margin: auto;
   width: 20px;
   height: 20px;
 }
 
-#sign-in-gg{
+#sign-in-gg {
   color: #000;
 }
-.forgot-password >div{
+.forgot-password > div {
   width: 60%;
 }
-.forgot-password  a{
+.forgot-password a {
   margin: auto;
   text-decoration: none;
   color: #000;
 }
-.btn-primary{
+.btn-primary {
   max-height: 60px;
   min-height: 30px;
   height: 6vh;
   width: 20vw;
 }
-.sign-up a{
+.sign-up a {
   text-decoration: none;
 }
-.btn-primary{
+.btn-primary {
   background-color: var(--primary-color);
   border: none;
 }
 //side-background
-.side-background{
-  background-image: url('https://i.ibb.co/J2wsnZJ/jonas-vincent-xul-IYVIb-YIc-unsplash-2.jpg');
+.side-background {
+  background-image: url("https://i.ibb.co/J2wsnZJ/jonas-vincent-xul-IYVIb-YIc-unsplash-2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center ;
+  background-position: center;
 }
 
 //responsive
-@media(max-width: 575.98px) {
-  .side-background{
+@media (max-width: 575.98px) {
+  .side-background {
     display: none;
-    background-image:none
+    background-image: none;
   }
-  #header-background{
+  #header-background {
     display: block;
     height: 15%;
+    .header-logo {
+      display: block;
+    }
   }
-  #form-container{
+  #form-container {
     height: 85%;
   }
-  #sign-in-gg > p{
+  #sign-in-gg > p {
     font-size: 14px;
   }
-  .btn-primary{
+  .btn-primary {
     height: 40px;
     width: 60vw;
   }
-  :host ::ng-deep .p-password input,  .inputtext{
-    width: 60vw
+  :host ::ng-deep .p-password input,
+  .inputtext {
+    width: 60vw;
   }
-}
-:host ::ng-deep{
-  @media(min-width: 576px) {
-    #side-background{
-      display: block;
-    }
-    #header-background{
+  .logo {
+    display: none;
+    img {
       display: none;
     }
-    #form-container{
+  }
+}
+:host ::ng-deep {
+  @media (min-width: 576px) {
+    #side-background {
+      display: block;
+    }
+    #header-background {
+      display: none;
+      img {
+        display: none;
+      }
+    }
+    #form-container {
       height: 100%;
     }
   }
-
 }
-
