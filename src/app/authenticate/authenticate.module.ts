@@ -5,6 +5,7 @@ import { PasswordModule } from "primeng/password";
 import { LoginComponent } from './login/login.component';
 import {ButtonModule} from 'primeng/button';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { MessageModule } from 'primeng/message';
 import {
   GoogleLoginProvider
 } from '@abacritt/angularx-social-login';
@@ -31,7 +32,8 @@ import { AuthInterceptor } from './auth.interceptor';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    DividerModule
+    DividerModule,
+    MessageModule
   ],
   providers: [
     {

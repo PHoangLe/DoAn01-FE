@@ -83,7 +83,11 @@ export class UploadFileService {
   }
 
   getAvatarImageUrl() {
-    return this.storage.ref(`Avatar/ava-${localStorage.getItem("userID")}`).getDownloadURL();
+    console.log("img url: " + this.storage.ref("Avatar/catman.jpg").getDownloadURL())
+    if(localStorage.getItem("userID") != null) {
+      return this.storage.ref(`Avatar/ava-${localStorage.getItem("userID")}`).getDownloadURL();
+    }
+    return this.storage.ref("Avatar/catman.jpg").getDownloadURL();
   }
 
 }

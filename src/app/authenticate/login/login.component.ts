@@ -5,7 +5,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-s
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/model/User';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   loggedIn: any;
   private accessToken = '';
   userData: any;
+  isSubmitted = false;
   constructor(
     private socialLoginService: SocialAuthService,
     private authService: AuthService,
@@ -27,8 +28,8 @@ export class LoginComponent implements OnInit {
     ) { }
 
   loginForm = this.builder.group({
-    userEmail: this.builder.control(''),
-    userPassword: this.builder.control('')
+    userEmail: this.builder.control('',[Validators.required, Validators.email, Validators.maxLength(100)]),
+    userPassword: this.builder.control('',[Validators.required, Validators.maxLength(20), Validators.minLength(6)])
   })
   ngOnInit(): void {
     this.loginWithGoogle()
@@ -52,6 +53,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.isSubmitted = true;
+
+    if(this.loginForm.invalid){
+      console.log("wrong input")
+      return
+    }
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
         this.setLocalUser(response)

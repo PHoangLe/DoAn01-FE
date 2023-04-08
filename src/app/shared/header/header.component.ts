@@ -11,7 +11,7 @@ import { UploadFileService } from 'src/app/services/upload-file.service';
 })
 export class HeaderComponent implements OnInit {
 
-  imageUrl: string = "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/Avatar%2FDefault_pet_pfp.png?alt=media&token=387d65b9-f3d1-4210-aaf3-1617131af786";
+  imageUrl: string
   menuItems: MenuItem[]
   constructor(
     private router: Router,
