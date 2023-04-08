@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { User } from '../model/User';
 import { Token } from '@angular/compiler';
 
-const apiBaseUrl = "/api/v1/auth/authenticate"
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -27,6 +26,7 @@ export class AuthService {
   }
 
   registerNewUser(inputData: any): Observable<any> {
+    this.setUserEmail(inputData.userEmail)
     return this.http.post(this.baseUrl + 'auth/userRegister', {
       userEmail: inputData.userEmail,
       userPassword: inputData.userPassword,
@@ -38,7 +38,8 @@ export class AuthService {
   }
 
   sendOTPVerifyEmail(inputData: any): Observable<any> {
-    // console.log("sent email: " + inputData)
+    console.log("type of sent email: " + typeof inputData)
+    console.log("sent email: " + inputData)
     return this.http.post(this.baseUrl + 'otp/sendOTPConfirmEmail', {
       emailAddress: inputData,
     }, httpOptions
@@ -54,8 +55,9 @@ export class AuthService {
   }
 
   loginGoogle(inputData: any): Observable<any> {
+    console.log("input: " + inputData)
     return this.http.post(this.baseUrl + 'auth/googleUserAuthenticate', {
-      userEmail: inputData.userEmail,
+      userEmail: inputData.email,
       userFirstName: inputData.firstName,
       userLastName: inputData.lastName,
       userAvatar: inputData.photoUrl
@@ -64,11 +66,9 @@ export class AuthService {
   }
 
   getFirstName(userName: string) {
-    // console.log(userName.split(" ", 1)[0].trim());
-    return userName.split(" ", 1)[0].trim()
+    return userName.slice(0, userName.indexOf(" "))
   }
   getLastName(userName: string) {
-    // console.log(userName.slice((userName.trim().indexOf(" ") + 1)));
     return userName.slice((userName.trim().indexOf(" ") + 1))
   }
 
@@ -105,9 +105,6 @@ export class AuthService {
 
   roleMatch(allowedRoles: any): boolean {
     const userRoles: any = this.getRoles();
-    console.log("current userRoles: " + userRoles)
-    console.log("allowed role: " + allowedRoles[0])
-    console.log("Is " + allowedRoles[0] + " in " + userRoles + " " + userRoles.includes(allowedRoles))
     if (userRoles != null && userRoles)
       if (userRoles.includes(allowedRoles[0]))
         return true

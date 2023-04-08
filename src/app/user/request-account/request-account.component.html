@@ -1,0 +1,145 @@
+<app-header></app-header>
+<div class="container-fluid row">
+  <div class="col-sm-1 col-md-3"></div>
+  <div class="col-sm-10 col-md-6">
+    <form class="bg-white w-100" id="form-container" [formGroup]="requestForm">
+      <div class="avatar d-flex justify-content-center mt-4">
+        <span
+          class="m-4 my-2 w-25 h-100 rounded-1 d-flex justify-content-center align-items-center"
+        >
+          <label class="custom-file-upload">
+            <input type="file" accept="image/png, image/jpeg" id ="avatarInput" (change)="selectedAvatar($event)"/>
+            <i class="pi pi-image" style="font-size: 2.5rem"></i>
+          </label>
+        </span>
+      </div>
+
+      <div class="input-textbox d-flex justify-content-center w-100">
+        <span class="p-float-label m-4 my-2 w-100">
+          <h6>Tên trại cứu trợ</h6>
+          <input
+            class="inputtext ps-1 w-100"
+            id="float-input"
+            type="text"
+            formControlName="shelterName"
+          />
+        </span>
+      </div>
+      <div class="input-textbox d-flex justify-content-center w-100">
+        <span class="p-float-label m-4 my-2 w-100">
+          <h6>Facebook</h6>
+          <input
+            class="inputtext ps-1 w-100"
+            id="float-input"
+            type="text"
+            formControlName="shelterFacebookUrl"
+          />
+        </span>
+      </div>
+      <div class="input-textbox d-flex justify-content-start w-100">
+        <span class="p-float-label ms-4 mt-2">
+          <h6>Địa chỉ</h6>
+        </span>
+
+      </div>
+      <div class="row row-cols-2 m-4 my-2 mt-0 w-100">
+        <div class="input-textbox d-flex justify-content-center w-100">
+          <span class="p-float-label m-4 my-2 mt-0 w-100">
+            <h6 class="addressLabel">Số nhà, tên đường</h6>
+            <p-dropdown optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+              <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                      <!-- <div>{{ selectedCountry.name }}</div> -->
+                  </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                      <!-- <div>{{ country.name }}</div> -->
+                  </div>
+              </ng-template>
+          </p-dropdown>
+          </span>
+          <span class="p-float-label m-4 my-2 mt-0 w-100">
+            <h6 class="addressLabel">Thành phố/Tỉnh</h6>
+            <p-dropdown optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+              <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                      <!-- <div>{{ selectedCountry.name }}</div> -->
+                  </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                      <!-- <div>{{ country.name }}</div> -->
+                  </div>
+              </ng-template>
+          </p-dropdown>
+          </span>
+        </div>
+        <div class="input-textbox d-flex justify-content-center w-100">
+          <span class="p-float-label m-4 my-2 mt-0 w-100">
+            <h6 class="addressLabel">Quận/Huyện</h6>
+            <p-dropdown optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+              <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                      <!-- <div>{{ selectedCountry.name }}</div> -->
+                  </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                      <!-- <div>{{ country.name }}</div> -->
+                  </div>
+              </ng-template>
+          </p-dropdown>
+          </span>
+          <span class="p-float-label m-4 my-2 mt-0 w-100">
+            <h6 class="addressLabel">Phường/Xã</h6>
+            <p-dropdown optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+              <ng-template pTemplate="selectedItem">
+                  <div class="flex align-items-center">
+                      <!-- <div>{{ selectedCountry.name }}</div> -->
+                  </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                  <div class="flex align-items-center gap-2">
+                      <!-- <div>{{ country.name }}</div> -->
+                  </div>
+              </ng-template>
+          </p-dropdown>
+          </span>
+        </div>
+      </div>
+      <div class="input-textbox d-flex justify-content-center w-100">
+        <span class="p-float-label m-4 my-2 w-100">
+          <h6>Số điện thoại</h6>
+          <input
+            class="inputtext ps-1 w-100"
+            id="float-input"
+            type="text"
+            formControlName="shelterPhoneNum"
+          />
+        </span>
+      </div>
+      <h6 class="ms-4 mt-4">Giấy phép hoạt động và các giấy tờ có liên quan khác</h6>
+      <div class="d-flex justify-content-center w-100">
+        <p-fileUpload name="file[]" (onSelect)="onSelectFiles($event)" class="w-100 m-4 my-1" name="demo[]" [multiple]="true" [maxFileSize]="10000000">
+          <ng-template pTemplate="content">
+            <!-- <ul *ngIf="uploadedFiles.length">
+              <li *ngFor="let file of uploadedFiles">
+                {{ file.name }} - {{ file.size }} bytes
+              </li>
+            </ul> -->
+          </ng-template>
+        </p-fileUpload>
+      </div>
+
+      <h6 class="ms-4 addressLabel">Sau khi đăng ký bạn vui lòng đợi từ 3-5 ngày để chúng tôi có thể xác thực các thông tin mà bạn đã cung cấp. Kết quả sẽ được gửi đến mail của người đại diện.</h6>
+
+      <div class="btn-container d-flex justify-content-center pt-4 mb-4">
+        <button type="submit" class="btn btn-primary text-nowrap rounded-3" (click)="upload($event)">
+          Gửi yêu cầu
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-sm-1 col-md-3"></div>
+</div>

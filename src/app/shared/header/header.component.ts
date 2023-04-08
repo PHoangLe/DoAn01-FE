@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { Menu, MenuItemContent } from 'primeng/menu';
+import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +11,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
-
+  imageUrl: string
+  menuItems: MenuItem[]
+  constructor(
+    private router: Router,
+    fileUploadService : UploadFileService) {
+      fileUploadService.getAvatarImageUrl().subscribe(url => {
+        this.imageUrl = url;
+        console.log("avatar url : " + url)
+      });
+     }
   ngOnInit() {
+    this.menuItems = [
+      {
+          // label: '',
+          items: [
+              {
+                  label: 'Thông tin cá nhân',
+                  icon: 'pi pi-user',
+                  command: () => {
+                  }
+              },
+              {
+                  label: 'Đổi mật khẩu',
+                  icon: 'pi pi-replay',
+                  command: () => {
+                  }
+              },
+              {
+                label: 'Đăng xuất',
+                icon: 'pi pi-sign-out',
+                command: () => {
+                  this.signOut()
+                }
+            }
+          ]
+      }
+
+  ];
   }
+
+  loggedIn(): boolean{
+    return localStorage.getItem("userID") !== null
+  }
+
+  signOut(){
+    localStorage.clear();
+    this.router.navigate(['/login'])
+  }
+
 
 }

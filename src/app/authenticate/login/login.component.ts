@@ -5,7 +5,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-s
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/model/User';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
   selector: 'app-login',
@@ -17,54 +18,64 @@ export class LoginComponent implements OnInit {
   loggedIn: any;
   private accessToken = '';
   userData: any;
+  isSubmitted = false;
   constructor(
     private socialLoginService: SocialAuthService,
     private authService: AuthService,
     private builder: FormBuilder,
-    private router: Router) { }
+    private fileUpload : UploadFileService,
+    private router: Router,
+    ) { }
 
   loginForm = this.builder.group({
-    userEmail: this.builder.control(''),
-    userPassword: this.builder.control('')
+    userEmail: this.builder.control('',[Validators.required, Validators.email, Validators.maxLength(100)]),
+    userPassword: this.builder.control('',[Validators.required, Validators.maxLength(20), Validators.minLength(6)])
   })
   ngOnInit(): void {
     this.loginWithGoogle()
   }
 
   loginWithGoogle() {
-    this.signOut()
-    this.socialLoginService.authState.subscribe((user) => {
-      // console.log(user)
-      this.authService.loginGoogle(user)
-      // this.getAccessToken();
-    });
+    this.socialLoginService.authState.subscribe(
+      (user) => {
+        console.log("email " + user.email)
+        console.log("first name " + user.firstName)
+        console.log("last name " + user.lastName)
+        console.log("photo " + user.photoUrl)
+
+        this.authService.loginGoogle(user).subscribe(
+          response => {
+            this.setLocalUser(response)
+          }
+        )
+        this.router.navigate(['/user'])
+      });
   }
 
   login() {
+    this.isSubmitted = true;
+
+    if(this.loginForm.invalid){
+      console.log("wrong input")
+      return
+    }
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
-        // console.log(response);
-        this.userData = response
-        this.router.navigate(['/user'])
-        this.authService.setRoles(response.userRoles)
+        this.setLocalUser(response)
         this.authService.setToken(response.jwtToken)
-        // console.log(this.authService.getRoles())
-        // console.log(this.authService.getToken())
-
+        this.authService.setRoles(response.userRoles)
         const roles = response.userRoles
-        // console.log("login response: " + response.userRoles)
         if (roles.includes('ROLE_ADMIN')) {
-          console.log("ADMIN")
           this.router.navigate(['/admin'])
         }
         else if (roles.includes('ROLE_SHELTER_MANAGER')) {
-          console.log("SHELTER")
           this.router.navigate(['/shelter'])
         }
         else {
-          console.log("USER")
           this.router.navigate(['/user'])
         }
+      },
+      err => {
       }
     );
   }
@@ -78,6 +89,23 @@ export class LoginComponent implements OnInit {
   }
   refreshToken(): void {
     this.socialLoginService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  isEmptyEmail(): boolean {
+    if (this.loginForm.controls['userEmail'].value === "")
+      return true
+    return false
+  }
+
+  setLocalUser(inputData: any) {
+    console.log(inputData)
+    localStorage.setItem("jwtToken", inputData.jwtToken);
+    localStorage.setItem("userRoles", inputData.userRoles);
+    localStorage.setItem("userID", inputData.userID);
+    localStorage.setItem("userName", inputData.userFullName);
+    localStorage.setItem("userEmail", inputData.userEmail);
+    localStorage.setItem("userAvatar", inputData.userAvatar);
+
   }
 
 }

@@ -1,0 +1,91 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+.container-fluid{
+  height: 100vh;
+}
+#form-container{
+  min-width: 300px;
+}
+.inputtext{
+  height: 40px;
+}
+.inputtext {
+  // width: 40vw;
+  border-radius: 7px;
+}
+.btn-primary{
+  max-height: 60px;
+  min-height: 30px;
+  height: 6vh;
+  width: 20vw;
+}
+
+.btn-primary{
+  background-color: var(--primary-color);
+  border: none;
+}
+
+.addressLabel{
+  font-size: 12px;
+}
+
+:host ::ng-deep .p-fileupload{
+  border-radius: 10px;
+  .p-fileupload-buttonbar{
+    display: flex;
+    justify-content: end;
+  }
+  .p-fileupload-buttonbar .p-button{
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+
+  }
+  .p-button{
+    background-color: red;
+    border: none;
+    border-radius: 7px;
+  }
+}
+
+
+.avatar{
+  height: 20vh;
+}
+
+.avatar > span{
+  background-color: #BABABA;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: none;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+// .address-container{
+//   display: grid;
+//   grid-template-columns: repeat(2,1fr);
+//   gap: 20px
+// }
+
+// //responsive
+// @media(max-width: 575.98px) {
+//   .address-container{
+//     grid-template-columns: repeat(1,1fr);
+//   }
+// }
+
+// @media(min-width: 576px) {
+//   #form-container{
+//     height: 100%;
+//   }
+// }
+

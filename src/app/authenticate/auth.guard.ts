@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Route, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import {CanMatchFn} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,11 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
     if (this.authService.getToken() !== null) {
       const role = route.data["userRoles"] as Array<string>;
-      console.log("route data: " + role)
-
       if (role) {
         const match = this.authService.roleMatch(role);
-
         if (match) {
           return true;
         }
@@ -30,5 +29,6 @@ export class AuthGuard implements CanActivate {
     this.router.navigate(['/login'])
     return false
   }
+
 
 }
