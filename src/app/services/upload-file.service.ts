@@ -82,12 +82,12 @@ export class UploadFileService {
     return this.avatarUrl
   }
 
-  getAvatarImageUrl() {
-    console.log("img url: " + this.storage.ref("Avatar/catman.jpg").getDownloadURL())
-    if(localStorage.getItem("userID") != null) {
-      return this.storage.ref(`Avatar/ava-${localStorage.getItem("userID")}`).getDownloadURL();
-    }
-    return this.storage.ref("Avatar/catman.jpg").getDownloadURL();
+  getAvatarImageUrl(avatarLink: string) {
+      return this.storage.ref(`Avatar/ava-${avatarLink}`).getDownloadURL();
+  }
+
+  getDefaultUserAvatar(){
+    return this.storage.ref(`Avatar/ava-default_pfp.png`).getDownloadURL();
   }
 
 }

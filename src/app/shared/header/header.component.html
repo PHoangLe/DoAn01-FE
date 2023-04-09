@@ -1,9 +1,20 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container-fluid">
-    <img class="me-3" src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png" alt="Logo" />
+    <img
+      class="me-3"
+      src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
+      alt="Logo"
+    />
 
-    <button class="navbar-toggler me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="true" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler me-4"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="true"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -35,8 +46,13 @@
       <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="loggedIn()">
         <li class="nav-item p-1">
           <p-menu #menu [model]="menuItems" [popup]="true"></p-menu>
-          <p-avatar (click)="menu.toggle($event)" image="{{imageUrl}}" styleClass="mr-2"
-            size="xlarge" shape="circle"></p-avatar>
+          <p-avatar
+            (click)="menu.toggle($event)"
+            image="{{ imageUrl }}"
+            styleClass="mr-2"
+            size="large"
+            shape="circle"
+          ></p-avatar>
         </li>
       </ul>
     </div>

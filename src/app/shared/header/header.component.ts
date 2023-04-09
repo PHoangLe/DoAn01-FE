@@ -15,50 +15,55 @@ export class HeaderComponent implements OnInit {
   menuItems: MenuItem[]
   constructor(
     private router: Router,
-    fileUploadService : UploadFileService) {
-      fileUploadService.getAvatarImageUrl().subscribe(url => {
-        this.imageUrl = url;
-        console.log("avatar url : " + url)
-      });
-     }
+    fileUploadService: UploadFileService) {
+    fileUploadService.getAvatarImageUrl(localStorage.getItem("userID")).subscribe(url => {
+      this.imageUrl = url;
+    },
+      error => {
+        fileUploadService.getDefaultUserAvatar().subscribe(url => {
+          this.imageUrl = url;
+        }
+        )
+      },
+    );
+  }
   ngOnInit() {
     this.menuItems = [
       {
-          // label: '',
-          items: [
-              {
-                  label: 'Thông tin cá nhân',
-                  icon: 'pi pi-user',
-                  command: () => {
-                  }
-              },
-              {
-                  label: 'Đổi mật khẩu',
-                  icon: 'pi pi-replay',
-                  command: () => {
-                  }
-              },
-              {
-                label: 'Đăng xuất',
-                icon: 'pi pi-sign-out',
-                command: () => {
-                  this.signOut()
-                }
+        // label: '',
+        items: [
+          {
+            label: 'Thông tin cá nhân',
+            icon: 'pi pi-user',
+            command: () => {
             }
-          ]
+          },
+          {
+            label: 'Đổi mật khẩu',
+            icon: 'pi pi-replay',
+            command: () => {
+            }
+          },
+          {
+            label: 'Đăng xuất',
+            icon: 'pi pi-sign-out',
+            command: () => {
+              this.signOut()
+            }
+          }
+        ]
       }
 
-  ];
+    ];
   }
 
-  loggedIn(): boolean{
+  loggedIn(): boolean {
     return localStorage.getItem("userID") !== null
   }
 
-  signOut(){
+  signOut() {
     localStorage.clear();
     this.router.navigate(['/login'])
   }
-
 
 }
