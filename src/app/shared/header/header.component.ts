@@ -16,10 +16,18 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     fileUploadService : UploadFileService) {
-      fileUploadService.getAvatarImageUrl().subscribe(url => {
+      fileUploadService.getAvatarImageUrl(localStorage.getItem("userID")).subscribe(url => {
         this.imageUrl = url;
         console.log("avatar url : " + url)
-      });
+      },
+      error => {
+        fileUploadService.getAvatarImageUrl("default_pfp.png").subscribe(url => {
+        console.log("avatar default url : " + url)
+          this.imageUrl = url;
+        }
+        )
+      },
+      );
      }
   ngOnInit() {
     this.menuItems = [
@@ -58,6 +66,10 @@ export class HeaderComponent implements OnInit {
   signOut(){
     localStorage.clear();
     this.router.navigate(['/login'])
+  }
+
+  setDefaultImg(url: string){
+    url = url.replace(`ava-${localStorage.getItem("userID")}`,"Default_pfp.png") ;
   }
 
 

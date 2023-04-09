@@ -23,13 +23,13 @@ export class LoginComponent implements OnInit {
     private socialLoginService: SocialAuthService,
     private authService: AuthService,
     private builder: FormBuilder,
-    private fileUpload : UploadFileService,
+    private fileUpload: UploadFileService,
     private router: Router,
-    ) { }
+  ) { }
 
   loginForm = this.builder.group({
-    userEmail: this.builder.control('',[Validators.required, Validators.email, Validators.maxLength(100)]),
-    userPassword: this.builder.control('',[Validators.required, Validators.maxLength(20), Validators.minLength(6)])
+    userEmail: this.builder.control('', [Validators.required, Validators.email, Validators.maxLength(100)]),
+    userPassword: this.builder.control('', [Validators.required, Validators.maxLength(20), Validators.minLength(6)])
   })
   ngOnInit(): void {
     this.loginWithGoogle()
@@ -54,11 +54,28 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isSubmitted = true;
+    const isCorrectLogin = false
+    var emailFBText = document.getElementById("validationEmailFeedback")
+    var passwordFBText = document.getElementById("validationPasswordFeedback")
 
-    if(this.loginForm.invalid){
-      console.log("wrong input")
+    // if (this.loginForm.controls.userEmail.errors['required']) {
+    //   emailFBText.textContent = "Bạn chưa nhập email"
+    //   return
+    // }
+    // if(this.loginForm.controls.userPassword.errors['required']){
+    //   passwordFBText.textContent = "Bạn chưa nhập mật khẩu"
+    //   return
+    // }
+
+    if(this.loginForm.controls.userPassword.errors){
+      emailFBText.textContent = "Email chưa đúng"
       return
     }
+    if(this.loginForm.controls.userPassword.errors){
+      passwordFBText.textContent = "Mật khẩu chưa đúng"
+      return
+    }
+
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
         this.setLocalUser(response)

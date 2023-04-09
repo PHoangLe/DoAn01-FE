@@ -18,8 +18,8 @@
       <div class="input-textbox d-flex justify-content-center">
         <span class="p-float-label m-4 mb-1">
           <h6>Email</h6>
-          <input class="inputtext ps-1  form-control" [ngClass]="{'is-invalid' : isSubmitted && loginForm.controls.userEmail.errors}" name="emailInput" id="float-input" type="email" pInputText formControlName="userEmail" required/>
-          <div id="validationPasswordFeedback" class="invalid-feedback">Bạn chưa nhập email</div>
+          <input class="inputtext ps-1 form-control" [ngClass]="{'is-invalid' : isSubmitted && loginForm.controls.userEmail.errors}" name="emailInput" id="float-input" type="email" pInputText formControlName="userEmail" required/>
+          <div id="validationEmailFeedback" class="invalid-feedback">Bạn chưa nhập email</div>
           <!-- <span class = "invalid-label" *ngIf="userEmail.invalid && fullName.touched">Họ tên không được để trống</span> -->
           <!-- <div id="validationEmailFeedback" class="invalid-feedback">Bạn chưa nhập email</div> -->
         </span>
