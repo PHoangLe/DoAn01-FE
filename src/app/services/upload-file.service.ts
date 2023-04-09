@@ -86,4 +86,8 @@ export class UploadFileService {
       return this.storage.ref(`Avatar/ava-${avatarLink}`).getDownloadURL();
   }
 
+  getDefaultUserAvatar(){
+    return this.storage.ref(`Avatar/ava-default_pfp.png`).getDownloadURL();
+  }
+
 }

@@ -1,16 +1,36 @@
 <div class="container-fluid row">
   <div class="col-sm-5 col-md-4 h-100">
-    <div class="h-20 d-flex justify-content-center align-items-center" id="header-background">
+    <div
+      class="h-20 d-flex justify-content-center align-items-center"
+      id="header-background"
+    >
       <!-- <div class="logo pt-4 d-flex justify-content-center align-items-end"> -->
-        <img class="header-logo h-75" src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png" alt="Logo" />
+      <img
+        class="header-logo h-75"
+        src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
+        alt="Logo"
+      />
       <!-- </div> -->
     </div>
-    <form class="bg-white" id="form-container" [formGroup]="loginForm" (ngSubmit)="login()">
+    <form
+      class="bg-white"
+      id="form-container"
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+    >
       <div class="logo mb-4 pt-4 d-flex justify-content-center align-items-end">
-        <img class="mt-4" src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png" alt="Logo" />
+        <img
+          class="mt-4"
+          src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
+          alt="Logo"
+        />
       </div>
       <div class="d-flex justify-content-center p-2">
-        <asl-google-signin-button type="standard" size="large" s></asl-google-signin-button>
+        <asl-google-signin-button
+          type="standard"
+          size="large"
+          s
+        ></asl-google-signin-button>
       </div>
       <div class="d-flex justify-content-center p-2">
         <p>Hoặc</p>
@@ -18,8 +38,21 @@
       <div class="input-textbox d-flex justify-content-center">
         <span class="p-float-label m-4 mb-1">
           <h6>Email</h6>
-          <input class="inputtext ps-1 form-control" [ngClass]="{'is-invalid' : isSubmitted && loginForm.controls.userEmail.errors}" name="emailInput" id="float-input" type="email" pInputText formControlName="userEmail" required/>
-          <div id="validationEmailFeedback" class="invalid-feedback">Bạn chưa nhập email</div>
+          <input
+            class="inputtext ps-1 form-control"
+            [ngClass]="{
+              'is-invalid': isSubmitted && loginForm.controls.userEmail.errors
+            }"
+            name="emailInput"
+            id="float-input"
+            type="email"
+            pInputText
+            formControlName="userEmail"
+            required
+          />
+          <div id="validationEmailFeedback" class="invalid-feedback">
+            Bạn chưa nhập email
+          </div>
           <!-- <span class = "invalid-label" *ngIf="userEmail.invalid && fullName.touched">Họ tên không được để trống</span> -->
           <!-- <div id="validationEmailFeedback" class="invalid-feedback">Bạn chưa nhập email</div> -->
         </span>
@@ -27,7 +60,16 @@
       <div class="input-textbox d-flex justify-content-center">
         <span class="p-float-label m-4 mb-1">
           <h6>Password</h6>
-          <p-password class="inputtext" [ngClass]="{'is-invalid' : isSubmitted && loginForm.controls.userPassword.errors}" [toggleMask]="true"  formControlName="userPassword" required>
+          <p-password
+            class="inputtext"
+            [ngClass]="{
+              'is-invalid':
+                isSubmitted && loginForm.controls.userPassword.errors
+            }"
+            [toggleMask]="true"
+            formControlName="userPassword"
+            required
+          >
             <!-- <ng-template pTemplate="header">
               <h6>Pick a password</h6>
             </ng-template> -->
@@ -40,8 +82,9 @@
               </ul>
             </ng-template>
           </p-password>
-          <div id="validationPasswordFeedback" class="invalid-feedback">Bạn chưa nhập mật khẩu</div>
-
+          <div id="validationPasswordFeedback" class="invalid-feedback">
+            Bạn chưa nhập mật khẩu
+          </div>
         </span>
       </div>
       <div class="forgot-password d-flex justify-content-center">
@@ -65,5 +108,7 @@
       </div>
     </form>
   </div>
-  <div class="side-background col-sm-7 col-md-8 bg-secondary h-100 rounded-start-5"></div>
+  <div
+    class="side-background col-sm-7 col-md-8 bg-secondary h-100 rounded-start-5"
+  ></div>
 </div>
