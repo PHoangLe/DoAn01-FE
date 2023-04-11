@@ -34,22 +34,28 @@
   font-size: 12px;
 }
 
-:host ::ng-deep .p-fileupload{
-  border-radius: 10px;
-  .p-fileupload-buttonbar{
-    display: flex;
-    justify-content: end;
+:host ::ng-deep {
+  .p-dropdown{
+    width: 100%;
   }
-  .p-fileupload-buttonbar .p-button{
-    background-color: var(--primary-color);
-    border: none;
-    border-radius: 5px;
 
-  }
-  .p-button{
-    background-color: red;
-    border: none;
-    border-radius: 7px;
+  .p-fileupload{
+    border-radius: 10px;
+    .p-fileupload-buttonbar{
+      display: flex;
+      justify-content: end;
+    }
+    .p-fileupload-buttonbar .p-button{
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 5px;
+
+    }
+    .p-button{
+      background-color: red;
+      border: none;
+      border-radius: 7px;
+    }
   }
 }
 
