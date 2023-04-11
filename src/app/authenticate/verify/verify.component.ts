@@ -14,17 +14,21 @@ export class VerifyComponent implements OnInit {
     private builder: FormBuilder,
     private router: Router) { }
 
+    isSubmitted = false
+    isWrongOtp = false
   verifyForm = this.builder.group({
     otp: this.builder.control(''),
   })
   ngOnInit() {
   }
   verifyEmail(){
-    console.log(this.verifyForm.value)
-    // console.log("email: " + this.authService.getUserEmail())
+    this.isSubmitted = true
     this.authService.verifyEmail(this.verifyForm.value).subscribe(response => {
 
-    })
+    }),
+    err => {
+      this.isWrongOtp = true
+    }
   }
 
 }

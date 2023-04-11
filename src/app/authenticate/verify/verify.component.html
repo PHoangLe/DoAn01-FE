@@ -1,7 +1,7 @@
 <div class="container-fluid row">
   <div class="col-sm-5 col-md-4 h-100">
     <div class="bg-secondary h-20" id="header-background"></div>
-    <form class="bg-white" id="form-container" [formGroup] = "verifyForm" >
+    <form class="bg-white" id="form-container" [formGroup]="verifyForm">
       <div class="logo mb-4 pt-4 d-flex justify-content-center align-items-end">
         <img
           class="my-4"
@@ -20,11 +20,29 @@
       <div class="input-textbox d-flex justify-content-center">
         <span class="p-float-label m-4 mb-1">
           <h6>Mã xác nhận</h6>
-          <input class="inputtext ps-1" id="float-input" type="text" pInputText formControlName = "otp"/>
+          <input
+            class="inputtext ps-1"
+            id="float-input"
+            type="text"
+            [ngClass]="{
+              'is-invalid':
+                (isSubmitted && isWrongOtp)
+
+            }"
+            pInputText
+            formControlName="otp"
+          />
+          <div id="validationEmailFeedback" class="invalid-feedback">
+            Mã OTP chưa đúng, hãy kiểm tra lại
+          </div>
         </span>
       </div>
       <div class="btn-container d-flex justify-content-center pt-3">
-        <button type="submit" class="btn btn-primary text-nowrap rounded-3"(click)="verifyEmail()">
+        <button
+          type="submit"
+          class="btn btn-primary text-nowrap rounded-3"
+          (click)="verifyEmail()"
+        >
           Kích hoạt tài khoản
         </button>
       </div>

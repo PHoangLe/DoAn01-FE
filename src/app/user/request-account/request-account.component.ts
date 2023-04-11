@@ -64,14 +64,29 @@ export class RequestAccountComponent implements OnInit {
 
   selectedAvatar(event): void {
     this.avatarFile = event.target.files;
-    this.fileUpload.pushFileToStorage(this.avatarFile[0], "avatar").subscribe(
+    const imgInput   = <HTMLImageElement>document.getElementById("imgInput")
+    this.fileUpload.pushFileToStorage(this.avatarFile[0], "logo").subscribe(
       percentage => {
-
       },
       error => {
         console.log(error);
       }
     );
+    // this.fileUpload.getLogoImageUrl(localStorage.getItem("userID")).subscribe(
+    //   url => {
+    //     imgInput.src = url
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
+      imgInput.src = URL.createObjectURL(this.avatarFile[0])
+  }
+
+  setImgLogo(){
+    const imgInput  = <HTMLInputElement>document.querySelector("avatarInput")
+
+
   }
 
   selectFile(event: any): void {

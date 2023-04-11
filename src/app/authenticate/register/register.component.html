@@ -25,12 +25,20 @@
         <span class="p-float-label m-4 my-2">
           <h6>Email</h6>
           <input
-            class="inputtext ps-1"
+            [ngClass]="{
+              'is-invalid':
+                (isSubmitted && registerForm.controls.userEmail.errors) ||
+                isWrongReg
+            }"
+            class="inputtext ps-1 form-control"
             id="float-input"
             type="text"
             pInputText
             formControlName="userEmail"
           />
+          <div id="validationEmailFeedback" class="invalid-feedback">
+            Bạn chưa nhập email
+          </div>
         </span>
       </div>
       <div class="input-textbox d-flex justify-content-center">
@@ -38,21 +46,49 @@
           <h6>Password</h6>
           <p-password
             class="inputtext"
+            [ngClass]="{
+              'is-invalid':
+                (isSubmitted && registerForm.controls.userPassword.errors) ||
+                isWrongReg
+            }"
             [toggleMask]="true"
             formControlName="userPassword"
-          ></p-password>
+          >
+            <!-- <ng-template pTemplate="header">
+              <h6>Pick a password</h6>
+            </ng-template> -->
+            <ng-template pTemplate="content">
+              <!-- <p-divider></p-divider> -->
+              <p class="mt-2">Yêu cầu</p>
+              <ul class="pl-2 ml-2 mt-0 ms-2" style="line-height: 1.5">
+                <li>Ít nhất là 6 ký tự</li>
+                <li>Ít nhất một ký tự chữ và chữ số</li>
+              </ul>
+            </ng-template></p-password
+          >
+          <div id="validationPasswordFeedback" class="invalid-feedback">
+            Bạn chưa nhập mật khẩu
+          </div>
         </span>
       </div>
       <div class="input-textbox d-flex justify-content-center">
         <span class="p-float-label m-4 my-2">
           <h6>Họ và tên</h6>
           <input
-            class="inputtext ps-1"
+            class="inputtext ps-1 form-control"
+            [ngClass]="{
+              'is-invalid':
+                (isSubmitted && registerForm.controls.userEmail.errors) ||
+                isWrongReg
+            }"
             id="float-input"
             type="text"
             pInputText
             formControlName="userName"
           />
+          <div id="validationNameFeedback" class="invalid-feedback">
+            Bạn chưa nhập mật khẩu
+          </div>
         </span>
       </div>
 

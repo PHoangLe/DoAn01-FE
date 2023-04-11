@@ -17,16 +17,22 @@ export class UploadFileService {
 
   private basePathFile = '/RelatedDocuments';
   private basePathAvatar = '/Avatar'
+  private basePathLogo = "/Logo"
   private avatarUrl = "";
   fileUrl: Array<string> = new Array;
 
   constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
   pushFileToStorage(fileUpload: File, fileType: string): Observable<number> {
     let basePath = '/RelatedDocuments';
-    let filePath = `${basePath}/${localStorage.getItem("userInfor.userID")}/${fileUpload.name}`;
+    let filePath = `${basePath}/${localStorage.getItem("userID")}/${fileUpload.name}`;
     if (fileType === "avatar") {
       basePath = '/Avatar'
-      filePath = `${basePath}/ava-${localStorage.getItem("userInfor.userID")}`;
+      filePath = `${basePath}/ava-${localStorage.getItem("userID")}`;
+    }
+    else if(fileType === "logo"){
+      basePath = '/Avatar'
+      filePath = `${basePath}/logo-${localStorage.getItem("userID")}`;
+
     }
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, fileUpload);
@@ -34,12 +40,11 @@ export class UploadFileService {
     uploadTask.snapshotChanges().pipe(
       finalize(async() => {
         await storageRef.getDownloadURL().subscribe(downloadURL => {
-          if (fileType === "avatar") {
+          if (fileType !== "document") {
             this.setAvatarUrl(downloadURL)
           }
           else {
-            this.fileUrl.push(downloadURL)
-            console.log("this is url: " + this.getFileUrl())
+            this.setFileUrl(downloadURL)
           }
           this.db.list(basePath).push(fileUpload);
         });
@@ -50,7 +55,6 @@ export class UploadFileService {
 
   setFileUrl(url: any) {
     this.fileUrl.push(url)
-    console.log("this is url: " + url)
   }
 
   setAvatarUrl(url: string) {
@@ -85,6 +89,10 @@ export class UploadFileService {
   getAvatarImageUrl(avatarLink: string) {
       return this.storage.ref(`Avatar/ava-${avatarLink}`).getDownloadURL();
   }
+
+  getLogoImageUrl(avatarLink: string) {
+    return this.storage.ref(`Avatar/logo-${avatarLink}`).getDownloadURL();
+}
 
   getDefaultUserAvatar(){
     return this.storage.ref(`Avatar/ava-default_pfp.png`).getDownloadURL();

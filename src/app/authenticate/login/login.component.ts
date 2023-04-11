@@ -5,7 +5,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-s
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/model/User';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   private accessToken = '';
   userData: any;
   isSubmitted = false;
+  isWrongLogin = false;
   constructor(
     private socialLoginService: SocialAuthService,
     private authService: AuthService,
@@ -28,8 +29,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   loginForm = this.builder.group({
-    userEmail: this.builder.control('', [Validators.required, Validators.email, Validators.maxLength(100)]),
-    userPassword: this.builder.control('', [Validators.required, Validators.maxLength(20), Validators.minLength(6)])
+    userEmail: this.builder.control('', [Validators.required, this.emailValidator('admin')]),
+    userPassword: this.builder.control('', [Validators.required])
   })
   ngOnInit(): void {
     this.loginWithGoogle()
@@ -54,25 +55,20 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isSubmitted = true;
-    const isCorrectLogin = false
     var emailFBText = document.getElementById("validationEmailFeedback")
     var passwordFBText = document.getElementById("validationPasswordFeedback")
 
-    // if (this.loginForm.controls.userEmail.errors['required']) {
-    //   emailFBText.textContent = "Bạn chưa nhập email"
-    //   return
-    // }
-    // if(this.loginForm.controls.userPassword.errors['required']){
-    //   passwordFBText.textContent = "Bạn chưa nhập mật khẩu"
-    //   return
-    // }
-
-    if(this.loginForm.controls.userPassword.errors){
-      emailFBText.textContent = "Email chưa đúng"
+    if (this.loginForm.controls.userEmail.errors?.['required']) {
+      emailFBText.innerHTML = "Bạn chưa nhập email"
       return
     }
-    if(this.loginForm.controls.userPassword.errors){
-      passwordFBText.textContent = "Mật khẩu chưa đúng"
+    if(this.loginForm.controls.userPassword.errors?.['required']){
+      passwordFBText.innerHTML = "Bạn chưa nhập mật khẩu"
+      return
+    }
+
+    if (this.loginForm.controls.userPassword.errors) {
+      emailFBText.innerHTML = "Email chưa đúng"
       return
     }
 
@@ -93,6 +89,10 @@ export class LoginComponent implements OnInit {
         }
       },
       err => {
+        this.isWrongLogin = true;
+        emailFBText.innerHTML = ""
+        passwordFBText.innerHTML = err.error.message
+
       }
     );
   }
@@ -108,11 +108,6 @@ export class LoginComponent implements OnInit {
     this.socialLoginService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
 
-  isEmptyEmail(): boolean {
-    if (this.loginForm.controls['userEmail'].value === "")
-      return true
-    return false
-  }
 
   setLocalUser(inputData: any) {
     console.log(inputData)
@@ -123,6 +118,21 @@ export class LoginComponent implements OnInit {
     localStorage.setItem("userEmail", inputData.userEmail);
     localStorage.setItem("userAvatar", inputData.userAvatar);
 
+  }
+
+  emailValidator(exceptionEmail: string): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const email = control.value;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (email === exceptionEmail) {
+        return null;
+      } else if (!emailRegex.test(email)) {
+        return { invalidEmail: true };
+      } else {
+        return null;
+      }
+    };
   }
 
 }
