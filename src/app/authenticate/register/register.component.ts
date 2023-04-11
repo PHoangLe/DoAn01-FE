@@ -5,7 +5,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-s
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/model/User';
-import { FormBuilder } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -19,11 +19,17 @@ export class RegisterComponent implements OnInit {
     private builder: FormBuilder,
     private router: Router) { }
 
+  isSubmitted = false;
+  isWrongReg = false;
+
+  namePattern = "[a-zA-Z][a-zA-Z ]+"
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  passwordPattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$";
 
   registerForm = this.builder.group({
-    userEmail: this.builder.control(''),
-    userPassword: this.builder.control(''),
-    userName: this.builder.control('')
+    userEmail: this.builder.control('', [Validators.required, Validators.email]),
+    userPassword: this.builder.control('', [Validators.required,Validators.minLength(6) ,this.validatePassword]),
+    userName: this.builder.control('', [Validators.required])
   })
 
   ngOnInit() {
@@ -31,14 +37,67 @@ export class RegisterComponent implements OnInit {
   }
 
   registerNewUser() {
-    this.authService.registerNewUser(this.registerForm.value).subscribe(response => {
-      // console.log("register response: " + response)
-    })
+    this.isSubmitted = true;
+    var emailFBText = document.getElementById("validationEmailFeedback")
+    var passwordFBText = document.getElementById("validationPasswordFeedback")
+    var nameFBText = document.getElementById("validationNameFeedback")
+    let isWrongInput = false
 
+    if (this.registerForm.controls.userEmail.errors?.['required']) {
+      emailFBText.innerHTML = "Bạn chưa nhập email"
+      isWrongInput = true
+    }
+    if(this.registerForm.controls.userPassword.errors?.['required']){
+      passwordFBText.innerHTML = "Bạn chưa nhập mật khẩu"
+      isWrongInput = true
+    }
+
+    if(this.registerForm.controls.userName.errors?.['required']){
+      nameFBText.innerHTML = "Bạn chưa nhập họ và tên"
+      isWrongInput = true
+    }
+    if (isWrongInput == true) {
+      return
+    }
+    if (this.registerForm.controls.userEmail.errors) {
+      emailFBText.innerHTML = "Email chưa hợp lệ"
+      isWrongInput = true
+    }
+    if (this.registerForm.controls.userPassword.errors) {
+      passwordFBText.innerHTML = "Mật khẩu chưa hợp lệ"
+      isWrongInput = true
+
+    }
+    if (this.registerForm.controls.userName.errors) {
+      nameFBText.innerHTML = "Họ tên chưa đúng"
+      isWrongInput = true
+    }
+    if (isWrongInput == true) {
+      return
+    }
+
+    this.authService.registerNewUser(this.registerForm.value).subscribe(response => {
+    }),
+      err => {
+        emailFBText.innerHTML = err.error.message
+        passwordFBText.innerHTML = ""
+        nameFBText.innerHTML = ""
+        isWrongInput = true
+        return
+      }
     this.authService.sendOTPVerifyEmail(this.registerForm.value.userEmail).subscribe(response => {
-      // console.log("send otp response: " + response)
     })
     this.router.navigate(['verify'])
+  }
+
+  validatePassword(control: AbstractControl): { [key: string]: any } | null {
+    const value = control.value;
+    const hasLetter = /[a-zA-Z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+    if (!hasLetter || !hasNumber) {
+      return { 'password': { value: value } };
+    }
+    return null;
   }
 
 
