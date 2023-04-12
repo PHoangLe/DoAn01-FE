@@ -61,11 +61,13 @@
           <span class="p-float-label w-100">
             <h6 class="addressLabel">Thành phố/Tỉnh</h6>
             <p-dropdown
-              [options]="listProvince"
+              optionLabel="provName"
+              [options]="listProvinceWithCode"
               [filter]="true"
               [autoDisplayFirst]="false"
               filterBy="listProvince"
               (onChange)="provinceSelectedChange($event.value)"
+              formControlName="shelterProvince"
             >
               <!-- <ng-template pTemplate="selectedItem">
                 <div class="flex align-items-center">
@@ -84,10 +86,12 @@
           <span class="p-float-label w-100">
             <h6 class="addressLabel">Quận/Huyện</h6>
             <p-dropdown
+              optionLabel="distName"
               [filter]="true"
               [autoDisplayFirst]="false"
-              [options]="listDistrict"
+              [options]="listDistrictWithCode"
               (onChange)="districtSelectedChange($event.value)"
+              formControlName="shelterDistrict"
             >
             </p-dropdown>
           </span>
@@ -98,6 +102,7 @@
               [autoDisplayFirst]="false"
               [filter]="true"
               filterBy="name"
+              formControlName="shelterWard"
             >
             </p-dropdown>
           </span>
