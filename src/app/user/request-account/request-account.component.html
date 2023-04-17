@@ -47,22 +47,20 @@
           <h6>Địa chỉ</h6>
         </span>
       </div>
-      <div class="row row-cols-2 m-4 my-2 mt-0 w-100">
-        <div class="input-textbox d-flex justify-content-center w-100">
-          <span class="p-float-label w-100">
+      <div class="d-flex justify-content-start w-100">
+        <div class="address-container m-4 my-2 w-100">
+          <span class="p-float-label">
             <h6 class="addressLabel">Số nhà, tên đường</h6>
             <input
               class="inputtext ps-1 w-100"
-              id="float-input"
               type="text"
               formControlName="shelterNo"
             />
           </span>
-          <span class="p-float-label w-100">
+          <span class="p-float-label ">
             <h6 class="addressLabel">Thành phố/Tỉnh</h6>
             <p-dropdown
-              optionLabel="provName"
-              [options]="listProvinceWithCode"
+              [options]="listProvince"
               [filter]="true"
               [autoDisplayFirst]="false"
               filterBy="listProvince"
@@ -81,21 +79,18 @@
              </ng-template> -->
             </p-dropdown>
           </span>
-        </div>
-        <div class="input-textbox d-flex justify-content-center w-100">
-          <span class="p-float-label w-100">
+          <span class="p-float-label ">
             <h6 class="addressLabel">Quận/Huyện</h6>
             <p-dropdown
-              optionLabel="distName"
               [filter]="true"
               [autoDisplayFirst]="false"
-              [options]="listDistrictWithCode"
+              [options]="listDistrict"
               (onChange)="districtSelectedChange($event.value)"
               formControlName="shelterDistrict"
             >
             </p-dropdown>
           </span>
-          <span class="p-float-label w-100">
+          <span class="p-float-label ">
             <h6 class="addressLabel">Phường/Xã</h6>
             <p-dropdown
               [options]="listWard"

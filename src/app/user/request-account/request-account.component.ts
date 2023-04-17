@@ -18,12 +18,8 @@ export class RequestAccountComponent implements OnInit {
   relatedDoc: string[] = new Array
   listProvince = new Array
   listProvinceWithCode = new Array
-  currentProvince: string
-  currentDistrict: string
-  listDistrictWithCode = new Array
-  currentWard: string
-
   listDistrict = new Array
+  listDistrictWithCode = new Array
   listWard = new Array
 
   constructor(
@@ -56,7 +52,7 @@ export class RequestAccountComponent implements OnInit {
         console.log(response)
       },
       err => {
-        console.log(err.message)
+        console.log(err.error.message)
       }
     )
   }
@@ -113,7 +109,6 @@ export class RequestAccountComponent implements OnInit {
 
   bindProvinces() {
     this.apiAddress.getProvinces().subscribe(response => {
-      // console.log(response.data.data[0].name)
       const rListProvince = response.data.data
       this.listProvinceWithCode = rListProvince.map(rListProvince => {
         return {
@@ -123,7 +118,6 @@ export class RequestAccountComponent implements OnInit {
       })
 
       this.listProvince = rListProvince.map(rListProvince => rListProvince.name)
-      console.log(this.listProvince)
     }),
       err => {
         console.log(err.error.message)
@@ -134,7 +128,6 @@ export class RequestAccountComponent implements OnInit {
     let foundProvince = this.listProvinceWithCode.find(item => item.provName == selectedValue);
     this.apiAddress.getDisctrictsByProvince(foundProvince.provCode).subscribe(response => {
       const rListDistrict = response.data.data
-
       this.listDistrictWithCode = rListDistrict.map(rListDistrict => {
         return {
           provName: rListDistrict.name,
