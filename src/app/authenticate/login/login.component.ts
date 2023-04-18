@@ -55,23 +55,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isSubmitted = true;
-    var emailFBText = document.getElementById("validationEmailFeedback")
-    var passwordFBText = document.getElementById("validationPasswordFeedback")
-
-    if (this.loginForm.controls.userEmail.errors?.['required']) {
-      emailFBText.innerHTML = "Bạn chưa nhập email"
-      return
-    }
-    if(this.loginForm.controls.userPassword.errors?.['required']){
-      passwordFBText.innerHTML = "Bạn chưa nhập mật khẩu"
-      return
-    }
-
-    if (this.loginForm.controls.userPassword.errors) {
-      emailFBText.innerHTML = "Email chưa đúng"
-      return
-    }
-
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
         this.setLocalUser(response)
@@ -90,9 +73,6 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.isWrongLogin = true;
-        emailFBText.innerHTML = ""
-        passwordFBText.innerHTML = err.error.message
-
       }
     );
   }

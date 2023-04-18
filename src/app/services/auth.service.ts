@@ -46,7 +46,6 @@ export class AuthService {
     );
   }
   verifyEmail(inputData: any): Observable<any> {
-    console.log(this.userEmail)
     return this.http.post(this.baseUrl + 'otp/validateOTPConfirmEmail', {
       emailAddress: this.userEmail,
       otp: inputData.otp

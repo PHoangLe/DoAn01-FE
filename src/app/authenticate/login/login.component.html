@@ -4,13 +4,11 @@
       class="h-20 d-flex justify-content-center align-items-center"
       id="header-background"
     >
-      <!-- <div class="logo pt-4 d-flex justify-content-center align-items-end"> -->
       <img
         class="header-logo h-75"
         src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
         alt="Logo"
       />
-      <!-- </div> -->
     </div>
     <form
       class="bg-white"
@@ -41,21 +39,17 @@
           <h6>Email</h6>
           <input
             class="inputtext ps-1 mt-1 form-control"
-            [ngClass]="{
-              'is-invalid': isSubmitted && loginForm.controls.userEmail.errors || isWrongLogin
-            }"
             name="emailInput"
             id="float-input"
             type="email"
             pInputText
             formControlName="userEmail"
-            required
+
           />
-          <div id="validationEmailFeedback" class="invalid-feedback">
-            <!-- Bạn chưa nhập email -->
+          <div *ngIf="loginForm.get('userEmail').invalid && (loginForm.get('userEmail').dirty || loginForm.get('userEmail').touched)">
+            <small class="text-danger" *ngIf="loginForm.get('userEmail').errors">Bạn chưa nhập email</small>
+            <small class="text-danger" *ngIf="loginForm.get('userEmail').errors.email">Email chưa đúng</small>
           </div>
-          <!-- <span class = "invalid-label" *ngIf="userEmail.invalid && fullName.touched">Họ tên không được để trống</span> -->
-          <!-- <div id="validationEmailFeedback" class="invalid-feedback">Bạn chưa nhập email</div> -->
         </span>
       </div>
       <div class="input-textbox d-flex justify-content-center">
@@ -63,18 +57,13 @@
           <h6>Password</h6>
           <p-password
             class="inputtext mt-1 form-control"
-            [ngClass]="{
-              'is-invalid':
-                isSubmitted && loginForm.controls.userPassword.errors || isWrongLogin
-            }"
             [toggleMask]="true"
             formControlName="userPassword"
-            required
           >
-
           </p-password>
-          <div id="validationPasswordFeedback" class="invalid-feedback">
-            Bạn chưa nhập mật khẩu
+          <div *ngIf="loginForm.get('userPassword').invalid && (loginForm.get('userPassword').dirty || loginForm.get('userPassword').touched) || isWrongLogin" >
+            <small class="text-danger" *ngIf="loginForm.get('userPassword').errors">Bạn chưa nhập mật khẩu</small>
+            <small class="text-danger" *ngIf="isWrongLogin">Email hoặc mật khẩu chưa đúng</small>
           </div>
         </span>
       </div>
@@ -86,7 +75,7 @@
         </div>
       </div>
       <div class="btn-container d-flex justify-content-center pt-4">
-        <button type="submit" class="btn btn-primary text-nowrap rounded-3">
+        <button type="submit" class="btn btn-primary text-nowrap rounded-3" [disabled]="loginForm.invalid">
           Đăng nhập
         </button>
       </div>

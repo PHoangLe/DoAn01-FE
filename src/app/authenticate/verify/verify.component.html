@@ -24,17 +24,12 @@
             class="inputtext ps-1"
             id="float-input"
             type="text"
-            [ngClass]="{
-              'is-invalid':
-                (isSubmitted && isWrongOtp)
-
-            }"
             pInputText
             formControlName="otp"
           />
-          <div id="validationEmailFeedback" class="invalid-feedback">
-            Mã OTP chưa đúng, hãy kiểm tra lại
-          </div>
+          <div *ngIf="isWrongOtp">
+            <small class="text-danger">Bạn chưa nhập email</small>
+            </div>
         </span>
       </div>
       <div class="btn-container d-flex justify-content-center pt-3">

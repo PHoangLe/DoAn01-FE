@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
 
   isSubmitted = false;
   isWrongReg = false;
+  isWrongEmail = false;
 
   namePattern = "[a-zA-Z][a-zA-Z ]+"
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
@@ -38,55 +39,18 @@ export class RegisterComponent implements OnInit {
 
   registerNewUser() {
     this.isSubmitted = true;
-    var emailFBText = document.getElementById("validationEmailFeedback")
-    var passwordFBText = document.getElementById("validationPasswordFeedback")
-    var nameFBText = document.getElementById("validationNameFeedback")
-    let isWrongInput = false
-
-    if (this.registerForm.controls.userEmail.errors?.['required']) {
-      emailFBText.innerHTML = "Bạn chưa nhập email"
-      isWrongInput = true
-    }
-    if(this.registerForm.controls.userPassword.errors?.['required']){
-      passwordFBText.innerHTML = "Bạn chưa nhập mật khẩu"
-      isWrongInput = true
-    }
-
-    if(this.registerForm.controls.userName.errors?.['required']){
-      nameFBText.innerHTML = "Bạn chưa nhập họ và tên"
-      isWrongInput = true
-    }
-    if (isWrongInput == true) {
-      return
-    }
-    if (this.registerForm.controls.userEmail.errors) {
-      emailFBText.innerHTML = "Email chưa hợp lệ"
-      isWrongInput = true
-    }
-    if (this.registerForm.controls.userPassword.errors) {
-      passwordFBText.innerHTML = "Mật khẩu chưa hợp lệ"
-      isWrongInput = true
-
-    }
-    if (this.registerForm.controls.userName.errors) {
-      nameFBText.innerHTML = "Họ tên chưa đúng"
-      isWrongInput = true
-    }
-    if (isWrongInput == true) {
-      return
-    }
-
     this.authService.registerNewUser(this.registerForm.value).subscribe(response => {
     }),
       err => {
-        emailFBText.innerHTML = err.error.message
-        passwordFBText.innerHTML = ""
-        nameFBText.innerHTML = ""
-        isWrongInput = true
+        this.isWrongReg = true
         return
       }
     this.authService.sendOTPVerifyEmail(this.registerForm.value.userEmail).subscribe(response => {
-    })
+    }),
+    err => {
+      this.isWrongEmail = true
+      return
+    }
     this.router.navigate(['verify'])
   }
 

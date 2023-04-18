@@ -25,12 +25,9 @@ export class RequestShelterAccountService {
     let headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
-
-    console.log("this is http header token: " + headers)
-
     return this.http.post(this.baseUrl + 'registerShelter', {
-      userID: localStorage.getItem("user.userID"),
-      representativeEmailAddress: localStorage.getItem("user.userEmail"),
+      userID: localStorage.getItem("userID"),
+      representativeEmailAddress: localStorage.getItem("userEmail"),
       shelterName: inputData.shelterName,
       representativeFacebookLink: inputData.shelterFacebookUrl,
       unitNoAndStreet: inputData.shelterNo,
@@ -41,7 +38,7 @@ export class RequestShelterAccountService {
       shelterLogo: "",
       relatedDocuments: relatedDoc
 
-    }, { headers }).pipe()
+    }, { headers })
   }
 
   // getHeaders(): HttpHeaders {
