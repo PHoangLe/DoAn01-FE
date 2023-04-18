@@ -10,25 +10,35 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class VerifyComponent implements OnInit {
 
-  constructor( private authService: AuthService,
+  constructor(private authService: AuthService,
     private builder: FormBuilder,
     private router: Router) { }
 
-    isSubmitted = false
-    isWrongOtp = false
+  isSubmitted = false
+  isWrongOtp : boolean
   verifyForm = this.builder.group({
     otp: this.builder.control(''),
   })
   ngOnInit() {
   }
-  verifyEmail(){
+  async verifyEmail() {
     this.isSubmitted = true
-    this.authService.verifyEmail(this.verifyForm.value).subscribe(response => {
-
-    }),
-    err => {
-      this.isWrongOtp = true
-    }
+    console.log("1")
+    await this.otpCheck()
+    console.log("4")
+    if(this.isWrongOtp)
+      console.log("ok")
   }
 
+  async otpCheck() {
+    this.authService.verifyEmail(this.verifyForm.value).subscribe(response => {
+      this.isWrongOtp = false
+      return
+    }),
+      err => {
+        console.log("3")
+        this.isWrongOtp = true
+        return
+      }
+  }
 }

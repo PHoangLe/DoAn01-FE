@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { percentage } from '@angular/fire/storage';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiAddressService } from 'src/app/services/api-address.service';
 import { RequestShelterAccountService } from 'src/app/services/request-shelter-account.service';
@@ -30,13 +30,13 @@ export class RequestAccountComponent implements OnInit {
     private apiAddress: ApiAddressService) { }
 
   requestForm = this.builder.group({
-    shelterName: this.builder.control(''),
-    shelterFacebookUrl: this.builder.control(''),
-    shelterNo: this.builder.control(''),
-    shelterProvince: this.builder.control(''),
-    shelterDistrict: this.builder.control(''),
-    shelterWard: this.builder.control(''),
-    shelterPhoneNum: this.builder.control(''),
+    shelterName: this.builder.control('',Validators.required),
+    shelterFacebookUrl: this.builder.control('', Validators.required),
+    shelterNo: this.builder.control('', Validators.required),
+    shelterProvince: this.builder.control('', Validators.required),
+    shelterDistrict: this.builder.control('', Validators.required),
+    shelterWard: this.builder.control('', Validators.required),
+    shelterPhoneNum: this.builder.control('', [Validators.required]),
     shelterRelatedDoc: this.builder.control('')
   })
 

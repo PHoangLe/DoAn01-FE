@@ -25,19 +25,18 @@
         <span class="p-float-label m-4 my-2">
           <h6>Email</h6>
           <input
-            [ngClass]="{
-              'is-invalid':
-                (isSubmitted && registerForm.controls.userEmail.errors) ||
-                isWrongReg
-            }"
             class="inputtext ps-1 form-control"
             id="float-input"
             type="text"
             pInputText
             formControlName="userEmail"
           />
-          <div id="validationEmailFeedback" class="invalid-feedback">
-            Bạn chưa nhập email
+          <div *ngIf="registerForm.get('userEmail').invalid && (registerForm.get('userEmail').dirty || registerForm.get('userEmail').touched) || isWrongReg || isWrongEmail">
+            <small class="text-danger" *ngIf="registerForm.get('userEmail').errors">Bạn chưa nhập email</small>
+            <small class="text-danger" *ngIf="registerForm.get('userEmail').errors.email">Email chưa đúng</small>
+            <small class="text-danger" *ngIf="isWrongReg">Email đã được đăng ký</small>
+            <small class="text-danger" *ngIf="isWrongEmail">Email này không tồn tại</small>
+
           </div>
         </span>
       </div>
@@ -46,11 +45,6 @@
           <h6>Password</h6>
           <p-password
             class="inputtext"
-            [ngClass]="{
-              'is-invalid':
-                (isSubmitted && registerForm.controls.userPassword.errors) ||
-                isWrongReg
-            }"
             [toggleMask]="true"
             formControlName="userPassword"
           >
@@ -66,8 +60,16 @@
               </ul>
             </ng-template></p-password
           >
-          <div id="validationPasswordFeedback" class="invalid-feedback">
-            Bạn chưa nhập mật khẩu
+          <div *ngIf="registerForm.get('userPassword').invalid && (registerForm.get('userPassword').dirty || registerForm.get('userPassword').touched) || isWrongReg" >
+            <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('userPassword').errors.validatePassword ||
+          registerForm.get('userPassword').errors.minlength
+        "
+        >Mật khẩu cần ít nhất 6 ký tự chữ và số</small
+      >
+            <small class="text-danger" *ngIf="registerForm.get('userPassword').errors.required">Bạn chưa nhập mật khẩu</small>
           </div>
         </span>
       </div>
@@ -76,11 +78,6 @@
           <h6>Họ và tên</h6>
           <input
             class="inputtext ps-1 form-control"
-            [ngClass]="{
-              'is-invalid':
-                (isSubmitted && registerForm.controls.userEmail.errors) ||
-                isWrongReg
-            }"
             id="float-input"
             type="text"
             pInputText
@@ -93,7 +90,7 @@
       </div>
 
       <div class="btn-container d-flex justify-content-center pt-4">
-        <button type="submit" class="btn btn-primary text-nowrap rounded-3">
+        <button type="submit" class="btn btn-primary text-nowrap rounded-3" [disabled]="registerForm.invalid">
           Tạo tài khoản
         </button>
       </div>

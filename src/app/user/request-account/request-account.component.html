@@ -109,7 +109,7 @@
           <input
             class="inputtext ps-1 w-100"
             id="float-input"
-            type="text"
+            type="number"
             formControlName="shelterPhoneNum"
           />
         </span>
@@ -146,6 +146,7 @@
         <button
           type="submit"
           class="btn btn-primary text-nowrap rounded-3"
+          [disabled]="requestForm.invalid"
           (click)="upload($event)"
         >
           Gửi yêu cầu
