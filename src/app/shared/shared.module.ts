@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
 import { AvatarModule } from 'primeng/avatar';
+import { PetCardComponent } from './components/pet-card/pet-card.component';
 
 @NgModule({
   imports: [
@@ -13,10 +14,13 @@ import { AvatarModule } from 'primeng/avatar';
     AvatarModule
   ],
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    PetCardComponent
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    PetCardComponent
+
   ]
 })
 export class AppSharedModule { }

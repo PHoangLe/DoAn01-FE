@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   imageUrl: string
   menuItems: MenuItem[]
+  userRole : string
   constructor(
     private router: Router,
     fileUploadService: UploadFileService) {
@@ -64,6 +65,13 @@ export class HeaderComponent implements OnInit {
   signOut() {
     localStorage.clear();
     this.router.navigate(['/login'])
+  }
+
+  routeToAdoptPage(){
+    if(localStorage.getItem("userRoles") === "ROLE_SHELTER")
+      this.router.navigate(['shelter/adopt'])
+      else
+      this.router.navigate(['user/adopt'])
   }
 
 }

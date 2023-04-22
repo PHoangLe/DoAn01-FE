@@ -7,13 +7,16 @@ import { RequestAccountComponent } from './request-account/request-account.compo
 import { FileUploadModule } from 'primeng/fileupload';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { PetCardComponent } from '../shared/components/pet-card/pet-card.component';
+import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 
 
 
 @NgModule({
   declarations: [
     LandingComponent,
-    RequestAccountComponent
+    RequestAccountComponent,
+    PetAdoptionComponent
   ],
   imports: [
     CommonModule,
