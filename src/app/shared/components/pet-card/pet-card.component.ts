@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pet-card',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pet-card.component.less']
 })
 export class PetCardComponent implements OnInit {
+  @Input() pet: any;
 
   constructor() { }
 
