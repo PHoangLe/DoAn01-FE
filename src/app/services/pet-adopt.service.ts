@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ShelterService } from './shelter.service';
 
@@ -7,5 +7,15 @@ import { ShelterService } from './shelter.service';
 })
 export class PetAdoptService {
 
-constructor(private http: HttpClient, private shelterService : ShelterService) { }
+  private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/animal/";
+  constructor(private http: HttpClient, private shelterService: ShelterService) { }
+
+  getAllPets() {
+    const token = JSON.parse(localStorage.getItem("jwtToken")).value;
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer {${token}}`,
+    });
+    return this.http.get(this.baseUrl + 'getAllAnimals', { headers })
+  }
+
 }
