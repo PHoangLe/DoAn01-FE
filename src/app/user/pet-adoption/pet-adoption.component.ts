@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Shelter } from 'src/app/model/Shelter';
+import { PetAdoptService } from 'src/app/services/pet-adopt.service';
+import { ShelterService } from 'src/app/services/shelter.service';
 
 @Component({
   selector: 'app-pet-adoption',
@@ -7,8 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PetAdoptionComponent implements OnInit {
 
-  protected pets
-  constructor() {
+  protected pets;
+  protected listShelter;
+  protected selectedShelter;
+  constructor(private shelterService : ShelterService, private petAdoptService : PetAdoptService) {
   }
 
   ngOnInit(): void {
@@ -69,8 +74,15 @@ export class PetAdoptionComponent implements OnInit {
         animalGender: "Female"
       }
     ];
+    this.getAllShelter()
 
+  }
 
+  getAllShelter(){
+    this.shelterService.getAllShelter().subscribe(response => {
+      this.listShelter = response
+      console.log(this.listShelter)
+    })
   }
 
 }

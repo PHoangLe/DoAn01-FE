@@ -58,8 +58,9 @@ export class LoginComponent implements OnInit {
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
         this.setLocalUser(response)
-        this.authService.setToken(response.jwtToken)
+        this.authService.setTimeResetToken("jwtToken",response.jwtToken)
         this.authService.setRoles(response.userRoles)
+
         const roles = response.userRoles
         if (roles.includes('ROLE_ADMIN')) {
           this.router.navigate(['/admin'])

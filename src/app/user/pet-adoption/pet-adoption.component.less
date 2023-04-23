@@ -1,5 +1,10 @@
-:host {
-  display: flex;
+:host::ng-deep{
+  .p-checkbox .p-checkbox-box.p-highlight,.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover{
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: var(--primary-color);
+
+  }
 }
 .side-filter {
 }
@@ -10,6 +15,10 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+}
+
+label{
+  padding-left: 5px;
 }
 
 @media (max-width: 650px) {

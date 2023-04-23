@@ -1,6 +1,25 @@
-<div class="side-filter col-sm-2 col-lg-2">
+<app-header></app-header>
+<div class="container d-flex m-0 p-0">
+  <div class="side-filter d-flex flex-column col-sm-2 col-lg-2">
+    <div class="pet-type w-100 p-2">
+      <h4>Loại</h4>
+    </div>
+    <p-divider></p-divider>
+    <div class="shelter-type w-100 p-2">
+      <h4>Trại cứu trợ</h4>
+      <div *ngFor="let shelter of listShelter" class="field-checkbox p-1">
+        <p-checkbox
+          name="group"
+          [value]="shelter"
+          [(ngModel)]="selectedShelter"
+          [inputId]="shelter.shelterID"
+        ></p-checkbox>
+        <label [for]="shelter.shelterID">{{ shelter.shelterName }}</label>
+      </div>
+    </div>
+  </div>
+  <div class="list-pet col-sm-10 col-lg-10">
+    <app-pet-card [pet]="pet" *ngFor="let pet of pets"></app-pet-card>
+  </div>
 
-</div>
-<div class="list-pet col-sm-10 col-lg-10">
-  <app-pet-card [pet]="pet" *ngFor="let pet of pets"></app-pet-card>
 </div>

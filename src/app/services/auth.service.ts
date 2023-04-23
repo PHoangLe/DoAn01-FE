@@ -109,4 +109,38 @@ export class AuthService {
         return true
     return false
   }
+
+  setTimeResetToken(key: string, value: any, expiryTime: number = 86400000) {
+    const now = new Date();
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryTime
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+  }
+
+  getItem(key: string) {
+    const item = localStorage.getItem(key);
+    if (!item) {
+      return null;
+    }
+    const parsedItem = JSON.parse(item);
+    if (parsedItem.expiry < new Date().getTime()) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsedItem.value;
+  }
+
+  clearExpiredItems() {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      this.getItem(key);
+    }
+  }
+  init() {
+    setInterval(() => {
+      this.clearExpiredItems();
+    }, 1000 * 60 * 60 * 24);
+  }
 }
