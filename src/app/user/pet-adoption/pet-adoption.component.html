@@ -20,6 +20,6 @@
   </div>
   <div class="list-pet col-sm-10 col-lg-10">
     <app-pet-card [pet]="pet" *ngFor="let pet of pets"></app-pet-card>
+    <p-paginator class="w-100" [rows]="10" [totalRecords]="pets.length" [rowsPerPageOptions]="[10,20,30]"></p-paginator>
   </div>
-
 </div>

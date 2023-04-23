@@ -11,6 +11,7 @@ import { PetCardComponent } from '../shared/components/pet-card/pet-card.compone
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import { DividerModule } from 'primeng/divider';
+import { PaginatorModule } from 'primeng/paginator';
 
 
 
@@ -29,7 +30,8 @@ import { DividerModule } from 'primeng/divider';
     ReactiveFormsModule,
     DropdownModule,
     CheckboxModule,
-    DividerModule
+    DividerModule,
+    PaginatorModule
   ]
 })
 export class UserModule { }
