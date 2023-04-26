@@ -21,7 +21,7 @@ export class RequestShelterAccountService {
   constructor(private http: HttpClient) { }
 
   sendRequest(inputData: any, relatedDoc: string[]): Observable<any> {
-    const token = localStorage.getItem("jwtToken")
+    const token = JSON.parse(localStorage.getItem("jwtToken")).value;
     let headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
