@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
 import { Shelter } from 'src/app/model/Shelter';
 import { PetAdoptService } from 'src/app/services/pet-adopt.service';
@@ -27,6 +28,7 @@ export class PetAdoptionComponent implements OnInit {
     { id: "Dog", value: "Chó" },
     { id: "Cat", value: "Mèo" }
   ]
+  protected breadcrumbItimes: MenuItem[];
 
 
   constructor(private shelterService: ShelterService, private petAdoptService: PetAdoptService) {
@@ -193,8 +195,17 @@ export class PetAdoptionComponent implements OnInit {
         animalGender: true
       },
     ];
+    this.defaultPets = [...this.pets]
     // this.getAllPets();
     this.getAllShelter()
+    this.breadcrumbItimes = [
+      {
+        label: 'Trang chủ'
+      },
+      {
+        label: 'Danh sách thú cưng',
+      }
+    ]
 
   }
 

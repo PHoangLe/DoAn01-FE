@@ -14,6 +14,7 @@ import { DividerModule } from 'primeng/divider';
 import { PaginatorModule } from 'primeng/paginator';
 import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 
 
@@ -35,7 +36,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     DividerModule,
     PaginatorModule,
     DataViewModule,
-    RadioButtonModule
+    RadioButtonModule,
+    BreadcrumbModule
   ]
 })
 export class UserModule { }

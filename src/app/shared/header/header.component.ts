@@ -30,9 +30,7 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit() {
     this.menuItems = [
-      {
-        // label: '',
-        items: [
+
           {
             label: 'Thông tin cá nhân',
             icon: 'pi pi-user',
@@ -51,8 +49,7 @@ export class HeaderComponent implements OnInit {
             command: () => {
               this.signOut()
             }
-          }
-        ]
+
       }
 
     ];

@@ -1,51 +1,93 @@
-:host::ng-deep{
-  .p-checkbox .p-checkbox-box.p-highlight,.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover{
+:host::ng-deep {
+  .p-checkbox .p-checkbox-box.p-highlight,
+  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     box-shadow: var(--primary-color);
   }
 
-  .p-radiobutton .p-radiobutton-box.p-highlight,.p-radiobutton:not(.p-radiobutton-disabled) .p-radiobutton-box.p-highlight:hover{
+  .p-radiobutton .p-radiobutton-box.p-highlight,
+  .p-radiobutton:not(.p-radiobutton-disabled)
+    .p-radiobutton-box.p-highlight:hover {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     box-shadow: var(--primary-color);
   }
-  .p-paginator{
+  .p-paginator {
     background: transparent;
     border: none;
-    // width: 50%;
+  }
+  .p-breadcrumb {
+    width: fit-content;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #f1ac57;
+  }
+  .p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+    color: #fffafa;
+  }
+  .p-breadcrumb ul li.p-breadcrumb-chevron {
+    color: #fffafa;
   }
 }
-.side-filter {
 
-
+.widget {
+  height: 180px;
+  background-image: url("https://i.ibb.co/TkTFnmM/jamie-street-s9-Tf1e-BDFqw-unsplash.jpg");
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  background-blend-mode: multiply;
+  .content {
+    width: fit-content;
+    padding-top: 60px;
+    margin-left: 20px;
+    h1 {
+      width: fit-content;
+      color: #fffafa;
+      font-weight: 600;
+    }
+  }
 }
-
-.search-bar{
-  span{
+.search-bar {
+  span {
     width: 25vw;
     margin: 10px;
   }
 }
-
 
 .pet-list {
   width: 83vw;
   box-sizing: border-box;
 }
 
-label{
+label {
   padding-left: 5px;
 }
 
-@media(max-width: 649.98px) {
-  .side-filter{
-    h4{
+@media (max-width: 649.98px) {
+  .widget {
+    height: 100px;
+    .content {
+      width: fit-content;
+      padding-top: 10px;
+      margin-left: 10px;
+      h1 {
+        width: fit-content;
+        color: #fffafa;
+        font-weight: 600;
+      }
+    }
+  }
+  .side-filter {
+    h4 {
       font-size: 16px;
     }
   }
   .pet-list {
     width: 75vw;
   }
-
 }
