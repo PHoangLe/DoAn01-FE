@@ -1,8 +1,32 @@
 <app-header></app-header>
-<div class="container d-flex m-0 p-0 w-100">
-  <div class="side-filter d-flex flex-column col-sm-2 col-lg-2">
+<div class="container d-flex m-0 p-0">
+  <div class="side-filter d-flex flex-column col-3 col-sm-2 col-lg-2 m-2">
+    <div class="pet-type w-100 p-2">
+      <h4>Tìm kiếm</h4>
+      <div class="search-bar w-100 d-flex justify-content-end">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            type="text"
+            class="rounded-4 p-1 ps-2 w-100"
+            pInputText
+            [(ngModel)]="searchValue"
+          />
+        </span>
+      </div>
+    </div>
     <div class="pet-type w-100 p-2">
       <h4>Loại</h4>
+      <div *ngFor="let pet of petBreed" class="field-checkbox p-1">
+        <p-radioButton
+          name="group"
+          [value]="pet.id"
+          [inputId]="pet.id"
+          [(ngModel)]="selectedBreed"
+          (onClick)="onCheckboxBreedChange($event)"
+        ></p-radioButton>
+        <label [for]="pet.id">{{ pet.value }}</label>
+      </div>
     </div>
     <p-divider></p-divider>
     <div class="shelter-type w-100 p-2">
@@ -11,15 +35,25 @@
         <p-checkbox
           name="group"
           [value]="shelter"
-          [(ngModel)]="selectedShelter"
           [inputId]="shelter.shelterID"
+          (onChange)="onCheckboxShelterChange($event)"
         ></p-checkbox>
         <label [for]="shelter.shelterID">{{ shelter.shelterName }}</label>
       </div>
     </div>
   </div>
-  <div class="col-sm-10 col-lg-10">
-    <p-dataView [value]="pets" layout="grid" [rows]="5" [paginator]="true">
+  <div class="pet-list col-9 col-sm-10 col-lg-10">
+    <p-dataView
+      class="w-100"
+      [value]="pets"
+      layout="grid"
+      [rows]="20"
+      [paginator]="true"
+      [lazy]="true"
+      [sortField]="sortField"
+      emptyMessage="Không có bé cần tìm"
+      filterBy="animalName,animalAge,animalGender,animalBreed,shelterName"
+    >
       <ng-template let-pet pTemplate="gridItem">
         <app-pet-card [pet]="pet"></app-pet-card>
       </ng-template>

@@ -29,6 +29,7 @@ img{
       font-size: large;
       font-size: 20px;
       font-weight: 530;
+      cursor: pointer;
    }
   }
 }
@@ -40,11 +41,11 @@ img{
   &::after{
     content: '';
     position: absolute;
-    width: 100%;
+    width: 60%;
     transform: scaleX(0);
     height: 2px;
+    left: 20px;
     bottom: 0;
-    left: 0;
     background-color: var(--primary-color);
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;

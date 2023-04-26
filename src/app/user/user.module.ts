@@ -12,6 +12,8 @@ import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import { DividerModule } from 'primeng/divider';
 import { PaginatorModule } from 'primeng/paginator';
+import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 
@@ -31,7 +33,9 @@ import { PaginatorModule } from 'primeng/paginator';
     DropdownModule,
     CheckboxModule,
     DividerModule,
-    PaginatorModule
+    PaginatorModule,
+    DataViewModule,
+    RadioButtonModule
   ]
 })
 export class UserModule { }
