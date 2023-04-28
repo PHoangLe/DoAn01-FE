@@ -1,0 +1,62 @@
+:host ::ng-deep {
+  .p-dropdown{
+    width: 100%;
+    border: solid 2px;
+    border-radius: 7px;
+  }
+
+  .p-checkbox .p-checkbox-box.p-highlight,
+  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: var(--primary-color);
+  }
+
+  .p-divider.p-divider-horizontal{
+    margin: 0;
+  }
+  .p-fileupload{
+    border-radius: 10px;
+    .p-fileupload-buttonbar{
+      display: flex;
+      justify-content: end;
+    }
+    .p-fileupload-buttonbar .p-button{
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 5px;
+
+    }
+    .p-button{
+      background-color: red;
+      border: none;
+      border-radius: 7px;
+    }
+  }
+}
+
+.text-area{
+  width: 100%;
+}
+.detail-info{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px 20px
+}
+
+.inputtext{
+  height: 40px;
+  border-radius: 7px;
+}
+
+.checkbox-container{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px 20px
+}
+
+@media(max-width: 575.98px) {
+  .detail-info{
+    grid-template-columns: repeat(1,1fr);
+  }
+}
