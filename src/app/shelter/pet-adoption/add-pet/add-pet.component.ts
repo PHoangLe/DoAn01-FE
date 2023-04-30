@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Pet } from 'src/app/model/Pet';
 import { PetAdoptService } from 'src/app/services/pet-adopt.service';
+import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
   selector: 'app-add-pet',
@@ -33,7 +34,8 @@ export class AddPetComponent {
       id: 'friendly', value: 'Thân thiện', checked: false
     }
   ]
-  constructor(private petService: PetAdoptService, public ref: DynamicDialogRef, private builder: FormBuilder,) { }
+  avatarFile: any;
+  constructor(private petService: PetAdoptService, public ref: DynamicDialogRef, private builder: FormBuilder, private fileUpload : UploadFileService) { }
 
   addPetForm = this.builder.group({
     petBreed: this.builder.control(''),
@@ -50,5 +52,30 @@ export class AddPetComponent {
     if(event.checked.length > 0){
       console.log(event.checked[0].id)
     }
+  }
+
+  addNewPet(event){
+
+  }
+
+  selectedAvatar(event): void {
+    this.avatarFile = event.target.files;
+    const imgInput = <HTMLImageElement>document.getElementById("imgInput")
+    this.fileUpload.pushFileToStorage(this.avatarFile[0], "logo").subscribe(
+      percentage => {
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    // this.fileUpload.getLogoImageUrl(localStorage.getItem("userID")).subscribe(
+    //   url => {
+    //     imgInput.src = url
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // );
+    imgInput.src = URL.createObjectURL(this.avatarFile[0])
   }
 }

@@ -1,5 +1,20 @@
 <form class="container" [formGroup]="addPetForm">
-  <img src="" alt="" />
+  <div class="avatar d-flex justify-content-center mt-4  rounded-3">
+    <span
+      class="m-4 my-2 rounded-1 d-flex justify-content-center align-items-center  rounded-3"
+    >
+      <label class="custom-file-upload rounded-3">
+        <input
+          type="file"
+          accept="image/png, image/jpeg"
+          id="avatarInput"
+          (change)="selectedAvatar($event)"
+        />
+        <img src="" alt="" id="imgInput" class="w-100" />
+        <!-- <i class="pi pi-image" style="font-size: 2.5rem"></i> -->
+      </label>
+    </span>
+  </div>
   <p-divider align="left">
     <div class="inline-flex align-items-center">
       <b>Thông tin</b>
@@ -44,8 +59,11 @@
       </span>
     </div>
   </div>
-  <div class="text-area m-4 my-2 w-100">
-    <textarea name="" id="" pInputTextarea [autoResize]="true"></textarea>
+  <div class="d-flex justify-content-start w-100">
+    <span class="m-4 my-2 w-100">
+      <h6 class="addressLabel ps-0">Chi tiết</h6>
+      <textarea class="w-100" name="" id="" pInputTextarea [autoResize]="true"></textarea>
+    </span>
   </div>
   <div class="pet-status">
     <p-divider align="left">
@@ -90,5 +108,22 @@
       </p-fileUpload>
     </div>
   </div>
-  <div class="button-group"></div>
+  <div class="button-group d-flex justify-content-center mt-2">
+    <button
+    class="btn btn-secondary text-nowrap"
+    [disabled]="addPetForm.invalid"
+    (click)="addNewPet($event)"
+  >
+    Trở về
+  </button>
+    <button
+    type="submit"
+    class="btn btn-primary text-nowrap"
+    [disabled]="addPetForm.invalid"
+    (click)="addNewPet($event)"
+  >
+    Thêm
+  </button>
+
+  </div>
 </form>
