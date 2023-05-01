@@ -30,7 +30,7 @@ export class RequestAccountComponent implements OnInit {
     private apiAddress: ApiAddressService) { }
 
   requestForm = this.builder.group({
-    shelterName: this.builder.control('',Validators.required),
+    shelterName: this.builder.control('', Validators.required),
     shelterFacebookUrl: this.builder.control('', Validators.required),
     shelterNo: this.builder.control('', Validators.required),
     shelterProvince: this.builder.control('', Validators.required),
@@ -44,10 +44,10 @@ export class RequestAccountComponent implements OnInit {
     this.bindProvinces()
   }
 
-  upload(evnet: any) {
-    this.pushFileToCloud();
+  async upload(event: any) {
+    await this.pushFileToCloud();
     let uploadedDocUrl = this.fileUpload.getFileUrl()
-    this.sendRequest.sendRequest(this.requestForm.value, this.relatedDoc).subscribe(
+    this.sendRequest.sendRequest(this.requestForm.value, uploadedDocUrl).subscribe(
       response => {
         console.log(response)
       },
@@ -57,51 +57,20 @@ export class RequestAccountComponent implements OnInit {
     )
   }
 
-  pushFileToCloud() {
+  async pushFileToCloud() {
     for (let i = 0; i < this.documentList.length; i++) {
-      this.fileUpload.pushFileToStorage(this.documentList[i], "document").subscribe(
-        percentage => {
-
-        },
-        error => {
-          console.log(error);
-        }
-      );
+      await this.fileUpload.pushFileToStorage(this.documentList[i], "document")
     }
   }
 
-  selectedAvatar(event): void {
+  async selectedAvatar(event) {
     this.avatarFile = event.target.files;
     const imgInput = <HTMLImageElement>document.getElementById("imgInput")
-    this.fileUpload.pushFileToStorage(this.avatarFile[0], "logo").subscribe(
-      percentage => {
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    // this.fileUpload.getLogoImageUrl(localStorage.getItem("userID")).subscribe(
-    //   url => {
-    //     imgInput.src = url
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    await this.fileUpload.pushFileToStorage(this.avatarFile[0], "logo")
     imgInput.src = URL.createObjectURL(this.avatarFile[0])
   }
 
-  setImgLogo() {
-    const imgInput = <HTMLInputElement>document.querySelector("avatarInput")
-
-
-  }
-
-  selectFile(event: any): void {
-    this.documentList = event.target.files;
-  }
   public onSelectFiles(event) {
-
     for (let i = 0; i < (event.files as FileList).length; i++) {
       this.documentList.push((event.files as FileList).item(i));
     }
@@ -145,7 +114,7 @@ export class RequestAccountComponent implements OnInit {
       }
   }
 
-  districtSelectedChange(selectedValue){
+  districtSelectedChange(selectedValue) {
     let foundWard = this.listDistrictWithCode.find(item => item.provName == selectedValue);
     this.apiAddress.getWardsByDistrict(foundWard.provCode).subscribe(response => {
       const rListWard = response.data.data

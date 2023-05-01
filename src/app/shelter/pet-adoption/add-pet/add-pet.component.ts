@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { percentage } from '@angular/fire/storage';
+import { FormBuilder, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { catchError } from 'rxjs';
 import { Pet } from 'src/app/model/Pet';
 import { PetAdoptService } from 'src/app/services/pet-adopt.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
@@ -35,47 +37,64 @@ export class AddPetComponent {
     }
   ]
   avatarFile: any;
-  constructor(private petService: PetAdoptService, public ref: DynamicDialogRef, private builder: FormBuilder, private fileUpload : UploadFileService) { }
+  avatarUrl: any;
+  othersImg: Array<File> = new Array
+
+  constructor(private petService: PetAdoptService, public ref: DynamicDialogRef, private builder: FormBuilder, private fileUpload: UploadFileService) { }
 
   addPetForm = this.builder.group({
-    petBreed: this.builder.control(''),
-    petGender: this.builder.control(''),
-    petColor: this.builder.control(''),
-    petAge: this.builder.control(''),
+    petName: this.builder.control('', Validators.required),
+    petSpecie: this.builder.control('', Validators.required),
+    petWeight: this.builder.control('', Validators.required),
+    petBreed: this.builder.control('', Validators.required),
+    petGender: this.builder.control('', Validators.required),
+    petColor: this.builder.control('', Validators.required),
+    petAge: this.builder.control('', Validators.required),
+    petDetails: this.builder.control('', Validators.required),
+    friendly: this.builder.control(''),
+    vaccinated: this.builder.control(''),
+    deWormed: this.builder.control(''),
+    sterilized: this.builder.control(''),
 
   })
 
   ngOnInit() {
   }
 
-  onStatusChange(event){
-    if(event.checked.length > 0){
-      console.log(event.checked[0].id)
+  async addNewPet() {
+    console.log("otherimge ", this.othersImg)
+    await this.pushFileToCloud();
+    let uploadedDocUrl = this.fileUpload.getFileUrl()
+    console.log(uploadedDocUrl)
+    // this.petService.addPet(this.addPetForm.value, this.avatarUrl, uploadedDocUrl).then(value => {
+    //   console.log("add new pet successfully")
+    // })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
+  }
+
+  async pushFileToCloud() {
+    for (let i = 0; i < this.othersImg.length; i++) {
+      console.log("i ", i)
+      await this.fileUpload.pushFileToStorage(this.othersImg[i], "petImgs")
+    }
+    console.log("uploading file to cloud")
+  }
+
+  async selectedAvatar(event) {
+    this.avatarFile = event.target.files;
+    const imgInput = <HTMLImageElement>document.getElementById("imgInput")
+    await this.fileUpload.pushFileToStorage(this.avatarFile[0], "pet")
+    this.avatarUrl = this.fileUpload.getAvatarUrl()
+    imgInput.src = this.avatarUrl
+  }
+
+  public onSelectFiles(event) {
+    for (let i = 0; i < (event.files as FileList).length; i++) {
+      this.othersImg.push((event.files as FileList).item(i));
     }
   }
 
-  addNewPet(event){
 
-  }
-
-  selectedAvatar(event): void {
-    this.avatarFile = event.target.files;
-    const imgInput = <HTMLImageElement>document.getElementById("imgInput")
-    this.fileUpload.pushFileToStorage(this.avatarFile[0], "logo").subscribe(
-      percentage => {
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    // this.fileUpload.getLogoImageUrl(localStorage.getItem("userID")).subscribe(
-    //   url => {
-    //     imgInput.src = url
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
-    imgInput.src = URL.createObjectURL(this.avatarFile[0])
-  }
 }

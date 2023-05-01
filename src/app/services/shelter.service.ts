@@ -13,11 +13,15 @@ export class ShelterService {
   constructor(private http: HttpClient) { }
 
   getAllShelter() {
-    const token = JSON.parse(localStorage.getItem("jwtToken")).value;
-    let headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-    });
+    let headers = this.getHttpHeader()
     return this.http.get(this.baseUrl + '/getAllShelter', { headers })
+  }
+
+  async getShelterByUserID(): Promise<any> {
+    let shelter;
+    let headers = this.getHttpHeader();
+    const response = await this.http.get(this.baseUrl + `/getShelterByUserID/${JSON.parse(localStorage.getItem("userID")).value}`, { headers }).toPromise();
+    return this.toShelter(response).shelterID;
   }
 
   convertToShelter(input: any): Shelter[] {
@@ -41,4 +45,24 @@ export class ShelterService {
     return listShelter
   }
 
+  toShelter(item: any): Shelter {
+    return new Shelter(
+      item.shelterID,
+      item.userID,
+      item.shelterName,
+      item.representativeFacebookLink,
+      item.representativeEmailAddress,
+      item.unitNoAndStreet,
+      item.ward,
+      item.district,
+      item.city,
+      item.shelterPhoneNo,
+      item.relatedDocuments)
+  }
+
+  getHttpHeader(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
+    });
+  }
 }

@@ -200,7 +200,7 @@ export class PetAdoptionComponent implements OnDestroy {
       },
     ];
     this.defaultPets = [...this.pets]
-    // this.getAllPets();
+    this.getAllPets();
     this.breadcrumbItimes = [
       {
         label: 'Trang chủ'
@@ -214,7 +214,7 @@ export class PetAdoptionComponent implements OnDestroy {
   ngOnDestroy(): void {
     if (this.ref) {
       this.ref.close();
-  }
+    }
   }
   showDialog() {
     this.ref = this.dialogService.open(AddPetComponent, {
@@ -225,9 +225,9 @@ export class PetAdoptionComponent implements OnDestroy {
     })
 
     this.ref.onClose.subscribe((pet: Pet) => {
-        if (pet) {
-            this.messageService.add({ severity: 'info', summary: 'pet Selected', detail: pet.animalName });
-        }
+      if (pet) {
+        this.messageService.add({ severity: 'info', summary: 'pet Selected', detail: pet.animalName });
+      }
     });
 
     this.ref.onMaximize.subscribe((value) => {

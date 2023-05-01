@@ -12,14 +12,41 @@ export class PetAdoptService {
   constructor(private http: HttpClient, private shelterService: ShelterService) { }
 
   getAllPets() {
-    const token = JSON.parse(localStorage.getItem("jwtToken")).value;
-    let headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-    });
+    let headers = this.getHttpHeader();
     return this.http.get(this.baseUrl + '/getAllAnimals', { headers })
   }
 
-  convertToPets(input : any) : Pet[]{
+  async addPet(petData: any, avatarUrl: string, otherImg: string[]): Promise<any> {
+    let headers = this.getHttpHeader();
+    const shelterID = await this.shelterService.getShelterByUserID();
+    try {
+      const response = await this.http.post(this.baseUrl + '/addAnimal', {
+        "shelterID": shelterID,
+        "animalName": petData.petName,
+        "animalAge": petData.petAge,
+        "animalGender": petData.petGender.id,
+        "animalWeight": petData.petWeight,
+        "animalBreed": petData.petBreed,
+        "animalSpecie": petData.pet,
+        "animalColor": petData.petColor,
+        "animalImg": avatarUrl,
+        "animalStatus": petData.petDetails,
+        "vaccinated": petData.vaccinated,
+        "deWormed": petData.deWorm,
+        "sterilized": petData.sterilized,
+        "friendly": petData.friendly,
+        "othersImg": otherImg
+      }, { headers }).toPromise();
+      return response;
+    }
+    catch (error) {
+      console.log(error);
+      throw error;
+    }
+
+  }
+
+  convertToPets(input: any): Pet[] {
     var petList = new Array<Pet>
     input.forEach(item => {
       const pet = new Pet(
@@ -40,9 +67,16 @@ export class PetAdoptService {
         item.friendly,
         item.othersImg)
 
-        petList.push(pet)
-      });
+      petList.push(pet)
+    });
     return petList
+  }
+
+
+  getHttpHeader(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
+    });
   }
 
 }

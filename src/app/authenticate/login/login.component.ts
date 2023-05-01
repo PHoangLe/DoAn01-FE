@@ -58,9 +58,6 @@ export class LoginComponent implements OnInit {
     this.authService.logIn(this.loginForm.value).subscribe(
       (response) => {
         this.setLocalUser(response)
-        this.authService.setTimeResetToken("jwtToken",response.jwtToken)
-        this.authService.setRoles(response.userRoles)
-
         const roles = response.userRoles
         if (roles.includes('ROLE_ADMIN')) {
           this.router.navigate(['/admin'])
@@ -92,12 +89,12 @@ export class LoginComponent implements OnInit {
 
   setLocalUser(inputData: any) {
     console.log(inputData)
-    localStorage.setItem("jwtToken", inputData.jwtToken);
-    localStorage.setItem("userRoles", inputData.userRoles);
-    localStorage.setItem("userID", inputData.userID);
-    localStorage.setItem("userName", inputData.userFullName);
-    localStorage.setItem("userEmail", inputData.userEmail);
-    localStorage.setItem("userAvatar", inputData.userAvatar);
+    this.authService.setTimeResetToken("jwtToken",inputData.jwtToken)
+    this.authService.setTimeResetToken("userRoles", inputData.userRoles);
+    this.authService.setTimeResetToken("userID", inputData.userID);
+    this.authService.setTimeResetToken("userName", inputData.userFullName);
+    this.authService.setTimeResetToken("userEmail", inputData.userEmail);
+    this.authService.setTimeResetToken("userAvatar", inputData.userAvatar);
 
   }
 

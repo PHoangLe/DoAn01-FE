@@ -1,7 +1,7 @@
 <form class="container" [formGroup]="addPetForm">
-  <div class="avatar d-flex justify-content-center mt-4  rounded-3">
+  <div class="avatar d-flex justify-content-center mt-4 rounded-3">
     <span
-      class="m-4 my-2 rounded-1 d-flex justify-content-center align-items-center  rounded-3"
+      class="m-4 my-2 rounded-1 d-flex justify-content-center align-items-center rounded-3"
     >
       <label class="custom-file-upload rounded-3">
         <input
@@ -23,6 +23,30 @@
   <div class="d-flex justify-content-start w-100">
     <div class="detail-info m-4 my-2 w-100">
       <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Tên</h6>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petName"
+        />
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Loại</h6>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petSpecie"
+        />
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Cân nặng</h6>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petWeight"
+        />
+      </span>
+      <span class="p-float-label">
         <h6 class="addressLabel ps-0">Giống</h6>
         <input
           class="inputtext ps-1 w-100"
@@ -33,9 +57,8 @@
       <span class="p-float-label">
         <h6 class="addressLabel ps-0">Giới tính</h6>
         <p-dropdown
-          [filter]="true"
           [options]="genderOptions"
-          optionLabel="genderOptions.value"
+          optionLabel="value"
           [autoDisplayFirst]="false"
           formControlName="petGender"
         >
@@ -57,14 +80,36 @@
           formControlName="petAge"
         />
       </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Chi tiết</h6>
+        <!-- <textarea
+          formControlName="petDetails"
+          class="inputtext ps-1 w-100"
+          id="textarea"
+          pInputTextarea
+          [autoResize]="true"
+        ></textarea> -->
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="petDetails"
+        />
+      </span>
     </div>
   </div>
-  <div class="d-flex justify-content-start w-100">
+  <!-- <div class="d-flex justify-content-start w-100">
     <span class="m-4 my-2 w-100">
       <h6 class="addressLabel ps-0">Chi tiết</h6>
-      <textarea class="w-100" name="" id="" pInputTextarea [autoResize]="true"></textarea>
+      <textarea
+        formControlName="petDetails"
+        class="w-100"
+        name=""
+        id="textarea"
+        pInputTextarea
+        [autoResize]="true"
+      ></textarea>
     </span>
-  </div>
+  </div> -->
   <div class="pet-status">
     <p-divider align="left">
       <div class="inline-flex align-items-center">
@@ -78,7 +123,7 @@
           name="group"
           [value]="status"
           [inputId]="status.id"
-          (onChange)="onStatusChange($event)"
+          formControlName="{{ status.id }}"
         ></p-checkbox>
         <label [for]="status.id">{{ status.value }}</label>
       </div>
@@ -95,8 +140,10 @@
         name="file[]"
         class="w-100 m-4 my-1"
         name="demo[]"
+        [showUploadButton]="false"
         [multiple]="true"
         [maxFileSize]="10000000"
+        (onSelect)="onSelectFiles($event)"
       >
         <ng-template pTemplate="content">
           <!-- <ul *ngIf="uploadedFiles.length">
@@ -109,21 +156,13 @@
     </div>
   </div>
   <div class="button-group d-flex justify-content-center mt-2">
+    <button class="btn btn-secondary text-nowrap">Trở về</button>
     <button
-    class="btn btn-secondary text-nowrap"
-    [disabled]="addPetForm.invalid"
-    (click)="addNewPet($event)"
-  >
-    Trở về
-  </button>
-    <button
-    type="submit"
-    class="btn btn-primary text-nowrap"
-    [disabled]="addPetForm.invalid"
-    (click)="addNewPet($event)"
-  >
-    Thêm
-  </button>
-
+      type="submit"
+      class="btn btn-primary text-nowrap"
+      (click)="addNewPet()"
+    >
+      Thêm
+    </button>
   </div>
 </form>
