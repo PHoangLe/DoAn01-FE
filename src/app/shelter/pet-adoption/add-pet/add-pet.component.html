@@ -32,11 +32,13 @@
       </span>
       <span class="p-float-label">
         <h6 class="addressLabel ps-0">Loại</h6>
-        <input
-          class="inputtext ps-1 w-100"
-          type="text"
+        <p-dropdown
+          [options]="specieOptions"
+          optionLabel="value"
+          [autoDisplayFirst]="false"
           formControlName="petSpecie"
-        />
+        >
+        </p-dropdown>
       </span>
       <span class="p-float-label">
         <h6 class="addressLabel ps-0">Cân nặng</h6>

@@ -16,18 +16,23 @@ export class PetAdoptService {
     return this.http.get(this.baseUrl + '/getAllAnimals', { headers })
   }
 
+  getAllPetsByShelter() {
+
+  }
+
+
   async addPet(petData: any, avatarUrl: string, otherImg: string[]): Promise<any> {
-    let headers = this.getHttpHeader();
+    const headers = this.getHttpHeader();
     const shelterID = await this.shelterService.getShelterByUserID();
     try {
-      const response = await this.http.post(this.baseUrl + '/addAnimal', {
+      let response = await this.http.post(this.baseUrl + '/addAnimal', {
         "shelterID": shelterID,
         "animalName": petData.petName,
         "animalAge": petData.petAge,
         "animalGender": petData.petGender.id,
         "animalWeight": petData.petWeight,
         "animalBreed": petData.petBreed,
-        "animalSpecie": petData.pet,
+        "animalSpecie": petData.petSpecie.value,
         "animalColor": petData.petColor,
         "animalImg": avatarUrl,
         "animalStatus": petData.petDetails,
@@ -36,7 +41,7 @@ export class PetAdoptService {
         "sterilized": petData.sterilized,
         "friendly": petData.friendly,
         "othersImg": otherImg
-      }, { headers }).toPromise();
+      }, { headers });
       return response;
     }
     catch (error) {

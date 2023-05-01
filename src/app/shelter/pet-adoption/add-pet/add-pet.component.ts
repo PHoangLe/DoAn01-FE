@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { percentage } from '@angular/fire/storage';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { catchError } from 'rxjs';
 import { Pet } from 'src/app/model/Pet';
 import { PetAdoptService } from 'src/app/services/pet-adopt.service';
@@ -20,6 +20,15 @@ export class AddPetComponent {
     },
     {
       id: '1', value: 'Đực'
+    }
+  ]
+
+  specieOptions = [
+    {
+      id: '0', value: 'Chó'
+    },
+    {
+      id: '1', value: 'Mèo'
     }
   ]
   listStatus = [
@@ -50,7 +59,7 @@ export class AddPetComponent {
     petGender: this.builder.control('', Validators.required),
     petColor: this.builder.control('', Validators.required),
     petAge: this.builder.control('', Validators.required),
-    petDetails: this.builder.control('', Validators.required),
+    petDetails: this.builder.control(''),
     friendly: this.builder.control(''),
     vaccinated: this.builder.control(''),
     deWormed: this.builder.control(''),
@@ -62,24 +71,23 @@ export class AddPetComponent {
   }
 
   async addNewPet() {
-    console.log("otherimge ", this.othersImg)
     await this.pushFileToCloud();
     let uploadedDocUrl = this.fileUpload.getFileUrl()
-    console.log(uploadedDocUrl)
-    // this.petService.addPet(this.addPetForm.value, this.avatarUrl, uploadedDocUrl).then(value => {
-    //   console.log("add new pet successfully")
-    // })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    this.petService.addPet(this.addPetForm.value, this.avatarUrl, uploadedDocUrl).then(value => {
+      console.log("add new pet successfully")
+      setTimeout(() => {
+        this.ref.close()
+      }, 1500);
+    })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   async pushFileToCloud() {
     for (let i = 0; i < this.othersImg.length; i++) {
-      console.log("i ", i)
       await this.fileUpload.pushFileToStorage(this.othersImg[i], "petImgs")
     }
-    console.log("uploading file to cloud")
   }
 
   async selectedAvatar(event) {

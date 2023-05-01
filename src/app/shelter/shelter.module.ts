@@ -23,6 +23,7 @@ import { PetAdoptService } from '../services/pet-adopt.service';
 import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
+
 @NgModule({
   declarations: [
     LandingComponent,
