@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Menu, MenuItemContent } from 'primeng/menu';
+import { AuthService } from 'src/app/services/auth.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
@@ -16,8 +17,10 @@ export class HeaderComponent implements OnInit {
   userRole : string
   constructor(
     private router: Router,
+    private activatedRoute : ActivatedRoute,
+    private authService : AuthService,
     fileUploadService: UploadFileService) {
-    fileUploadService.getAvatarImageUrl(localStorage.getItem("userID")).subscribe(url => {
+    fileUploadService.getAvatarImageUrl(JSON.parse(localStorage.getItem("userID")).value).subscribe(url => {
       this.imageUrl = url;
     },
       error => {
@@ -56,7 +59,7 @@ export class HeaderComponent implements OnInit {
   }
 
   loggedIn(): boolean {
-    return localStorage.getItem("userID") !== null
+    return JSON.parse(localStorage.getItem("userID")).value !== null
   }
 
   signOut() {

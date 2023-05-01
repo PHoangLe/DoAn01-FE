@@ -26,8 +26,8 @@ export class RequestShelterAccountService {
       'Authorization': `Bearer ${token}`,
     });
     return this.http.post(this.baseUrl + 'registerShelter', {
-      userID: localStorage.getItem("userID"),
-      representativeEmailAddress: localStorage.getItem("userEmail"),
+      userID: JSON.parse(localStorage.getItem("userID")).value,
+      representativeEmailAddress: JSON.parse(localStorage.getItem("userEmail")).value,
       shelterName: inputData.shelterName,
       representativeFacebookLink: inputData.shelterFacebookUrl,
       unitNoAndStreet: inputData.shelterNo,
@@ -37,7 +37,6 @@ export class RequestShelterAccountService {
       shelterPhoneNo: inputData.shelterPhoneNum,
       shelterLogo: "",
       relatedDocuments: relatedDoc
-
     }, { headers })
   }
 

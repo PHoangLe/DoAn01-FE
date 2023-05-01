@@ -80,18 +80,18 @@ export class AuthService {
   }
 
   setRoles(userRoles: []) {
-    localStorage.setItem("userRoles", JSON.stringify(userRoles))
+    this.setTimeResetToken("userRoles", JSON.stringify(userRoles))
   }
   getRoles(): [] {
-    return JSON.parse(localStorage.getItem('userRoles') || '{}')
+    return JSON.parse(localStorage.getItem('userRoles') || '{}').value
   }
 
   setToken(jwtToken: string) {
-    localStorage.setItem("jwtToken", jwtToken)
+    this.setTimeResetToken("jwtToken", jwtToken)
   }
 
   getToken(): string | null {
-    return localStorage.getItem('jwtToken')
+    return JSON.parse(localStorage.getItem("jwtToken")).value
   }
 
   clear() {
@@ -141,6 +141,6 @@ export class AuthService {
   init() {
     setInterval(() => {
       this.clearExpiredItems();
-    }, 1000 * 60 * 60 * 24);
+    }, 1000 * 60 * 60 * 8);
   }
 }

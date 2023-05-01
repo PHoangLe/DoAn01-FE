@@ -4,17 +4,53 @@
 
 :root{
   --primary-color: #7A3D26;
+  --offwhite-color: #fafafa;
+  .btn-primary{
+    border-radius: 10px;
+    max-height: 60px;
+    min-height: 40px;
+    height: 6vh;
+    width: 20vw;
+    background-color: var(--primary-color);
+    border: none;
+  }
+  .btn-secondary{
+    border-radius: 10px;
+    max-height: 60px;
+    min-height: 40px;
+    height: 6vh;
+    width: 20vw;
+    background-color: var(--offwhite-color);
+    border: solid 3px var(--primary-color);
+    color: var(--primary-color)
+  }
+  .p-inputtext,.inputtext{
+    border: solid 2px;
+    border-radius: 7px;
+    &:focus{
+      box-shadow: none;
+      border-color: var(--primary-color);
+    }
+  }
+  .p-dropdown {
+    width: 100%;
+    border: solid 2px;
+    border-radius: 7px;
+  }
+  .p-checkbox .p-checkbox-box.p-highlight,
+  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: var(--primary-color);
+  }
+
+  .p-divider.p-divider-horizontal {
+    margin: 0;
+  }
 }
 
 *{
   font-family: 'Nunito', sans-serif;;
 }
 
-.btn-primary{
-  max-height: 60px;
-  min-height: 30px;
-  height: 6vh;
-  width: 20vw;
-  background-color: var(--primary-color);
-  border: none;
-}
+
