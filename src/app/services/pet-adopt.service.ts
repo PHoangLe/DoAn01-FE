@@ -12,7 +12,7 @@ export class PetAdoptService {
   constructor(private http: HttpClient, private shelterService: ShelterService) { }
 
   getAllPets() {
-    let headers = this.getHttpHeader();
+    const headers = this.getHttpHeader();
     return this.http.get(this.baseUrl + '/getAllAnimals', { headers })
   }
 
@@ -20,25 +20,15 @@ export class PetAdoptService {
 
   }
 
+  getPetById(id: string) {
+    const headers = this.getHttpHeader();
+    return this.http.get(this.baseUrl + `/getAllAnimals/${id}`, { headers })
+  }
+
 
   async addPet(petData: any, avatarUrl: string, otherImg: string[]): Promise<any> {
-    let headers = this.getHttpHeader();
+    const headers = this.getHttpHeader();
     const shelterID = await this.shelterService.getShelterByUserID();
-    console.log("shelterID ", shelterID)
-    console.log("animalName ", petData.petName)
-    console.log("animalAge ", petData.petAge)
-    console.log("animalGender ", petData.petGender.id)
-    console.log("animalWeight ", petData.petWeight)
-    console.log("animalBreed ", petData.petBreed)
-    console.log("animalSpecie ", petData.petSpecie.value)
-    console.log("animalColor ", petData.petColor)
-    console.log("animalImg ", avatarUrl)
-    console.log("animalStatus ", petData.petDetails)
-    console.log("vaccinated ", petData.vaccinated ? true : false)
-    console.log("deWormed ", petData.deWorm ? true : false)
-    console.log("sterilized ", petData.sterilized ? true : false)
-    console.log("friendly ", petData.friendly ? true : false)
-    console.log("othersImg ", otherImg)
     try {
       const response = await this.http.post(this.baseUrl + '/addAnimal', {
         "shelterID": shelterID,
@@ -90,6 +80,26 @@ export class PetAdoptService {
       petList.push(pet)
     });
     return petList
+  }
+
+  convertToPet(data: any) {
+    return new Pet(
+      data.animalID,
+      data.animalName,
+      data.shelterID,
+      data.animalAge,
+      data.animalGender,
+      data.animalWeight,
+      data.animalBreed,
+      data.animalSpecie,
+      data.animalColor,
+      data.animalImg == "" ? "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0" : data.animalImg,
+      data.animalStatus,
+      data.vaccinated,
+      data.deWormed,
+      data.sterilized,
+      data.friendly,
+      data.othersImg)
   }
 
 

@@ -1,0 +1,64 @@
+<app-header></app-header>
+<div class="widget">
+  <div class="content">
+    <h1>Danh sách thú cưng</h1>
+    <p-breadcrumb [model]="breadcrumbItimes"></p-breadcrumb>
+  </div>
+</div>
+<div class="container p-4">
+  <div class="info">
+    <p-galleria
+      [showIndicators]="false"
+      [showItemNavigatorsOnHover]="true"
+      [showItemNavigators]="true"
+      [containerStyle]="{ 'max-width': '640px' }"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+          <img [src]="item.thumbnailImageSrc" style="display: block" />
+        </div>
+      </ng-template>
+    </p-galleria>
+
+    <div class="pet-info">
+      <div class="basic-info">
+        <h3>Pet name</h3>
+        <h5><b>Giống:</b></h5>
+        <h5><b>Giới tính:</b></h5>
+        <h5><b>Tuổi:</b></h5>
+        <h5><b>Màu sắc</b></h5>
+      </div>
+
+      <p-divider align="left">
+        <div class="inline-flex align-items-center">
+          <b>Tình trạng</b>
+        </div>
+      </p-divider>
+      <div class="status-info">
+        <h5><b>Tiêm phòng:</b></h5>
+        <h5><b>Triệt sản:</b></h5>
+        <h5><b>Xổ giun:</b></h5>
+        <h5><b>Thân thiện</b></h5>
+      </div>
+      <p-divider align="left">
+        <div class="inline-flex align-items-center">
+          <b>Người nhận nuôi online</b>
+        </div>
+      </p-divider>
+      <div class="button-group pt-2">
+        <button class="btn btn-secondary">Nhận nuôi online</button>
+        <button class="btn btn-primary">Nhận nuôi</button>
+      </div>
+    </div>
+  </div>
+  <div class="detail-status pt-4">
+    <p-divider align="left">
+      <div class="inline-flex align-items-center">
+        <h5><b>Tình trạng sức khoẻ</b></h5>
+      </div>
+    </p-divider>
+  </div>
+</div>

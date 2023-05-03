@@ -16,19 +16,22 @@ import { PaginatorModule } from 'primeng/paginator';
 import { DataViewModule } from 'primeng/dataview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
-import { PetAdoptService } from '../services/pet-adopt.service';
-import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
+import { GalleriaModule } from 'primeng/galleria';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+
+import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
+import { PetDetailComponent } from './pet-detail/pet-detail.component';
+import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 
 
 @NgModule({
   declarations: [
     LandingComponent,
     PetAdoptionComponent,
-    AddPetComponent
+    AddPetComponent,
+    PetDetailComponent
 
   ],
   imports: [
@@ -50,7 +53,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     BreadcrumbModule,
     DynamicDialogModule,
     TableModule,
-    InputTextareaModule
+    InputTextareaModule,
+    GalleriaModule
   ]
 })
 export class ShelterModule { }

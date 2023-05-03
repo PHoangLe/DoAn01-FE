@@ -14,11 +14,11 @@ export class HeaderComponent implements OnInit {
 
   imageUrl: string
   menuItems: MenuItem[]
-  userRole : string
+  userRole: string
   constructor(
     private router: Router,
-    private activatedRoute : ActivatedRoute,
-    private authService : AuthService,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     fileUploadService: UploadFileService) {
     fileUploadService.getAvatarImageUrl(JSON.parse(localStorage.getItem("userID")).value).subscribe(url => {
       this.imageUrl = url;
@@ -34,24 +34,24 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.menuItems = [
 
-          {
-            label: 'Thông tin cá nhân',
-            icon: 'pi pi-user',
-            command: () => {
-            }
-          },
-          {
-            label: 'Đổi mật khẩu',
-            icon: 'pi pi-replay',
-            command: () => {
-            }
-          },
-          {
-            label: 'Đăng xuất',
-            icon: 'pi pi-sign-out',
-            command: () => {
-              this.signOut()
-            }
+      {
+        label: 'Thông tin cá nhân',
+        icon: 'pi pi-user',
+        command: () => {
+        }
+      },
+      {
+        label: 'Đổi mật khẩu',
+        icon: 'pi pi-replay',
+        command: () => {
+        }
+      },
+      {
+        label: 'Đăng xuất',
+        icon: 'pi pi-sign-out',
+        command: () => {
+          this.signOut()
+        }
 
       }
 
@@ -67,10 +67,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
-  routeToAdoptPage(){
-    if(localStorage.getItem("userRoles") === "ROLE_SHELTER")
+  routeToAdoptPage() {
+    const roles = JSON.parse(localStorage.getItem("userRoles")).value;
+    if (roles.includes('ROLE_SHELTER_MANAGER'))
       this.router.navigate(['shelter/adopt'])
-      else
+    else
       this.router.navigate(['user/adopt'])
   }
 

@@ -16,7 +16,7 @@
           <i class="pi pi-search"></i>
           <input
             type="text"
-            class="rounded-4 p-1 ps-2 w-100"
+            class="rounded-2 p-1 ps-4 w-100"
             pInputText
             [(ngModel)]="searchValue"
           />
@@ -36,9 +36,13 @@
         <label [for]="pet.id">{{ pet.value }}</label>
       </div>
     </div>
-    <p-divider></p-divider>
-    <p-button (onClick)="showDialog()"></p-button>
 
+    <p-divider></p-divider>
+    <div class="addpet-container p-2">
+      <button class="petlist-btn btn btn-primary" (click)="showDialog()">
+        Thêm mới
+      </button>
+    </div>
   </div>
   <div class="pet-list col-9 col-sm-10 col-lg-10">
     <p-dataView
@@ -58,4 +62,3 @@
     </p-dataView>
   </div>
 </div>
-

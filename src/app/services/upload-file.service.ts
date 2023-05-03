@@ -83,7 +83,6 @@ export class UploadFileService {
     const filePath = `${this.basePathAvatar}/ava-${localStorage.getItem("userID")}`
     const storage = getStorage();
     const starsRef = ref(storage, filePath);
-    console.log(starsRef)
   }
 
   public getFileUrl(): Array<string> {
