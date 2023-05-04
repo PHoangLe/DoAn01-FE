@@ -16,19 +16,22 @@ export class PetAdoptService {
     return this.http.get(this.baseUrl + '/getAllAnimals', { headers })
   }
 
-  getAllPetsByShelter() {
+  async getAllPetsByShelter() {
+    let headers = this.getHttpHeader();
+    let shelterID = await this.shelterService.getShelterIDByUserID();
 
+    return this.http.get(this.baseUrl + `/getAnimalsByShelterID/${shelterID}`, { headers }).toPromise();
   }
 
-  getPetById(id: string) {
+  async getPetById(id: string) {
     const headers = this.getHttpHeader();
-    return this.http.get(this.baseUrl + `/getAllAnimals/${id}`, { headers })
+    return await this.http.get(this.baseUrl + `/getAnimalByAnimalID/${id}`, { headers }).toPromise();
   }
 
 
   async addPet(petData: any, avatarUrl: string, otherImg: string[]): Promise<any> {
-    const headers = this.getHttpHeader();
-    const shelterID = await this.shelterService.getShelterByUserID();
+    let headers = this.getHttpHeader();
+    let shelterID = await this.shelterService.getShelterIDByUserID();
     try {
       const response = await this.http.post(this.baseUrl + '/addAnimal', {
         "shelterID": shelterID,
@@ -67,7 +70,7 @@ export class PetAdoptService {
         item.animalGender,
         item.animalWeight,
         item.animalBreed,
-        item.animalSpecie,
+        item.animalSpecie.id,
         item.animalColor,
         item.animalImg == "" ? "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0" : item.animalImg,
         item.animalStatus,

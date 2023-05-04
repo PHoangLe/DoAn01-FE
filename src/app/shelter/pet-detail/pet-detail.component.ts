@@ -13,14 +13,16 @@ export class PetDetailComponent implements OnInit {
 
   protected pet: Pet
   protected breadcrumbItimes: MenuItem[];
-  protected listImg
+  protected listImg = new Array<string>();
+  protected responsiveOptions: any[];
+  protected listUserImg = new Array<string>();
+
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private petService: PetAdoptService) {
   }
   ngOnInit(): void {
-    console.log(this.getPet(this.route.snapshot.paramMap.get('id')))
+    this.getPet(this.route.snapshot.paramMap.get('id'))
     this.breadcrumbItimes = [
       {
         label: 'Trang chủ'
@@ -32,12 +34,29 @@ export class PetDetailComponent implements OnInit {
         label: 'Chi tiết thú cưng'
       }
     ]
+    this.responsiveOptions = [
+      {
+        breakpoint: '1024px',
+        numVisible: 5
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 3
+      },
+      {
+        breakpoint: '560px',
+        numVisible: 1
+      }
+    ];
   }
 
-  getPet(id: string) {
-    this.petService.getPetById(id).subscribe(data => {
+  async getPet(id: string) {
+    await this.petService.getPetById(id).then(data => {
       console.log(data)
       this.pet = this.petService.convertToPet(data);
     })
+    this.listImg.push(this.pet.animalImg);
+    this.listImg.push(...this.pet.othersImg);
+    console.log(this.listImg)
   }
 }

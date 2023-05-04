@@ -102,7 +102,7 @@ export class UploadFileService {
   }
 
   getPetImageUrl(avatarLink: string) {
-    const shelterID = this.shelterService.getShelterByUserID();
+    const shelterID = this.shelterService.getShelterIDByUserID();
     return this.storage.ref(`Pet/shelter-${shelterID}/${avatarLink}`).getDownloadURL();
   }
 

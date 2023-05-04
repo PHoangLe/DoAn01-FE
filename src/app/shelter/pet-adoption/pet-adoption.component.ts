@@ -41,7 +41,6 @@ export class PetAdoptionComponent implements OnDestroy {
   ngOnInit(): void {
 
     this.getAllPets();
-    this.defaultPets = [...this.pets]
     this.breadcrumbItimes = [
       {
         label: 'Trang chủ'
@@ -76,13 +75,15 @@ export class PetAdoptionComponent implements OnDestroy {
     })
   }
 
-  getAllPets() {
-    this.petAdoptService.getAllPets().subscribe(response => {
+  async getAllPets() {
+    await this.petAdoptService.getAllPetsByShelter().then(response => {
       this.pets = this.petAdoptService.convertToPets(response)
     }),
       err => {
         console.log(err.error.message)
       }
+    this.defaultPets = [...this.pets]
+
   }
 
   onCheckboxBreedChange(event) {

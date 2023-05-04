@@ -20,6 +20,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { AvatarModule } from 'primeng/avatar';
 
 import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
@@ -54,7 +55,8 @@ import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
     DynamicDialogModule,
     TableModule,
     InputTextareaModule,
-    GalleriaModule
+    GalleriaModule,
+    AvatarModule
   ]
 })
 export class ShelterModule { }

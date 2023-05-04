@@ -16,10 +16,19 @@
     font-size: 1.3rem;
     font-weight: 350;
   }
+  .p-galleria-thumbnail-wrapper {
+    border-radius: 10px;
+  }
+  @media (max-width: 767px) {
+    .p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+      color: #fffafa;
+      font-size: 12px;
+    }
+  }
 }
 
 .widget {
-  height: 180px;
+  height: 200px;
   background-image: url("https://i.ibb.co/y6znmC0/mikhail-vasilyev-Nodtn-Cs-Ld-TE-unsplash-2.jpg");
   background-repeat: no-repeat;
   background-clip: border-box;
@@ -40,18 +49,57 @@
 }
 
 .container {
-  .info,
+  .info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
   .status-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px 40px;
   }
   .button-group {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
+  h1 {
+    font-weight: 500;
+  }
   h5 {
     font-weight: 345;
+  }
+}
+@media (max-width: 767px) {
+  .widget {
+    height: 100px;
+    .content {
+      width: fit-content;
+      padding-top: 10px;
+      h1 {
+        padding-top: 0;
+        color: #fffafa;
+        font-weight: 600;
+      }
+    }
+  }
+  .container {
+    .info,
+    .status-info {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 10px 40px;
+    }
+    .button-group {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 20px;
+      button {
+        width: 100%;
+      }
+    }
+    h5 {
+      font-weight: 345;
+    }
   }
 }

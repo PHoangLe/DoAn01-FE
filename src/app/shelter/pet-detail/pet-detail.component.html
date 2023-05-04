@@ -8,49 +8,64 @@
 <div class="container p-4">
   <div class="info">
     <p-galleria
+      [value]="listImg"
       [showIndicators]="false"
       [showItemNavigatorsOnHover]="true"
       [showItemNavigators]="true"
+      [responsiveOptions]="responsiveOptions"
       [containerStyle]="{ 'max-width': '640px' }"
     >
       <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+        <img [src]="item" style="width: 54%; display: block" />
       </ng-template>
       <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
-          <img [src]="item.thumbnailImageSrc" style="display: block" />
+          <img [src]="item" class="h-100" style="display: block; width: 20%" />
         </div>
       </ng-template>
     </p-galleria>
 
     <div class="pet-info">
-      <div class="basic-info">
-        <h3>Pet name</h3>
-        <h5><b>Giống:</b></h5>
-        <h5><b>Giới tính:</b></h5>
-        <h5><b>Tuổi:</b></h5>
-        <h5><b>Màu sắc</b></h5>
+      <div class="basic-info ps-4">
+        <h1>{{ pet.animalName }}</h1>
+        <h5><b>Giống:</b> {{ pet.animalBreed }}</h5>
+        <h5><b>Giới tính:</b> {{ pet.animalGender ? "Đực" : "Cái" }}</h5>
+        <h5><b>Tuổi:</b> {{ pet.animalAge }}</h5>
+        <h5><b>Màu sắc:</b> {{ pet.animalColor }}</h5>
       </div>
 
-      <p-divider align="left">
+      <p-divider align="left" class="pt-2">
         <div class="inline-flex align-items-center">
           <b>Tình trạng</b>
         </div>
       </p-divider>
-      <div class="status-info">
-        <h5><b>Tiêm phòng:</b></h5>
-        <h5><b>Triệt sản:</b></h5>
-        <h5><b>Xổ giun:</b></h5>
-        <h5><b>Thân thiện</b></h5>
+      <div class="status-info ps-4 pt-2">
+        <h5><b>Tiêm phòng:</b> {{ pet.vaccinated ? "Đã tiêm" : "Chưa" }}</h5>
+        <h5><b>Triệt sản:</b> {{ pet.deWormed ? "Rồi" : "Chưa" }}</h5>
+        <h5><b>Xổ giun:</b> {{ pet.sterilized ? "Rồi" : "Chưa" }}</h5>
+        <h5><b>Thân thiện:</b> {{ pet.friendly ? "Có" : "Không" }}</h5>
       </div>
-      <p-divider align="left">
+      <p-divider align="left" class="pt-2">
         <div class="inline-flex align-items-center">
           <b>Người nhận nuôi online</b>
         </div>
       </p-divider>
+
+      <div class="ps-4">
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          size="large"
+          shape="circle"
+        ></p-avatar>
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
+          size="large"
+          shape="circle"
+        ></p-avatar>
+      </div>
       <div class="button-group pt-2">
-        <button class="btn btn-secondary">Nhận nuôi online</button>
         <button class="btn btn-primary">Nhận nuôi</button>
+        <button class="btn btn-secondary">Nhận nuôi online</button>
       </div>
     </div>
   </div>
