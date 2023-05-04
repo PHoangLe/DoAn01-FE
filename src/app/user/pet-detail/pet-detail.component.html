@@ -13,13 +13,10 @@
       [showItemNavigatorsOnHover]="true"
       [showItemNavigators]="true"
       [responsiveOptions]="responsiveOptions"
-      [containerStyle]="{ 'max-width': '760px' }"
+      [containerStyle]="{ 'max-width': '640px' }"
     >
       <ng-template pTemplate="item" let-item>
-        <img
-          [src]="item"
-          style="width: 80%; display: block; padding-bottom: 10px"
-        />
+        <img [src]="item" style="width: 54%; display: block" />
       </ng-template>
       <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -55,13 +52,16 @@
       </p-divider>
 
       <div class="ps-4">
-        <div *ngFor="let user of listOnlineAdoptor">
-          <p-avatar
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-            size="large"
-            shape="circle"
-          ></p-avatar>
-        </div>
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          size="large"
+          shape="circle"
+        ></p-avatar>
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
+          size="large"
+          shape="circle"
+        ></p-avatar>
       </div>
       <div class="button-group pt-2">
         <button class="btn btn-primary">Nhận nuôi</button>

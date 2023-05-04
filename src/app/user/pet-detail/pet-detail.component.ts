@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
 import { PetAdoptService } from 'src/app/services/pet-adopt.service';
@@ -10,13 +10,11 @@ import { PetAdoptService } from 'src/app/services/pet-adopt.service';
   styleUrls: ['./pet-detail.component.less']
 })
 export class PetDetailComponent implements OnInit {
-
   protected pet: Pet
   protected breadcrumbItimes: MenuItem[];
   protected listImg = new Array<string>();
   protected responsiveOptions: any[];
   protected listUserImg = new Array<string>();
-  protected listOnlineAdoptor = new Array<string>();
 
   constructor(
     private route: ActivatedRoute,
@@ -53,11 +51,10 @@ export class PetDetailComponent implements OnInit {
 
   async getPet(id: string) {
     await this.petService.getPetById(id).then(data => {
-      console.log(data)
       this.pet = this.petService.convertToPet(data);
     })
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
-    this.listOnlineAdoptor.push(...this.pet.onlineAdaptors)
   }
+
 }

@@ -12,8 +12,6 @@ const routes: Routes = [
   {
     path: 'adopt',
     component: PetAdoptionComponent,
-
-
   },
   {
     path: 'pet-detail/:id',

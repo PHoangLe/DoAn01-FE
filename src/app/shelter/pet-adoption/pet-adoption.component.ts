@@ -19,13 +19,13 @@ export class PetAdoptionComponent implements OnDestroy {
   protected pets;
   protected defaultPets;
   protected listShelter: Shelter[];
-  protected selectedBreed: string;
+  protected selectedSpecie: string;
   protected currentPage = 1;
   protected pageSize = 20;
   protected sortField = '';
   protected searchValue;
   protected sortOrder = 1; // thứ tự sắp xếp (1: tăng dần, -1: giảm dần)
-  protected petBreed = [
+  protected petSpecie = [
     { id: "All", value: "Tất cả" },
     { id: "Dog", value: "Chó" },
     { id: "Cat", value: "Mèo" }
@@ -83,14 +83,13 @@ export class PetAdoptionComponent implements OnDestroy {
         console.log(err.error.message)
       }
     this.defaultPets = [...this.pets]
-
   }
 
   onCheckboxBreedChange(event) {
     this.pets = [...this.defaultPets]
-    if (event.value == "All") {
+    if (event.value === "All") {
       return
     }
-    this.pets = this.pets.filter(pet => pet.animalBreed == this.selectedBreed)
+    this.pets = this.pets.filter(pet => pet.animalSpecie === this.selectedSpecie)
   }
 }

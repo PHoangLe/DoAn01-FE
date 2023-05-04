@@ -25,12 +25,12 @@
     </div>
     <div class="pet-type w-100 p-2">
       <h4>Loại</h4>
-      <div *ngFor="let pet of petBreed" class="field-checkbox p-1">
+      <div *ngFor="let pet of petSpecie" class="field-checkbox p-1">
         <p-radioButton
           name="group"
           [value]="pet.id"
           [inputId]="pet.id"
-          [(ngModel)]="selectedBreed"
+          [(ngModel)]="selectedSpecie"
           (onClick)="onCheckboxBreedChange($event)"
         ></p-radioButton>
         <label [for]="pet.id">{{ pet.value }}</label>
