@@ -25,10 +25,10 @@ export class AddPetComponent {
 
   specieOptions = [
     {
-      id: '0', value: 'Chó'
+      id: 'Dog', value: 'Chó'
     },
     {
-      id: '1', value: 'Mèo'
+      id: 'Cat', value: 'Mèo'
     }
   ]
   listStatus = [
