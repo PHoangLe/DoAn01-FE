@@ -24,7 +24,7 @@
           <a class="nav-link" href="#">Trang chủ</a>
         </li>
         <li class="nav-item m-3">
-          <a class="nav-link" >Cứu trợ</a>
+          <a class="nav-link">Cứu trợ</a>
         </li>
         <li class="nav-item m-3">
           <a class="nav-link" (click)="routeToAdoptPage()">Nhận nuôi</a>
@@ -34,7 +34,7 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="!loggedIn()">
+      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="!isLoggin">
         <li class="nav-item p-1">
           <a class="nav-link" [routerLink]="['/login']">Đăng nhập</a>
         </li>
@@ -43,7 +43,7 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="loggedIn()">
+      <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="isLoggin">
         <li class="nav-item p-1">
           <p-menu #menu [model]="menuItems" [popup]="true"></p-menu>
           <p-avatar

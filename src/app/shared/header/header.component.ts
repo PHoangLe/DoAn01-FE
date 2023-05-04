@@ -15,23 +15,35 @@ export class HeaderComponent implements OnInit {
   imageUrl: string
   menuItems: MenuItem[]
   userRole: string
+  isLoggin = false;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     fileUploadService: UploadFileService) {
-    fileUploadService.getAvatarImageUrl(JSON.parse(localStorage.getItem("userID")).value).subscribe(url => {
-      this.imageUrl = url;
-    },
-      error => {
-        fileUploadService.getDefaultUserAvatar().subscribe(url => {
+    try {
+      if (JSON.parse(localStorage.getItem("userID")).value) {
+        fileUploadService.getAvatarImageUrl(JSON.parse(localStorage.getItem("userID")).value).subscribe(url => {
           this.imageUrl = url;
-        }
-        )
-      },
-    );
+        },
+          error => {
+            fileUploadService.getDefaultUserAvatar().subscribe(url => {
+              this.imageUrl = url;
+            }
+            )
+          },
+        );
+        this.isLoggin = true
+      }
+    }
+    catch {
+      console.log("There are no user")
+    }
+
+
   }
   ngOnInit() {
+
     this.menuItems = [
 
       {
@@ -56,10 +68,6 @@ export class HeaderComponent implements OnInit {
       }
 
     ];
-  }
-
-  loggedIn(): boolean {
-    return JSON.parse(localStorage.getItem("userID")).value !== null
   }
 
   signOut() {
