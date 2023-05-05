@@ -8,4 +8,6 @@ import { MenuItem } from 'primeng/api';
 })
 export class WidgetComponent {
   @Input() breadcrumbItimes: MenuItem[];
+  @Input() img: string;
+
 }
