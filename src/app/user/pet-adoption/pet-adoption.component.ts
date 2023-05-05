@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
 import { Shelter } from 'src/app/model/Shelter';
@@ -28,8 +29,6 @@ export class PetAdoptionComponent implements OnInit {
     { id: "Cat", value: "Mèo" }
   ]
   protected breadcrumbItimes: MenuItem[];
-
-
   constructor(private shelterService: ShelterService, private petAdoptService: PetAdoptService) {
   }
 
@@ -45,7 +44,6 @@ export class PetAdoptionComponent implements OnInit {
         label: 'Danh sách thú cưng',
       }
     ]
-
   }
 
   getAllShelter() {

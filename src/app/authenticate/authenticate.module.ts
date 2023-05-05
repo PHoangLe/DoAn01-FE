@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from "primeng/password";
 import { LoginComponent } from './login/login.component';
-import {ButtonModule} from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { MessageModule } from 'primeng/message';
 import {
@@ -15,10 +15,7 @@ import { AuthenticateRoutingModule } from './authenticate-routing.module';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerifyComponent } from './verify/verify.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthGuard } from './auth.guard';
-import { AuthService } from '../services/auth.service';
-import { AuthInterceptor } from './auth.interceptor';
+
 
 
 @NgModule({
