@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
-import { PetAdoptService } from 'src/app/services/pet-adopt.service';
+import { PetService } from 'src/app/services/pet.service';
 
 @Component({
   selector: 'app-pet-detail',
@@ -18,21 +18,12 @@ export class PetDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private petService: PetAdoptService) {
+    private petService: PetService,
+    private messageService: MessageService) {
   }
   ngOnInit(): void {
     this.getPet(this.route.snapshot.paramMap.get('id'))
-    this.breadcrumbItimes = [
-      {
-        label: 'Nhận nuôi'
-      },
-      {
-        label: 'Danh sách thú cưng'
-      },
-      {
-        label: 'Chi tiết thú cưng'
-      }
-    ]
+
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -55,6 +46,34 @@ export class PetDetailComponent implements OnInit {
     })
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
+    this.breadcrumbItimes = [
+      {
+        label: 'Nhận nuôi'
+      },
+      {
+        label: 'Danh sách thú cưng'
+      },
+      {
+        label: `${this.pet.animalName}`
+      }
+    ]
+  }
+
+  requestAdoption() {
+    this.messageService.add({
+      key: 'confirmAdoption',
+      severity: 'info',
+      summary: 'Sticky',
+      detail: 'Message Content',
+      sticky: true,
+    });
+  }
+
+  onReject() {
+
+  }
+  onConfirm() {
+
   }
 
 }

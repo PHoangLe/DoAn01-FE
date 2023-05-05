@@ -6,7 +6,7 @@ import { Pet } from '../model/Pet';
 @Injectable({
   providedIn: 'root'
 })
-export class PetAdoptService {
+export class PetService {
 
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/animal";
   constructor(private http: HttpClient, private shelterService: ShelterService) { }
@@ -55,8 +55,8 @@ export class PetAdoptService {
       console.log(error);
       throw error;
     }
-
   }
+
 
   convertToPets(input: any): Pet[] {
     var petList = new Array<Pet>

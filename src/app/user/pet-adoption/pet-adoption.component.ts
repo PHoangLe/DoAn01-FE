@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
 import { Shelter } from 'src/app/model/Shelter';
-import { PetAdoptService } from 'src/app/services/pet-adopt.service';
+import { PetService } from 'src/app/services/pet.service';
 import { ShelterService } from 'src/app/services/shelter.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class PetAdoptionComponent implements OnInit {
     { id: "Cat", value: "Mèo" }
   ]
   protected breadcrumbItimes: MenuItem[];
-  constructor(private shelterService: ShelterService, private petAdoptService: PetAdoptService) {
+  constructor(private shelterService: ShelterService, private PetService: PetService) {
   }
 
   ngOnInit(): void {
@@ -57,8 +57,8 @@ export class PetAdoptionComponent implements OnInit {
   }
 
   getAllPets() {
-    this.petAdoptService.getAllPets().subscribe(response => {
-      this.pets = this.petAdoptService.convertToPets(response)
+    this.PetService.getAllPets().subscribe(response => {
+      this.pets = this.PetService.convertToPets(response)
       this.defaultPets = [...this.pets]
     }),
       err => {

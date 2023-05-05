@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
-import { PetAdoptService } from 'src/app/services/pet-adopt.service';
+import { PetService } from 'src/app/services/pet.service';
 
 @Component({
   selector: 'app-pet-detail',
@@ -20,7 +20,7 @@ export class PetDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private petService: PetAdoptService,
+    private petService: PetService,
     private messageService: MessageService) {
   }
   ngOnInit(): void {

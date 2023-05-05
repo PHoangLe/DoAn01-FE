@@ -29,8 +29,13 @@ export class VerifyComponent implements OnInit {
     await this.otpCheck();
     console.log('verified')
     console.log(!this.isWrongOtp);
-    if (!this.isWrongOtp)
+    if (!this.isWrongOtp) {
       this.messageService.add({ key: 'verifySuccess', severity: 'success', summary: 'Tạo tài khoản thành công' });
+      setTimeout(() => {
+        this.router.navigate(['/login'])
+      }, 2000);
+    }
+
   }
 
   async otpCheck() {

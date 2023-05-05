@@ -23,7 +23,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AvatarModule } from 'primeng/avatar';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
-
 import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';

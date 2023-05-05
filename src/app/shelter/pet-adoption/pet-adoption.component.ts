@@ -3,7 +3,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
 import { Shelter } from 'src/app/model/Shelter';
-import { PetAdoptService } from 'src/app/services/pet-adopt.service';
+import { PetService } from 'src/app/services/pet.service';
 import { ShelterService } from 'src/app/services/shelter.service';
 import { AddPetComponent } from './add-pet/add-pet.component';
 
@@ -34,7 +34,7 @@ export class PetAdoptionComponent implements OnDestroy {
 
   ref: DynamicDialogRef;
 
-  constructor(private shelterService: ShelterService, private petAdoptService: PetAdoptService, public dialogService: DialogService, public messageService: MessageService) {
+  constructor(private shelterService: ShelterService, private PetService: PetService, public dialogService: DialogService, public messageService: MessageService) {
   }
 
 
@@ -76,8 +76,8 @@ export class PetAdoptionComponent implements OnDestroy {
   }
 
   async getAllPets() {
-    await this.petAdoptService.getAllPetsByShelter().then(response => {
-      this.pets = this.petAdoptService.convertToPets(response)
+    await this.PetService.getAllPetsByShelter().then(response => {
+      this.pets = this.PetService.convertToPets(response)
     }),
       err => {
         console.log(err.error.message)

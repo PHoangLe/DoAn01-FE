@@ -64,9 +64,43 @@
         ></p-avatar>
       </div>
       <div class="button-group pt-2">
-        <button class="btn btn-primary">Nhận nuôi</button>
+        <button class="btn btn-primary" (click)="requestAdoption()">
+          Nhận nuôi
+        </button>
         <button class="btn btn-secondary">Nhận nuôi online</button>
       </div>
+    </div>
+    <div class="card flex justify-content-center">
+      <p-toast
+        position="bottom-center"
+        key="confirmAdoption"
+        (onClose)="onReject()"
+        [baseZIndex]="5000"
+      >
+        <ng-template let-message pTemplate="message">
+          <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+              <h4>Bạn muốn rước {{ pet.animalName }} về nhà?</h4>
+            </div>
+            <div class="d-flex justify-content-center gap-4">
+              <button
+                type="button"
+                pButton
+                (click)="onConfirm()"
+                label="Đồng ý"
+                class="p-button-success"
+              ></button>
+              <button
+                type="button"
+                pButton
+                (click)="onReject()"
+                label="Từ chối"
+                class="p-button-secondary"
+              ></button>
+            </div>
+          </div>
+        </ng-template>
+      </p-toast>
     </div>
   </div>
   <div class="detail-status pt-4">
