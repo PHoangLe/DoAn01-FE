@@ -15,6 +15,9 @@ import { AuthenticateRoutingModule } from './authenticate-routing.module';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerifyComponent } from './verify/verify.component';
+import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -30,9 +33,13 @@ import { VerifyComponent } from './verify/verify.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     DividerModule,
-    MessageModule
+    MessageModule,
+    ToastModule,
+    MessageModule,
+    MessagesModule
   ],
   providers: [
+    MessageService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

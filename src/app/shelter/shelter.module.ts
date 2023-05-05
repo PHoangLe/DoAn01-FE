@@ -21,10 +21,14 @@ import { TableModule } from 'primeng/table';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AvatarModule } from 'primeng/avatar';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
 
 import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -56,7 +60,11 @@ import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
     TableModule,
     InputTextareaModule,
     GalleriaModule,
-    AvatarModule
-  ]
+    AvatarModule,
+    ToastModule,
+    MessageModule,
+    MessagesModule
+  ],
+  providers: [MessageService]
 })
 export class ShelterModule { }

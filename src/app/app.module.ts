@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminModule } from './admin/admin.module';
 import { ShelterModule } from './shelter/shelter.module';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ShelterModule } from './shelter/shelter.module';
     AdminModule,
     ShelterModule,
     HttpClientModule,
+    ToastModule
   ],
 
   bootstrap: [AppComponent]

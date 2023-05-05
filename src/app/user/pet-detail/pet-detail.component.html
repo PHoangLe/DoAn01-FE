@@ -1,10 +1,10 @@
 <app-header></app-header>
-<div class="widget">
-  <div class="content">
-    <h1>Danh sách thú cưng</h1>
-    <p-breadcrumb [model]="breadcrumbItimes"></p-breadcrumb>
-  </div>
-</div>
+<app-widget
+  [breadcrumbItimes]="breadcrumbItimes"
+  [img]="
+    'https://i.ibb.co/y6znmC0/mikhail-vasilyev-Nodtn-Cs-Ld-TE-unsplash-2.jpg'
+  "
+></app-widget>
 <div class="container p-4">
   <div class="info">
     <p-galleria

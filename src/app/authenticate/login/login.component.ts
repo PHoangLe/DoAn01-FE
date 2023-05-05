@@ -53,9 +53,10 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  login() {
+  async login() {
     this.isSubmitted = true;
-    this.authService.logIn(this.loginForm.value).subscribe(
+    this.isWrongLogin = false
+    await this.authService.logIn(this.loginForm.value).then(
       (response) => {
         this.setLocalUser(response)
         const roles = response.userRoles
@@ -69,10 +70,10 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/user'])
         }
       },
-      err => {
-        this.isWrongLogin = true;
-      }
-    );
+
+    ).catch(err => {
+      this.isWrongLogin = true;
+    });
   }
 
   getAccessToken(): void {
@@ -89,7 +90,7 @@ export class LoginComponent implements OnInit {
 
   setLocalUser(inputData: any) {
     console.log(inputData)
-    this.authService.setTimeResetToken("jwtToken",inputData.jwtToken)
+    this.authService.setTimeResetToken("jwtToken", inputData.jwtToken)
     this.authService.setTimeResetToken("userRoles", inputData.userRoles);
     this.authService.setTimeResetToken("userID", inputData.userID);
     this.authService.setTimeResetToken("userName", inputData.userFullName);

@@ -1,11 +1,11 @@
-@import '~primeicons/primeicons.css';
-@import '~primeng/resources/primeng.min.css';
-@import '~primeng/resources/themes/nova/theme.css';
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/primeng.min.css";
+@import "~primeng/resources/themes/nova/theme.css";
 
-:root{
-  --primary-color: #7A3D26;
+:root {
+  --primary-color: #7a3d26;
   --offwhite-color: #fafafa;
-  .btn-primary{
+  .btn-primary {
     border-radius: 10px;
     max-height: 60px;
     min-height: 40px;
@@ -14,7 +14,7 @@
     background-color: var(--primary-color);
     border: none;
   }
-  .btn-secondary{
+  .btn-secondary {
     border-radius: 10px;
     max-height: 60px;
     min-height: 40px;
@@ -22,12 +22,13 @@
     width: 20vw;
     background-color: var(--offwhite-color);
     border: solid 3px var(--primary-color);
-    color: var(--primary-color)
+    color: var(--primary-color);
   }
-  .p-inputtext,.inputtext{
-    border: solid 2px;
+  .p-inputtext,
+  .inputtext {
+    // border: solid 2px;
     border-radius: 7px;
-    &:focus{
+    &:focus {
       box-shadow: none;
       border-color: var(--primary-color);
     }
@@ -47,10 +48,13 @@
   .p-divider.p-divider-horizontal {
     margin: 0;
   }
+  .p-toast .p-toast-message {
+    .p-toast-message-success {
+      background-color: aquamarine;
+    }
+  }
 }
 
-*{
-  font-family: 'Nunito', sans-serif;;
+* {
+  font-family: "Nunito", sans-serif;
 }
-
-

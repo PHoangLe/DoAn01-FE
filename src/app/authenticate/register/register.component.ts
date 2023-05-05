@@ -5,7 +5,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-s
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/model/User';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
   constructor(private socialService: SocialAuthService,
     private authService: AuthService,
     private builder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private messageService: MessageService) { }
 
   isSubmitted = false;
   isWrongReg = false;
@@ -29,7 +31,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm = this.builder.group({
     userEmail: this.builder.control('', [Validators.required, Validators.email]),
-    userPassword: this.builder.control('', [Validators.required,Validators.minLength(6) ,this.validatePassword]),
+    userPassword: this.builder.control('', [Validators.required, Validators.minLength(6), this.validatePassword]),
     userName: this.builder.control('', [Validators.required])
   })
 
@@ -37,32 +39,32 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  registerNewUser() {
+  async registerNewUser() {
     this.isSubmitted = true;
-    this.authService.registerNewUser(this.registerForm.value).subscribe(response => {
-    }),
-      err => {
-        this.isWrongReg = true
-        return
-      }
-    this.authService.sendOTPVerifyEmail(this.registerForm.value.userEmail).subscribe(response => {
-    }),
-    err => {
-      this.isWrongEmail = true
-      return
+    this.isWrongReg = false;
+    await this.authService.registerNewUser(this.registerForm.value).then(() => {
+    }).catch(error => {
+      console.log(error.error.message);
+      this.isWrongReg = true;
+    });
+    if (!this.isWrongReg) {
+      await this.authService.sendOTPVerifyEmail(this.registerForm.value.userEmail).then(() => {
+      }).catch(error => {
+        console.log(error.error.message);
+      });
+      this.router.navigate(['verify'])
     }
-    this.router.navigate(['verify'])
+    else {
+      this.messageService.add({ key: 'wrongEmail', severity: 'error', summary: 'Email đã tồn tại' });
+    }
   }
 
-  validatePassword(control: AbstractControl): { [key: string]: any } | null {
-    const value = control.value;
-    const hasLetter = /[a-zA-Z]/.test(value);
-    const hasNumber = /[0-9]/.test(value);
-    if (!hasLetter || !hasNumber) {
-      return { 'password': { value: value } };
-    }
-    return null;
+  validatePassword(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+      const valid = pattern.test(control.value);
+      return valid ? null : { invalidPassword: true };
+    };
   }
-
 
 }

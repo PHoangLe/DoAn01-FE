@@ -29,7 +29,7 @@
           />
           <div *ngIf="isWrongOtp">
             <small class="text-danger">Bạn chưa nhập email</small>
-            </div>
+          </div>
         </span>
       </div>
       <div class="btn-container d-flex justify-content-center pt-3">
@@ -47,6 +47,7 @@
         </div>
       </div>
     </form>
+    <p-toast key="verifySuccess" [preventOpenDuplicates]="true"></p-toast>
   </div>
   <div
     class="side-background col-sm-7 col-md-8 bg-secondary h-100 rounded-start-5"

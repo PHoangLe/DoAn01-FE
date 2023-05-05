@@ -24,7 +24,7 @@ export class PetDetailComponent implements OnInit {
     this.getPet(this.route.snapshot.paramMap.get('id'))
     this.breadcrumbItimes = [
       {
-        label: 'Trang chủ'
+        label: 'Nhận nuôi'
       },
       {
         label: 'Danh sách thú cưng'

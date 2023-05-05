@@ -15,7 +15,12 @@ export class PetCardComponent implements OnInit {
   }
 
   routeToPetDetail(petID: string) {
-    this.router.navigate([`/shelter/pet-detail/${petID}`])
+    if (JSON.parse(localStorage.getItem("userRoles")).value.includes("ROLE_SHELTER_MANAGER"))
+      this.router.navigate([`/shelter/pet-detail/${petID}`])
+    else {
+      this.router.navigate([`/user/pet-detail/${petID}`])
+
+    }
   }
 
 }

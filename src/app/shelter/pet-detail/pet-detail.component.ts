@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
 import { PetAdoptService } from 'src/app/services/pet-adopt.service';
 
@@ -20,13 +20,14 @@ export class PetDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private petService: PetAdoptService) {
+    private petService: PetAdoptService,
+    private messageService: MessageService) {
   }
   ngOnInit(): void {
     this.getPet(this.route.snapshot.paramMap.get('id'))
     this.breadcrumbItimes = [
       {
-        label: 'Trang chủ'
+        label: 'Nhận nuôi'
       },
       {
         label: 'Danh sách thú cưng'
@@ -59,5 +60,9 @@ export class PetDetailComponent implements OnInit {
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
     this.listOnlineAdoptor.push(...this.pet.onlineAdaptors)
+  }
+
+  deletePet() {
+    this.messageService.add({ key: 'hidePet', severity: 'success', summary: 'Xoá thành công' });
   }
 }

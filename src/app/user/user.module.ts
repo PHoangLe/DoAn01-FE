@@ -18,6 +18,9 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { AvatarModule } from 'primeng/avatar';
 import { GalleriaModule } from 'primeng/galleria';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 
 
@@ -43,7 +46,10 @@ import { GalleriaModule } from 'primeng/galleria';
     RadioButtonModule,
     BreadcrumbModule,
     AvatarModule,
-    GalleriaModule
+    GalleriaModule,
+    ToastModule,
+    MessageModule,
+    MessagesModule
   ]
 })
 export class UserModule { }
