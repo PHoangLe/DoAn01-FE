@@ -1,0 +1,24 @@
+:host ::ng-deep {
+  .p-divider .p-divider-content {
+    background-color: #fee1be;
+  }
+}
+.container-fluid {
+  position: fixed;
+  bottom: 0;
+  background-color: #fee1be;
+  max-height: 200px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  .about-us,
+  .contact {
+    position: relative;
+    margin: auto;
+    width: 80%;
+  }
+  img {
+    max-width: 10vw;
+    max-height: 10vh;
+  }
+}
