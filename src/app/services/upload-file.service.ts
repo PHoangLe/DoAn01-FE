@@ -83,7 +83,6 @@ export class UploadFileService {
     const filePath = `${this.basePathAvatar}/ava-${localStorage.getItem("userID")}`
     const storage = getStorage();
     const starsRef = ref(storage, filePath);
-    console.log(starsRef)
   }
 
   public getFileUrl(): Array<string> {
@@ -103,7 +102,7 @@ export class UploadFileService {
   }
 
   getPetImageUrl(avatarLink: string) {
-    const shelterID = this.shelterService.getShelterByUserID();
+    const shelterID = this.shelterService.getShelterIDByUserID();
     return this.storage.ref(`Pet/shelter-${shelterID}/${avatarLink}`).getDownloadURL();
   }
 

@@ -1,0 +1,80 @@
+<app-header></app-header>
+<app-widget
+  [breadcrumbItimes]="breadcrumbItimes"
+  img="'https://i.ibb.co/y6znmC0/mikhail-vasilyev-Nodtn-Cs-Ld-TE-unsplash-2.jpg'"
+></app-widget>
+<div class="container p-4">
+  <div class="info">
+    <p-galleria
+      [value]="listImg"
+      [showIndicators]="false"
+      [showItemNavigatorsOnHover]="true"
+      [showItemNavigators]="true"
+      [responsiveOptions]="responsiveOptions"
+      [containerStyle]="{ 'max-width': '760px' }"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img
+          [src]="item"
+          style="width: 80%; display: block; padding-bottom: 10px"
+        />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+          <img [src]="item" class="h-100" style="display: block; width: 20%" />
+        </div>
+      </ng-template>
+    </p-galleria>
+
+    <div class="pet-info">
+      <div class="basic-info ps-4">
+        <h1>{{ pet.animalName }}</h1>
+        <h5><b>Giống:</b> {{ pet.animalBreed }}</h5>
+        <h5><b>Giới tính:</b> {{ pet.animalGender ? "Đực" : "Cái" }}</h5>
+        <h5><b>Tuổi:</b> {{ pet.animalAge }}</h5>
+        <h5><b>Màu sắc:</b> {{ pet.animalColor }}</h5>
+      </div>
+
+      <p-divider align="left" class="pt-2">
+        <div class="inline-flex align-items-center">
+          <b>Tình trạng</b>
+        </div>
+      </p-divider>
+      <div class="status-info ps-4 pt-2">
+        <h5><b>Tiêm phòng:</b> {{ pet.vaccinated ? "Đã tiêm" : "Chưa" }}</h5>
+        <h5><b>Triệt sản:</b> {{ pet.deWormed ? "Rồi" : "Chưa" }}</h5>
+        <h5><b>Xổ giun:</b> {{ pet.sterilized ? "Rồi" : "Chưa" }}</h5>
+        <h5><b>Thân thiện:</b> {{ pet.friendly ? "Có" : "Không" }}</h5>
+      </div>
+      <p-divider align="left" class="pt-2">
+        <div class="inline-flex align-items-center">
+          <b>Người nhận nuôi online</b>
+        </div>
+      </p-divider>
+
+      <div class="ps-4">
+        <div *ngFor="let user of listOnlineAdoptor">
+          <p-avatar
+            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+            size="large"
+            shape="circle"
+          ></p-avatar>
+        </div>
+      </div>
+      <div class="button-group pt-2">
+        <button class="btn btn-primary">Sửa thông tin</button>
+        <button class="btn btn-secondary" (click)="deletePet()">
+          Xoá thú cưng
+        </button>
+        <p-toast key="hidePet" [preventOpenDuplicates]="true"></p-toast>
+      </div>
+    </div>
+  </div>
+  <div class="detail-status pt-4">
+    <p-divider align="left">
+      <div class="inline-flex align-items-center">
+        <h5><b>Tình trạng sức khoẻ</b></h5>
+      </div>
+    </p-divider>
+  </div>
+</div>

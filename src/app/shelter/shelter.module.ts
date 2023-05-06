@@ -16,19 +16,26 @@ import { PaginatorModule } from 'primeng/paginator';
 import { DataViewModule } from 'primeng/dataview';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
-import { PetAdoptService } from '../services/pet-adopt.service';
-import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
+import { GalleriaModule } from 'primeng/galleria';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { AvatarModule } from 'primeng/avatar';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
+import { PetDetailComponent } from './pet-detail/pet-detail.component';
+import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
   declarations: [
     LandingComponent,
     PetAdoptionComponent,
-    AddPetComponent
+    AddPetComponent,
+    PetDetailComponent
 
   ],
   imports: [
@@ -50,7 +57,13 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     BreadcrumbModule,
     DynamicDialogModule,
     TableModule,
-    InputTextareaModule
-  ]
+    InputTextareaModule,
+    GalleriaModule,
+    AvatarModule,
+    ToastModule,
+    MessageModule,
+    MessagesModule
+  ],
+  providers: [MessageService]
 })
 export class ShelterModule { }

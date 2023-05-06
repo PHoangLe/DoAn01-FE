@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
 import { Shelter } from 'src/app/model/Shelter';
-import { PetAdoptService } from 'src/app/services/pet-adopt.service';
+import { PetService } from 'src/app/services/pet.service';
 import { ShelterService } from 'src/app/services/shelter.service';
 
 @Component({
@@ -12,191 +13,28 @@ import { ShelterService } from 'src/app/services/shelter.service';
 })
 export class PetAdoptionComponent implements OnInit {
 
-  // protected pets: Pet[] ;
   protected pets;
   protected defaultPets;
   protected listShelter: Shelter[];
   protected selectedShelter: string;
-  protected selectedBreed: string;
+  protected selectedSpecie: string;
   protected currentPage = 1;
   protected pageSize = 20;
   protected sortField = '';
   protected searchValue;
-  protected sortOrder = 1; // thứ tự sắp xếp (1: tăng dần, -1: giảm dần)
-  protected petBreed = [
+  protected sortOrder = 1;
+  protected petSpecie = [
     { id: "All", value: "Tất cả" },
     { id: "Dog", value: "Chó" },
     { id: "Cat", value: "Mèo" }
   ]
   protected breadcrumbItimes: MenuItem[];
-
-
-  constructor(private shelterService: ShelterService, private petAdoptService: PetAdoptService) {
+  constructor(private shelterService: ShelterService, private PetService: PetService) {
   }
 
   ngOnInit(): void {
-    this.pets = [
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642aasdasdsadc8231f4546f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true,
-        shelterID: "642ae9ac8231f454f138b86f"
-      },
-      {
-        animalName: "John",
-        animalImg: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        animalBreed: "Dog",
-        animalAge: "3",
-        animalGender: true
-      },
-    ];
-    this.defaultPets = [...this.pets]
-    // this.getAllPets();
+
+    this.getAllPets();
     this.getAllShelter()
     this.breadcrumbItimes = [
       {
@@ -206,13 +44,11 @@ export class PetAdoptionComponent implements OnInit {
         label: 'Danh sách thú cưng',
       }
     ]
-
   }
 
   getAllShelter() {
     this.shelterService.getAllShelter().subscribe(response => {
       this.listShelter = this.shelterService.convertToShelter(response)
-      this.defaultPets = [...this.pets]
 
     }),
       err => {
@@ -221,8 +57,9 @@ export class PetAdoptionComponent implements OnInit {
   }
 
   getAllPets() {
-    this.petAdoptService.getAllPets().subscribe(response => {
-      this.pets = this.petAdoptService.convertToPets(response)
+    this.PetService.getAllPets().subscribe(response => {
+      this.pets = this.PetService.convertToPets(response)
+      this.defaultPets = [...this.pets]
     }),
       err => {
         console.log(err.error.message)
@@ -231,12 +68,10 @@ export class PetAdoptionComponent implements OnInit {
 
   onCheckboxShelterChange(event) {
     if (event.checked.length > 0) {
-      console.log("is checked")
       this.selectedShelter = event.checked[0].shelterID
       this.pets = this.pets.filter(pet => pet.shelterID == this.selectedShelter)
     }
     else {
-      console.log("false")
       this.selectedShelter = null
       this.pets = [...this.defaultPets]
     }
@@ -244,11 +79,11 @@ export class PetAdoptionComponent implements OnInit {
 
   onCheckboxBreedChange(event) {
     this.pets = [...this.defaultPets]
-    if (event.value == "All") {
+    if (event.value === "All") {
       return
     }
-    console.log(0)
-    this.pets = this.pets.filter(pet => pet.animalBreed == this.selectedBreed)
+    this.pets = this.pets.filter(pet => pet.animalSpecie === this.selectedSpecie)
+
   }
 
 }

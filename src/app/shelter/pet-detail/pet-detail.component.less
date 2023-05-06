@@ -1,0 +1,109 @@
+:host::ng-deep {
+  .p-breadcrumb {
+    width: fit-content;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #f1ac57;
+  }
+  .p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+    color: #fffafa;
+  }
+  .p-breadcrumb ul li.p-breadcrumb-chevron {
+    color: #fffafa;
+  }
+  .p-divider.p-divider-horizontal {
+    font-size: 1.3rem;
+    font-weight: 350;
+  }
+  .p-galleria-thumbnail-wrapper {
+    border-radius: 10px;
+  }
+  .p-galleria .p-galleria-thumbnail-container {
+    background-color: transparent;
+  }
+
+  @media (max-width: 767px) {
+    .p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+      color: #fffafa;
+      font-size: 12px;
+    }
+  }
+}
+
+.widget {
+  height: 200px;
+  background-image: url("https://i.ibb.co/y6znmC0/mikhail-vasilyev-Nodtn-Cs-Ld-TE-unsplash-2.jpg");
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  background-blend-mode: multiply;
+  .content {
+    width: fit-content;
+    padding-top: 60px;
+    margin-left: 20px;
+    h1 {
+      width: fit-content;
+      color: #fffafa;
+      font-weight: 600;
+    }
+  }
+}
+
+.container {
+  .info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .status-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .button-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  h1 {
+    font-weight: 500;
+  }
+  h5 {
+    font-weight: 345;
+  }
+}
+@media (max-width: 767px) {
+  .widget {
+    height: 100px;
+    .content {
+      width: fit-content;
+      padding-top: 10px;
+      h1 {
+        padding-top: 0;
+        color: #fffafa;
+        font-weight: 600;
+      }
+    }
+  }
+  .container {
+    .info,
+    .status-info {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 10px 40px;
+    }
+    .button-group {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 20px;
+      button {
+        width: 100%;
+      }
+    }
+    h5 {
+      font-weight: 345;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { catchError } from 'rxjs';
 import { Pet } from 'src/app/model/Pet';
-import { PetAdoptService } from 'src/app/services/pet-adopt.service';
+import { PetService } from 'src/app/services/pet.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
@@ -25,10 +25,10 @@ export class AddPetComponent {
 
   specieOptions = [
     {
-      id: '0', value: 'Chó'
+      id: 'Dog', value: 'Chó'
     },
     {
-      id: '1', value: 'Mèo'
+      id: 'Cat', value: 'Mèo'
     }
   ]
   listStatus = [
@@ -49,7 +49,7 @@ export class AddPetComponent {
   avatarUrl: any;
   othersImg: Array<File> = new Array
 
-  constructor(private petService: PetAdoptService, public ref: DynamicDialogRef, private builder: FormBuilder, private fileUpload: UploadFileService) { }
+  constructor(private petService: PetService, public ref: DynamicDialogRef, private builder: FormBuilder, private fileUpload: UploadFileService) { }
 
   addPetForm = this.builder.group({
     petName: this.builder.control('', Validators.required),

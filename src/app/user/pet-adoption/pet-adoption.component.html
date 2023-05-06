@@ -1,10 +1,8 @@
 <app-header></app-header>
-<div class="widget">
-  <div class="content">
-    <h1>Danh sách thú cưng</h1>
-    <p-breadcrumb [model]="breadcrumbItimes"></p-breadcrumb>
-  </div>
-</div>
+<app-widget
+  [breadcrumbItimes]="breadcrumbItimes"
+  [img]="'https://i.ibb.co/TkTFnmM/jamie-street-s9-Tf1e-BDFqw-unsplash.jpg'"
+></app-widget>
 <div class="container d-flex m-0 p-0">
   <div
     class="side-filter rounded-3 d-flex flex-column col-3 col-sm-2 col-lg-2 m-2"
@@ -16,7 +14,7 @@
           <i class="pi pi-search"></i>
           <input
             type="text"
-            class="rounded-4 p-1 ps-2 w-100"
+            class="rounded-1 p-1 ps-4 w-100"
             pInputText
             [(ngModel)]="searchValue"
           />
@@ -25,12 +23,12 @@
     </div>
     <div class="pet-type w-100 p-2">
       <h4>Loại</h4>
-      <div *ngFor="let pet of petBreed" class="field-checkbox p-1">
+      <div *ngFor="let pet of petSpecie" class="field-checkbox p-1">
         <p-radioButton
           name="group"
           [value]="pet.id"
           [inputId]="pet.id"
-          [(ngModel)]="selectedBreed"
+          [(ngModel)]="selectedSpecie"
           (onClick)="onCheckboxBreedChange($event)"
         ></p-radioButton>
         <label [for]="pet.id">{{ pet.value }}</label>
@@ -68,3 +66,4 @@
     </p-dataView>
   </div>
 </div>
+<app-footer></app-footer>

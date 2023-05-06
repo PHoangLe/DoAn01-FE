@@ -14,52 +14,60 @@ export class HeaderComponent implements OnInit {
 
   imageUrl: string
   menuItems: MenuItem[]
-  userRole : string
+  userRole: string
+  isLoggin = false;
   constructor(
     private router: Router,
-    private activatedRoute : ActivatedRoute,
-    private authService : AuthService,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     fileUploadService: UploadFileService) {
-    fileUploadService.getAvatarImageUrl(JSON.parse(localStorage.getItem("userID")).value).subscribe(url => {
-      this.imageUrl = url;
-    },
-      error => {
-        fileUploadService.getDefaultUserAvatar().subscribe(url => {
+    try {
+      if (JSON.parse(localStorage.getItem("userID")).value) {
+        fileUploadService.getAvatarImageUrl(JSON.parse(localStorage.getItem("userID")).value).subscribe(url => {
           this.imageUrl = url;
-        }
-        )
-      },
-    );
+        },
+          error => {
+            fileUploadService.getDefaultUserAvatar().subscribe(url => {
+              this.imageUrl = url;
+            }
+            )
+          },
+        );
+        this.isLoggin = true
+      }
+    }
+    catch {
+      console.log("There are no user")
+    }
+
+
   }
   ngOnInit() {
+
     this.menuItems = [
 
-          {
-            label: 'Thông tin cá nhân',
-            icon: 'pi pi-user',
-            command: () => {
-            }
-          },
-          {
-            label: 'Đổi mật khẩu',
-            icon: 'pi pi-replay',
-            command: () => {
-            }
-          },
-          {
-            label: 'Đăng xuất',
-            icon: 'pi pi-sign-out',
-            command: () => {
-              this.signOut()
-            }
+      {
+        label: 'Thông tin cá nhân',
+        icon: 'pi pi-user',
+        command: () => {
+        }
+      },
+      {
+        label: 'Đổi mật khẩu',
+        icon: 'pi pi-replay',
+        command: () => {
+        }
+      },
+      {
+        label: 'Đăng xuất',
+        icon: 'pi pi-sign-out',
+        command: () => {
+          this.signOut()
+        }
 
       }
 
     ];
-  }
-
-  loggedIn(): boolean {
-    return JSON.parse(localStorage.getItem("userID")).value !== null
   }
 
   signOut() {
@@ -67,10 +75,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
-  routeToAdoptPage(){
-    if(localStorage.getItem("userRoles") === "ROLE_SHELTER")
+  routeToAdoptPage() {
+    const roles = JSON.parse(localStorage.getItem("userRoles")).value;
+    if (roles.includes('ROLE_SHELTER_MANAGER'))
       this.router.navigate(['shelter/adopt'])
-      else
+    else
       this.router.navigate(['user/adopt'])
   }
 

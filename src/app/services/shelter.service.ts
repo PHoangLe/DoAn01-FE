@@ -17,8 +17,7 @@ export class ShelterService {
     return this.http.get(this.baseUrl + '/getAllShelter', { headers })
   }
 
-  async getShelterByUserID(): Promise<any> {
-    let shelter;
+  async getShelterIDByUserID(): Promise<any> {
     let headers = this.getHttpHeader();
     const response = await this.http.get(this.baseUrl + `/getShelterByUserID/${JSON.parse(localStorage.getItem("userID")).value}`, { headers }).toPromise();
     return this.toShelter(response).shelterID;

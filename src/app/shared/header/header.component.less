@@ -1,36 +1,39 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
-img{
+img {
   min-width: 100px;
   height: 50px;
   object-fit: contain;
 }
-.container-fluid img{
-  max-width: 10vw;
-  height: 10vh;
+.container-fluid {
+  background-color: #fee1be;
+  img {
+    max-width: 10vw;
+    height: 10vh;
+  }
 }
 
-#btn-sign-up{
+#btn-sign-up {
   background-color: var(--primary-color);
   border-radius: 30px;
 }
 #btn-sign-up {
-  a{
+  a {
     color: wheat;
   }
 }
 
 .navbar-nav {
-   li {
-    a{
+  li {
+    a {
       color: black;
       font-size: large;
       font-size: 20px;
       font-weight: 530;
       cursor: pointer;
-   }
+    }
   }
 }
 
@@ -38,8 +41,8 @@ img{
   display: inline-block;
   position: relative;
   color: var(--primary-color);
-  &::after{
-    content: '';
+  &::after {
+    content: "";
     position: absolute;
     width: 60%;
     transform: scaleX(0);

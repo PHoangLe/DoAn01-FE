@@ -17,40 +17,38 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  logIn(inputData: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'auth/authenticate', {
+  async logIn(inputData: any): Promise<any> {
+    return await (this.http.post(this.baseUrl + 'auth/authenticate', {
       userEmail: inputData.userEmail,
       userPassword: inputData.userPassword
     }, httpOptions
-    );
+    )).toPromise();
   }
 
-  registerNewUser(inputData: any): Observable<any> {
+  async registerNewUser(inputData: any): Promise<any> {
     this.setUserEmail(inputData.userEmail)
-    return this.http.post(this.baseUrl + 'auth/userRegister', {
+    return await (this.http.post(this.baseUrl + 'auth/userRegister', {
       userEmail: inputData.userEmail,
       userPassword: inputData.userPassword,
       userFirstName: this.getFirstName(inputData.userName),
       userLastName: this.getLastName(inputData.userName),
       userAvatar: ""
     }, httpOptions
-    );
+    )).toPromise();
   }
 
-  sendOTPVerifyEmail(inputData: any): Observable<any> {
-    console.log("type of sent email: " + typeof inputData)
-    console.log("sent email: " + inputData)
-    return this.http.post(this.baseUrl + 'otp/sendOTPConfirmEmail', {
+  async sendOTPVerifyEmail(inputData: any): Promise<any> {
+    return await (this.http.post(this.baseUrl + 'otp/sendOTPConfirmEmail', {
       emailAddress: inputData,
     }, httpOptions
-    );
+    )).toPromise();
   }
-  verifyEmail(inputData: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'otp/validateOTPConfirmEmail', {
+  async verifyEmail(inputData: any): Promise<any> {
+    return await (this.http.post(this.baseUrl + 'otp/validateOTPConfirmEmail', {
       emailAddress: this.userEmail,
       otp: inputData.otp
     }, httpOptions
-    );
+    )).toPromise();
   }
 
   loginGoogle(inputData: any): Observable<any> {
