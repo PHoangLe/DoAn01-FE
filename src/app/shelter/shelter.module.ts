@@ -27,10 +27,11 @@ import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { MessageModule } from 'primeng/message';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
 import { TagModule } from 'primeng/tag';
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -67,8 +68,9 @@ import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.compo
     ToastModule,
     MessageModule,
     MessagesModule,
-    TagModule
+    TagModule,
+    ConfirmDialogModule
   ],
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class ShelterModule { }

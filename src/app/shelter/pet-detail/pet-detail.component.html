@@ -63,7 +63,30 @@
         <button class="btn btn-secondary" (click)="deletePet()">
           Xoá thú cưng
         </button>
-        <p-toast key="hidePet" [preventOpenDuplicates]="true"></p-toast>
+        <p-toast key="deletePet" [preventOpenDuplicates]="true"></p-toast>
+        <p-confirmDialog #cd position="bottom" [style]="{ width: '50vw' }">
+          <ng-template pTemplate="header">
+            <h3>Xoá thú cưng</h3>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              pButton
+              icon="pi pi-times"
+              label="Huỷ"
+              (click)="cd.reject()"
+            ></button>
+            <button
+              class="btn btn-primary"
+              type="button"
+              pButton
+              icon="pi pi-check"
+              label="Xác nhận"
+              (click)="cd.accept()"
+            ></button>
+          </ng-template>
+        </p-confirmDialog>
       </div>
     </div>
   </div>

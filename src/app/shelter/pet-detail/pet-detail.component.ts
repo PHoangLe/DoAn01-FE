@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmEventType, ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
 import { PetService } from 'src/app/services/pet.service';
 
@@ -21,7 +21,9 @@ export class PetDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private petService: PetService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private router: Router) {
   }
   ngOnInit(): void {
     this.getPageData()
@@ -61,6 +63,27 @@ export class PetDetailComponent implements OnInit {
   }
 
   deletePet() {
-    this.messageService.add({ key: 'hidePet', severity: 'success', summary: 'Xoá thành công' });
+    this.confirmationService.confirm({
+      message: `Bạn có chắc muốn xoá ${this.pet.animalName}?`,
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.petService.deletePet(this.pet.animalID).then(() => {
+          this.messageService.add({ key: 'deletePet', severity: 'success', summary: 'Xoá thành công' });
+        }).catch(error => {
+          this.messageService.add({ key: 'deletePet', severity: 'error', summary: error.error.message });
+        })
+      },
+      reject: (type) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+            break;
+        }
+      }
+    })
+    this.router.navigate(['/shelter/adopt']);
   }
 }

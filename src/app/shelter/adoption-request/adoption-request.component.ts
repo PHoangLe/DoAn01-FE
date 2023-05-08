@@ -40,9 +40,9 @@ export class AdoptionRequestComponent implements OnInit {
 
   getSeverity(status: string) {
     switch (status) {
-      case 'accept':
+      case 'COMPLETED':
         return 'success';
-      case 'pending':
+      case 'PENDING':
         return 'info';
       default:
         return 'warning';

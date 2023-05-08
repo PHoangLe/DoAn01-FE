@@ -58,6 +58,11 @@ export class PetService {
     }
   }
 
+  async deletePet(petId: string) {
+    let headers = this.getHttpHeader()
+    return await this.http.delete(this.baseUrl + `/deleteAnimal/${petId}`, { headers }).toPromise();
+  }
+
   setPet(pet: Pet) {
     this.pet = pet;
   }
