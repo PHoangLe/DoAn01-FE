@@ -1,0 +1,94 @@
+<app-header></app-header>
+<app-widget
+  [breadcrumbItimes]="breadcrumbItimes"
+  [img]="
+    'https://i.ibb.co/Khq1z5G/cristian-castillo-73py-V0-JJOm-E-unsplash.jpg'
+  "
+></app-widget>
+<div class="container p-4">
+  <div class="info pt-4">
+    <div class="pet-info my-auto">
+      <h1 class="ps-4">{{ requestInfo.animal.animalName }}</h1>
+      <div class="basic-info ps-4">
+        <h5><b>Giống:</b> {{ requestInfo.animal.animalBreed }}</h5>
+        <h5>
+          <b>Giới tính:</b>
+          {{ requestInfo.animal.animalGender ? "Đực" : "Cái" }}
+        </h5>
+        <h5><b>Tuổi:</b> {{ requestInfo.animal.animalAge }}</h5>
+        <h5><b>Màu sắc:</b> {{ requestInfo.animal.animalColor }}</h5>
+      </div>
+
+      <p-divider align="left" class="pt-2">
+        <div class="inline-flex align-items-center">
+          <b>Tình trạng</b>
+        </div>
+      </p-divider>
+      <div class="status-info ps-4 pt-2">
+        <h5>
+          <b>Tiêm phòng:</b>
+          {{ requestInfo.animal.vaccinated ? "Đã tiêm" : "Chưa" }}
+        </h5>
+        <h5>
+          <b>Triệt sản:</b> {{ requestInfo.animal.deWormed ? "Rồi" : "Chưa" }}
+        </h5>
+        <h5>
+          <b>Xổ giun:</b> {{ requestInfo.animal.sterilized ? "Rồi" : "Chưa" }}
+        </h5>
+        <h5>
+          <b>Thân thiện:</b> {{ requestInfo.animal.friendly ? "Có" : "Không" }}
+        </h5>
+      </div>
+      <p-divider align="left" class="pt-2">
+        <div class="inline-flex align-items-center">
+          <b>Người nhận nuôi online</b>
+        </div>
+      </p-divider>
+
+      <div class="ps-4" *ngFor="let user of requestInfo.animal.onlineAdaptors">
+        <p-avatar image="{{ user }}" size="large" shape="circle"></p-avatar>
+      </div>
+      <div class="ps-4 p-2" *ngIf="requestInfo.animal.onlineAdaptors">
+        Hiện tại chưa có người nhận nuôi
+      </div>
+    </div>
+    <div class="pet-img">
+      <img src="{{ requestInfo.animal.animalImg }}" alt="" />
+    </div>
+  </div>
+  <p-divider align="left">
+    <div class="inline-flex align-items-center">
+      <h5><b>Thông tin người nhận nuôi</b></h5>
+    </div>
+  </p-divider>
+  <div class="user pt-4 ps-4">
+    <div class="user-info d-flex p-3 rounded-4">
+      <img
+        class="rounded-circle col-4"
+        [src]="
+          requestInfo.user.userAvatar
+            ? requestInfo.user.userAvatar
+            : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963'
+        "
+        alt=""
+      />
+
+      <div class="col-8 ps-4 ps-4">
+        <h5>
+          <b>{{
+            requestInfo.user.userFirstName + " " + requestInfo.user.userLastName
+          }}</b>
+        </h5>
+        <h5>Email : {{ requestInfo.user.userEmail }}</h5>
+        <h5>
+          Số điện thoại:
+          {{
+            requestInfo.user.userPhone ? requestInfo.user.userPhone : "Chưa có"
+          }}
+        </h5>
+        <button class="btn btn-primary">Liên hệ</button>
+      </div>
+    </div>
+    <div class="btn-group"></div>
+  </div>
+</div>

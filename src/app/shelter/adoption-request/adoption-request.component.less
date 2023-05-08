@@ -1,0 +1,57 @@
+:host::ng-deep {
+  p-tag > span {
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+  .p-datatable {
+    padding: 20px;
+    width: 80%;
+    .p-datatable-header {
+      border: none;
+      border-radius: 15px;
+      background-color: #fff;
+    }
+
+    .p-sortable-column,
+    .p-datatable-thead > tr > th {
+      border: none;
+    }
+
+    .p-datatable-thead {
+      border: none;
+      tr {
+        th:first-child {
+          border-top-left-radius: 20px;
+        }
+        th:last-child {
+          border-top-right-radius: 20px;
+        }
+      }
+    }
+
+    .p-datatable-tbody {
+      border-radius: 15px;
+      tr > td {
+        border: none;
+      }
+    }
+
+    .p-datatable-tfoot {
+      width: 100%;
+    }
+  }
+  p-table {
+    display: flex;
+    justify-content: center;
+    table-layout: auto;
+  }
+
+  .p-paginator-bottom {
+    border-radius: 0 0 20px 20px;
+    border: none;
+  }
+}
+
+.p-selectable-row {
+  cursor: pointer;
+}

@@ -9,6 +9,7 @@ import { Pet } from '../model/Pet';
 export class PetService {
 
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/animal";
+  pet: Pet;
   constructor(private http: HttpClient, private shelterService: ShelterService) { }
 
   getAllPets() {
@@ -57,6 +58,43 @@ export class PetService {
     }
   }
 
+  setPet(pet: Pet) {
+    this.pet = pet;
+  }
+
+  setStoragePet(pet: Pet) {
+    sessionStorage.setItem("currentPet", JSON.stringify(pet));
+  }
+
+  getPet() {
+    return this.pet;
+  }
+  getStoragePet(): Pet {
+    const petJson = sessionStorage.getItem("currentPet");
+    if (!petJson) {
+      return null;
+    }
+    return new Pet(
+      JSON.parse(petJson)._animalID,
+      JSON.parse(petJson)._animalName,
+      JSON.parse(petJson)._shelterID,
+      JSON.parse(petJson)._animalAge,
+      JSON.parse(petJson)._animalGender,
+      JSON.parse(petJson)._animalWeight,
+      JSON.parse(petJson)._animalBreed,
+      JSON.parse(petJson)._animalSpecie,
+      JSON.parse(petJson)._animalColor,
+      JSON.parse(petJson)._animalImg ? JSON.parse(petJson)._animalImg : "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
+      JSON.parse(petJson)._animalStatus,
+      JSON.parse(petJson)._vaccinated,
+      JSON.parse(petJson)._deWormed,
+      JSON.parse(petJson)._sterilized,
+      JSON.parse(petJson)._friendly,
+      JSON.parse(petJson)._othersImg,
+      JSON.parse(petJson)._onlineAdaptors,
+      JSON.parse(petJson)._adopted
+    )
+  }
 
   convertToPets(input: any): Pet[] {
     var petList = new Array<Pet>

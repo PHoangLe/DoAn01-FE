@@ -24,7 +24,15 @@ export class PetDetailComponent implements OnInit {
     private messageService: MessageService) {
   }
   ngOnInit(): void {
-    this.getPet(this.route.snapshot.paramMap.get('id'))
+    this.getPageData()
+
+  }
+
+  async getPageData() {
+    this.pet = await this.petService.getStoragePet();
+    this.listImg.push(this.pet.animalImg);
+    this.listImg.push(...this.pet.othersImg);
+    this.listOnlineAdoptor.push(...this.pet.onlineAdaptors)
     this.breadcrumbItimes = [
       {
         label: 'Nhận nuôi'
@@ -33,7 +41,7 @@ export class PetDetailComponent implements OnInit {
         label: 'Danh sách thú cưng'
       },
       {
-        label: 'Chi tiết thú cưng'
+        label: this.pet.animalName
       }
     ]
     this.responsiveOptions = [
@@ -50,16 +58,6 @@ export class PetDetailComponent implements OnInit {
         numVisible: 1
       }
     ];
-  }
-
-  async getPet(id: string) {
-    await this.petService.getPetById(id).then(data => {
-      console.log(data)
-      this.pet = this.petService.convertToPet(data);
-    })
-    this.listImg.push(this.pet.animalImg);
-    this.listImg.push(...this.pet.othersImg);
-    this.listOnlineAdoptor.push(...this.pet.onlineAdaptors)
   }
 
   deletePet() {

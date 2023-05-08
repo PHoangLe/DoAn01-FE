@@ -52,14 +52,11 @@
         </div>
       </p-divider>
 
-      <div class="ps-4">
-        <div *ngFor="let user of listOnlineAdoptor">
-          <p-avatar
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-            size="large"
-            shape="circle"
-          ></p-avatar>
-        </div>
+      <div class="ps-4" *ngFor="let user of listUserImg">
+        <p-avatar image="{{ user }}" size="large" shape="circle"></p-avatar>
+      </div>
+      <div class="ps-4 p-2" *ngIf="listUserImg">
+        Hiện tại chưa có người nhận nuôi
       </div>
       <div class="button-group pt-2">
         <button class="btn btn-primary">Sửa thông tin</button>

@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
+import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
+import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 
 const routes: Routes = [
   {
@@ -16,9 +18,15 @@ const routes: Routes = [
   {
     path: 'pet-detail/:id',
     component: PetDetailComponent
+  },
+  {
+    path: 'adopt/adoption-request',
+    component: AdoptionRequestComponent,
+  },
+  {
+    path: 'adopt/adoption-detail/:id',
+    component: AdoptionDetailComponent
   }
-
-
 ];
 
 @NgModule({

@@ -28,14 +28,18 @@ import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
-
+import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
+import { TagModule } from 'primeng/tag';
+import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 
 @NgModule({
   declarations: [
     LandingComponent,
     PetAdoptionComponent,
     AddPetComponent,
-    PetDetailComponent
+    PetDetailComponent,
+    AdoptionRequestComponent,
+    AdoptionDetailComponent
 
   ],
   imports: [
@@ -62,7 +66,8 @@ import { MessageService } from 'primeng/api';
     AvatarModule,
     ToastModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    TagModule
   ],
   providers: [MessageService]
 })

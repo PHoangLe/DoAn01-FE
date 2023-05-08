@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
+import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
 import { PetService } from 'src/app/services/pet.service';
 
 @Component({
@@ -19,10 +20,19 @@ export class PetDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private petService: PetService,
+    private petAdopt: PetAdoptionService,
     private messageService: MessageService) {
   }
+
   ngOnInit(): void {
-    this.getPet(this.route.snapshot.paramMap.get('id'))
+    this.getPageData()
+  }
+
+  async getPageData() {
+    this.pet = await this.petService.getStoragePet();
+    console.log(this.pet);
+    this.listImg.push(this.pet.animalImg);
+    this.listImg.push(...this.pet.othersImg);
 
     this.responsiveOptions = [
       {
@@ -38,14 +48,6 @@ export class PetDetailComponent implements OnInit {
         numVisible: 1
       }
     ];
-  }
-
-  async getPet(id: string) {
-    await this.petService.getPetById(id).then(data => {
-      this.pet = this.petService.convertToPet(data);
-    })
-    this.listImg.push(this.pet.animalImg);
-    this.listImg.push(...this.pet.othersImg);
     this.breadcrumbItimes = [
       {
         label: 'Nhận nuôi'
@@ -73,7 +75,12 @@ export class PetDetailComponent implements OnInit {
 
   }
   onConfirm() {
+    this.petAdopt.sendAdoptionRequest(this.pet.animalID, this.pet.shelterID, JSON.parse(localStorage.getItem("userID")).value).then(() => {
 
+    })
+      .catch(error => {
+        console.log(error.error.message);
+      })
   }
 
 }
