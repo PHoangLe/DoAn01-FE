@@ -1,0 +1,177 @@
+<div class="avatar d-flex justify-content-center mt-4 rounded-3">
+  <span
+    class="m-4 my-2 rounded-1 d-flex justify-content-center align-items-center rounded-3"
+  >
+    <label class="custom-file-upload rounded-3">
+      <input
+        type="file"
+        accept="image/png, image/jpeg"
+        id="avatarInput"
+        (change)="selectedAvatar($event)"
+      />
+      <img src="{{ pet.animalImg }}" alt="" id="imgInput" class="w-100" />
+      <!-- <i class="pi pi-image" style="font-size: 2.5rem"></i> -->
+    </label>
+  </span>
+</div>
+<p-divider align="left">
+  <div class="inline-flex align-items-center">
+    <b>Thông tin</b>
+  </div>
+</p-divider>
+<div class="d-flex justify-content-start w-100">
+  <div class="detail-info m-4 my-2 w-100">
+    <span class="p-float-label">
+      <h6 class="addressLabel ps-0">Tên</h6>
+      <input
+        class="inputtext ps-1 w-100"
+        type="text"
+        [(ngModel)]="inputPet.animalName"
+      />
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel ps-0">Loại</h6>
+      <p-dropdown
+        [options]="specieOptions"
+        [autoDisplayFirst]="false"
+        [(ngModel)]="selectedSpecie"
+        optionLabel="value"
+      >
+      </p-dropdown>
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel ps-0">Cân nặng</h6>
+      <input
+        class="inputtext ps-1 w-100"
+        type="text"
+        [(ngModel)]="inputPet.animalWeight"
+      />
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel ps-0">Giống</h6>
+      <input
+        class="inputtext ps-1 w-100"
+        type="text"
+        [(ngModel)]="inputPet.animalBreed"
+      />
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel ps-0">Giới tính</h6>
+      <p-dropdown
+        [options]="genderOptions"
+        optionLabel="value"
+        [autoDisplayFirst]="false"
+        [(ngModel)]="selectedGender"
+      >
+      </p-dropdown>
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel ps-0">Màu sắc</h6>
+      <input
+        class="inputtext ps-1 w-100"
+        type="text"
+        [(ngModel)]="inputPet.animalColor"
+      />
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel ps-0">Tuổi</h6>
+      <input
+        class="inputtext ps-1 w-100"
+        type="text"
+        [(ngModel)]="inputPet.animalAge"
+      />
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel ps-0">Chi tiết</h6>
+      <!-- <textarea
+          class="inputtext ps-1 w-100"
+          id="textarea"
+          pInputTextarea
+          [autoResize]="true"
+        ></textarea> -->
+      <input
+        class="inputtext ps-1 w-100"
+        type="text"
+        [(ngModel)]="inputPet.animalStatus"
+      />
+    </span>
+  </div>
+</div>
+<!-- <div class="d-flex justify-content-start w-100">
+    <span class="m-4 my-2 w-100">
+      <h6 class="addressLabel ps-0">Chi tiết</h6>
+      <textarea
+        class="w-100"
+        name=""
+        id="textarea"
+        pInputTextarea
+        [autoResize]="true"
+      ></textarea>
+    </span>
+  </div> -->
+<div class="pet-status">
+  <p-divider align="left">
+    <div class="inline-flex align-items-center">
+      <b>Tình trạng</b>
+    </div>
+  </p-divider>
+  <div class="checkbox-container m-4 my-2 w-100">
+    <div *ngFor="let status of listStatus" class="field-checkbox p-1">
+      <p-checkbox
+        [id]="status.id"
+        class="pe-2"
+        [value]="status"
+        [inputId]="status.id"
+        [binary]="true"
+        [(ngModel)]="status.checked"
+        (onChange)="checkStatus($event)"
+      ></p-checkbox>
+      <label [for]="status.id">{{ status.value }}</label>
+    </div>
+  </div>
+</div>
+<div class="pet-image">
+  <p-divider align="left">
+    <div class="inline-flex align-items-center">
+      <b>Ảnh</b>
+    </div>
+  </p-divider>
+  <div class="img-container m-4 my-1" *ngIf="listImages">
+    <div class="img-content" *ngFor="let img of listImages">
+      <div class="btn-delete rounded-circle d-flex justify-content-center">
+        <i class="bi bi-x" style="color: #f5f5f5"></i>
+      </div>
+      <img src="{{ img }}" alt="" />
+    </div>
+  </div>
+  <div class="d-flex justify-content-center w-100">
+    <p-fileUpload
+      name="file[]"
+      class="w-100 m-4 my-1"
+      name="demo[]"
+      [showUploadButton]="false"
+      [multiple]="true"
+      [maxFileSize]="10000000"
+      (onSelect)="onSelectFiles($event)"
+    >
+      <ng-template pTemplate="content">
+        <!-- <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">
+              {{ file.name }} - {{ file.size }} bytes
+            </li>
+          </ul> -->
+      </ng-template>
+    </p-fileUpload>
+  </div>
+</div>
+<div class="button-group d-flex justify-content-center mt-2">
+  <button class="btn btn-secondary text-nowrap">Trở về</button>
+  <button
+    type="submit"
+    class="btn btn-primary text-nowrap"
+    (click)="updatePet()"
+  >
+    Cập nhật
+  </button>
+  <p-toast key="updatePet" [preventOpenDuplicates]="true"></p-toast>
+</div>

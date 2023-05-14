@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmEventType, ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Pet } from 'src/app/model/Pet';
 import { PetService } from 'src/app/services/pet.service';
+import { EditPetComponent } from './edit-pet/edit-pet.component';
 
 @Component({
   selector: 'app-pet-detail',
   templateUrl: './pet-detail.component.html',
-  styleUrls: ['./pet-detail.component.less']
+  styleUrls: ['./pet-detail.component.less'],
+  providers: [DialogService, MessageService]
 })
-export class PetDetailComponent implements OnInit {
+export class PetDetailComponent implements OnInit, OnDestroy {
 
   protected pet: Pet
   protected breadcrumbItimes: MenuItem[];
@@ -17,13 +20,19 @@ export class PetDetailComponent implements OnInit {
   protected responsiveOptions: any[];
   protected listUserImg = new Array<string>();
   protected listOnlineAdoptor = new Array<string>();
-
+  private ref: DynamicDialogRef;
   constructor(
     private route: ActivatedRoute,
     private petService: PetService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private router: Router) {
+    private router: Router,
+    private dialogService: DialogService) {
+  }
+  ngOnDestroy(): void {
+    if (this.ref) {
+      this.ref.close();
+    }
   }
   ngOnInit(): void {
     this.getPageData()
@@ -60,6 +69,19 @@ export class PetDetailComponent implements OnInit {
         numVisible: 1
       }
     ];
+  }
+
+  editPet() {
+    this.ref = this.dialogService.open(EditPetComponent, {
+      data: this.pet,
+      width: '50%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true
+    })
+    this.ref.onMaximize.subscribe((value) => {
+      this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
+    })
   }
 
   deletePet() {

@@ -32,6 +32,7 @@ import { AdoptionRequestComponent } from './adoption-request/adoption-request.co
 import { TagModule } from 'primeng/tag';
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { EditPetComponent } from './pet-detail/edit-pet/edit-pet.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     AddPetComponent,
     PetDetailComponent,
     AdoptionRequestComponent,
-    AdoptionDetailComponent
+    AdoptionDetailComponent,
+    EditPetComponent
 
   ],
   imports: [

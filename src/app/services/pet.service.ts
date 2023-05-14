@@ -29,7 +29,7 @@ export class PetService {
   }
 
 
-  async addPet(petData: any, avatarUrl: string, otherImg: string[]): Promise<any> {
+  async addPet(petData: any, avatarUrl: string, otherImgUrl: string[]): Promise<any> {
     let headers = this.getHttpHeader();
     const shelterID = await this.shelterService.getShelterIDByUserID();
     try {
@@ -48,7 +48,7 @@ export class PetService {
         "deWormed": petData.deWorm ? true : false,
         "sterilized": petData.sterilized ? true : false,
         "friendly": petData.friendly ? true : false,
-        "othersImg": otherImg
+        "othersImg": otherImgUrl
       }, { headers }).toPromise();
       return response;
     }
@@ -61,6 +61,28 @@ export class PetService {
   async deletePet(petId: string) {
     let headers = this.getHttpHeader()
     return await this.http.delete(this.baseUrl + `/deleteAnimal/${petId}`, { headers }).toPromise();
+  }
+
+  async updatePet(petData: any, avatarUrl: string, otherImgUrl: string[]) {
+    let headers = this.getHttpHeader();
+    const shelterID = await this.shelterService.getShelterIDByUserID();
+    return await this.http.put(this.baseUrl + '/updateAnimal', {
+      "shelterID": shelterID,
+      "animalName": petData.petName,
+      "animalAge": petData.petAge,
+      "animalGender": petData.petGender,
+      "animalWeight": petData.petWeight,
+      "animalBreed": petData.petBreed,
+      "animalSpecie": petData.petSpecie,
+      "animalColor": petData.petColor,
+      "animalImg": avatarUrl,
+      "animalStatus": petData.petDetails,
+      "vaccinated": petData.vaccinated ? true : false,
+      "deWormed": petData.deWorm ? true : false,
+      "sterilized": petData.sterilized ? true : false,
+      "friendly": petData.friendly ? true : false,
+      "othersImg": otherImgUrl
+    }, { headers }).toPromise();
   }
 
   setPet(pet: Pet) {

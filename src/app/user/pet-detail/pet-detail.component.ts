@@ -76,10 +76,11 @@ export class PetDetailComponent implements OnInit {
   }
   onConfirm() {
     this.petAdopt.sendAdoptionRequest(this.pet.animalID, this.pet.shelterID, JSON.parse(localStorage.getItem("userID")).value).then(() => {
-
+      this.messageService.add({ key: 'adoptPet', severity: 'info', summary: 'Gửi yêu cầu thành công!' })
     })
       .catch(error => {
         console.log(error.error.message);
+        this.messageService.add({ key: 'adoptPet', severity: 'error', summary: 'Có lỗi xảy ra! Xin liên hệ trại nuôi để được hỗ trợ' })
       })
   }
 

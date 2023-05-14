@@ -1,0 +1,103 @@
+:host ::ng-deep {
+  .p-fileupload {
+    border-radius: 10px;
+    .p-fileupload-buttonbar {
+      display: flex;
+      justify-content: end;
+    }
+    .p-fileupload-buttonbar .p-button {
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 5px;
+    }
+    .p-button {
+      background-color: red;
+      border: none;
+      border-radius: 7px;
+    }
+  }
+  .p-inputtext {
+    border: none;
+  }
+  #textarea {
+    border: solid 2px;
+  }
+}
+
+.detail-info {
+  h6 {
+    margin: 0.1rem;
+  }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 20px;
+}
+.inputtext {
+  height: 40px;
+  border-radius: 7px;
+}
+
+.checkbox-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 20px;
+}
+
+.img-container {
+  box-sizing: border-box;
+  .img-content {
+    width: fit-content;
+    position: relative;
+    .btn-delete {
+      position: absolute;
+      right: -7px;
+      top: -7px;
+      width: 20px;
+      height: 20px;
+
+      background-color: red;
+
+      cursor: pointer;
+    }
+    img {
+      border-radius: 5px;
+      max-width: 150px;
+      max-height: 150px;
+    }
+  }
+}
+.button-group {
+  gap: 10px;
+}
+.avatar {
+  span {
+    background-color: #bababa;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  height: 180px;
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  img {
+    height: 180px;
+    width: 180px;
+    object-fit: fill;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .detail-info {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

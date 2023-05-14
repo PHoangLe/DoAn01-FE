@@ -20,6 +20,10 @@ export class PetAdoptionService {
 
   async sendAdoptionRequest(petID: string, shelterID: string, userID: string): Promise<any> {
     let headers = this.getHttpHeader();
+    console.log("petID: ", petID)
+    console.log("userID: ", userID)
+    console.log("shelterID: ", shelterID)
+
     return await (this.http.post(this.baseUrl + "/sendAdoptRequest", {
       animalID: petID,
       shelterID: shelterID,
