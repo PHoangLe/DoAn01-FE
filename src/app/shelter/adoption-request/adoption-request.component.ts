@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem } from 'primeng/api';
 import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
 
@@ -13,7 +14,8 @@ export class AdoptionRequestComponent implements OnInit {
   listRequest: any[]
   constructor(
     private petAdopt: PetAdoptionService,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) { }
   ngOnInit(): void {
     this.getAdoptionRequest()
@@ -29,9 +31,10 @@ export class AdoptionRequestComponent implements OnInit {
 
 
   async getAdoptionRequest() {
+    this.spinner.show();
     await this.petAdopt.getAdoptionByShelter().then(adoption => {
-      console.log(adoption)
-      this.listRequest = adoption
+      this.listRequest = adoption;
+      this.spinner.hide();
     })
       .catch(error => {
         console.log(error.error.message)

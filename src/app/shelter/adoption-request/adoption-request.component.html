@@ -4,48 +4,53 @@
   [img]="
     'https://i.ibb.co/Khq1z5G/cristian-castillo-73py-V0-JJOm-E-unsplash.jpg'
   "
+  title="Yêu cầu nhận nuôi"
 ></app-widget>
-<p-table
-  [value]="listRequest"
-  [paginator]="true"
-  [rows]="3"
-  selectionMode="single"
-  [tableStyle]="{ 'min-width': '25rem' }"
-  stripedRows="true"
->
-  <ng-template pTemplate="header">
-    <tr>
-      <th style="min-width: 10%">Tên thú cưng</th>
-      <th style="min-width: 10%">Tên người nhận nuôi</th>
-      <th style="min-width: 10%">Ngày gửi yêu cầu</th>
-      <th style="min-width: 10%" class="d-flex justify-content-center">
-        Tình trạng
-      </th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-request>
-    <tr class="p-selectable-row" (click)="onRowSelect(request)">
-      <td>
-        {{ request.animal.animalName }}
-      </td>
-      <td>
-        {{ request.user.userFirstName + " " + request.user.userLastName }}
-      </td>
-      <td>
-        {{ request.application.date | date : "dd/MM/yyyy" }}
-      </td>
-      <td class="d-flex justify-content-center border border-0">
-        <p-tag
-          [value]="
-            request.application.applicationStatus === 'pending'
-              ? 'Đang chờ'
-              : request.application.applicationStatus === 'accepted'
-              ? 'Đã xác nhận'
-              : 'Từ chối'
-          "
-          [severity]="getSeverity(request.application.applicationStatus)"
-        ></p-tag>
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+<div class="content">
+  <p-table
+    [value]="listRequest"
+    [paginator]="true"
+    [rows]="5"
+    selectionMode="single"
+    [tableStyle]="{ 'min-width': '25rem' }"
+    stripedRows="true"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 10%">Tên thú cưng</th>
+        <th style="min-width: 10%">Tên người nhận nuôi</th>
+        <th style="min-width: 10%">Ngày gửi yêu cầu</th>
+        <th style="min-width: 10%" class="d-flex justify-content-center">
+          Tình trạng
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-request>
+      <tr class="p-selectable-row" (click)="onRowSelect(request)">
+        <td>
+          {{ request.animal.animalName }}
+        </td>
+        <td>
+          {{ request.user.userFirstName + " " + request.user.userLastName }}
+        </td>
+        <td>
+          {{ request.date | date : "dd/MM/yyyy" }}
+        </td>
+        <td class="d-flex justify-content-center border border-0">
+          <p-tag
+            [value]="
+              request.applicationStatus === 'PENDING'
+                ? 'Đang chờ'
+                : request.applicationStatus === 'COMPLETED'
+                ? 'Đã xác nhận'
+                : 'Từ chối'
+            "
+            [severity]="getSeverity(request.applicationStatus)"
+          ></p-tag>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<app-loading></app-loading>
+<app-footer></app-footer>

@@ -104,7 +104,8 @@
                 "node_modules/primeng/resources/primeng.min.css",
                 "node_modules/primeflex/primeflex.css",
                 "node_modules/primeicons/primeicons.css",
-                "node_modules/quill/dist/quill.snow.css"
+                "node_modules/quill/dist/quill.snow.css",
+                "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
             ],
             "scripts": []
           }

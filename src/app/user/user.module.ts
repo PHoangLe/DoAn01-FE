@@ -22,6 +22,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { BankingComponent } from './pet-detail/banking/banking.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -31,7 +32,8 @@ import { BankingComponent } from './pet-detail/banking/banking.component';
     RequestAccountComponent,
     PetAdoptionComponent,
     PetDetailComponent,
-    BankingComponent
+    BankingComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

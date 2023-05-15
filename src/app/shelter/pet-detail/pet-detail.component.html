@@ -2,6 +2,7 @@
 <app-widget
   [breadcrumbItimes]="breadcrumbItimes"
   img="'https://i.ibb.co/y6znmC0/mikhail-vasilyev-Nodtn-Cs-Ld-TE-unsplash-2.jpg'"
+  title="Chi tiết thú cưng"
 ></app-widget>
 <div class="container p-4">
   <div class="info">
@@ -58,38 +59,38 @@
       <div class="ps-4 p-2" *ngIf="listUserImg">
         Hiện tại chưa có người nhận nuôi
       </div>
-      <div class="button-group pt-2">
+      <div class="button-group pt-2 d-flex justify-content-center">
         <button class="btn btn-primary" (click)="editPet()">
           Sửa thông tin
         </button>
-        <button class="btn btn-secondary" (click)="deletePet()">
+        <!-- <button class="btn btn-secondary" (click)="deletePet()">
           Xoá thú cưng
-        </button>
-        <p-toast key="deletePet" [preventOpenDuplicates]="true"></p-toast>
-        <p-confirmDialog #cd position="bottom" [style]="{ width: '50vw' }">
-          <ng-template pTemplate="header">
-            <h3>Xoá thú cưng</h3>
-          </ng-template>
-          <ng-template pTemplate="footer">
-            <button
-              class="btn btn-secondary"
-              type="button"
-              pButton
-              icon="pi pi-times"
-              label="Huỷ"
-              (click)="cd.reject()"
-            ></button>
-            <button
-              class="btn btn-primary"
-              type="button"
-              pButton
-              icon="pi pi-check"
-              label="Xác nhận"
-              (click)="cd.accept()"
-            ></button>
-          </ng-template>
-        </p-confirmDialog>
+        </button> -->
       </div>
+      <p-toast key="deletePet" [preventOpenDuplicates]="true"></p-toast>
+      <p-confirmDialog #cd position="bottom" [style]="{ width: '50vw' }">
+        <ng-template pTemplate="header">
+          <h3>Xoá thú cưng</h3>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            pButton
+            icon="pi pi-times"
+            label="Huỷ"
+            (click)="cd.reject()"
+          ></button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            pButton
+            icon="pi pi-check"
+            label="Xác nhận"
+            (click)="cd.accept()"
+          ></button>
+        </ng-template>
+      </p-confirmDialog>
     </div>
   </div>
   <div class="detail-status pt-4">

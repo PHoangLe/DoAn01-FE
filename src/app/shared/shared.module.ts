@@ -9,6 +9,9 @@ import { FooterComponent } from './footer/footer.component';
 import { WidgetComponent } from './widget/widget.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
   imports: [
@@ -17,19 +20,22 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     AvatarModule,
     DividerModule,
     FontAwesomeModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    NgxSpinnerModule
   ],
   declarations: [
     HeaderComponent,
     PetCardComponent,
     FooterComponent,
-    WidgetComponent
+    WidgetComponent,
+    LoadingAnimationComponent
   ],
   exports: [
     HeaderComponent,
     PetCardComponent,
     FooterComponent,
-    WidgetComponent
+    WidgetComponent,
+    LoadingAnimationComponent
   ]
 })
 export class AppSharedModule { }

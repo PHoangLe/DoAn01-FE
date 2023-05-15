@@ -71,9 +71,13 @@
 }
 .avatar {
   span {
+    border-radius: 10px;
     background-color: #bababa;
-    object-fit: cover;
-    object-position: center;
+    width: fit-content;
+    img {
+      object-fit: cover;
+      object-position: center;
+    }
   }
 }
 
@@ -83,7 +87,7 @@ input[type="file"] {
 
 .custom-file-upload {
   height: 180px;
-  width: 180px;
+  width: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,8 +95,9 @@ input[type="file"] {
   cursor: pointer;
   img {
     height: 180px;
-    width: 180px;
-    object-fit: fill;
+    width: fit-content;
+    max-width: 300px;
+    object-fit: contain;
   }
 }
 
