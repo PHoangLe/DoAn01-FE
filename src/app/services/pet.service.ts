@@ -65,18 +65,18 @@ export class PetService {
 
   async updatePet(petData: any, avatarUrl: string, otherImgUrl: string[]) {
     let headers = this.getHttpHeader();
-    const shelterID = await this.shelterService.getShelterIDByUserID();
     return await this.http.put(this.baseUrl + '/updateAnimal', {
-      "shelterID": shelterID,
-      "animalName": petData.petName,
-      "animalAge": petData.petAge,
-      "animalGender": petData.petGender,
-      "animalWeight": petData.petWeight,
-      "animalBreed": petData.petBreed,
-      "animalSpecie": petData.petSpecie,
-      "animalColor": petData.petColor,
+      "animalID": petData.animalID,
+      "shelterID": petData.shelterID,
+      "animalName": petData.animalName,
+      "animalAge": petData.animalAge,
+      "animalGender": petData.animalGender,
+      "animalWeight": petData.animalWeight,
+      "animalBreed": petData.animalBreed,
+      "animalSpecie": petData.animalSpecie,
+      "animalColor": petData.animalColor,
       "animalImg": avatarUrl,
-      "animalStatus": petData.petDetails,
+      "animalStatus": petData.animalStatus,
       "vaccinated": petData.vaccinated ? true : false,
       "deWormed": petData.deWorm ? true : false,
       "sterilized": petData.sterilized ? true : false,

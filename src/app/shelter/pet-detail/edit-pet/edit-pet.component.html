@@ -138,7 +138,10 @@
   </p-divider>
   <div class="img-container m-4 my-1" *ngIf="listImages">
     <div class="img-content" *ngFor="let img of listImages">
-      <div class="btn-delete rounded-circle d-flex justify-content-center">
+      <div
+        class="btn-delete rounded-circle d-flex justify-content-center"
+        (click)="deleteImg(img)"
+      >
         <i class="bi bi-x" style="color: #f5f5f5"></i>
       </div>
       <img src="{{ img }}" alt="" />

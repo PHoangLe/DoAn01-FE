@@ -21,6 +21,7 @@ export class EditPetComponent implements OnInit {
   avatarUrl: any;
   othersImg: Array<File> = new Array
   listImages: string[];
+  removedImgs: Array<string> = new Array
   genderOptions = [
     {
       id: '0', value: 'Cái'
@@ -61,7 +62,6 @@ export class EditPetComponent implements OnInit {
     private config: DynamicDialogConfig,
     private messageService: MessageService) {
     this.pet = this.config.data
-    console.log(this.pet)
   }
 
   async ngOnInit() {
@@ -86,17 +86,20 @@ export class EditPetComponent implements OnInit {
     this.pet.deWormed = this.listStatus[1].checked;
     this.pet.vaccinated = this.listStatus[2].checked;
     this.pet.friendly = this.listStatus[3].checked;
-    console.log(this.inputPet)
+
     await this.pushFileToCloud();
+    await this.removeImgFromStorage();
     let uploadedDocUrl = this.fileUpload.getFileUrl()
+    console.log(this.inputPet)
     this.petService.updatePet(this.inputPet, this.avatarUrl, uploadedDocUrl).then(() => {
       this.messageService.add({ key: 'updatePet', severity: 'success', summary: 'Cập nhật thành công' });
       setTimeout(() => {
         this.ref.close()
-      }, 1500);
+      }, 1000);
     })
       .catch(error => {
-        console.log(error);
+        console.log(error.error.message);
+        this.messageService.add({ key: 'updatePet', severity: 'error', summary: error.error.message });
       });
   }
 
@@ -122,5 +125,16 @@ export class EditPetComponent implements OnInit {
 
   checkStatus(event) {
     console.log(this.listStatus)
+  }
+
+  deleteImg(imgLink) {
+    this.removedImgs.push(imgLink);
+    this.listImages = this.listImages.filter(e => e !== imgLink);
+  }
+
+  async removeImgFromStorage() {
+    await this.removedImgs.forEach(img => {
+      this.fileUpload.deleteFile(img);
+    });
   }
 }
