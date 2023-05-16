@@ -6,6 +6,7 @@ import { Shelter } from 'src/app/model/Shelter';
 import { PetService } from 'src/app/services/pet.service';
 import { ShelterService } from 'src/app/services/shelter.service';
 import { AddPetComponent } from './add-pet/add-pet.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-pet-adoption',
@@ -34,7 +35,13 @@ export class PetAdoptionComponent implements OnDestroy {
 
   ref: DynamicDialogRef;
 
-  constructor(private shelterService: ShelterService, private PetService: PetService, public dialogService: DialogService, public messageService: MessageService) {
+  constructor(
+    private shelterService: ShelterService,
+    private PetService: PetService,
+    public dialogService: DialogService,
+    public messageService: MessageService,
+    private spinner: NgxSpinnerService
+  ) {
   }
 
 
@@ -76,13 +83,16 @@ export class PetAdoptionComponent implements OnDestroy {
   }
 
   async getAllPets() {
+    this.spinner.show();
     await this.PetService.getAllPetsByShelter().then(response => {
+      console.log(response);
       this.pets = this.PetService.convertToPets(response)
     }),
       err => {
         console.log(err.error.message)
       }
     this.defaultPets = [...this.pets]
+    this.spinner.hide();
   }
 
   onCheckboxBreedChange(event) {

@@ -4,6 +4,7 @@
   [img]="
     'https://i.ibb.co/y6znmC0/mikhail-vasilyev-Nodtn-Cs-Ld-TE-unsplash-2.jpg'
   "
+  title="Chi tiết thú cưng"
 ></app-widget>
 <div class="container p-4">
   <div class="info">
@@ -51,25 +52,30 @@
         </div>
       </p-divider>
 
-      <div class="ps-4">
-        <p-avatar
-          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-          size="large"
-          shape="circle"
-        ></p-avatar>
-        <p-avatar
-          image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
-          size="large"
-          shape="circle"
-        ></p-avatar>
+      <div class="ps-4" *ngFor="let user of listUserImg">
+        <p-avatar image="{{ user }}" size="large" shape="circle"></p-avatar>
+      </div>
+      <div class="ps-4 p-2" *ngIf="listUserImg">
+        Hiện tại chưa có người nhận nuôi
       </div>
       <div class="button-group pt-2">
-        <button class="btn btn-primary" (click)="requestAdoption()">
+        <button
+          class="btn btn-primary"
+          (click)="requestAdoption()"
+          [disabled]="isSendAdoption"
+        >
           Nhận nuôi
         </button>
-        <button class="btn btn-secondary">Nhận nuôi online</button>
+        <button
+          class="btn btn-secondary"
+          (click)="onlineAdopt()"
+          [disabled]="isSendOnlAdoption"
+        >
+          Nhận nuôi online
+        </button>
       </div>
     </div>
+    <p-toast key="adoptPet"></p-toast>
     <div class="card flex justify-content-center">
       <p-toast
         position="bottom-center"
@@ -111,3 +117,4 @@
     </p-divider>
   </div>
 </div>
+<app-footer></app-footer>

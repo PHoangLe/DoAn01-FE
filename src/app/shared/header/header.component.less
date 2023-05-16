@@ -2,6 +2,12 @@
   margin: 0;
   padding: 0;
 }
+
+:host ::ng-deep {
+  .p-avatar.p-avatar-circle {
+    background-color: #f5f5f5;
+  }
+}
 img {
   min-width: 100px;
   height: 50px;
@@ -28,11 +34,24 @@ img {
 .navbar-nav {
   li {
     a {
-      color: black;
+      color: #313639;
       font-size: large;
       font-size: 20px;
       font-weight: 530;
       cursor: pointer;
+      text-decoration: none;
+    }
+    > ul {
+      background-color: #fee1be;
+      position: absolute;
+      display: none;
+      > li:hover > a {
+        color: var(--primary-color);
+      }
+    }
+    &:hover > ul {
+      display: block;
+      list-style: none;
     }
   }
 }

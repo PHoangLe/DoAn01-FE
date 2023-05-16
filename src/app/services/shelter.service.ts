@@ -23,6 +23,12 @@ export class ShelterService {
     return this.toShelter(response).shelterID;
   }
 
+  async getShelterByShelterID(shelterID: string) {
+    let headers = this.getHttpHeader();
+    const response = await this.http.get(this.baseUrl + `/getShelterByShelterID/${shelterID}`, { headers }).toPromise();
+    return this.toShelter(response).shelterName;
+  }
+
   convertToShelter(input: any): Shelter[] {
     var listShelter = new Array<Shelter>
     input.forEach(item => {

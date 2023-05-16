@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   menuItems: MenuItem[]
   userRole: string
   isLoggin = false;
+  isShelter: false;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -39,7 +40,8 @@ export class HeaderComponent implements OnInit {
     catch {
       console.log("There are no user")
     }
-
+    if (this.isLoggin)
+      this.isShelter = JSON.parse(localStorage.getItem("userRoles")).value.includes('ROLE_SHELTER_MANAGER')
 
   }
   ngOnInit() {
@@ -76,11 +78,16 @@ export class HeaderComponent implements OnInit {
   }
 
   routeToAdoptPage() {
-    const roles = JSON.parse(localStorage.getItem("userRoles")).value;
-    if (roles.includes('ROLE_SHELTER_MANAGER'))
+    if (this.isShelter)
       this.router.navigate(['shelter/adopt'])
     else
       this.router.navigate(['user/adopt'])
   }
 
+  routeToHomePage() {
+    if (this.isShelter)
+      this.router.navigate(['shelter'])
+    else
+      this.router.navigate(['user'])
+  }
 }

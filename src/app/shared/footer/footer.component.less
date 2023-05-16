@@ -9,10 +9,10 @@
 }
 
 .container-fluid {
-  position: fixed;
+  position: relative;
   bottom: 0;
   background-color: #fee1be;
-  max-height: 120px;
+  max-height: 150px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 50px;
@@ -42,6 +42,22 @@
     img {
       max-height: 100%;
       max-width: 60%;
+    }
+  }
+}
+
+@media (max-width: 770px) {
+  .container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: fit-content;
+    max-height: fit-content;
+    padding: 20px;
+    .logo {
+      img {
+        width: 100%;
+      }
     }
   }
 }

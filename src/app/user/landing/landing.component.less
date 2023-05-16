@@ -1,0 +1,56 @@
+.container {
+  height: fit-content;
+  .content {
+    height: fit-content;
+    position: absolute;
+    margin-top: 25vh;
+    z-index: 1;
+    left: 0;
+    width: 100vw;
+    .content_slogan {
+      h1 {
+        color: #193a6a;
+        font-weight: 600;
+      }
+    }
+  }
+  .background {
+    margin: 0;
+    position: absolute;
+    height: max(90vh, 576px);
+    width: 100vw;
+    left: 0;
+    .background_shape {
+      height: 100%;
+      position: absolute;
+      right: 0;
+      z-index: -1;
+    }
+    .background_dog {
+      left: 5vw;
+      top: 35vh;
+      position: absolute;
+
+      width: 20vw;
+      min-width: 250px;
+      height: auto;
+    }
+    .background_cat {
+      right: 5vw;
+      top: 37vh;
+      position: absolute;
+
+      width: 25vw;
+      min-width: 270px;
+
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .background_dog,
+  .background_cat {
+    display: none;
+  }
+}

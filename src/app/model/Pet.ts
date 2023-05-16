@@ -15,28 +15,28 @@ export class Pet {
   private _sterilized: boolean;
   private _friendly: boolean;
   private _othersImg: string[];
-  private _onlineAdaptors: string[];
+  private _onlineAdaptors: any[];
   private _adopted: boolean;
 
   constructor(
-    animalID: string,
-    animalName: string,
-    shelterID: string,
-    animalAge: string,
-    animalGender: boolean,
-    animalWeight: number,
-    animalBreed: string,
-    animalSpecie: string,
-    animalColor: string,
-    animalImg: string,
-    animalStatus: string,
-    vaccinated: boolean,
-    deWormed: boolean,
-    sterilized: boolean,
-    friendly: boolean,
-    othersImg: string[],
-    onlineAdaptors: string[],
-    adopted: boolean
+    animalID = '',
+    animalName = '',
+    shelterID = '',
+    animalAge = '',
+    animalGender = false,
+    animalWeight = 0,
+    animalBreed = '',
+    animalSpecie = '',
+    animalColor = '',
+    animalImg = '',
+    animalStatus = '',
+    vaccinated = false,
+    deWormed = false,
+    sterilized = false,
+    friendly = false,
+    othersImg = [],
+    onlineAdaptors = [],
+    adopted = false
   ) {
     this._animalID = animalID;
     this._animalName = animalName;

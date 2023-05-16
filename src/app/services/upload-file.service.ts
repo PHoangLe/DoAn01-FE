@@ -22,7 +22,11 @@ export class UploadFileService {
   private avatarUrl = "";
   fileUrl: string[] = new Array;
 
-  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage, private shelterService: ShelterService) { }
+  constructor(
+    private db: AngularFireDatabase,
+    private storage: AngularFireStorage,
+    private shelterService: ShelterService) { }
+
   async pushFileToStorage(fileUpload: File, fileType: string): Promise<any> {
     let basePath = '/RelatedDocuments';
     let filePath = `${basePath}/${JSON.parse(localStorage.getItem("userID")).value}/${fileUpload.name}`;
@@ -58,6 +62,19 @@ export class UploadFileService {
       ).subscribe()
     });
     return promise
+  }
+
+  async deleteFile(fileName: string) {
+    let fileRef = this.storage.refFromURL(fileName)
+    let shelterID = await this.shelterService.getShelterIDByUserID();
+    // let filePath = `Pet/shelter-${shelterID}/${fileName}`;
+    // let fileRef = this.storage.ref(filePath);
+
+    fileRef.delete().subscribe(() => {
+      console.log('File deleted successfully');
+    }, error => {
+      console.log('Error deleting file:', error);
+    });
   }
 
   setFileUrl(url: any) {

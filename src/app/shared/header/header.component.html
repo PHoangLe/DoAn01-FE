@@ -21,13 +21,19 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav m-auto mb-lg-0">
         <li class="nav-item m-3">
-          <a class="nav-link" href="#">Trang chủ</a>
+          <a class="nav-link" (click)="routeToHomePage()">Trang chủ</a>
         </li>
         <li class="nav-item m-3">
           <a class="nav-link">Cứu trợ</a>
         </li>
         <li class="nav-item m-3">
           <a class="nav-link" (click)="routeToAdoptPage()">Nhận nuôi</a>
+          <ul class="adopt-menu px-3 pb-1 pt-4 rounded-1" *ngIf="isShelter">
+            <li><a [routerLink]="['/shelter/adopt']">Danh sách</a></li>
+            <li>
+              <a [routerLink]="['/shelter/adopt/adoption-request']"> Yêu cầu</a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item m-3">
           <a class="nav-link" href="#">Ủng hộ</a>

@@ -49,7 +49,10 @@ export class AddPetComponent {
   avatarUrl: any;
   othersImg: Array<File> = new Array
 
-  constructor(private petService: PetService, public ref: DynamicDialogRef, private builder: FormBuilder, private fileUpload: UploadFileService) { }
+  constructor(private petService: PetService,
+    public ref: DynamicDialogRef,
+    private builder: FormBuilder,
+    private fileUpload: UploadFileService) { }
 
   addPetForm = this.builder.group({
     petName: this.builder.control('', Validators.required),
