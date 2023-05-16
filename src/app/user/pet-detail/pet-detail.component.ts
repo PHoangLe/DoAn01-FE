@@ -19,6 +19,10 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   protected listImg = new Array<string>();
   protected responsiveOptions: any[];
   protected listUserImg = new Array<string>();
+  protected isSendOnlAdoption = false;
+  protected isSendAdoption = false;
+
+  private userID: string;
   private ref: DynamicDialogRef;
 
   constructor(
@@ -26,14 +30,13 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     private petService: PetService,
     private petAdopt: PetAdoptionService,
     private messageService: MessageService,
-
     private dialogService: DialogService
   ) {
   }
   ngOnDestroy(): void {
-    // if (this.ref) {
-    //   this.ref.close();
-    // }
+    if (this.ref) {
+      this.ref.close();
+    }
   }
 
 
@@ -46,7 +49,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     console.log(this.pet);
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
-
+    this.userID = JSON.parse(localStorage.getItem('userID')).value;
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -72,6 +75,23 @@ export class PetDetailComponent implements OnInit, OnDestroy {
         label: `${this.pet.animalName}`
       }
     ]
+
+    await this.petAdopt.isAdoptedPet(this.pet.animalID, this.userID).then(response => {
+      this.isSendAdoption = true;
+    })
+      .catch(error => {
+        console.log("error ", error)
+        this.isSendAdoption = false;
+
+      })
+
+    await this.petAdopt.isOnlineAdoptedPet(this.pet.animalID, this.userID).then(response => {
+      this.isSendOnlAdoption = true;
+    })
+      .catch(error => {
+        console.log("error ", error)
+        this.isSendOnlAdoption = false;
+      })
   }
 
   requestAdoption() {
@@ -85,20 +105,21 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   }
 
   onlineAdopt() {
-    this.ref = this.dialogService.open(BankingComponent, {
-      data: this.pet,
-      width: '50%',
-      contentStyle: { overflow: 'auto' },
-      baseZIndex: 10000,
-      maximizable: true
-    })
-    this.ref.onMaximize.subscribe((value) => {
-      this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
+    this.petAdopt.sendOnlineAdoptionRequest(this.pet.animalID, this.pet.shelterID, this.userID).then(() => {
+      this.messageService.add({ key: 'adoptPet', severity: 'success', summary: 'Đã gửi yêu cầu!' })
+      setTimeout(() => {
+        this.ref = this.dialogService.open(BankingComponent, {
+          data: this.pet,
+          width: '50%',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: false,
+          header: 'Ví điện tử MOMO'
+        })
+      }, 1500);
     })
 
-    this.ref.onClose.subscribe((value) => {
-      this.getPageData();
-    });
+
   }
 
   onReject() {

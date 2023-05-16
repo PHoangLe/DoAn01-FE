@@ -48,14 +48,14 @@ export class AdoptionRequestComponent implements OnInit {
       case 'PENDING':
         return 'info';
       default:
-        return 'warning';
+        return 'danger';
     }
   }
 
   onRowSelect(data) {
     console.log(data)
     this.petAdopt.setStorageAdoption(data)
-    this.router.navigate([`adopt/adoption-detail/${data.application.applicationID}`])
+    this.router.navigate([`adopt/adoption-detail/${data.applicationID}`])
   }
   customSort(event) {
 

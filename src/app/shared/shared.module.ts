@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { MenuModule } from 'primeng/menu';
@@ -11,6 +11,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -21,7 +23,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     DividerModule,
     FontAwesomeModule,
     BreadcrumbModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   declarations: [
     HeaderComponent,
@@ -36,6 +38,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FooterComponent,
     WidgetComponent,
     LoadingAnimationComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppSharedModule { }

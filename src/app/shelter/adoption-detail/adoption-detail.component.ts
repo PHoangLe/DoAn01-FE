@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
 
 @Component({
@@ -15,7 +15,9 @@ export class AdoptionDetailComponent implements OnInit {
     this.getPageData();
   }
 
-  constructor(private route: ActivatedRoute, private petAdoptionService: PetAdoptionService) {
+  constructor(
+    private messageService: MessageService,
+    private petAdoptionService: PetAdoptionService) {
 
   }
 
@@ -33,6 +35,24 @@ export class AdoptionDetailComponent implements OnInit {
         label: this.requestInfo.animal.animalName
       }
     ]
+  }
+
+  acceptRequest() {
+    this.petAdoptionService.acceptAdoption(this.requestInfo.applicationID).then((response) => {
+      console.log(response)
+      this.messageService.add({ key: "messageService", severity: 'success', detail: 'Chấp nhận yêu cầu' })
+    })
+  }
+
+  rejectRequest() {
+    this.petAdoptionService.declineAdoption(this.requestInfo.applicationID).then((response) => {
+      console.log(response)
+      this.messageService.add({ key: "messageService", severity: 'warning', detail: 'Từ chối yêu cầu' })
+    })
+  }
+
+  contactRequestor() {
+
   }
 
 }

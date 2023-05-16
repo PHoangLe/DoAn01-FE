@@ -20,10 +20,6 @@ export class PetAdoptionService {
 
   async sendAdoptionRequest(petID: string, shelterID: string, userID: string) {
     let headers = this.getHttpHeader();
-    console.log("petID: ", petID)
-    console.log("shelterID: ", shelterID)
-    console.log("userID: ", userID)
-
     return await (this.http.post(this.baseUrl + "/sendAdoptRequest", {
       animalID: petID,
       shelterID: shelterID,
@@ -31,14 +27,48 @@ export class PetAdoptionService {
     }, { headers })).toPromise();
   }
 
+  async sendOnlineAdoptionRequest(petID: string, shelterID: string, userID: string) {
+    let headers = this.getHttpHeader();
+    return await (this.http.post(this.baseUrl + "/sendOnlineAdoptRequest", {
+      animalID: petID,
+      shelterID: shelterID,
+      userID: userID
+    }, { headers })).toPromise();
+  }
   async getAdoptionByShelter(): Promise<any> {
     let headers = this.getHttpHeader();
     let shelterID = await this.shelterService.getShelterIDByUserID();
     return await (this.http.get(this.baseUrl + `/getAdoptionApplicationByShelterID/${shelterID}`, { headers })).toPromise()
   }
 
-  async getAdoptionDetail(adoptionID: string): Promise<any> {
 
+  async isAdoptedPet(petID: string, userID: string) {
+    let headers = this.getHttpHeader();
+    return await (this.http.get(this.baseUrl + `/getAdoptionApplicationByUserIDAndAnimalID/${userID}/${petID}`, { headers })).toPromise()
+  }
+
+  async isOnlineAdoptedPet(petID: string, userID: string) {
+    let headers = this.getHttpHeader();
+    return await (this.http.get(this.baseUrl + `/getOnlineAdoptionApplicationByUserIDAndAnimalID/${userID}/${petID}`, { headers })).toPromise()
+  }
+
+  async acceptOnlineAdoption(applicationID: string) {
+    let headers = this.getHttpHeader();
+    return await (this.http.post(this.baseUrl + `/confirmOnlineAdoptionRequest/${applicationID}`, { headers })).toPromise()
+  }
+  async acceptAdoption(applicationID: string) {
+    let headers = this.getHttpHeader();
+    return await (this.http.post(this.baseUrl + `/confirmAdoptionRequest/${applicationID}`, { headers })).toPromise()
+
+  }
+
+  async declineOnlineAdoption(applicationID: string) {
+    let headers = this.getHttpHeader();
+    return await (this.http.post(this.baseUrl + `/declineOnlineAdoptionRequest/${applicationID}`, { headers })).toPromise()
+  }
+  async declineAdoption(applicationID: string) {
+    let headers = this.getHttpHeader();
+    return await (this.http.post(this.baseUrl + `/declineAdoptionRequest/${applicationID}`, { headers })).toPromise()
   }
 
   setStorageAdoption(adoption: any) {

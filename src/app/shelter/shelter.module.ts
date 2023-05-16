@@ -34,6 +34,7 @@ import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.compo
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { EditPetComponent } from './pet-detail/edit-pet/edit-pet.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ProfileComponent } from './profile/profile.component';
     AdoptionRequestComponent,
     AdoptionDetailComponent,
     EditPetComponent,
-    ProfileComponent
+    ProfileComponent,
+
 
   ],
   imports: [

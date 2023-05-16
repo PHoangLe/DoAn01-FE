@@ -49,12 +49,20 @@
       <div class="ps-4" *ngFor="let user of requestInfo.animal.onlineAdaptors">
         <p-avatar image="{{ user }}" size="large" shape="circle"></p-avatar>
       </div>
-      <div class="ps-4 p-2" *ngIf="requestInfo.animal.onlineAdaptors">
+      <div class="ps-4 p-2" *ngIf="requestInfo.animal.onlineAdopters">
         Hiện tại chưa có người nhận nuôi
       </div>
     </div>
     <div class="pet-img">
-      <img src="{{ requestInfo.animal.animalImg }}" alt="" />
+      <img
+        class="rounded-3"
+        src="{{
+          requestInfo.animal.animalImg
+            ? requestInfo.animal.animalImg
+            : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0'
+        }}"
+        alt=""
+      />
     </div>
   </div>
   <p-divider align="left">
@@ -87,12 +95,18 @@
             requestInfo.user.userPhone ? requestInfo.user.userPhone : "Chưa có"
           }}
         </h5>
-        <button class="btn btn-primary mx-auto">Liên hệ</button>
+        <button class="btn btn-primary mx-auto" (click)="contactRequestor()">
+          Liên hệ
+        </button>
       </div>
     </div>
-    <div class="button">
-      <button class="btn btn-primary">Chấp nhận</button>
-      <button class="btn btn-secondary">Từ chối</button>
+    <div class="button" *ngIf="requestInfo.applicationStatus === 'PENDING'">
+      <button class="btn btn-primary" (click)="acceptRequest()">
+        Chấp nhận
+      </button>
+      <button class="btn btn-secondary" (click)="rejectRequest()">
+        Từ chối
+      </button>
     </div>
   </div>
 </div>

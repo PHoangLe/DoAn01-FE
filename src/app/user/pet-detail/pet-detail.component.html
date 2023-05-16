@@ -59,10 +59,18 @@
         Hiện tại chưa có người nhận nuôi
       </div>
       <div class="button-group pt-2">
-        <button class="btn btn-primary" (click)="requestAdoption()">
+        <button
+          class="btn btn-primary"
+          (click)="requestAdoption()"
+          [disabled]="isSendAdoption"
+        >
           Nhận nuôi
         </button>
-        <button class="btn btn-secondary" (click)="onlineAdopt()">
+        <button
+          class="btn btn-secondary"
+          (click)="onlineAdopt()"
+          [disabled]="isSendOnlAdoption"
+        >
           Nhận nuôi online
         </button>
       </div>

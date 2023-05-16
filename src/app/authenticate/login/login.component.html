@@ -44,11 +44,22 @@
             type="email"
             pInputText
             formControlName="userEmail"
-
           />
-          <div *ngIf="loginForm.get('userEmail').invalid && (loginForm.get('userEmail').dirty || loginForm.get('userEmail').touched)">
-            <small class="text-danger" *ngIf="loginForm.get('userEmail').errors">Bạn chưa nhập email</small>
-            <small class="text-danger" *ngIf="loginForm.get('userEmail').errors.email">Email chưa đúng</small>
+          <div
+            *ngIf="
+              loginForm.get('userEmail').invalid &&
+              (loginForm.get('userEmail').dirty ||
+                loginForm.get('userEmail').touched)
+            "
+          >
+            <small class="text-danger" *ngIf="loginForm.get('userEmail').errors"
+              >Bạn chưa nhập email</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="loginForm.get('userEmail').errors.email"
+              >Email chưa đúng</small
+            >
           </div>
         </span>
       </div>
@@ -61,9 +72,22 @@
             formControlName="userPassword"
           >
           </p-password>
-          <div *ngIf="loginForm.get('userPassword').invalid && (loginForm.get('userPassword').dirty || loginForm.get('userPassword').touched) || isWrongLogin" >
-            <small class="text-danger" *ngIf="loginForm.get('userPassword').errors">Bạn chưa nhập mật khẩu</small>
-            <small class="text-danger" *ngIf="isWrongLogin">Email hoặc mật khẩu chưa đúng</small>
+          <div
+            *ngIf="
+              (loginForm.get('userPassword').invalid &&
+                (loginForm.get('userPassword').dirty ||
+                  loginForm.get('userPassword').touched)) ||
+              isWrongLogin
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="loginForm.get('userPassword').errors"
+              >Bạn chưa nhập mật khẩu</small
+            >
+            <small class="text-danger" *ngIf="isWrongLogin"
+              >Email hoặc mật khẩu chưa đúng</small
+            >
           </div>
         </span>
       </div>
@@ -75,7 +99,11 @@
         </div>
       </div>
       <div class="btn-container d-flex justify-content-center pt-4">
-        <button type="submit" class="btn btn-primary text-nowrap rounded-3" [disabled]="loginForm.invalid">
+        <button
+          type="submit"
+          class="btn btn-primary text-nowrap rounded-3"
+          [disabled]="loginForm.invalid"
+        >
           Đăng nhập
         </button>
       </div>

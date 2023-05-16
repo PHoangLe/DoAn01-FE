@@ -40,7 +40,8 @@ export class HeaderComponent implements OnInit {
     catch {
       console.log("There are no user")
     }
-    this.isShelter = JSON.parse(localStorage.getItem("userRoles")).value.includes('ROLE_SHELTER_MANAGER')
+    if (this.isLoggin)
+      this.isShelter = JSON.parse(localStorage.getItem("userRoles")).value.includes('ROLE_SHELTER_MANAGER')
 
   }
   ngOnInit() {
@@ -83,4 +84,10 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['user/adopt'])
   }
 
+  routeToHomePage() {
+    if (this.isShelter)
+      this.router.navigate(['shelter'])
+    else
+      this.router.navigate(['user'])
+  }
 }

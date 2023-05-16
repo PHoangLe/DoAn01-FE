@@ -1,1 +1,23 @@
-<p>banking works!</p>
+<div class="container d-flex gap-2">
+  <div class="container__qr col-4">
+    <img src="https://i.ibb.co/XyqmMDc/image-2023-05-15-230446073.png" alt="" />
+  </div>
+  <div class="container__content col-8 pt-1">
+    <p><b>Bước 1:</b> Mở ứng dụng <b>MoMo</b> để thanh toán.</p>
+    <p>
+      <b>Bước 2:</b> Chọn <b>“Thanh toán”</b> và quét mã QR tại hướng dẫn này.
+    </p>
+    <p>
+      <b>Bước 3:</b> Điền nội dung
+      <b>“email của bạn_tên thú cưng_tên trại”</b> và hoàn thành giao dịch theo
+      hướng dẫn trên ứng dụng. <br />
+      <b>VD: {{ userEmail }}_{{ pet.animalName }}_{{ shelterName }}</b>
+    </p>
+    <div class="btn-container d-flex justify-content-center">
+      <button class="btn btn-primary m-auto" (click)="completeTransaction()">
+        Hoàn tất thanh toán
+      </button>
+    </div>
+  </div>
+</div>
+<p-toast key="completeTransaction"></p-toast>
