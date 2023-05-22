@@ -13,6 +13,7 @@ import { LoadingAnimationComponent } from './loading-animation/loading-animation
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
@@ -30,14 +31,16 @@ import { BrowserModule } from '@angular/platform-browser';
     PetCardComponent,
     FooterComponent,
     WidgetComponent,
-    LoadingAnimationComponent
+    LoadingAnimationComponent,
+    SidebarComponent
   ],
   exports: [
     HeaderComponent,
     PetCardComponent,
     FooterComponent,
     WidgetComponent,
-    LoadingAnimationComponent
+    LoadingAnimationComponent,
+    SidebarComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
