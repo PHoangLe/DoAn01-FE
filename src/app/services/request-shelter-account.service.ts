@@ -20,7 +20,7 @@ export class RequestShelterAccountService {
 
   constructor(private http: HttpClient) { }
 
-  sendRequest(inputData: any, relatedDoc: string[]): Observable<any> {
+  sendRequest(inputData: any, relatedDoc: string[], logo: string): Observable<any> {
     const token = JSON.parse(localStorage.getItem("jwtToken")).value;
     let headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -35,7 +35,7 @@ export class RequestShelterAccountService {
       district: inputData.shelterDistrict,
       city: inputData.shelterProvince,
       shelterPhoneNo: inputData.shelterPhoneNum,
-      shelterLogo: "",
+      shelterLogo: logo ? logo : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Logo%2Fonly_logo.png?alt=media&token=9eb9163b-90d1-4ae6-9e93-d18b71b959b8',
       relatedDocuments: relatedDoc
     }, { headers })
   }

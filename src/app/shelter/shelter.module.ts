@@ -32,6 +32,7 @@ import { AdoptionRequestComponent } from './adoption-request/adoption-request.co
 import { TagModule } from 'primeng/tag';
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 import { EditPetComponent } from './pet-detail/edit-pet/edit-pet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

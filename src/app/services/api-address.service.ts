@@ -17,7 +17,7 @@ export class ApiAddressService {
   }
 
 
-  getDisctrictsByProvince(provinceCode : string): Observable<any> {
+  getDisctrictsByProvince(provinceCode: string): Observable<any> {
     return this.http.get(this.baseUrl + `districts/getByProvince?provinceCode=${provinceCode}&limit=-1`, {
     }
     );
