@@ -1,14 +1,14 @@
-*{
+* {
   padding: 0;
   margin: 0;
 }
-.container-fluid{
+.container-fluid {
   height: 100vh;
 }
-#form-container{
+#form-container {
   min-width: 300px;
 }
-.inputtext{
+.inputtext {
   height: 40px;
 }
 .inputtext {
@@ -16,47 +16,45 @@
   border-radius: 7px;
 }
 
-#imgInput{
+#imgInput {
   object-fit: fill;
 }
-.addressLabel{
+.addressLabel {
   font-size: 12px;
 }
 
 :host ::ng-deep {
-  .p-dropdown{
+  .p-dropdown {
     width: 100%;
     border: solid 2px;
     border-radius: 7px;
   }
 
-  .p-fileupload{
+  .p-fileupload {
     border-radius: 10px;
-    .p-fileupload-buttonbar{
+    .p-fileupload-buttonbar {
       display: flex;
       justify-content: end;
     }
-    .p-fileupload-buttonbar .p-button{
+    .p-fileupload-buttonbar .p-button {
       background-color: var(--primary-color);
       border: none;
       border-radius: 5px;
-
     }
-    .p-button{
+    .p-button {
       background-color: red;
       border: none;
       border-radius: 7px;
     }
   }
-  .p-inputtext{
+  .p-inputtext {
     border: none;
   }
 }
 
-
-.avatar{
+.avatar {
   span {
-    background-color: #BABABA;
+    background-color: #bababa;
   }
 }
 
@@ -71,26 +69,28 @@ input[type="file"] {
   justify-content: center;
   align-items: center;
   border: none;
+  border-radius: 10px;
   cursor: pointer;
-  img{
+  img {
+    border-radius: 10px;
     height: 180px;
-  width: 180px;
+    width: 180px;
     object-fit: fill;
   }
 }
 
-.address-container{
+.address-container {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 20px
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 //responsive
-@media(max-width: 575.98px) {
-  .address-container{
-    grid-template-columns: repeat(1,1fr);
+@media (max-width: 575.98px) {
+  .address-container {
+    grid-template-columns: repeat(1, 1fr);
   }
-  .custom-file-upload{
+  .custom-file-upload {
     height: 120px;
     width: 120px;
   }
@@ -102,21 +102,20 @@ input[type="file"] {
     align-items: center;
     border: none;
     cursor: pointer;
-    img{
+    img {
       height: 120px;
       width: 120px;
-        object-fit: fill;
+      object-fit: fill;
     }
   }
 }
 
-@media(min-width: 576px) {
-  #form-container{
+@media (min-width: 576px) {
+  #form-container {
     height: 100%;
   }
-  .custom-file-upload{
+  .custom-file-upload {
     height: 180px;
     width: 180px;
   }
 }
-

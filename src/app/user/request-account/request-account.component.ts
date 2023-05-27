@@ -48,17 +48,18 @@ export class RequestAccountComponent implements OnInit {
   }
 
   async upload(event: any) {
-    this.messageService.add({ key: 'message', severity: 'success', detail: 'Đã gửi yêu cầu!' })
 
     await this.pushFileToCloud();
     let uploadedDocUrl = this.fileUpload.getFileUrl()
     this.sendRequest.sendRequest(this.requestForm.value, uploadedDocUrl, this.logoUrl).subscribe(
       response => {
         console.log(response)
-        this.messageService.add({ key: 'message', severity: 'success', detail: 'Đã gửi yêu cầu!' })
+        this.messageService.add({ key: 'message', severity: 'success', detail: response })
       },
       err => {
         console.log(err.error.message)
+        this.messageService.add({ key: 'message', severity: 'error', detail: err.error.message })
+
       }
     )
   }
@@ -85,9 +86,7 @@ export class RequestAccountComponent implements OnInit {
 
   bindProvinces() {
     this.apiAddress.getProvinces().subscribe(response => {
-
       const rListProvince = response.data.data
-      console.log(rListProvince)
       this.listProvinceWithCode = rListProvince.map(rListProvince => {
         return {
           provName: rListProvince.name_with_type,
