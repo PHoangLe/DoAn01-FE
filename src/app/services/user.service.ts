@@ -11,9 +11,9 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
 
-  async getUser(emailOrID: string): Promise<any> {
+  async getUser(userID: string): Promise<any> {
     let headers = this.getHttpHeader();
-    return await this.http.get(this.baseUrl + '/getUserByEmail/' + emailOrID, { headers }).toPromise();
+    return await this.http.get(this.baseUrl + '/getUserByID/' + userID, { headers }).toPromise();
   }
 
   convertToUser(input: any): User {
@@ -22,7 +22,7 @@ export class UserService {
       input.userEmail,
       input.userFirstName,
       input.userLastName,
-      input.phoneNumber,
+      input.phoneNumber ? input.phoneNumber : 'Chưa có',
       input.userAvatar ? input.userAvatar : "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963",
       input.userRoles,
       input.isLocked,

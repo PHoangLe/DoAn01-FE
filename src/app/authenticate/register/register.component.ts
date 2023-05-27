@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
   isSubmitted = false;
   isWrongReg = false;
   isWrongEmail = false;
+  isNotVerified = false;
 
   namePattern = "[a-zA-Z][a-zA-Z ]+"
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
@@ -45,15 +46,30 @@ export class RegisterComponent implements OnInit {
     await this.authService.registerNewUser(this.registerForm.value).then(() => {
     }).catch(error => {
       console.log(error.error.message);
-      this.isWrongReg = true;
+      if (error.error.message !== "Tài khoản đã tồn tại") {
+        this.isNotVerified = true;
+        this.messageService.add({ key: 'wrongEmail', severity: 'error', detail: error.error.message });
+      }
+
+      else {
+        this.isWrongReg = true;
+      }
+
     });
     if (!this.isWrongReg) {
       await this.authService.sendOTPVerifyEmail(this.registerForm.value.userEmail).then(() => {
+
       }).catch(error => {
         console.log(error.error.message);
       });
       this.router.navigate(['verify'])
     }
+    else if (this.isNotVerified) {
+      setTimeout(() => {
+        this.router.navigate(['verify'])
+      }, 2000);
+    }
+
     else {
       this.messageService.add({ key: 'wrongEmail', severity: 'error', summary: 'Email đã tồn tại' });
     }

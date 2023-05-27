@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
   async login() {
     this.isSubmitted = true;
     this.isWrongLogin = false
+    console.log(this.loginForm.value)
     await this.authService.logIn(this.loginForm.value).then(
       (response) => {
         this.setLocalUser(response)

@@ -4,6 +4,7 @@ import { LandingComponent } from './landing/landing.component';
 import { RequestAccountComponent } from './request-account/request-account.component';
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'pet-detail/:id',
     component: PetDetailComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   }
 ];
 

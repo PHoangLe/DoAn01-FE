@@ -24,8 +24,12 @@
   width: 20vw;
   border-radius: 7px;
 }
-:host ::ng-deep .p-password input:focus {
-  box-shadow: none;
+:host ::ng-deep {
+  .p-password input {
+    &:focus {
+      box-shadow: none;
+    }
+  }
 }
 .inputtext:focus {
   box-shadow: none;
