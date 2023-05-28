@@ -110,6 +110,29 @@
         </span>
       </div>
 
+      <div class="input-textbox d-flex justify-content-center">
+        <span class="p-float-label m-4 my-2">
+          <h6>Số điện thoại</h6>
+          <input
+            class="inputtext ps-1 form-control"
+            id="float-input"
+            type="number"
+            maxlength="10"
+            pInputText
+            formControlName="phoneNumber"
+          />
+          <div
+            *ngIf="
+              registerForm.get('phoneNumber').invalid &&
+              (registerForm.get('phoneNumber').dirty ||
+                registerForm.get('phoneNumber').touched)
+            "
+          >
+            <small class="text-danger">Số điện thoại phải đủ 10 số</small>
+          </div>
+        </span>
+      </div>
+
       <div class="btn-container d-flex justify-content-center pt-4">
         <button
           type="submit"
