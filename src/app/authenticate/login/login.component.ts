@@ -36,20 +36,16 @@ export class LoginComponent implements OnInit {
     this.loginWithGoogle()
   }
 
-  loginWithGoogle() {
-    this.socialLoginService.authState.subscribe(
+  async loginWithGoogle() {
+    await this.socialLoginService.authState.subscribe(
       (user) => {
-        console.log("email " + user.email)
-        console.log("first name " + user.firstName)
-        console.log("last name " + user.lastName)
-        console.log("photo " + user.photoUrl)
-
+        console.log("user ", user)
         this.authService.loginGoogle(user).subscribe(
           response => {
             this.setLocalUser(response)
+            this.router.navigate(['/user'])
           }
         )
-        this.router.navigate(['/user'])
       });
   }
 

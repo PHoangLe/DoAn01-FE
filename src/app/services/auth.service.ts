@@ -33,6 +33,8 @@ export class AuthService {
       userPassword: inputData.userPassword,
       userFirstName: this.getFirstName(inputData.userName),
       userLastName: this.getLastName(inputData.userName),
+      phoneNo: inputData.phoneNumber,
+      userGender: "MALE",
       userAvatar: ""
     }, httpOptions
     )).toPromise();
@@ -52,15 +54,14 @@ export class AuthService {
     )).toPromise();
   }
 
-  loginGoogle(inputData: any): Observable<any> {
-    console.log("input: " + inputData)
-    return this.http.post(this.baseUrl + 'auth/googleUserAuthenticate', {
+  loginGoogle(inputData: any) {
+    return (this.http.post(this.baseUrl + 'auth/authenticateGoogleUser', {
       userEmail: inputData.email,
       userFirstName: inputData.firstName,
       userLastName: inputData.lastName,
       userAvatar: inputData.photoUrl
-    }, httpOptions
-    );
+    }, httpOptions));
+
   }
 
   getFirstName(userName: string) {
@@ -82,14 +83,15 @@ export class AuthService {
     this.setTimeResetToken("userRoles", JSON.stringify(userRoles))
   }
   getRoles(): [] {
-    return JSON.parse(localStorage.getItem('userRoles') || '{}').value
+    return JSON.parse(localStorage.getItem('userRoles')).value
   }
 
   setToken(jwtToken: string) {
+    console.log("set token gg ")
     this.setTimeResetToken("jwtToken", jwtToken)
   }
 
-  getToken(): string | null {
+  getToken(): string {
     return JSON.parse(localStorage.getItem("jwtToken")).value
   }
 
