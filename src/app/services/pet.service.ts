@@ -125,29 +125,32 @@ export class PetService {
 
   convertToPets(input: any): Pet[] {
     var petList = new Array<Pet>
-    input.forEach(item => {
-      const pet = new Pet(
-        item.animalID,
-        item.animalName ? item.animalName : 'Chưa có tên',
-        item.shelterID,
-        item.animalAge,
-        item.animalGender,
-        item.animalWeight,
-        item.animalBreed,
-        item.animalSpecie,
-        item.animalColor,
-        item.animalImg ? item.animalImg : "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
-        item.animalStatus,
-        item.vaccinated,
-        item.deWormed,
-        item.sterilized,
-        item.friendly,
-        item.othersImg,
-        item.onlineAdaptors,
-        item.adopted)
+    if (input) {
+      input.forEach(item => {
+        const pet = new Pet(
+          item.animalID,
+          item.animalName ? item.animalName : 'Chưa có tên',
+          item.shelterID,
+          item.animalAge,
+          item.animalGender,
+          item.animalWeight,
+          item.animalBreed,
+          item.animalSpecie,
+          item.animalColor,
+          item.animalImg ? item.animalImg : "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0",
+          item.animalStatus,
+          item.vaccinated,
+          item.deWormed,
+          item.sterilized,
+          item.friendly,
+          item.othersImg,
+          item.onlineAdaptors,
+          item.adopted)
 
-      petList.push(pet)
-    });
+        petList.push(pet)
+      });
+    }
+
     return petList
   }
 
