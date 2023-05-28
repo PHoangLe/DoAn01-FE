@@ -4,7 +4,6 @@ import { SocialUser } from "@abacritt/angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "@abacritt/angularx-social-login";
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/model/User';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 
@@ -57,10 +56,7 @@ export class LoginComponent implements OnInit {
       (response) => {
         this.setLocalUser(response)
         const roles = response.userRoles
-        if (roles.includes('ROLE_ADMIN')) {
-          this.router.navigate(['/admin'])
-        }
-        else if (roles.includes('ROLE_SHELTER_MANAGER')) {
+        if (roles.includes('ROLE_SHELTER_MANAGER')) {
           this.router.navigate(['/shelter'])
         }
         else {
