@@ -5,6 +5,7 @@ import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'adopt/adoption-detail/:id',
     component: AdoptionDetailComponent
+  },
+  {
+    path: 'chat',
+    component: ChatComponent
   }
 ];
 

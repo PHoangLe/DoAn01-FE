@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="side-bar bg-primary col-4">
+    <div
+      class="reciepient rounded-3 m-1 d-flex align-items-center"
+      *ngFor="let user of listUsers"
+      (click)="selectUser(user)"
+    >
+      <img src="{{ user.userAvatar }}" alt="" class="rounded-circle px-2" />
+      <div class="name">{{ user.userName }}</div>
+    </div>
+  </div>
+  <div class="boxchat bg-secondary col-8">
+    <div class="header"></div>
+    <div class="chat-content">
+      <div
+        *ngFor="let message of listMessage"
+        class="d-flex m-2"
+        [ngClass]="{ 'sender-message': userID === message.senderID }"
+      >
+        <p-avatar
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          pBadge
+          class="d-flex align-items-center"
+        ></p-avatar>
+
+        <div class="message-content bg-primary rounded-3 p-2 m-1 mx-2">
+          {{ message.content }}
+        </div>
+      </div>
+    </div>
+    <div class="input-message">
+      <span>
+        <input
+          type="text"
+          [(ngModel)]="message"
+          (keydown.enter)="sendMessage()"
+        />
+        <button (click)="sendMessage()" [disabled]="!message">
+          Gửi
+          <i class="ps-1 bi bi-send"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+</div>

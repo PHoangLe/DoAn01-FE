@@ -11,7 +11,7 @@ export class ChatService {
   private socket: any;
   private url = 'ApiPath/ws'; // địa chỉ của WebSocket server
   private messageData = {
-    senderID: '',
+    senderID: JSON.parse(localStorage.getItem("userID")).value,
     recipientID: '',
     message: ''
   }
@@ -48,29 +48,20 @@ export class ChatService {
 
   public onConnected = () => {
     this.stompClient.subscribe('/private-message', this.onMessageReceived);
-    this.stompClient.subscribe('/user/' + this.messageData.senderID + '/private', this.onPrivateMessage);
+    this.stompClient.subscribe('/user/' + JSON.parse(localStorage.getItem("userID")).value + '/private', this.onPrivateMessage);
   }
 
-  onMessageReceived(payload) {
+  onMessageReceived = (payload) => {
     var payloadData = JSON.parse(payload.body);
     this.chatMessages.push(payloadData);
-    console.log(JSON.parse(payload.body))
+    console.log("payload message: ", JSON.parse(payload))
   }
 
 
-  onPrivateMessage(payload) {
-    console.log(payload);
+  onPrivateMessage = (payload) => {
+    console.log("this is received message: ", payload);
     var payloadData = JSON.parse(payload.body);
     this.chatMessages.push(payloadData);
-    // if (privateChats.get(payloadData.senderName)) {
-    //   privateChats.get(payloadData.senderName).push(payloadData);
-    //   setPrivateChats(new Map(privateChats));
-    // } else {
-    //   let list = [];
-    //   list.push(payloadData);
-    //   privateChats.set(payloadData.senderName, list);
-    //   setPrivateChats(new Map(privateChats));
-    // }
   }
 
   onError = (err) => {
@@ -95,23 +86,6 @@ export class ChatService {
     }
   }
 
-  // sendPrivateValue = () => {
-  //   if (this.stompClient) {
-  //     var chatMessage = {
-  //       senderName: this.messageData.senderID,
-  //       recipientID: this.chatMessages.recipientID,
-  //       message: this.messageData.message,
-  //       status: "MESSAGE"
-  //     };
-
-  //     if (messageData.username !== tab) {
-  //       privateChats.get(tab).push(chatMessage);
-  //       setPrivateChats(new Map(privateChats));
-  //     }
-  //     this.stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-  //     this.setMessage("");
-  //   }
-  // }
 
   handleUsername = (event) => {
     const { value } = event.target;

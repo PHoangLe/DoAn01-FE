@@ -36,6 +36,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { EditPetComponent } from './pet-detail/edit-pet/edit-pet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AdoptionDetailComponent,
     EditPetComponent,
     ProfileComponent,
+    ChatComponent,
 
 
   ],
