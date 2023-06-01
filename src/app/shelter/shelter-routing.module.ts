@@ -6,32 +6,40 @@ import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 import { ChatComponent } from './chat/chat.component';
+import { ShelterPageComponent } from './shelter-page/shelter-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LandingComponent
+    component: ShelterPageComponent,
+    children: [
+      {
+        path: 'landing',
+        component: LandingComponent,
+      },
+      {
+        path: 'adopt',
+        component: PetAdoptionComponent,
+      },
+      {
+        path: 'pet-detail/:id',
+        component: PetDetailComponent
+      },
+      {
+        path: 'adopt/adoption-request',
+        component: AdoptionRequestComponent,
+      },
+      {
+        path: 'adopt/adoption-detail/:id',
+        component: AdoptionDetailComponent
+      },
+      {
+        path: 'chat',
+        component: ChatComponent
+      }
+    ]
   },
-  {
-    path: 'adopt',
-    component: PetAdoptionComponent,
-  },
-  {
-    path: 'pet-detail/:id',
-    component: PetDetailComponent
-  },
-  {
-    path: 'adopt/adoption-request',
-    component: AdoptionRequestComponent,
-  },
-  {
-    path: 'adopt/adoption-detail/:id',
-    component: AdoptionDetailComponent
-  },
-  {
-    path: 'chat',
-    component: ChatComponent
-  }
+
 ];
 
 @NgModule({

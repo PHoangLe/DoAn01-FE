@@ -37,6 +37,7 @@ import { EditPetComponent } from './pet-detail/edit-pet/edit-pet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChatComponent } from './chat/chat.component';
+import { ShelterPageComponent } from './shelter-page/shelter-page.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ChatComponent } from './chat/chat.component';
     EditPetComponent,
     ProfileComponent,
     ChatComponent,
+    ShelterPageComponent,
 
 
   ],
