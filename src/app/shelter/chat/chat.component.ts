@@ -44,12 +44,13 @@ export class ChatComponent implements OnInit {
   }
 
   selectUser(user) {
-    this.recipientID = user.senderID;
+    this.recipientID = user.userID;
     this.currentUser = user;
-    this.chatService.setReceipientID(user.senderID);
+    console.log("user ", user)
+    this.chatService.setReceipientID(user.userID);
 
-    console.log(this.listMessage)
     this.getListMessages(user.chatRoomID);
+    console.log(this.listMessage)
 
   }
 
@@ -62,7 +63,6 @@ export class ChatComponent implements OnInit {
           userName: chatRoom.user1.userFirstName + " " + chatRoom.user1.userLastName, userAvatar: chatRoom.user1.userAvatar
         };
       }
-
       else {
         return {
           chatRoomID: chatRoom.chatRoomID,
@@ -89,7 +89,6 @@ export class ChatComponent implements OnInit {
   async getListMessages(chatRoomID: string) {
     await this.chatService.getMessageByChatRoom(chatRoomID).then((messages) => {
       this.rawMessages = messages;
-      console.log("rawMessage: ", this.rawMessages);
     }
     ).catch((error) => {
       console.log(error)
