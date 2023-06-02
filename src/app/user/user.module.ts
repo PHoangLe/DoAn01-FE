@@ -23,7 +23,6 @@ import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { BankingComponent } from './pet-detail/banking/banking.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ChatComponent } from './chat/chat.component';
 import { UserPageComponent } from './user-page/user-page.component';
 
 
@@ -36,7 +35,6 @@ import { UserPageComponent } from './user-page/user-page.component';
     PetDetailComponent,
     BankingComponent,
     ProfileComponent,
-    ChatComponent,
     UserPageComponent
   ],
   imports: [

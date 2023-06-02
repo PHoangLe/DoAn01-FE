@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
-
+import SockJS from 'sockjs-client';
+import { over } from 'stompjs';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -20,11 +21,19 @@ export class ChatComponent implements OnInit {
   senderID = JSON.parse(localStorage.getItem("userID")).value;
   currentUser: any;
   currentUserChat: any;
+  private stompClient = null;
+  private messageData = {
+    senderID: JSON.parse(localStorage.getItem("userID")).value,
+    recipientID: '',
+    message: ''
+  }
+
+  public chatMessages = new Array<string>();
 
   async ngOnInit() {
     await this.getChatRoom();
-    this.chatService.connect();
-    this.listMessage = this.chatService.getMessage();
+    this.connect();
+    this.listMessage = this.getMessage();
     this.getListUsers();
   }
 
@@ -32,7 +41,7 @@ export class ChatComponent implements OnInit {
 
   sendMessage() {
     if (this.message) {
-      this.chatService.sendValue(this.message);
+      this.sendValue(this.message);
 
       this.listMessage.push({
         senderID: this.senderID,
@@ -47,7 +56,7 @@ export class ChatComponent implements OnInit {
     this.recipientID = user.userID;
     this.currentUser = user;
     console.log("user ", user)
-    this.chatService.setReceipientID(user.userID);
+    this.setReceipientID(user.userID);
 
     this.getListMessages(user.chatRoomID);
     console.log(this.listMessage)
@@ -104,5 +113,70 @@ export class ChatComponent implements OnInit {
     console.log("messages: ", this.listMessage)
   }
 
+
+  setUserName(name: string) {
+    this.messageData.senderID = name;
+  }
+
+  setMessage(message: string) {
+    this.messageData.message = message;
+  }
+
+  public setSenderID(senderID: string) {
+    this.messageData.senderID = senderID;
+  }
+
+  public setReceipientID(recipientID: string) {
+    this.messageData.recipientID = recipientID;
+  }
+
+  getMessage() {
+    return this.chatMessages;
+  }
+
+  public connect() {
+    let Sock = new SockJS('https://doan01-be-production.up.railway.app/ws');
+    // let Sock = new SockJS('http://localhost:8080/ws');
+
+    this.stompClient = over(Sock);
+    this.stompClient.connect({}, this.onConnected, this.onError);
+  }
+
+  onConnected = () => {
+    this.stompClient.subscribe('/private-message', this.onMessageSend);
+    this.stompClient.subscribe('/user/' + JSON.parse(localStorage.getItem("userID")).value + '/private', this.onPrivateMessage);
+  }
+
+  onMessageSend = (payload) => {
+    console.log("message sent")
+    var payloadData = JSON.parse(payload.body);
+    this.chatMessages.push(payloadData);
+  }
+
+
+  onPrivateMessage = (payload) => {
+    console.log("this is received message: ", payload);
+    var payloadData = JSON.parse(payload.body);
+    this.chatMessages.push(payloadData);
+    console.log("payloadData ", payloadData)
+  }
+
+  onError = (err) => {
+    console.log(err);
+
+  }
+
+
+  sendValue(message) {
+    if (this.stompClient) {
+      var chatMessage = {
+        senderID: this.messageData.senderID,
+        recipientID: this.messageData.recipientID,
+        content: message
+      };
+      this.stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
+      this.setMessage("");
+    }
+  }
 
 }
