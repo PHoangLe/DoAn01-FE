@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
@@ -8,8 +9,8 @@ import { over } from 'stompjs';
 })
 export class ChatService {
   private stompClient = null;
+  private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/chat/";
   private socket: any;
-  private url = 'ApiPath/ws'; // địa chỉ của WebSocket server
   private messageData = {
     senderID: JSON.parse(localStorage.getItem("userID")).value,
     recipientID: '',
@@ -17,7 +18,7 @@ export class ChatService {
   }
 
   chatMessages = new Array<string>();
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   setUserName(name: string) {
@@ -42,19 +43,21 @@ export class ChatService {
 
   public connect() {
     let Sock = new SockJS('https://doan01-be-production.up.railway.app/ws');
+    // let Sock = new SockJS('http://localhost:8080/ws');
+
     this.stompClient = over(Sock);
     this.stompClient.connect({}, this.onConnected, this.onError);
   }
 
-  public onConnected = () => {
-    this.stompClient.subscribe('/private-message', this.onMessageReceived);
+  onConnected = () => {
+    this.stompClient.subscribe('/private-message', this.onMessageSend);
     this.stompClient.subscribe('/user/' + JSON.parse(localStorage.getItem("userID")).value + '/private', this.onPrivateMessage);
   }
 
-  onMessageReceived = (payload) => {
+  onMessageSend = (payload) => {
+    console.log("message sent")
     var payloadData = JSON.parse(payload.body);
     this.chatMessages.push(payloadData);
-    console.log("payload message: ", JSON.parse(payload))
   }
 
 
@@ -69,10 +72,7 @@ export class ChatService {
 
   }
 
-  handleMessage = (event) => {
-    const { value } = event.target;
-    this.setMessage(value);
-  }
+
   sendValue(message) {
     if (this.stompClient) {
       var chatMessage = {
@@ -80,20 +80,25 @@ export class ChatService {
         recipientID: this.messageData.recipientID,
         content: message
       };
-      console.log(chatMessage);
       this.stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
       this.setMessage("");
     }
   }
 
-
-  handleUsername = (event) => {
-    const { value } = event.target;
-    this.setUserName(value);
+  async getChatRooom() {
+    let headers = this.getHttpHeader();
+    return await this.http.get(this.baseUrl + "getAllChatRoomByUserID/" + `${JSON.parse(localStorage.getItem("userID")).value}`, { headers }).toPromise();
   }
 
-  registerUser = () => {
-    this.connect();
+  async getMessageByChatRoom(chatRoomID: string) {
+    let headers = this.getHttpHeader();
+    return await this.http.get(this.baseUrl + "getAllMessageByChatRoomID/" + `${chatRoomID}`, { headers }).toPromise();
+  }
+
+  getHttpHeader(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
+    });
   }
 
 }
