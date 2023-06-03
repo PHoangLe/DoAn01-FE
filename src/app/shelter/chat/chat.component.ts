@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
   senderID = JSON.parse(localStorage.getItem("userID")).value;
   currentUser: any;
   currentUserChat: any;
-
+  userSearch: string;
   private stompClient = null;
   private messageData = {
     senderID: JSON.parse(localStorage.getItem("userID")).value,
@@ -32,18 +32,16 @@ export class ChatComponent implements OnInit {
 
   async ngOnInit() {
     await this.getChatRoom();
-    this.connect();
+    await this.connect();
     this.getListUsers();
   }
-
-
 
   async sendMessage() {
     if (this.message) {
       const currentDate = new Date();
       const timestamp = currentDate.getTime();
       await this.sendValue(this.message);
-      this.listMessage.push({
+      this.currentUserChat.push({
         senderID: this.senderID,
         recipientID: "",
         content: this.message,
@@ -61,15 +59,14 @@ export class ChatComponent implements OnInit {
     this.recipientID = user.userID;
     this.currentUser = user;
     console.log("user ", user)
-    await this.setReceipientID(user.userID);
+    this.setReceipientID(user.userID);
     await this.getListMessages(user.chatRoomID);
-    setTimeout(() => {
-      this.autoScrollToNewMessage();
-    }, 300);
+    this.getListMessageByRecipientID(this.recipientID);
 
   }
 
   getListUsers() {
+    console.log(this.listChatRoom)
     this.listUsers = this.listChatRoom.map((chatRoom) => {
       if (chatRoom.user1.userID !== this.senderID) {
         return {
@@ -119,6 +116,21 @@ export class ChatComponent implements OnInit {
     console.log(this.listMessage)
   }
 
+  getListMessageByRecipientID(recipientID: string) {
+    this.currentUserChat = this.listMessage.map((message) => {
+      if (message.recipientID === recipientID || message.senderID === recipientID)
+        return message
+    })
+    setTimeout(() => {
+      this.autoScrollToNewMessage();
+    }, 300);
+
+  }
+
+  onUserSearched() {
+    console.log(this.userSearch)
+  }
+
   autoScrollToNewMessage() {
     const chatContent = document.getElementById('boxchat')
     chatContent.scrollTop = chatContent.scrollHeight;
@@ -151,10 +163,9 @@ export class ChatComponent implements OnInit {
 
 
   onPrivateMessage = (payload) => {
-    console.log("this is received message: ", payload);
     var payloadData = JSON.parse(payload.body);
     this.listMessage.push(payloadData);
-    console.log("payloadData ", payloadData)
+    this.getListMessageByRecipientID(this.recipientID)
   }
 
   onError = (err) => {
@@ -170,6 +181,7 @@ export class ChatComponent implements OnInit {
         recipientID: this.messageData.recipientID,
         content: message
       };
+      console.log(chatMessage);
       this.stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
       this.messageData.message = "";
     }

@@ -46,6 +46,7 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit() {
 
+
     this.menuItems = [
 
       {
@@ -77,6 +78,8 @@ export class HeaderComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/login'])
   }
+
+
 
   routeToAdoptPage() {
     if (this.isShelter)

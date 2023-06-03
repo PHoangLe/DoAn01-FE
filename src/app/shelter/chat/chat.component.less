@@ -19,10 +19,13 @@
       input {
         background-color: rgb(228, 230, 235);
         border: none;
-        padding-left: 5rem;
+        padding-left: 2.2rem !important;
         &:focus {
           outline: none;
         }
+      }
+      i {
+        margin-left: 0.75rem;
       }
     }
     .reciepient {
@@ -65,7 +68,7 @@
       font-weight: 600;
     }
     .chat-content {
-      height: calc(100% - 100px);
+      max-height: calc(100% - 100px);
       overflow: auto;
       overflow: -moz-scrollbars-none;
       scroll-behavior: smooth;
@@ -76,21 +79,40 @@
         width: 0 !important;
         display: none;
       }
-
-      .message-content {
-        background-color: rgb(228, 230, 235);
-        max-width: 40%;
-      }
-      .time {
-        font-size: 0.75rem;
+      .message {
+        &:hover {
+          .time {
+            display: block;
+            float: right;
+            font-size: 0.65rem;
+          }
+        }
+        .message-content {
+          max-width: 40%;
+          word-wrap: break-word;
+          background-color: rgb(228, 230, 235);
+        }
+        .time {
+          display: none;
+        }
       }
 
       .sender-message {
         display: flex;
         justify-content: end;
         flex-direction: row-reverse;
+        &:hover {
+          .time {
+            display: block;
+            float: left !important;
+            font-size: 0.65rem;
+          }
+        }
         .message-content {
           background-color: #f1ac57 !important;
+        }
+        .time {
+          display: none;
         }
       }
     }
@@ -140,7 +162,7 @@
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 760px) {
   .container {
     width: 100vw;
     height: 90vh;
@@ -151,7 +173,7 @@
     box-sizing: border-box;
     .side-bar {
       max-height: 100%;
-      min-height: 100px;
+      min-height: 160px;
       display: flex;
       flex-direction: row;
       overflow: auto;
@@ -183,21 +205,26 @@
       }
     }
     .boxchat {
-      height: 100%;
-      max-height: min(78vh, 100%);
+      height: 90%;
+      height: min(60vh, 100%);
       position: relative;
       flex-grow: 1;
       .chat-header {
         display: none;
       }
       .chat-content {
-        max-height: calc(100% - 160px);
+        max-height: calc(100% - 50px);
         overflow: auto;
         overflow: -moz-scrollbars-none;
         -ms-overflow-style: none;
         &::-webkit-scrollbar {
           width: 0 !important;
           display: none;
+        }
+        .message-content {
+          max-width: 30%;
+          word-wrap: break-word;
+          background-color: rgb(228, 230, 235);
         }
       }
       .input-message {
