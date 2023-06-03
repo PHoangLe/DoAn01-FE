@@ -15,6 +15,7 @@ export class ChatComponent implements OnInit {
   listMessage: any
   listUsers: any;
   listChatRoom: any;
+  listUsersBackup: any;
   message: string;
   rawMessages: any;
   recipientID: string;
@@ -31,8 +32,8 @@ export class ChatComponent implements OnInit {
 
 
   async ngOnInit() {
-    await this.getChatRoom();
     await this.connect();
+    await this.getChatRoom();
     this.getListUsers();
   }
 
@@ -66,7 +67,6 @@ export class ChatComponent implements OnInit {
   }
 
   getListUsers() {
-    console.log(this.listChatRoom)
     this.listUsers = this.listChatRoom.map((chatRoom) => {
       if (chatRoom.user1.userID !== this.senderID) {
         return {
@@ -83,7 +83,7 @@ export class ChatComponent implements OnInit {
         };
       }
     })
-    console.log(this.listUsers);
+    this.listUsersBackup = [...this.listUsers]
 
   }
 
@@ -128,7 +128,15 @@ export class ChatComponent implements OnInit {
   }
 
   onUserSearched() {
-    console.log(this.userSearch)
+    this.listUsers = [...this.listUsersBackup]
+    this.listUsers = this.listUsers.filter((room) => {
+      if (room.userName.includes(this.userSearch)) {
+        return room;
+      }
+      else {
+        return
+      }
+    })
   }
 
   autoScrollToNewMessage() {
