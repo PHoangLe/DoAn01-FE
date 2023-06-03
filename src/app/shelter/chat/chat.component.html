@@ -1,5 +1,12 @@
 <div class="container pt-2">
   <div class="side-bar col-sm-3">
+    <h3>Chat</h3>
+    <div class="search-bar w-100 d-flex">
+      <span class="p-input-icon-left w-100">
+        <i class="pi pi-search ps-1"></i>
+        <input type="text" class="rounded-4 p-1" pInputText />
+      </span>
+    </div>
     <div
       class="reciepient rounded-3 m-1 px-2 d-flex align-items-center"
       *ngFor="let user of listUsers"
@@ -20,7 +27,7 @@
       />
       <div class="name">{{ currentUser.userName }}</div>
     </div>
-    <div class="chat-content">
+    <div class="chat-content" id="boxchat">
       <div
         *ngFor="let message of listMessage"
         class="d-flex m-2 mx-4"
@@ -34,6 +41,9 @@
 
         <div class="message-content rounded-3 p-2 m-1 mx-2">
           {{ message.content }}
+        </div>
+        <div class="time p-2 my-auto">
+          {{ message.timestamp | date : "dd/MM/yyyy" }}
         </div>
       </div>
     </div>

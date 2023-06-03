@@ -21,6 +21,7 @@ export class ChatComponent implements OnInit {
   senderID = JSON.parse(localStorage.getItem("userID")).value;
   currentUser: any;
   currentUserChat: any;
+
   private stompClient = null;
   private messageData = {
     senderID: JSON.parse(localStorage.getItem("userID")).value,
@@ -28,38 +29,43 @@ export class ChatComponent implements OnInit {
     message: ''
   }
 
-  public chatMessages = new Array<string>();
 
   async ngOnInit() {
     await this.getChatRoom();
     this.connect();
-    this.listMessage = this.getMessage();
     this.getListUsers();
   }
 
 
 
-  sendMessage() {
+  async sendMessage() {
     if (this.message) {
-      this.sendValue(this.message);
-
+      const currentDate = new Date();
+      const timestamp = currentDate.getTime();
+      await this.sendValue(this.message);
       this.listMessage.push({
         senderID: this.senderID,
         recipientID: "",
-        content: this.message
+        content: this.message,
+        timestamp: timestamp
       })
       this.message = null;
     }
+    setTimeout(() => {
+      this.autoScrollToNewMessage();
+    }, 100);
+
   }
 
-  selectUser(user) {
+  async selectUser(user) {
     this.recipientID = user.userID;
     this.currentUser = user;
     console.log("user ", user)
-    this.setReceipientID(user.userID);
-
-    this.getListMessages(user.chatRoomID);
-    console.log(this.listMessage)
+    await this.setReceipientID(user.userID);
+    await this.getListMessages(user.chatRoomID);
+    setTimeout(() => {
+      this.autoScrollToNewMessage();
+    }, 300);
 
   }
 
@@ -102,7 +108,7 @@ export class ChatComponent implements OnInit {
     ).catch((error) => {
       console.log(error)
     })
-    this.listMessage = this.rawMessages.map((message) => {
+    this.listMessage = await this.rawMessages.map((message) => {
       return {
         senderID: message.senderID,
         recipientID: message.recipientID,
@@ -110,29 +116,19 @@ export class ChatComponent implements OnInit {
         timestamp: message.timestamp
       }
     })
-    console.log("messages: ", this.listMessage)
+    console.log(this.listMessage)
   }
 
-
-  setUserName(name: string) {
-    this.messageData.senderID = name;
-  }
-
-  setMessage(message: string) {
-    this.messageData.message = message;
-  }
-
-  public setSenderID(senderID: string) {
-    this.messageData.senderID = senderID;
+  autoScrollToNewMessage() {
+    const chatContent = document.getElementById('boxchat')
+    chatContent.scrollTop = chatContent.scrollHeight;
   }
 
   public setReceipientID(recipientID: string) {
     this.messageData.recipientID = recipientID;
   }
 
-  getMessage() {
-    return this.chatMessages;
-  }
+
 
   public connect() {
     let Sock = new SockJS('https://doan01-be-production.up.railway.app/ws');
@@ -150,14 +146,14 @@ export class ChatComponent implements OnInit {
   onMessageSend = (payload) => {
     console.log("message sent")
     var payloadData = JSON.parse(payload.body);
-    this.chatMessages.push(payloadData);
+    this.listMessage.push(payloadData);
   }
 
 
   onPrivateMessage = (payload) => {
     console.log("this is received message: ", payload);
     var payloadData = JSON.parse(payload.body);
-    this.chatMessages.push(payloadData);
+    this.listMessage.push(payloadData);
     console.log("payloadData ", payloadData)
   }
 
@@ -175,7 +171,7 @@ export class ChatComponent implements OnInit {
         content: message
       };
       this.stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-      this.setMessage("");
+      this.messageData.message = "";
     }
   }
 
