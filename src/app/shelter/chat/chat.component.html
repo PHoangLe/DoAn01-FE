@@ -19,7 +19,7 @@
       *ngFor="let user of listUsers"
       (click)="selectUser(user)"
     >
-      <img src="{{ user.userAvatar }}" alt="" class="rounded-circle px-2" />
+      <img src="{{ user.userAvatar }}" alt="" class="rounded-circle mx-2" />
       <div class="content">
         <div class="name">{{ user.userName }}</div>
       </div>
@@ -41,7 +41,11 @@
         [ngClass]="{ 'sender-message': senderID === message.senderID }"
       >
         <p-avatar
-          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          image="{{
+            senderID === message.senderID
+              ? senderAvatar
+              : currentUser.userAvatar
+          }}"
           pBadge
           class="d-flex align-items-center"
         ></p-avatar>
@@ -53,6 +57,7 @@
         </div>
       </div>
     </div>
+
     <div class="input-message">
       <span>
         <input
