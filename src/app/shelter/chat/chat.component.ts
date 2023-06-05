@@ -45,7 +45,15 @@ export class ChatComponent implements OnInit {
       await this.sendValue(this.message);
       this.currentUserChat.push({
         senderID: this.senderID,
-        recipientID: "",
+        recipientID: this.recipientID,
+        content: this.message,
+        timestamp: timestamp,
+        status: "DELIVERED"
+      })
+      this.listMessage.push({
+        chatRoomID: this.currentUser.chatRoomID,
+        senderID: this.senderID,
+        recipientID: this.recipientID,
         content: this.message,
         timestamp: timestamp,
         status: "DELIVERED"
@@ -121,7 +129,7 @@ export class ChatComponent implements OnInit {
 
   getListMessageByRecipientID(recipientID: string) {
     this.currentUserChat = this.listMessage.map((message) => {
-      if (message.recipientID === recipientID || message.senderID === recipientID)
+      if (message.recipientID === recipientID || message.recipientID === this.senderID)
         return message
     })
     setTimeout(() => {
@@ -172,11 +180,12 @@ export class ChatComponent implements OnInit {
     this.listMessage.push(payloadData);
   }
 
-
   onPrivateMessage = (payload) => {
     var payloadData = JSON.parse(payload.body);
+    console.log("private message ", payloadData)
     this.listMessage.push(payloadData);
     this.getListMessageByRecipientID(this.recipientID)
+    console.log(this.listMessage)
   }
 
   onError = (err) => {
