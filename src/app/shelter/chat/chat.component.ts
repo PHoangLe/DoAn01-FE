@@ -62,7 +62,7 @@ export class ChatComponent implements OnInit {
     this.recipientID = user.userID;
     this.currentUser = user;
     this.setReceipientID(this.recipientID);
-    await this.getListMessages();
+    await this.getListMessages(user.chatRoomID);
     this.getListMessageByRecipientID(this.recipientID);
 
   }
@@ -97,8 +97,8 @@ export class ChatComponent implements OnInit {
       })
   }
 
-  async getListMessages() {
-    await this.chatService.getMessageByChatRoom(this.senderID, this.recipientID).then((messages) => {
+  async getListMessages(chatRoomID: string) {
+    await this.chatService.getMessageByChatRoom(chatRoomID, this.senderID, this.recipientID).then((messages) => {
       this.rawMessages = messages;
       console.log(this.rawMessages);
     }

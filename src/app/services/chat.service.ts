@@ -18,9 +18,9 @@ export class ChatService {
     return await this.http.get(this.baseUrl + "getAllChatRoomByUserID/" + `${JSON.parse(localStorage.getItem("userID")).value}`, { headers }).toPromise();
   }
 
-  async getMessageByChatRoom(senderID: string, recipientID: string) {
+  async getMessageByChatRoom(chatRoom: string, senderID: string, recipientID: string) {
     let headers = this.getHttpHeader();
-    return await this.http.get(this.baseUrl + "getAllMessageBySenderIDAndRecipientID/" + `${senderID}/` + `${recipientID}`, { headers }).toPromise();
+    return await this.http.get(this.baseUrl + "getAllMessageBySenderIDAndRecipientID/" + `${chatRoom}/` + `${senderID}/` + `${recipientID}`, { headers }).toPromise();
   }
 
   getHttpHeader(): HttpHeaders {
