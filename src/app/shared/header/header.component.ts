@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { Menu, MenuItemContent } from 'primeng/menu';
 import { AuthService } from 'src/app/services/auth.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -24,31 +25,18 @@ export class HeaderComponent implements OnInit {
     fileUploadService: UploadFileService) {
     try {
       if (JSON.parse(localStorage.getItem("userID")).value) {
-        fileUploadService.getAvatarImageUrl(JSON.parse(localStorage.getItem("userID")).value).subscribe(url => {
-          this.imageUrl = url;
-        },
-          error => {
-            fileUploadService.getDefaultUserAvatar().subscribe(url => {
-              this.imageUrl = url;
-            }
-            )
-          },
-        );
         this.isLoggin = true
+        this.imageUrl = (JSON.parse(localStorage.getItem("userAvatar")).value)
+        this.isShelter = JSON.parse(localStorage.getItem("userRoles")).value.includes('ROLE_SHELTER_MANAGER')
       }
     }
     catch {
       console.log("There are no user")
     }
-    if (this.isLoggin)
-      this.isShelter = JSON.parse(localStorage.getItem("userRoles")).value.includes('ROLE_SHELTER_MANAGER')
 
   }
   ngOnInit() {
-
-
     this.menuItems = [
-
       {
         label: 'Thông tin cá nhân',
         icon: 'pi pi-user',

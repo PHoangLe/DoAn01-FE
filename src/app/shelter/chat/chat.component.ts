@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit {
   rawMessages: any;
   recipientID: string;
   senderID = JSON.parse(localStorage.getItem("userID")).value;
+  senderAvatar = JSON.parse(localStorage.getItem("userAvatar")).value;
   currentUser: any;
   currentUserChat: any;
   userSearch: string;
@@ -46,22 +47,22 @@ export class ChatComponent implements OnInit {
         senderID: this.senderID,
         recipientID: "",
         content: this.message,
-        timestamp: timestamp
+        timestamp: timestamp,
+        status: "DELIVERED"
       })
       this.message = null;
     }
     setTimeout(() => {
       this.autoScrollToNewMessage();
-    }, 100);
+    }, 10);
 
   }
 
   async selectUser(user) {
     this.recipientID = user.userID;
     this.currentUser = user;
-    console.log("user ", user)
-    this.setReceipientID(user.userID);
-    await this.getListMessages(user.chatRoomID);
+    this.setReceipientID(this.recipientID);
+    await this.getListMessages();
     this.getListMessageByRecipientID(this.recipientID);
 
   }
@@ -90,17 +91,16 @@ export class ChatComponent implements OnInit {
   async getChatRoom() {
     await this.chatService.getChatRooom().then((chatRoom) => {
       this.listChatRoom = chatRoom
-      console.log(this.listChatRoom);
-
     })
       .catch((error) => {
         console.log(error)
       })
   }
 
-  async getListMessages(chatRoomID: string) {
-    await this.chatService.getMessageByChatRoom(chatRoomID).then((messages) => {
+  async getListMessages() {
+    await this.chatService.getMessageByChatRoom(this.senderID, this.recipientID).then((messages) => {
       this.rawMessages = messages;
+      console.log(this.rawMessages);
     }
     ).catch((error) => {
       console.log(error)
@@ -110,9 +110,12 @@ export class ChatComponent implements OnInit {
         senderID: message.senderID,
         recipientID: message.recipientID,
         content: message.content,
-        timestamp: message.timestamp
+        timestamp: message.timestamp,
+        status: message.status
       }
     })
+    console.log("senderID: " + this.senderID)
+    console.log("recipientID ", this.recipientID)
     console.log(this.listMessage)
   }
 
@@ -123,7 +126,7 @@ export class ChatComponent implements OnInit {
     })
     setTimeout(() => {
       this.autoScrollToNewMessage();
-    }, 300);
+    }, 10);
 
   }
 

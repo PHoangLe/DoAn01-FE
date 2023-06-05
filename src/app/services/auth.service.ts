@@ -35,7 +35,7 @@ export class AuthService {
       userLastName: this.getLastName(inputData.userName),
       phoneNo: inputData.phoneNumber,
       userGender: "MALE",
-      userAvatar: ""
+      userAvatar: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963&_gl=1*ogemi8*_ga*OTI1NDQxNDAzLjE2Nzc2MzY3NTY.*_ga_CW55HF8NVT*MTY4NTkyOTYzNS4zMi4xLjE2ODU5Mjk2ODcuMC4wLjA."
     }, httpOptions
     )).toPromise();
   }

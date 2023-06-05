@@ -1,6 +1,6 @@
 .container {
   width: 100vw;
-  height: 90vh;
+  height: 91vh;
   margin: auto;
   display: flex;
   flex-direction: row;
@@ -40,7 +40,8 @@
         background-color: #e0ad6f;
       }
       img {
-        width: auto;
+        background-color: #fff;
+        width: fit-content;
         height: 80%;
       }
       .content {
@@ -63,18 +64,23 @@
       align-items: center;
       flex-direction: row;
       background-color: #fafafa;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      box-shadow: rgba(6, 6, 12, 0.25) 0px 50px 100px -20px,
         rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
       font-weight: 600;
+      img {
+        max-height: 60px;
+      }
     }
     .chat-content {
-      max-height: calc(100% - 100px);
+      max-height: calc(100% - 130px);
       overflow: auto;
       overflow: -moz-scrollbars-none;
       scroll-behavior: smooth;
       -ms-overflow-style: none;
       overflow-anchor: none;
       font-size: 1.1rem;
+      justify-content: start !important;
+
       &::-webkit-scrollbar {
         width: 0 !important;
         display: none;
