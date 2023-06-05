@@ -14,8 +14,8 @@ export class ChatComponent implements OnInit {
     private chatService: ChatService) {
   }
 
-  listChatRoom: any;
-  listUsers: UserMessage[];
+  public listChatRoom: any;
+  public listUsers: UserMessage[];
   listUsersBackup: UserMessage[];
   rawMessages: any;
   listMessage = new Array<Message>();
@@ -89,7 +89,7 @@ export class ChatComponent implements OnInit {
 
   }
 
-  getListUsers() {
+  public getListUsers() {
     this.listUsers = this.listChatRoom.map((chatRoom) => {
       if (chatRoom.user1.userID !== this.senderID) {
         return {
@@ -115,7 +115,7 @@ export class ChatComponent implements OnInit {
 
   }
 
-  async getChatRoom() {
+  public async getChatRoom() {
     await this.chatService.getChatRooom().then((chatRoom) => {
       this.listChatRoom = chatRoom
     })
@@ -153,6 +153,8 @@ export class ChatComponent implements OnInit {
         })
     })
   }
+
+
 
   onUserSearched() {
     this.listUsers = [...this.listUsersBackup]

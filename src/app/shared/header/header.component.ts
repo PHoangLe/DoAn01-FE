@@ -5,6 +5,7 @@ import { Menu, MenuItemContent } from 'primeng/menu';
 import { AuthService } from 'src/app/services/auth.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-header',
@@ -14,17 +15,20 @@ import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   imageUrl: string
+  userID: string
   menuItems: MenuItem[]
   userRole: string
   isLoggin = false;
   isShelter: false;
+  unreadMessage: number;
+  listChatRoom: any;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    fileUploadService: UploadFileService) {
+    private chatService: ChatService) {
     try {
-      if (JSON.parse(localStorage.getItem("userID")).value) {
+      if (this.userID = JSON.parse(localStorage.getItem("userID")).value) {
         this.isLoggin = true
         this.imageUrl = (JSON.parse(localStorage.getItem("userAvatar")).value)
         this.isShelter = JSON.parse(localStorage.getItem("userRoles")).value.includes('ROLE_SHELTER_MANAGER')
@@ -33,9 +37,10 @@ export class HeaderComponent implements OnInit {
     catch {
       console.log("There are no user")
     }
-
   }
-  ngOnInit() {
+  async ngOnInit() {
+    this.unreadMessage = 0;
+    await this.getUnreadMessages();
     this.menuItems = [
       {
         label: 'Thông tin cá nhân',
@@ -62,6 +67,25 @@ export class HeaderComponent implements OnInit {
     ];
   }
 
+
+  async getUnreadMessages() {
+    await this.chatService.getChatRooom().then((chatRoom) => {
+      this.listChatRoom = chatRoom;
+      console.log(this.listChatRoom);
+    })
+      .catch(err => {
+        console.log(err);
+      })
+
+    await this.listChatRoom.map((chatRoom) => {
+      let recipientID = chatRoom.user1.userID === this.userID ? chatRoom.user2.userID : chatRoom.user1.userID;
+      this.chatService.getUnreadMessageByRecipientID(this.userID, recipientID).then((count) => {
+        console.log(count);
+        if (count !== 0)
+          this.unreadMessage++;
+      })
+    })
+  }
   signOut() {
     localStorage.clear();
     this.router.navigate(['/login'])

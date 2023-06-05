@@ -34,11 +34,8 @@
   }
   .navbar-nav {
     li {
-      &:active {
-        border-bottom: solid 3px var(--primary-color);
-        padding-bottom: 3px;
-      }
       a {
+        position: relative;
         color: #313639;
         font-size: large;
         font-size: 20px;
@@ -46,6 +43,16 @@
         cursor: pointer;
         transition: transform 0.2s;
         text-decoration: none;
+        .notification {
+          position: absolute;
+          padding: 1px;
+          width: 13px;
+          height: 13px;
+          top: 0px;
+          right: -5px;
+          background-color: rgb(195, 3, 3);
+          font-size: 0.75rem;
+        }
         &:hover {
           color: var(--primary-color);
           transform: scale(1.1);
