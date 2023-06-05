@@ -7,23 +7,28 @@ import { over } from 'stompjs';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.less']
 })
+
+
 export class ChatComponent implements OnInit {
   constructor(
     private chatService: ChatService) {
   }
 
-  listMessage: any
-  listUsers: any;
   listChatRoom: any;
-  listUsersBackup: any;
-  message: string;
+  listUsers: UserMessage[];
+  listUsersBackup: UserMessage[];
   rawMessages: any;
-  recipientID: string;
-  senderID = JSON.parse(localStorage.getItem("userID")).value;
-  senderAvatar = JSON.parse(localStorage.getItem("userAvatar")).value;
+  listMessage = new Array<Message>();
   currentUser: any;
   currentUserChat: any;
+
   userSearch: string;
+  message: string;
+  recipientID: string;
+
+  senderID = JSON.parse(localStorage.getItem("userID")).value;
+  senderAvatar = JSON.parse(localStorage.getItem("userAvatar")).value;
+
   private stompClient = null;
   private messageData = {
     senderID: JSON.parse(localStorage.getItem("userID")).value,
@@ -35,7 +40,9 @@ export class ChatComponent implements OnInit {
   async ngOnInit() {
     await this.connect();
     await this.getChatRoom();
-    this.getListUsers();
+    await this.getListUsers();
+    await this.getUnreadMessage();
+
   }
 
   async sendMessage() {
@@ -44,6 +51,7 @@ export class ChatComponent implements OnInit {
       const timestamp = currentDate.getTime();
       await this.sendValue(this.message);
       this.currentUserChat.push({
+        chatRoomID: this.currentUser.chatRoomID,
         senderID: this.senderID,
         recipientID: this.recipientID,
         content: this.message,
@@ -71,7 +79,13 @@ export class ChatComponent implements OnInit {
     this.currentUser = user;
     this.setReceipientID(this.recipientID);
     await this.getListMessages(user.chatRoomID);
-    this.getListMessageByRecipientID(this.recipientID);
+    this.listUsers.map((selectedUser) => {
+      if (user.userID === selectedUser.userID)
+        selectedUser.isRead = true;
+    })
+    setTimeout(() => {
+      this.autoScrollToNewMessage();
+    }, 10);
 
   }
 
@@ -81,18 +95,23 @@ export class ChatComponent implements OnInit {
         return {
           chatRoomID: chatRoom.chatRoomID,
           userID: chatRoom.user1.userID,
-          userName: chatRoom.user1.userFirstName + " " + chatRoom.user1.userLastName, userAvatar: chatRoom.user1.userAvatar
+          userName: chatRoom.user1.userFirstName + " " + chatRoom.user1.userLastName,
+          userAvatar: chatRoom.user1.userAvatar,
+          isRead: false
         };
       }
       else {
         return {
           chatRoomID: chatRoom.chatRoomID,
           userID: chatRoom.user2.userID,
-          userName: chatRoom.user2.userFirstName + " " + chatRoom.user2.userLastName, userAvatar: chatRoom.user2.userAvatar
+          userName: chatRoom.user2.userFirstName + " " + chatRoom.user2.userLastName,
+          userAvatar: chatRoom.user2.userAvatar,
+          isRead: false
         };
       }
     })
     this.listUsersBackup = [...this.listUsers]
+    console.log(this.listUsersBackup)
 
   }
 
@@ -108,12 +127,11 @@ export class ChatComponent implements OnInit {
   async getListMessages(chatRoomID: string) {
     await this.chatService.getMessageByChatRoom(chatRoomID, this.senderID, this.recipientID).then((messages) => {
       this.rawMessages = messages;
-      console.log(this.rawMessages);
     }
     ).catch((error) => {
       console.log(error)
     })
-    this.listMessage = await this.rawMessages.map((message) => {
+    this.currentUserChat = await this.rawMessages.map((message) => {
       return {
         senderID: message.senderID,
         recipientID: message.recipientID,
@@ -122,20 +140,18 @@ export class ChatComponent implements OnInit {
         status: message.status
       }
     })
-    console.log("senderID: " + this.senderID)
-    console.log("recipientID ", this.recipientID)
-    console.log(this.listMessage)
   }
 
-  getListMessageByRecipientID(recipientID: string) {
-    this.currentUserChat = this.listMessage.map((message) => {
-      if (message.recipientID === recipientID || message.recipientID === this.senderID)
-        return message
+  getUnreadMessage() {
+    this.listUsers.map((user) => {
+      this.chatService.getUnreadMessageByRecipientID(user.userID, this.senderID).then((messageCount) => {
+        if (messageCount === 0)
+          user.isRead = true
+      })
+        .catch((error) => {
+          console.log(error)
+        })
     })
-    setTimeout(() => {
-      this.autoScrollToNewMessage();
-    }, 10);
-
   }
 
   onUserSearched() {
@@ -145,7 +161,7 @@ export class ChatComponent implements OnInit {
         return room;
       }
       else {
-        return
+        return 0;
       }
     })
   }
@@ -155,11 +171,11 @@ export class ChatComponent implements OnInit {
     chatContent.scrollTop = chatContent.scrollHeight;
   }
 
+
+
   public setReceipientID(recipientID: string) {
     this.messageData.recipientID = recipientID;
   }
-
-
 
   public connect() {
     let Sock = new SockJS('https://doan01-be-production.up.railway.app/ws');
@@ -182,10 +198,13 @@ export class ChatComponent implements OnInit {
 
   onPrivateMessage = (payload) => {
     var payloadData = JSON.parse(payload.body);
-    console.log("private message ", payloadData)
     this.listMessage.push(payloadData);
-    this.getListMessageByRecipientID(this.recipientID)
     console.log(this.listMessage)
+    this.listUsers.map((user) => {
+      if (user.userID === payloadData.senderID)
+        user.isRead = false
+    })
+    console.log(this.listUsers)
   }
 
   onError = (err) => {
@@ -207,4 +226,20 @@ export class ChatComponent implements OnInit {
     }
   }
 
+}
+export interface UserMessage {
+  chatRoomID: string;
+  userID: string;
+  userName: string;
+  userAvatar: string;
+  isRead: boolean;
+}
+
+export interface Message {
+  chatRoomID: string,
+  senderID: string,
+  recipientID: string,
+  content: string,
+  timestamp: any,
+  status: string
 }

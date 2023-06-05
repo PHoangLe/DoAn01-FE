@@ -14,17 +14,21 @@
         />
       </span>
     </div>
-    <div
-      class="reciepient rounded-3 m-1 px-2 d-flex align-items-center"
-      *ngFor="let user of listUsers"
-      (click)="selectUser(user)"
-    >
-      <img src="{{ user.userAvatar }}" alt="" class="rounded-circle mx-2" />
-      <div class="content">
-        <div class="name">{{ user.userName }}</div>
+    <div class="recipient-container">
+      <div
+        class="reciepient rounded-3 m-1 px-2 d-flex align-items-center"
+        *ngFor="let user of listUsers"
+        (click)="selectUser(user)"
+      >
+        <img src="{{ user.userAvatar }}" alt="" class="rounded-circle mx-2" />
+        <div class="content d-flex align-items-center justify-content-between">
+          <div class="name">{{ user.userName }}</div>
+          <div class="unread-message rounded-circle" *ngIf="!user.isRead"></div>
+        </div>
       </div>
     </div>
   </div>
+
   <div class="boxchat col-sm-9" *ngIf="currentUser">
     <div class="chat-header p-2 m-1 rounded-3">
       <img

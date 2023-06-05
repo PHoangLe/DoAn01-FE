@@ -23,6 +23,11 @@ export class ChatService {
     return await this.http.get(this.baseUrl + "getAllMessageBySenderIDAndRecipientID/" + `${chatRoom}/` + `${senderID}/` + `${recipientID}`, { headers }).toPromise();
   }
 
+  async getUnreadMessageByRecipientID(recipientID: string, senderID: string) {
+    let headers = this.getHttpHeader();
+    return await this.http.get(this.baseUrl + "messages/" + `${senderID}/` + `${recipientID}/count`, { headers }).toPromise();
+  }
+
   getHttpHeader(): HttpHeaders {
     return new HttpHeaders({
       'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
