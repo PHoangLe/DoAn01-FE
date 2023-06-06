@@ -15,6 +15,8 @@ import { BankingComponent } from './banking/banking.component';
 })
 export class PetDetailComponent implements OnInit, OnDestroy {
   protected pet: Pet
+  protected adoption: any;
+  protected petShelterName: string
   protected breadcrumbItimes: MenuItem[];
   protected listImg = new Array<string>();
   protected responsiveOptions: any[];
@@ -45,8 +47,8 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   }
 
   async getPageData() {
+    this.petService.getStorageAdoption();
     this.pet = await this.petService.getStoragePet();
-    console.log(this.pet);
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
     this.userID = JSON.parse(localStorage.getItem('userID')).value;
@@ -77,15 +79,16 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     ]
 
     await this.petAdopt.isAdoptedPet(this.pet.animalID, this.userID).then(response => {
+      console.log("adopt? ", response)
       this.isSendAdoption = true;
     })
       .catch(error => {
         console.log("error ", error)
         this.isSendAdoption = false;
-
       })
 
     await this.petAdopt.isOnlineAdoptedPet(this.pet.animalID, this.userID).then(response => {
+      console.log("online adopt? ", response)
       this.isSendOnlAdoption = true;
     })
       .catch(error => {
@@ -107,6 +110,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   onlineAdopt() {
     this.petAdopt.sendOnlineAdoptionRequest(this.pet.animalID, this.pet.shelterID, this.userID).then(() => {
       this.messageService.add({ key: 'adoptPet', severity: 'success', summary: 'Đã gửi yêu cầu!' })
+      this.isSendOnlAdoption = true;
       setTimeout(() => {
         this.ref = this.dialogService.open(BankingComponent, {
           data: this.pet,
@@ -118,8 +122,6 @@ export class PetDetailComponent implements OnInit, OnDestroy {
         })
       }, 1500);
     })
-
-
   }
 
   onReject() {
@@ -128,6 +130,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   onConfirm() {
     this.petAdopt.sendAdoptionRequest(this.pet.animalID, this.pet.shelterID, JSON.parse(localStorage.getItem("userID")).value).then(value => {
       console.log(value);
+      this.isSendAdoption = true;
       this.messageService.add({ key: 'adoptPet', severity: 'info', summary: 'Gửi yêu cầu thành công!' })
     })
       .catch(error => {

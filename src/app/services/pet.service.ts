@@ -123,6 +123,16 @@ export class PetService {
     )
   }
 
+  getStorageAdoption() {
+    const adoptionJSON = sessionStorage.getItem("currentAdoption");
+    if (!adoptionJSON) {
+      return null;
+    }
+    console.log(JSON.parse(adoptionJSON))
+  }
+
+
+
   convertToPets(input: any): Pet[] {
     var petList = new Array<Pet>
     if (input) {

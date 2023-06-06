@@ -9,11 +9,13 @@ import { ChatService } from 'src/app/services/chat.service';
 import { ChatComponent } from 'src/app/shelter/chat/chat.component';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
+import { LoginComponent } from 'src/app/authenticate/login/login.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.less']
+  styleUrls: ['./header.component.less'],
+  providers: [LoginComponent]
 })
 export class HeaderComponent implements OnInit {
 
@@ -27,11 +29,31 @@ export class HeaderComponent implements OnInit {
   listChatRoom: any;
   private stompClient = null;
 
+
+  protected navbar = [
+    {
+      navID: 'home',
+      isActive: false
+    },
+    {
+      navID: 'rescue',
+      isActive: false
+    },
+    {
+      navID: 'adopt',
+      isActive: false
+    },
+    {
+      navID: 'donate',
+      isActive: false
+    }
+  ]
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private chatService: ChatService) {
+    private chatService: ChatService,
+    private loginComponent: LoginComponent) {
     try {
       if (this.userID = JSON.parse(localStorage.getItem("userID")).value) {
         this.isLoggin = true
@@ -94,10 +116,17 @@ export class HeaderComponent implements OnInit {
   }
   signOut() {
     localStorage.clear();
+    this.loginComponent.signOut();
     this.router.navigate(['/login'])
   }
 
 
+  onNavbarClick(id: string) {
+    this.navbar.map((nav) => {
+      nav.navID === id ? nav.isActive = true : nav.isActive = false;
+    })
+    console.log(this.navbar)
+  }
 
   routeToAdoptPage() {
     if (this.isShelter)
@@ -113,6 +142,8 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['user'])
   }
 
+
+
   connect() {
     let Sock = new SockJS('https://doan01-be-production.up.railway.app/ws');
     // let Sock = new SockJS('http://localhost:8080/ws');
@@ -122,7 +153,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onConnected = () => {
+    this.stompClient.subscribe('/private-message', this.onMessageSend);
     this.stompClient.subscribe('/user/' + JSON.parse(localStorage.getItem("userID")).value + '/private', this.onPrivateMessage);
+  }
+
+  onMessageSend = (payload) => {
   }
 
   onPrivateMessage = (payload) => {

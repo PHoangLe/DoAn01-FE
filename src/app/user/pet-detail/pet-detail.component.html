@@ -13,10 +13,20 @@
       [showItemNavigatorsOnHover]="true"
       [showItemNavigators]="true"
       [responsiveOptions]="responsiveOptions"
-      [containerStyle]="{ 'max-width': '640px' }"
+      [containerStyle]="{ 'max-width': '640px', 'min-height': '500px' }"
     >
       <ng-template pTemplate="item" let-item>
-        <img [src]="item" style="width: 54%; display: block" />
+        <img
+          [src]="item"
+          style="
+            width: 80%;
+            display: block;
+            padding-bottom: 10px;
+            min-height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+          "
+        />
       </ng-template>
       <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -28,6 +38,8 @@
     <div class="pet-info">
       <div class="basic-info ps-4">
         <h1>{{ pet.animalName }}</h1>
+        <h3>{{ pet.animalName }}</h3>
+
         <h5><b>Giống:</b> {{ pet.animalBreed }}</h5>
         <h5><b>Giới tính:</b> {{ pet.animalGender ? "Đực" : "Cái" }}</h5>
         <h5><b>Tuổi:</b> {{ pet.animalAge }}</h5>

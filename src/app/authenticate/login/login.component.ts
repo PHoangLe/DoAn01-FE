@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
     this.socialLoginService.getAccessToken(GoogleLoginProvider.PROVIDER_ID).then(
       accessToken => this.accessToken = accessToken);
   }
-  signOut(): void {
+  public signOut(): void {
     this.socialLoginService.signOut();
   }
   refreshToken(): void {

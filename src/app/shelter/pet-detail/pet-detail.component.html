@@ -16,7 +16,14 @@
       <ng-template pTemplate="item" let-item>
         <img
           [src]="item"
-          style="width: 80%; display: block; padding-bottom: 10px"
+          style="
+            width: 80%;
+            display: block;
+            padding-bottom: 10px;
+            min-height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+          "
         />
       </ng-template>
       <ng-template pTemplate="thumbnail" let-item>
@@ -58,7 +65,7 @@
       <div class="ps-4 p-2" *ngIf="listUserImg">
         Hiện tại chưa có người nhận nuôi
       </div>
-      <div class="button-group pt-2 d-flex justify-content-center">
+      <div class="button-group pt-2 ps-4 d-flex">
         <button class="btn btn-primary" (click)="editPet()">
           Sửa thông tin
         </button>

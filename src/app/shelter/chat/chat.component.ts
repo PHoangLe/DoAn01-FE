@@ -198,6 +198,7 @@ export class ChatComponent implements OnInit {
   onPrivateMessage = (payload) => {
     var payloadData = JSON.parse(payload.body);
     this.listMessage.push(payloadData);
+    this.currentUserChat.push(payloadData);
     this.listUsers.map((user) => {
       if (user.userID === payloadData.senderID)
         user.isRead = false
