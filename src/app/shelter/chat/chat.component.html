@@ -20,10 +20,14 @@
         *ngFor="let user of listUsers"
         (click)="selectUser(user)"
       >
-        <img src="{{ user.userAvatar }}" alt="" class="rounded-circle mx-2" />
-        <div class="content d-flex align-items-center justify-content-between">
-          <div class="name">{{ user.userName }}</div>
+        <div class="avatar">
+          <img src="{{ user.userAvatar }}" alt="" class="rounded-circle mx-2" />
           <div class="unread-message rounded-circle" *ngIf="!user.isRead"></div>
+        </div>
+        <div class="content d-flex align-items-center justify-content-center">
+          <div class="name" [ngClass]="{ 'unread-name': !user.isRead }">
+            {{ user.userName }}
+          </div>
         </div>
       </div>
     </div>

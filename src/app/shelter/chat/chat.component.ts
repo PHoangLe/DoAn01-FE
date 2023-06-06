@@ -14,11 +14,11 @@ export class ChatComponent implements OnInit {
     private chatService: ChatService) {
   }
 
-  public listChatRoom: any;
-  public listUsers: UserMessage[];
+  listChatRoom: any;
+  listUsers: UserMessage[];
   listUsersBackup: UserMessage[];
   rawMessages: any;
-  listMessage = new Array<Message>();
+  public listMessage = new Array<Message>();
   currentUser: any;
   currentUserChat: any;
 
@@ -145,6 +145,7 @@ export class ChatComponent implements OnInit {
   getUnreadMessage() {
     this.listUsers.map((user) => {
       this.chatService.getUnreadMessageByRecipientID(user.userID, this.senderID).then((messageCount) => {
+        console.log(user.userID + " " + messageCount)
         if (messageCount === 0)
           user.isRead = true
       })
@@ -159,12 +160,11 @@ export class ChatComponent implements OnInit {
   onUserSearched() {
     this.listUsers = [...this.listUsersBackup]
     this.listUsers = this.listUsers.filter((room) => {
-      if (room.userName.includes(this.userSearch)) {
+      if (room.userName.includes(this.userSearch))
         return room;
-      }
-      else {
+      else
         return 0;
-      }
+
     })
   }
 
@@ -172,8 +172,6 @@ export class ChatComponent implements OnInit {
     const chatContent = document.getElementById('boxchat')
     chatContent.scrollTop = chatContent.scrollHeight;
   }
-
-
 
   public setReceipientID(recipientID: string) {
     this.messageData.recipientID = recipientID;
@@ -193,7 +191,6 @@ export class ChatComponent implements OnInit {
   }
 
   onMessageSend = (payload) => {
-    console.log("message sent")
     var payloadData = JSON.parse(payload.body);
     this.listMessage.push(payloadData);
   }
@@ -201,19 +198,15 @@ export class ChatComponent implements OnInit {
   onPrivateMessage = (payload) => {
     var payloadData = JSON.parse(payload.body);
     this.listMessage.push(payloadData);
-    console.log(this.listMessage)
     this.listUsers.map((user) => {
       if (user.userID === payloadData.senderID)
         user.isRead = false
     })
-    console.log(this.listUsers)
   }
 
   onError = (err) => {
     console.log(err);
-
   }
-
 
   sendValue(message) {
     if (this.stompClient) {
@@ -222,7 +215,6 @@ export class ChatComponent implements OnInit {
         recipientID: this.messageData.recipientID,
         content: message
       };
-      console.log(chatMessage);
       this.stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
       this.messageData.message = "";
     }

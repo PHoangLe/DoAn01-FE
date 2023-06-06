@@ -39,20 +39,33 @@
       &:hover {
         background-color: #e0ad6f;
       }
-      img {
-        background-color: #fff;
-        width: fit-content;
+      .avatar {
         height: 80%;
-      }
-      .content {
-        width: calc(100% - 76px);
-        .name {
-          font-weight: 600;
+        position: relative;
+        img {
+          background-color: #fff;
+          width: fit-content;
+          height: 100%;
         }
         .unread-message {
+          z-index: 2;
+          position: absolute;
+          top: 0px;
+          left: 5px;
           background-color: var(--primary-color);
-          width: 10px;
-          height: 10px;
+          width: 15px;
+          height: 15px;
+        }
+      }
+      .content {
+        padding-left: 10px;
+        width: calc(100% - 80px);
+        justify-content: start !important;
+        .name {
+          font-weight: 580;
+        }
+        .unread-name {
+          font-weight: 650;
         }
       }
     }
@@ -206,19 +219,20 @@
           &:hover {
             background-color: #fff;
           }
-          img {
-            margin-top: 5px;
-            width: auto;
-            height: 50%;
+          .avatar {
+            img {
+              margin-top: 5px;
+              width: auto;
+              height: 80%;
+            }
           }
-          .content {
-            width: 100%;
-            .name {
-              font-size: 0.75rem;
-            }
-            .unread-message {
-              display: none;
-            }
+        }
+        .content {
+          width: 100%;
+          justify-content: center !important;
+          padding-left: 0;
+          .name {
+            font-size: 0.75rem;
           }
         }
       }

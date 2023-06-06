@@ -6,6 +6,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
+import { ChatComponent } from 'src/app/shelter/chat/chat.component';
+import SockJS from 'sockjs-client';
+import { over } from 'stompjs';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +25,8 @@ export class HeaderComponent implements OnInit {
   isShelter: false;
   unreadMessage: number;
   listChatRoom: any;
+  private stompClient = null;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -40,6 +45,7 @@ export class HeaderComponent implements OnInit {
   }
   async ngOnInit() {
     this.unreadMessage = 0;
+    this.connect();
     await this.getUnreadMessages();
     this.menuItems = [
       {
@@ -105,5 +111,26 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['shelter'])
     else
       this.router.navigate(['user'])
+  }
+
+  connect() {
+    let Sock = new SockJS('https://doan01-be-production.up.railway.app/ws');
+    // let Sock = new SockJS('http://localhost:8080/ws');
+
+    this.stompClient = over(Sock);
+    this.stompClient.connect({}, this.onConnected, this.onError);
+  }
+
+  onConnected = () => {
+    this.stompClient.subscribe('/user/' + JSON.parse(localStorage.getItem("userID")).value + '/private', this.onPrivateMessage);
+  }
+
+  onPrivateMessage = (payload) => {
+    var payloadData = JSON.parse(payload.body);
+    this.unreadMessage++;
+  }
+
+  onError = (err) => {
+    console.log(err);
   }
 }
