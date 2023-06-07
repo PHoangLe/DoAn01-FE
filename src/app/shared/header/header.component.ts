@@ -81,7 +81,6 @@ export class HeaderComponent implements OnInit {
   async getUnreadMessages() {
     await this.chatService.getChatRooom().then((chatRoom) => {
       this.listChatRoom = chatRoom;
-      console.log(this.listChatRoom);
     })
       .catch(err => {
         console.log(err);
@@ -90,7 +89,6 @@ export class HeaderComponent implements OnInit {
     await this.listChatRoom.map((chatRoom) => {
       let recipientID = chatRoom.user1.userID === this.userID ? chatRoom.user2.userID : chatRoom.user1.userID;
       this.chatService.getUnreadMessageByRecipientID(this.userID, recipientID).then((count) => {
-        console.log(count);
         if (count !== 0)
           this.unreadMessage++;
       })

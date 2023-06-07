@@ -60,6 +60,7 @@ export class AdoptionDetailComponent implements OnInit {
   }
 
   contactRequestor() {
+    sessionStorage.setItem("reciepientID", this.requestInfo.user.userID)
     this.chat.connect();
     setTimeout(() => {
       this.chat.setReceipientID(this.requestInfo.user.userID);

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
@@ -8,11 +8,12 @@ import { over } from 'stompjs';
   styleUrls: ['./chat.component.less']
 })
 
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
   constructor(
     private chatService: ChatService,
     private elRef: ElementRef) {
   }
+
 
   listChatRoom: any;
   listUsers: UserMessage[];
@@ -38,10 +39,30 @@ export class ChatComponent implements OnInit {
 
 
   async ngOnInit() {
+    console.log("view init")
+
     await this.connect();
     await this.getChatRoom();
     await this.getListUsers();
     await this.getUnreadMessage();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      console.log("after view init")
+      if (sessionStorage.getItem("reciepientID")) {
+        this.currentUser = this.listUsers.filter((user) => {
+          if (user.userID === sessionStorage.getItem("reciepientID")) {
+            return user
+          }
+          else
+            return 0;
+        })
+        this.selectUser(this.currentUser[0])
+      }
+    }, 2500);
+
+
   }
 
   async sendMessage() {
@@ -76,9 +97,10 @@ export class ChatComponent implements OnInit {
   async selectUser(user) {
     this.recipientID = user.userID;
     this.currentUser = user;
+    console.log(this.currentUser)
     const items = document.querySelectorAll(".reciepient");
     const element = document.getElementById(user.userID);
-
+    console.log(element)
     items.forEach((item) => {
       item.classList.remove("active")
       item.removeAttribute("style");
@@ -119,24 +141,10 @@ export class ChatComponent implements OnInit {
       }
     })
     this.listUsersBackup = [...this.listUsers]
-    if (sessionStorage.getItem("reciepientID")) {
-      this.currentUser = this.listUsers.filter((user) => {
-        if (user.userID === sessionStorage.getItem("reciepientID")) {
-          const items = document.querySelectorAll(".reciepient");
-          const element = document.getElementById(user.userID);
 
-          items.forEach((item) => {
-            item.classList.remove("active")
-            item.removeAttribute("style");
-          })
-          element.classList.add("active")
-          return user
-        }
-        else
-          return 0;
-      })
-    }
   }
+
+
 
   public async getChatRoom() {
     await this.chatService.getChatRooom().then((chatRoom) => {
@@ -168,7 +176,6 @@ export class ChatComponent implements OnInit {
   getUnreadMessage() {
     this.listUsers.map((user) => {
       this.chatService.getUnreadMessageByRecipientID(user.userID, this.senderID).then((messageCount) => {
-        console.log(user.userID + " " + messageCount)
         if (messageCount === 0)
           user.isRead = true
       })
