@@ -64,6 +64,20 @@
         color: var(--primary-color);
         transform: scale(1.1);
         font-weight: 700;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 60%;
+          transform: scaleX(0);
+          height: 2px;
+          left: 20px;
+          bottom: 0;
+          background-color: var(--primary-color);
+          transform-origin: bottom right;
+          transition: transform 0.25s ease-out;
+          transform: scaleX(1);
+          transform-origin: bottom left;
+        }
       }
 
       > ul {
@@ -82,28 +96,28 @@
   }
 }
 
-// .nav-link {
-//   display: inline-block;
-//   position: relative;
-//   color: var(--primary-color);
+.nav-link {
+  display: inline-block;
+  position: relative;
+  color: var(--primary-color);
 
-//   &::after {
-//     content: "";
-//     position: absolute;
-//     width: 60%;
-//     transform: scaleX(0);
-//     height: 2px;
-//     left: 20px;
-//     bottom: 0;
-//     background-color: var(--primary-color);
-//     transform-origin: bottom right;
-//     transition: transform 0.25s ease-out;
-//   }
-//   &:hover::after {
-//     transform: scaleX(1);
-//     transform-origin: bottom left;
-//   }
-// }
+  &::after {
+    content: "";
+    position: absolute;
+    width: 60%;
+    transform: scaleX(0);
+    height: 2px;
+    left: 20px;
+    bottom: 0;
+    background-color: var(--primary-color);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+}
 
 @media (max-width: 768px) {
   .navbar-nav {

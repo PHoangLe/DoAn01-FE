@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { ChatService } from 'src/app/services/chat.service';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
@@ -8,10 +8,10 @@ import { over } from 'stompjs';
   styleUrls: ['./chat.component.less']
 })
 
-
 export class ChatComponent implements OnInit {
   constructor(
-    private chatService: ChatService) {
+    private chatService: ChatService,
+    private elRef: ElementRef) {
   }
 
   listChatRoom: any;
@@ -42,7 +42,6 @@ export class ChatComponent implements OnInit {
     await this.getChatRoom();
     await this.getListUsers();
     await this.getUnreadMessage();
-
   }
 
   async sendMessage() {
@@ -77,6 +76,15 @@ export class ChatComponent implements OnInit {
   async selectUser(user) {
     this.recipientID = user.userID;
     this.currentUser = user;
+    const items = document.querySelectorAll(".reciepient");
+    const element = document.getElementById(user.userID);
+
+    items.forEach((item) => {
+      item.classList.remove("active")
+      item.removeAttribute("style");
+    })
+    element.classList.add("active")
+
     this.setReceipientID(this.recipientID);
     await this.getListMessages(user.chatRoomID);
     this.listUsers.map((selectedUser) => {
@@ -97,7 +105,7 @@ export class ChatComponent implements OnInit {
           userID: chatRoom.user1.userID,
           userName: chatRoom.user1.userFirstName + " " + chatRoom.user1.userLastName,
           userAvatar: chatRoom.user1.userAvatar,
-          isRead: false
+          isRead: true
         };
       }
       else {
@@ -106,13 +114,28 @@ export class ChatComponent implements OnInit {
           userID: chatRoom.user2.userID,
           userName: chatRoom.user2.userFirstName + " " + chatRoom.user2.userLastName,
           userAvatar: chatRoom.user2.userAvatar,
-          isRead: false
+          isRead: true
         };
       }
     })
     this.listUsersBackup = [...this.listUsers]
-    console.log(this.listUsersBackup)
+    if (sessionStorage.getItem("reciepientID")) {
+      this.currentUser = this.listUsers.filter((user) => {
+        if (user.userID === sessionStorage.getItem("reciepientID")) {
+          const items = document.querySelectorAll(".reciepient");
+          const element = document.getElementById(user.userID);
 
+          items.forEach((item) => {
+            item.classList.remove("active")
+            item.removeAttribute("style");
+          })
+          element.classList.add("active")
+          return user
+        }
+        else
+          return 0;
+      })
+    }
   }
 
   public async getChatRoom() {

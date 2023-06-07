@@ -30,24 +30,6 @@ export class HeaderComponent implements OnInit {
   private stompClient = null;
 
 
-  protected navbar = [
-    {
-      navID: 'home',
-      isActive: false
-    },
-    {
-      navID: 'rescue',
-      isActive: false
-    },
-    {
-      navID: 'adopt',
-      isActive: false
-    },
-    {
-      navID: 'donate',
-      isActive: false
-    }
-  ]
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -128,7 +110,6 @@ export class HeaderComponent implements OnInit {
       item.removeAttribute("style");
     })
     element.target.classList.add("active")
-    console.log(element.target.classList)
 
   }
 
