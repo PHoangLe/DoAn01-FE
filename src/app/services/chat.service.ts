@@ -25,9 +25,6 @@ export class ChatService {
 
   async getUnreadMessageByRecipientID(recipientID: string, senderID: string) {
     let headers = this.getHttpHeader();
-    console.log("recipientID ", recipientID)
-    console.log("senderID ", senderID)
-
     return await this.http.get(this.baseUrl + "messages/" + `${senderID}/` + `${recipientID}/count`, { headers }).toPromise();
   }
 

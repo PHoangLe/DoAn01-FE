@@ -121,11 +121,15 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  onNavbarClick(id: string) {
-    this.navbar.map((nav) => {
-      nav.navID === id ? nav.isActive = true : nav.isActive = false;
+  onNavbarClick(element: any) {
+    const items = document.querySelectorAll(".nav-link");
+    items.forEach((item) => {
+      item.classList.remove("active")
+      item.removeAttribute("style");
     })
-    console.log(this.navbar)
+    element.target.classList.add("active")
+    console.log(element.target.classList)
+
   }
 
   routeToAdoptPage() {

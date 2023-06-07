@@ -8,7 +8,13 @@
 <div class="container p-4">
   <div class="info pt-4">
     <div class="pet-info my-auto">
-      <h1 class="ps-4">{{ requestInfo.animal.animalName }}</h1>
+      <div class="pet-info-header d-flex">
+        <h1 class="ps-4">{{ requestInfo.animal.animalName }}</h1>
+        <h1 class="my-auto">|</h1>
+        <h4 class="ps-4 my-auto">
+          Trại: {{ requestInfo.shelter.shelterName }}
+        </h4>
+      </div>
       <div class="basic-info ps-4">
         <h5><b>Giống:</b> {{ requestInfo.animal.animalBreed }}</h5>
         <h5>
