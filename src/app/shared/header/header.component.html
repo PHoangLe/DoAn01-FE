@@ -21,14 +21,29 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav m-auto mb-lg-0">
         <li class="nav-item p-3">
-          <a class="nav-link" (click)="routeToHomePage()">Trang chủ</a>
+          <a
+            class="nav-link"
+            (click)="routeToHomePage()"
+            (click)="onNavbarClick('home')"
+            [ngClass]="{ active: navbar[0].isActive }"
+            >Trang chủ</a
+          >
         </li>
         <li class="nav-item p-3">
-          <a class="nav-link">Cứu trợ</a>
+          <a
+            class="nav-link"
+            (click)="onNavbarClick('rescue')"
+            [ngClass]="{ active: navbar[1].isActive }"
+            >Cứu trợ</a
+          >
         </li>
         <li class="nav-item p-3">
-          <a class="nav-link" (click)="routeToAdoptPage()"
-            >Nhận nuôi <i class="bi bi-chevron-down" *ngIf="isShelter"></i
+          <a
+            class="nav-link"
+            (click)="routeToAdoptPage()"
+            (click)="onNavbarClick('adopt')"
+            [ngClass]="{ active: navbar[2].isActive }"
+            >Thú cưng <i class="bi bi-chevron-down" *ngIf="isShelter"></i
           ></a>
 
           <ul class="adopt-menu px-3 pb-1 pt-4 rounded-1" *ngIf="isShelter">
@@ -39,7 +54,12 @@
           </ul>
         </li>
         <li class="nav-item p-3">
-          <a class="nav-link" href="#">Ủng hộ</a>
+          <a
+            class="nav-link"
+            (click)="onNavbarClick('donate')"
+            [ngClass]="{ active: navbar[3].isActive }"
+            >Ủng hộ</a
+          >
         </li>
       </ul>
 

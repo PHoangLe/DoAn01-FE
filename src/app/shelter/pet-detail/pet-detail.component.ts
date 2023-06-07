@@ -34,16 +34,12 @@ export class PetDetailComponent implements OnInit, OnDestroy {
       this.ref.close();
     }
   }
-  ngOnInit(): void {
-    this.getPageData()
-
+  async ngOnInit() {
+    await this.getPageData()
   }
 
   async getPageData() {
     this.pet = await this.petService.getStoragePet();
-    this.listImg.push(this.pet.animalImg);
-    this.listImg.push(...this.pet.othersImg);
-    this.listOnlineAdoptor.push(...this.pet.onlineAdaptors)
     this.breadcrumbItimes = [
       {
         label: 'Nhận nuôi'
@@ -69,6 +65,10 @@ export class PetDetailComponent implements OnInit, OnDestroy {
         numVisible: 1
       }
     ];
+    this.listImg.push(this.pet.animalImg);
+    this.listImg.push(...this.pet.othersImg);
+    this.listOnlineAdoptor.push(...this.pet.onlineAdaptors)
+
   }
 
   editPet() {
