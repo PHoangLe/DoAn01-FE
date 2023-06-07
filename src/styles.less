@@ -54,14 +54,40 @@
     border-color: var(--primary-color);
     box-shadow: var(--primary-color);
   }
-
+  .p-divider-solid.p-divider-horizontal:before{
+    border: 0.01rem solid #7a3d26;
+  }
   .p-divider.p-divider-horizontal {
     margin: 0;
   }
+  
   .p-toast .p-toast-message {
+    background-color: transparent;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    min-width: fit-content;
     .p-toast-message-success {
       background-color: aquamarine;
     }
+    .p-toast-message-content{
+      background-color: #F6F6F6;
+      padding: 2rem;
+    }
+  }
+  .p-button.p-button-success, 
+  .p-buttonset.p-button-success > .p-button, 
+  .p-splitbutton.p-button-success > .p-button {
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    border: none;
+  }
+  .p-button.p-button-secondary, 
+  .p-buttonset.p-button-secondary > .p-button, 
+  .p-splitbutton.p-button-secondary > .p-button{
+    border-radius: 10px;
+    background-color: var(--offwhite-color);
+    border: solid 3px var(--primary-color);
+    color: var(--primary-color);
   }
 }
 
