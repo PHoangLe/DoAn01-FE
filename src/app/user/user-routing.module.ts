@@ -5,27 +5,35 @@ import { RequestAccountComponent } from './request-account/request-account.compo
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserPageComponent } from './user-page/user-page.component';
 
 const routes: Routes = [
+
   {
     path: '',
-    component: LandingComponent
-  },
-  {
-    path: 'request-account',
-    component: RequestAccountComponent
-  },
-  {
-    path: 'adopt',
-    component: PetAdoptionComponent
-  },
-  {
-    path: 'pet-detail/:id',
-    component: PetDetailComponent
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent
+    component: UserPageComponent,
+    children: [
+      {
+        path: 'landing',
+        component: LandingComponent
+      },
+      {
+        path: 'request-account',
+        component: RequestAccountComponent
+      },
+      {
+        path: 'adopt',
+        component: PetAdoptionComponent
+      },
+      {
+        path: 'pet-detail/:id',
+        component: PetDetailComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      }
+    ]
   }
 ];
 

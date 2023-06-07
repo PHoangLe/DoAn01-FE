@@ -1,0 +1,84 @@
+<div class="container pt-2">
+  <div class="side-bar col-sm-3 d-block">
+    <h3 class="ms-3 mt-3" style="font-weight: 700">Chat</h3>
+    <div class="search-bar w-100 d-flex flex-nowrap">
+      <span class="p-input-icon-left w-100 px-2">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          placeholder="Nhập tên người nhận ..."
+          class="rounded-4 p-1 w-100"
+          [(ngModel)]="userSearch"
+          (ngModelChange)="onUserSearched()"
+          pInputText
+        />
+      </span>
+    </div>
+    <div class="recipient-container">
+      <div
+        class="reciepient rounded-3 m-1 px-2 d-flex align-items-center"
+        *ngFor="let user of listUsers"
+        (click)="selectUser(user)"
+      >
+        <div class="avatar">
+          <img src="{{ user.userAvatar }}" alt="" class="rounded-circle mx-2" />
+          <div class="unread-message rounded-circle" *ngIf="!user.isRead"></div>
+        </div>
+        <div class="content d-flex align-items-center justify-content-center">
+          <div class="name" [ngClass]="{ 'unread-name': !user.isRead }">
+            {{ user.userName }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="boxchat col-sm-9" *ngIf="currentUser">
+    <div class="chat-header p-2 m-1 rounded-3">
+      <img
+        src="{{ currentUser.userAvatar }}"
+        alt=""
+        class="rounded-circle px-2"
+      />
+      <div class="name">{{ currentUser.userName }}</div>
+    </div>
+    <div class="chat-content" id="boxchat">
+      <div
+        *ngFor="let message of currentUserChat"
+        class="d-flex m-2 mx-4 message"
+        [ngClass]="{ 'sender-message': senderID === message.senderID }"
+      >
+        <p-avatar
+          image="{{
+            senderID === message.senderID
+              ? senderAvatar
+              : currentUser.userAvatar
+          }}"
+          pBadge
+          class="d-flex align-items-center"
+        ></p-avatar>
+        <div class="message-content rounded-3 p-2 m-1 mx-2">
+          {{ message.content }}
+        </div>
+        <div class="time px-2 my-auto">
+          {{ message.timestamp | date : "hh:mm:ss dd/MM/yyyy" }}
+        </div>
+      </div>
+    </div>
+
+    <div class="input-message">
+      <span>
+        <input
+          type="text"
+          [(ngModel)]="message"
+          (keydown.enter)="sendMessage()"
+          placeholder="Nhập tin nhắn ..."
+        />
+        <button (click)="sendMessage()" [disabled]="!message">
+          Gửi
+          <i class="ps-1 bi bi-send"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+</div>

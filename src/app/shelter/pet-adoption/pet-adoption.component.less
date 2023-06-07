@@ -13,9 +13,22 @@
     border-color: var(--primary-color);
     box-shadow: var(--primary-color);
   }
-  .p-paginator {
-    background: transparent;
+  .p-paginator-bottom{
+    border-radius: 15px;
     border: none;
+  }
+
+  .p-paginator .p-paginator-first, .p-paginator .p-paginator-prev, .p-paginator .p-paginator-next, .p-paginator .p-paginator-last{
+      border: none;
+      color: var(--primary);
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
+      background-color: var(--primary);
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page{
+      border: none;
   }
   .p-breadcrumb {
     width: fit-content;
@@ -32,25 +45,6 @@
   }
 }
 
-.widget {
-  height: 180px;
-  background-repeat: no-repeat;
-  background-clip: border-box;
-  background-size: cover;
-  background-position: center;
-  background-color: rgba(0, 0, 0, 0.4);
-  background-blend-mode: multiply;
-  .content {
-    width: fit-content;
-    padding-top: 60px;
-    margin-left: 20px;
-    h1 {
-      width: fit-content;
-      color: #fffafa;
-      font-weight: 600;
-    }
-  }
-}
 .search-bar {
   span {
     width: 25vw;
@@ -69,6 +63,9 @@ label {
   padding-left: 5px;
 }
 
+.container {
+  min-height: 51vh;
+}
 @media (max-width: 649.98px) {
   .widget {
     height: 100px;

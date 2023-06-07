@@ -12,7 +12,7 @@
   position: relative;
   bottom: 0;
   background-color: #fee1be;
-  max-height: 150px;
+  max-height: fit-content;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 50px;
@@ -22,6 +22,7 @@
     width: 80%;
     p {
       margin: 0;
+      font-weight: 600;
       text-align: justify;
     }
   }
@@ -41,8 +42,11 @@
     justify-content: center;
     img {
       max-height: 100%;
-      max-width: 60%;
+      max-width: 80%;
     }
+  }
+  .bi{
+    color: #7a3d26;
   }
 }
 

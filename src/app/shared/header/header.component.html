@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container-fluid">
     <img
-      class="me-3"
+      class="mx-3"
       src="https://i.ibb.co/3h7wrgX/logo-removebg-preview.png"
       alt="Logo"
     />
@@ -20,14 +20,32 @@
 
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav m-auto mb-lg-0">
-        <li class="nav-item m-3">
-          <a class="nav-link" (click)="routeToHomePage()">Trang chủ</a>
+        <li class="nav-item p-3">
+          <a
+            class="nav-link"
+            (click)="routeToHomePage()"
+            (click)="onNavbarClick('home')"
+            [ngClass]="{ active: navbar[0].isActive }"
+            >Trang chủ</a
+          >
         </li>
-        <li class="nav-item m-3">
-          <a class="nav-link">Cứu trợ</a>
+        <li class="nav-item p-3">
+          <a
+            class="nav-link"
+            (click)="onNavbarClick('rescue')"
+            [ngClass]="{ active: navbar[1].isActive }"
+            >Cứu trợ</a
+          >
         </li>
-        <li class="nav-item m-3">
-          <a class="nav-link" (click)="routeToAdoptPage()">Nhận nuôi</a>
+        <li class="nav-item p-3">
+          <a
+            class="nav-link"
+            (click)="routeToAdoptPage()"
+            (click)="onNavbarClick('adopt')"
+            [ngClass]="{ active: navbar[2].isActive }"
+            >Thú cưng <i class="bi bi-chevron-down" *ngIf="isShelter"></i
+          ></a>
+
           <ul class="adopt-menu px-3 pb-1 pt-4 rounded-1" *ngIf="isShelter">
             <li><a [routerLink]="['/shelter/adopt']">Danh sách</a></li>
             <li>
@@ -35,21 +53,40 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item m-3">
-          <a class="nav-link" href="#">Ủng hộ</a>
+        <li class="nav-item p-3">
+          <a
+            class="nav-link"
+            (click)="onNavbarClick('donate')"
+            [ngClass]="{ active: navbar[3].isActive }"
+            >Ủng hộ</a
+          >
         </li>
       </ul>
 
       <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="!isLoggin">
-        <li class="nav-item p-1">
-          <a class="nav-link" [routerLink]="['/login']">Đăng nhập</a>
+        <li class="nav-item pe-2 py-1" id="btn-sign-in">
+          <a [routerLink]="['/login']">Đăng nhập</a>
         </li>
-        <li class="nav-item" id="btn-sign-up">
-          <a class="nav-link p-1 mx-4" [routerLink]="'/register'">Đăng ký</a>
+        <li class="nav-item py-1" id="btn-sign-up">
+          <a class="mx-4" [routerLink]="'/register'">Đăng ký</a>
         </li>
       </ul>
 
       <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="isLoggin">
+        <li class="nav-item d-flex align-items-center pe-3">
+          <a class="m-auto" [routerLink]="['/chat']">
+            <i class="bi bi-chat"></i>
+            <div
+              class="notification rounded-circle"
+              *ngIf="unreadMessage"
+            ></div>
+          </a>
+        </li>
+        <li class="nav-item d-flex align-items-center pe-3">
+          <a class="m-auto" [routerLink]="">
+            <i class="bi bi-bell"></i>
+          </a>
+        </li>
         <li class="nav-item p-1">
           <p-menu #menu [model]="menuItems" [popup]="true"></p-menu>
           <p-avatar
