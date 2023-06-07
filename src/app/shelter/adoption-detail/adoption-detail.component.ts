@@ -29,7 +29,7 @@ export class AdoptionDetailComponent implements OnInit {
     this.requestInfo = await this.petAdoptionService.getStorageAdoption();
     console.log(this.requestInfo)
     console.log(this.requestInfo.shelter.shelterName)
-    console.log(this.requestInfo.user.userAvatar)
+    console.log(this.requestInfo.animal.onlineAdopters)
 
 
     this.breadcrumbItimes = [

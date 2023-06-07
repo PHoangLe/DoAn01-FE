@@ -9,9 +9,9 @@
   <div class="info pt-4">
     <div class="pet-info my-auto">
       <div class="pet-info-header d-flex">
-        <h1 class="ps-4">{{ requestInfo.animal.animalName }}</h1>
-        <h1 class="my-auto">|</h1>
-        <h4 class="ps-4 my-auto">
+        <h1 class="ps-4 py-2">{{ requestInfo.animal.animalName }}</h1>
+        <p-divider layout="vertical"></p-divider>
+        <h4 class="ps-4 py-2 my-auto">
           Trại: {{ requestInfo.shelter.shelterName }}
         </h4>
       </div>
@@ -54,7 +54,7 @@
       <div class="ps-4" *ngFor="let user of requestInfo.animal.onlineAdaptors">
         <p-avatar image="{{ user }}" size="large" shape="circle"></p-avatar>
       </div>
-      <div class="ps-4 p-2" *ngIf="requestInfo.animal.onlineAdopters">
+      <div class="ps-4 p-2" *ngIf="!requestInfo.animal.onlineAdopters">
         Hiện tại chưa có người nhận nuôi
       </div>
     </div>
@@ -93,7 +93,7 @@
             requestInfo.user.userFirstName + " " + requestInfo.user.userLastName
           }}</b>
         </h5>
-        <h5>Email : {{ requestInfo.user.userEmail }}</h5>
+        <h5>{{ requestInfo.user.userEmail }}</h5>
         <h5>
           Số điện thoại:
           {{
