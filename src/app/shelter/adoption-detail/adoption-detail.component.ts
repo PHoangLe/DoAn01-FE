@@ -27,8 +27,6 @@ export class AdoptionDetailComponent implements OnInit {
 
   async getPageData() {
     this.requestInfo = await this.petAdoptionService.getStorageAdoption();
-    console.log(this.requestInfo.applicationID)
-
     this.breadcrumbItimes = [
       {
         label: 'Nhận nuôi',
@@ -50,16 +48,14 @@ export class AdoptionDetailComponent implements OnInit {
   }
 
   acceptRequest() {
-    this.petAdoptionService.acceptAdoption(this.requestInfo.applicationID).then((response) => {
-      console.log(response)
+    this.petAdoptionService.acceptAdoption(this.requestInfo.applicationID).then(() => {
       this.messageService.add({ key: "messageService", severity: 'success', detail: 'Chấp nhận yêu cầu' })
     })
   }
 
   rejectRequest() {
     console.log(this.requestInfo.applicationID)
-    this.petAdoptionService.declineAdoption(this.requestInfo.applicationID).then((response) => {
-      console.log(response)
+    this.petAdoptionService.declineAdoption(this.requestInfo.applicationID).then(() => {
       this.messageService.add({ key: "messageService", severity: 'warning', detail: 'Từ chối yêu cầu' })
     })
   }

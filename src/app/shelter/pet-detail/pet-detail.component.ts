@@ -5,6 +5,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { Pet } from 'src/app/model/Pet';
 import { PetService } from 'src/app/services/pet.service';
 import { EditPetComponent } from './edit-pet/edit-pet.component';
+import { ShelterService } from 'src/app/services/shelter.service';
 
 @Component({
   selector: 'app-pet-detail',
@@ -22,7 +23,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   protected listOnlineAdoptor = new Array<string>();
   private ref: DynamicDialogRef;
   constructor(
-    private route: ActivatedRoute,
+    private shelterService: ShelterService,
     private petService: PetService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
@@ -42,10 +43,10 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     this.pet = await this.petService.getStoragePet();
     this.breadcrumbItimes = [
       {
-        label: 'Nhận nuôi'
-      },
-      {
-        label: 'Danh sách thú cưng'
+        label: 'Danh sách thú cưng',
+        command: () => {
+          this.router.navigate(['/shelter/adopt'])
+        }
       },
       {
         label: this.pet.animalName
