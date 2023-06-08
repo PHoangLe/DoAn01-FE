@@ -100,6 +100,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login'])
   }
 
+  setUnreadMessage(unreadMessage: number) {
+    this.unreadMessage = unreadMessage;
+  }
 
   onNavbarClick(element: any) {
     const items = document.querySelectorAll(".nav-link");
@@ -144,8 +147,8 @@ export class HeaderComponent implements OnInit {
   }
 
   onPrivateMessage = (payload) => {
-    var payloadData = JSON.parse(payload.body);
     this.unreadMessage++;
+    console.log(this.unreadMessage);
   }
 
   onError = (err) => {

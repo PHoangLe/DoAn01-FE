@@ -41,6 +41,12 @@ export class PetAdoptionService {
     return await (this.http.get(this.baseUrl + `/getAdoptionApplicationByShelterID/${shelterID}`, { headers })).toPromise()
   }
 
+  async getOnlinePetAdoption(userID: string) {
+    let headers = this.getHttpHeader();
+    return await this.http.get(this.baseUrl + `/getOnlineAdoptionsByUserID/${userID}`, { headers }).toPromise();
+  }
+
+
 
   async isAdoptedPet(petID: string, userID: string) {
     let headers = this.getHttpHeader();

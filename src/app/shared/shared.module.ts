@@ -12,6 +12,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { BadgeModule } from 'primeng/badge';
+
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     DividerModule,
     FontAwesomeModule,
     BreadcrumbModule,
+    BadgeModule
   ],
   declarations: [
     HeaderComponent,

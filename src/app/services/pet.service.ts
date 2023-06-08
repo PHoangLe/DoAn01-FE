@@ -128,8 +128,8 @@ export class PetService {
     if (!adoptionJSON) {
       return null;
     }
-    console.log(JSON.parse(adoptionJSON))
   }
+
 
 
 

@@ -5,6 +5,15 @@
   "
   title="Chi tiết thú cưng"
 ></app-widget>
+<div
+  *ngIf="isLoading"
+  class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+>
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Đang tải...</span>
+  </div>
+  <p style="opacity: 0.7">Đang tải</p>
+</div>
 <div class="container p-4">
   <div class="info">
     <p-galleria
@@ -37,8 +46,13 @@
 
     <div class="pet-info">
       <div class="basic-info ps-4">
-        <h1>{{ pet.animalName }}</h1>
-        <h3>{{ pet.animalName }}</h3>
+        <div class="pet-name d-flex">
+          <h1 class="py-2">{{ pet.animalName }}</h1>
+          <div class="divider py-4 px-4">
+            <div class="vr h-100"></div>
+          </div>
+          <h4 class="py-2 my-auto">Trại: {{ shelterName }}</h4>
+        </div>
 
         <h5><b>Giống:</b> {{ pet.animalBreed }}</h5>
         <h5><b>Giới tính:</b> {{ pet.animalGender ? "Đực" : "Cái" }}</h5>
@@ -74,20 +88,38 @@
           class="btn btn-primary"
           (click)="requestAdoption()"
           [disabled]="isSendAdoption"
+          *ngIf="!isSendAdoption"
         >
           Nhận nuôi
         </button>
         <button
+          class="btn btn-primary"
+          (click)="requestAdoption()"
+          *ngIf="isSendAdoption"
+          disabled="true"
+        >
+          Bạn đã gửi yêu cầu
+        </button>
+        <button
           class="btn btn-secondary"
           (click)="onlineAdopt()"
-          [disabled]="isSendOnlAdoption"
+          *ngIf="!isSendOnlAdoption"
         >
           Nhận nuôi online
+        </button>
+
+        <button
+          class="btn btn-primary"
+          (click)="requestAdoption()"
+          *ngIf="isSendOnlAdoption"
+          disabled="true"
+        >
+          Bạn đã gửi yêu cầu
         </button>
       </div>
     </div>
     <p-toast key="adoptPet"></p-toast>
-    <div class="card flex justify-content-center">
+    <div class="flex justify-content-center">
       <p-toast
         position="bottom-center"
         key="confirmAdoption"
@@ -129,14 +161,14 @@
     </p-divider>
     <div>
       <textarea
-      class="w-100"
-      name=""
-      id="textarea"
-      pInputTextarea
-      [autoResize]="true"
-      [(ngModel)]="pet.animalStatus"
-      disabled="true"
-    ></textarea>
+        class="w-100"
+        name=""
+        id="textarea"
+        pInputTextarea
+        [autoResize]="true"
+        [(ngModel)]="pet.animalStatus"
+        disabled="true"
+      ></textarea>
     </div>
   </div>
 </div>
