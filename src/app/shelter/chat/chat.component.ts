@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/co
 import { ChatService } from 'src/app/services/chat.service';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -11,10 +12,12 @@ import { over } from 'stompjs';
 export class ChatComponent implements OnInit, AfterViewInit {
   constructor(
     private chatService: ChatService,
-    private elRef: ElementRef) {
+    private spinner: NgxSpinnerService) {
   }
 
 
+  isLoadingChatRoom = true;
+  isLoadingChatContent = true;
   listChatRoom: any;
   listUsers: UserMessage[];
   listUsersBackup: UserMessage[];
@@ -39,12 +42,11 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
 
   async ngOnInit() {
-    console.log("view init")
-
     await this.connect();
     await this.getChatRoom();
     await this.getListUsers();
     await this.getUnreadMessage();
+    this.isLoadingChatRoom = false;
   }
 
   ngAfterViewInit(): void {
@@ -95,6 +97,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   async selectUser(user) {
+    this.isLoadingChatContent = true;
     this.recipientID = user.userID;
     this.currentUser = user;
     console.log(this.currentUser)
@@ -113,6 +116,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
       if (user.userID === selectedUser.userID)
         selectedUser.isRead = true;
     })
+    this.isLoadingChatContent = false;
     setTimeout(() => {
       this.autoScrollToNewMessage();
     }, 10);
