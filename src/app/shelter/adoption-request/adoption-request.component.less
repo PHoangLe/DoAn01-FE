@@ -33,6 +33,7 @@
       border-radius: 15px;
       tr > td {
         border: none;
+        overflow: hidden;
       }
     }
     .p-paginator-pages {
@@ -51,6 +52,7 @@
     }
   }
   p-table {
+    margin-top: 3rem;
     display: flex;
     justify-content: center;
     table-layout: auto;
@@ -65,7 +67,15 @@
 
 .content {
   height: 67vh;
+  min-height: 350px;
 }
 .p-selectable-row {
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .content {
+    height: 80vh;
+    min-height: 400px;
+  }
 }

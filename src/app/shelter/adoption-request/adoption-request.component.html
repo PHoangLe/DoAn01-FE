@@ -6,6 +6,15 @@
   title="Yêu cầu nhận nuôi"
 ></app-widget>
 <div class="content">
+  <div
+    *ngIf="isLoading"
+    class="loading w-100 h-50 position-absolute d-flex justify-content-center align-items-center flex-column gap-2 z-3 bg-body"
+  >
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+    <p style="opacity: 0.7">Đang tải</p>
+  </div>
   <p-table
     [value]="listRequest"
     [paginator]="true"
@@ -16,17 +25,15 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th style="min-width: 10%">Tên thú cưng</th>
-        <th style="min-width: 10%">Tên người nhận nuôi</th>
-        <th style="min-width: 10%">Ngày gửi yêu cầu</th>
-        <th style="min-width: 10%" class="d-flex justify-content-center">
-          Tình trạng
-        </th>
+        <th style="min-width: 10%" class="py-3 ps-4">Tên thú cưng</th>
+        <th style="min-width: 10%" class="py-3">Tên người nhận nuôi</th>
+        <th style="min-width: 10%" class="py-3">Ngày gửi yêu cầu</th>
+        <th style="min-width: 10%" class="py-3 text-center">Tình trạng</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-request>
       <tr class="p-selectable-row" (click)="onRowSelect(request)">
-        <td>
+        <td class="ps-4">
           {{ request.animal.animalName }}
         </td>
         <td>
