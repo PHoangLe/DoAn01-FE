@@ -100,10 +100,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.isLoadingChatContent = true;
     this.recipientID = user.userID;
     this.currentUser = user;
-    console.log(this.currentUser)
     const items = document.querySelectorAll(".reciepient");
     const element = document.getElementById(user.userID);
-    console.log(element)
     items.forEach((item) => {
       item.classList.remove("active")
       item.removeAttribute("style");
@@ -148,7 +146,14 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   }
 
+  onFocusBoxChat() {
+    this.chatService.putSeenMessage(this.senderID, this.recipientID).then(() => {
 
+    })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
   public async getChatRoom() {
     await this.chatService.getChatRooom().then((chatRoom) => {
@@ -232,7 +237,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
   onPrivateMessage = (payload) => {
     var payloadData = JSON.parse(payload.body);
     this.listMessage.push(payloadData);
-    this.currentUserChat.push(payloadData);
+    if (this.currentUserChat)
+      this.currentUserChat.push(payloadData);
     this.listUsers.map((user) => {
       if (user.userID === payloadData.senderID)
         user.isRead = false

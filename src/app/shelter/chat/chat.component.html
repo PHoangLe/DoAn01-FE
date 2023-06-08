@@ -17,11 +17,12 @@
     <div class="recipient-container pt-2">
       <div
         *ngIf="isLoadingChatRoom"
-        class="loading w-100 h-50 position-absolute d-flex justify-content-center align-items-center"
+        class="loading w-100 h-50 position-absolute d-flex justify-content-center align-items-center flex-column gap-2"
       >
-        <div class="spinner-border text-warning" role="status">
-          <span class="sr-only">Loading...</span>
+        <div class="spinner-border" role="status">
+          <span class="sr-only"></span>
         </div>
+        <p style="opacity: 0.7">Đang tải</p>
       </div>
       <div
         class="reciepient rounded-3 m-1 p-2 d-flex align-items-center"
@@ -42,14 +43,23 @@
     </div>
   </div>
 
+  <div
+    class="empty-boxchat col-sm-9 d-flex align-items-center justify-content-center"
+    *ngIf="!currentUser"
+  >
+    <p style="font-size: 1.25rem; width: fit-content">
+      Chọn người bạn muốn gửi tin nhắn ...
+    </p>
+  </div>
   <div class="boxchat col-sm-9" *ngIf="currentUser">
     <div
       *ngIf="isLoadingChatContent"
-      class="loading w-100 h-100 position-absolute d-flex justify-content-center align-items-center bg-body rounded-3 z-3"
+      class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
     >
-      <div class="spinner-border text-warning" role="status">
-        <span class="sr-only">Loading...</span>
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Đang tải...</span>
       </div>
+      <p style="opacity: 0.7">Đang tải</p>
     </div>
     <div class="chat-header p-2 m-1 rounded-3">
       <img
@@ -89,6 +99,7 @@
           type="text"
           [(ngModel)]="message"
           (keydown.enter)="sendMessage()"
+          (focus)="onFocusBoxChat()"
           placeholder="Nhập tin nhắn ..."
         />
         <button (click)="sendMessage()" [disabled]="!message">
