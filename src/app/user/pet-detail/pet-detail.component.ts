@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Pet } from 'src/app/model/Pet';
 import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
 import { PetService } from 'src/app/services/pet.service';
 import { BankingComponent } from './banking/banking.component';
+import { ShelterService } from 'src/app/services/shelter.service';
 
 @Component({
   selector: 'app-pet-detail',
@@ -15,6 +16,8 @@ import { BankingComponent } from './banking/banking.component';
 })
 export class PetDetailComponent implements OnInit, OnDestroy {
   protected pet: Pet
+  protected shelterName: string;
+  protected isLoading = true;
   protected adoption: any;
   protected petShelterName: string
   protected breadcrumbItimes: MenuItem[];
@@ -28,11 +31,12 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   private ref: DynamicDialogRef;
 
   constructor(
-    private route: ActivatedRoute,
+    private shelterSerivce: ShelterService,
     private petService: PetService,
     private petAdopt: PetAdoptionService,
     private messageService: MessageService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private router: Router
   ) {
   }
   ngOnDestroy(): void {
@@ -47,8 +51,9 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   }
 
   async getPageData() {
-    this.petService.getStorageAdoption();
+    this.isLoading = true;
     this.pet = await this.petService.getStoragePet();
+    this.shelterName = await this.shelterSerivce.getShelterByShelterID(this.pet.shelterID)
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
     this.userID = JSON.parse(localStorage.getItem('userID')).value;
@@ -67,11 +72,12 @@ export class PetDetailComponent implements OnInit, OnDestroy {
       }
     ];
     this.breadcrumbItimes = [
+
       {
-        label: 'Nhận nuôi'
-      },
-      {
-        label: 'Danh sách thú cưng'
+        label: 'Danh sách thú cưng',
+        command: () => {
+          this.router.navigate(['/user/adopt']);
+        }
       },
       {
         label: `${this.pet.animalName}`
@@ -79,22 +85,20 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     ]
 
     await this.petAdopt.isAdoptedPet(this.pet.animalID, this.userID).then(response => {
-      console.log("adopt? ", response)
       this.isSendAdoption = true;
     })
       .catch(error => {
-        console.log("error ", error)
         this.isSendAdoption = false;
       })
 
     await this.petAdopt.isOnlineAdoptedPet(this.pet.animalID, this.userID).then(response => {
-      console.log("online adopt? ", response)
       this.isSendOnlAdoption = true;
     })
       .catch(error => {
-        console.log("error ", error)
         this.isSendOnlAdoption = false;
       })
+    this.isLoading = false;
+
   }
 
   requestAdoption() {

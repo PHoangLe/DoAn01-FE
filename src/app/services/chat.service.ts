@@ -28,6 +28,11 @@ export class ChatService {
     return await this.http.get(this.baseUrl + "messages/" + `${senderID}/` + `${recipientID}/count`, { headers }).toPromise();
   }
 
+  putSeenMessage(senderID: string, recipientID: string) {
+    let headers = this.getHttpHeader();
+    return this.http.put(this.baseUrl + "seenMessage/" + `${senderID}/` + `${recipientID}`, { headers }).toPromise();
+  }
+
   getHttpHeader(): HttpHeaders {
     return new HttpHeaders({
       'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,

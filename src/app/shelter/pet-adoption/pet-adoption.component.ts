@@ -19,6 +19,7 @@ export class PetAdoptionComponent implements OnDestroy {
   // protected pets: Pet[] ;
   protected pets;
   protected defaultPets;
+  protected isLoading = true;
   protected listShelter: Shelter[];
   protected selectedSpecie: string;
   protected currentPage = 1;
@@ -83,7 +84,7 @@ export class PetAdoptionComponent implements OnDestroy {
   }
 
   async getAllPets() {
-    this.spinner.show();
+    this.isLoading = true;
     await this.PetService.getAllPetsByShelter().then(response => {
       console.log(response);
       this.pets = this.PetService.convertToPets(response)
@@ -92,7 +93,7 @@ export class PetAdoptionComponent implements OnDestroy {
         console.log(err.error.message)
       }
     this.defaultPets = [...this.pets]
-    this.spinner.hide();
+    this.isLoading = false;
   }
 
   onCheckboxBreedChange(event) {
@@ -101,5 +102,14 @@ export class PetAdoptionComponent implements OnDestroy {
       return
     }
     this.pets = this.pets.filter(pet => pet.animalSpecie === this.selectedSpecie)
+  }
+
+  onUserSearched() {
+    if (this.searchValue === "")
+      this.pets = [...this.defaultPets]
+    this.pets = this.pets.filter((pet) => {
+      return Object.values(pet).some((value) => String(value).includes(this.searchValue))
+    })
+    console.log(this.pets)
   }
 }

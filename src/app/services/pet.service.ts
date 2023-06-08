@@ -12,9 +12,9 @@ export class PetService {
   pet: Pet;
   constructor(private http: HttpClient, private shelterService: ShelterService) { }
 
-  getAllPets() {
+  async getAllPets() {
     let headers = this.getHttpHeader();
-    return this.http.get(this.baseUrl + '/getAllAnimals', { headers })
+    return await this.http.get(this.baseUrl + '/getAllAnimals', { headers }).toPromise();
   }
 
   async getAllPetsByShelter() {
@@ -128,8 +128,8 @@ export class PetService {
     if (!adoptionJSON) {
       return null;
     }
-    console.log(JSON.parse(adoptionJSON))
   }
+
 
 
 

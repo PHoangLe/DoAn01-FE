@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'src/app/model/User';
+import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,11 +12,13 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileComponent implements OnInit {
 
   constructor(
-    private userService: UserService) {
+    private userService: UserService,
+    private petAdoptionService: PetAdoptionService) {
     this.getProfile();
   }
 
   protected user: User;
+  protected isLoading = true;
   ngOnInit(): void {
   }
 
@@ -22,10 +26,17 @@ export class ProfileComponent implements OnInit {
     console.log(JSON.parse(localStorage.getItem('userID')).value)
     await this.userService.getUser(JSON.parse(localStorage.getItem('userID')).value).then(response => {
       this.user = this.userService.convertToUser(response);
+      console.log(response)
     })
       .catch(err => {
-
+        console.log(err);
       })
+    await this.petAdoptionService.getOnlinePetAdoption(this.user.userID).then(response => {
+      console.log(response);
+    })
+    this.isLoading = false;
+    console.log(this.user);
+
   }
 
 }

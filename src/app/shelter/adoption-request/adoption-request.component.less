@@ -1,7 +1,11 @@
 :host::ng-deep {
   p-tag > span {
-    padding: 5px 10px;
+    font-size: 0.8rem;
+    width: 7rem;
+    height: 1.6rem;
     border-radius: 10px;
+    text-align: center;
+    justify-content: center;
   }
   .p-datatable {
     padding: 20px;
@@ -33,6 +37,7 @@
       border-radius: 15px;
       tr > td {
         border: none;
+        overflow: hidden;
       }
     }
     .p-paginator-pages {
@@ -51,9 +56,11 @@
     }
   }
   p-table {
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
     table-layout: auto;
+    height: fit-content;
   }
 
   .p-paginator-bottom {
@@ -64,8 +71,28 @@
 }
 
 .content {
+  min-height: 400px;
   height: 67vh;
 }
 .p-selectable-row {
   cursor: pointer;
+}
+:host::ng-deep {
+  @media (max-width: 768px) {
+    .content {
+      height: 80vh;
+      min-height: 400px;
+      p-table {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        table-layout: auto;
+        height: fit-content;
+        .p-datatable {
+          width: 100%;
+        }
+      }
+    }
+  }
 }

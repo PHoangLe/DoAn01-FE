@@ -8,7 +8,6 @@
   .side-bar {
     max-height: 100%;
     overflow: auto;
-    scroll-behavior: smooth;
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;
     &::-webkit-scrollbar {
@@ -36,14 +35,14 @@
       height: 8vh;
       min-height: 60px;
 
-      &:focus {
-        background-color: #7a3d26;
-      }
+      // &:focus {
+      //   background-color: #7a3d26;
+      // }
       &:hover {
-        background-color: #ceb99f;
+        background-color: #f5f2f0;
       }
       .avatar {
-        height: 80%;
+        height: 100%;
         position: relative;
         img {
           background-color: #fff;
@@ -211,6 +210,9 @@
       .recipient-container {
         display: flex;
         flex-direction: row !important;
+        .reciepient.active {
+          background-color: #e0ad6f;
+        }
         .reciepient {
           display: flex;
           flex-direction: column;

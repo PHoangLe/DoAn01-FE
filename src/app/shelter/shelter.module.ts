@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppSharedModule } from '../shared/shared.module';
 import { LandingComponent } from './landing/landing.component';
@@ -23,21 +23,22 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AvatarModule } from 'primeng/avatar';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
-import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
-import { PetDetailComponent } from './pet-detail/pet-detail.component';
-import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { MessageModule } from 'primeng/message';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
 import { TagModule } from 'primeng/tag';
-import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { EditPetComponent } from './pet-detail/edit-pet/edit-pet.component';
 import { ProfileComponent } from './profile/profile.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChatComponent } from './chat/chat.component';
 import { ShelterPageComponent } from './shelter-page/shelter-page.component';
+import { AddPetComponent } from './pet-adoption/add-pet/add-pet.component';
+import { PetDetailComponent } from './pet-detail/pet-detail.component';
+import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
+import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
+import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
+
+
 
 @NgModule({
   declarations: [
@@ -51,8 +52,6 @@ import { ShelterPageComponent } from './shelter-page/shelter-page.component';
     ProfileComponent,
     ChatComponent,
     ShelterPageComponent,
-
-
   ],
   imports: [
     CommonModule,
@@ -82,6 +81,7 @@ import { ShelterPageComponent } from './shelter-page/shelter-page.component';
     TagModule,
     ConfirmDialogModule
   ],
-  providers: [MessageService, ConfirmationService]
+  providers: [MessageService, ConfirmationService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ShelterModule { }

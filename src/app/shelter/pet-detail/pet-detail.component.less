@@ -9,7 +9,7 @@
       box-shadow: none;
       border-color: var(--primary-color);
     }
-    &:disabled{
+    &:disabled {
       opacity: 1;
     }
   }
@@ -50,6 +50,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    .basic-info {
+    }
   }
   .status-info {
     display: grid;
@@ -67,7 +69,7 @@
     font-weight: 345;
   }
 }
-@media (max-width: 1200px) {
+@media (max-width: 768px) {
   .container {
     .info,
     .status-info {

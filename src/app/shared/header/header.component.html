@@ -63,8 +63,13 @@
 
       <ul class="navbar-nav ms-3 me-2 mb-lg-0" *ngIf="isLoggin">
         <li class="nav-item d-flex align-items-center pe-3">
-          <a class="m-auto" [routerLink]="['/chat']">
+          <a
+            class="m-auto"
+            [routerLink]="['/chat']"
+            (click)="setUnreadMessage(0)"
+          >
             <i class="bi bi-chat"></i>
+
             <div
               class="notification rounded-circle"
               *ngIf="unreadMessage"

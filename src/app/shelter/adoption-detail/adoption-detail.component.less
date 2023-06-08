@@ -21,14 +21,25 @@
   h5 {
     font-weight: 345;
   }
+  .pet-info {
+    .adopted-user {
+      width: fit-content;
+      // &:hover::after {
+      //   position: absolute;
+      //   z-index: 2;
+      //   background-color: white;
+      //   content: attr(data-name);
+      // }
+    }
+  }
   .pet-img {
     max-height: 400px;
     margin: auto;
     img {
       object-fit: cover;
-      max-height: 400px;
+      max-height: 350px;
       min-height: 300px;
-      max-width: 500px;
+      max-width: 350px;
     }
   }
   .user {
@@ -43,6 +54,68 @@
       display: grid;
       margin: auto;
       gap: 20px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    .info {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .user,
+    .user-info,
+    .status-info,
+    .basic-info {
+      display: grid !important;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 5px;
+    }
+
+    .pet-info {
+      .pet-info-header {
+        h1,
+        h4 {
+          height: 100%;
+          margin: auto 0px;
+        }
+      }
+    }
+    .user {
+      padding: 12px !important;
+      .user-info {
+        margin-bottom: 1.5rem;
+        > div {
+          display: grid !important;
+          place-items: center;
+          > button {
+            width: 15rem;
+          }
+        }
+        img {
+          margin: auto;
+        }
+      }
+      .button {
+        display: flex;
+        justify-content: space-between;
+        button {
+          margin: auto;
+          padding: 5px 20px;
+          width: 8.25rem;
+        }
+      }
+    }
+
+    .pet-img {
+      max-height: 400px;
+      img {
+        margin: auto;
+        object-fit: cover;
+        min-height: 300px;
+        max-width: 300px;
+      }
     }
   }
 }

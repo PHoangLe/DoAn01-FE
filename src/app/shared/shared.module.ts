@@ -9,11 +9,11 @@ import { FooterComponent } from './footer/footer.component';
 import { WidgetComponent } from './widget/widget.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { LoadingAnimationComponent } from './loading-animation/loading-animation.component';
-import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { BadgeModule } from 'primeng/badge';
+
 
 
 @NgModule({
@@ -24,14 +24,13 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     DividerModule,
     FontAwesomeModule,
     BreadcrumbModule,
-    NgxSpinnerModule,
+    BadgeModule
   ],
   declarations: [
     HeaderComponent,
     PetCardComponent,
     FooterComponent,
     WidgetComponent,
-    LoadingAnimationComponent,
     SidebarComponent
   ],
   exports: [
@@ -39,7 +38,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     PetCardComponent,
     FooterComponent,
     WidgetComponent,
-    LoadingAnimationComponent,
     SidebarComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -23,6 +23,7 @@ export class UserService {
       input.userFirstName,
       input.userLastName,
       input.phoneNumber ? input.phoneNumber : 'Chưa có',
+      input.dob,
       input.userAvatar ? input.userAvatar : "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963",
       input.userRoles,
       input.isLocked,

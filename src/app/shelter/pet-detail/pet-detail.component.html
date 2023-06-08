@@ -21,6 +21,7 @@
             display: block;
             padding-bottom: 10px;
             min-height: 300px;
+            max-height: 400px;
             object-fit: cover;
             border-radius: 5px;
           "
@@ -35,7 +36,8 @@
 
     <div class="pet-info">
       <div class="basic-info ps-4">
-        <h1>{{ pet.animalName }}</h1>
+        <h1 class="py-2">{{ pet.animalName }}</h1>
+
         <h5><b>Giống:</b> {{ pet.animalBreed }}</h5>
         <h5><b>Giới tính:</b> {{ pet.animalGender ? "Đực" : "Cái" }}</h5>
         <h5><b>Tuổi:</b> {{ pet.animalAge }}</h5>
@@ -100,21 +102,22 @@
     </div>
   </div>
   <div class="detail-status pt-4">
-    <p-divider align="left">
+    <p-divider align="left" class="pt-2">
       <div class="inline-flex align-items-center">
-        <h5><b>Tình trạng sức khoẻ</b></h5>
+        <b>Tình trạng sức khoẻ</b>
       </div>
     </p-divider>
     <div>
       <textarea
-      class="w-100"
-      name=""
-      id="textarea"
-      pInputTextarea
-      [autoResize]="true"
-      [(ngModel)]="pet.animalStatus"
-      disabled="true"
-    ></textarea>
+        class="w-100 ps-4"
+        name=""
+        id="textarea"
+        pInputTextarea
+        [autoResize]="true"
+        [(ngModel)]="pet.animalStatus"
+        disabled="true"
+        style="font-size: 1.15rem"
+      ></textarea>
     </div>
   </div>
 </div>

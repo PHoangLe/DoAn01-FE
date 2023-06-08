@@ -4,6 +4,7 @@ export class User {
   private _userFirstName: string;
   private _userLastName: string;
   private _phoneNumber: string;
+  private _dob: string;
   private _userAvatar: string;
   private _userRoles: string[];
   private _isLocked: boolean;
@@ -16,6 +17,7 @@ export class User {
     userFirstName: string,
     userLastName: string,
     phoneNumber: string,
+    dob: string,
     userAvatar: string,
     userRoles: string[],
     isLocked: boolean,
@@ -27,6 +29,7 @@ export class User {
     this._userFirstName = userFirstName;
     this._userLastName = userLastName;
     this._phoneNumber = phoneNumber;
+    this._dob = dob;
     this._userAvatar = userAvatar;
     this._userRoles = userRoles;
     this._isLocked = isLocked;
@@ -39,6 +42,13 @@ export class User {
   }
   set userID(value: string) {
     this._userID = value;
+  }
+
+  get dob(): string {
+    return this._dob;
+  }
+  set dob(value: string) {
+    this._dob = value;
   }
 
   // Getter and Setter for userEmail
