@@ -9,14 +9,16 @@
   >
     <div class="pet-type w-100 p-2">
       <h4>Tìm kiếm</h4>
-      <div class="search-bar w-100 d-flex justify-content-end">
-        <span class="p-input-icon-left">
+      <div class="search-bar w-100 d-flex flex-nowrap">
+        <span class="p-input-icon-left w-100 pe-2">
           <i class="pi pi-search"></i>
           <input
             type="text"
-            class="rounded-2 p-1 ps-4 w-100"
-            pInputText
+            placeholder="Nhập thông tin ..."
+            class="rounded-4 p-1 w-100"
             [(ngModel)]="searchValue"
+            (ngModelChange)="onUserSearched()"
+            pInputText
           />
         </span>
       </div>
@@ -56,9 +58,8 @@
       class="w-100"
       [value]="pets"
       layout="grid"
-      [rows]="10"
+      [rows]="20"
       [paginator]="true"
-      [lazy]="true"
       [sortField]="sortField"
       emptyMessage="Không có bé cần tìm"
       filterBy="animalName,animalAge,animalGender,animalBreed,shelterName"

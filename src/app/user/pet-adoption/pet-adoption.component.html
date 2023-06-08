@@ -9,14 +9,16 @@
   >
     <div class="pet-type w-100 p-2">
       <h4>Tìm kiếm</h4>
-      <div class="search-bar w-100 d-flex justify-content-end">
-        <span class="p-input-icon-left">
+      <div class="search-bar w-100 d-flex flex-nowrap">
+        <span class="p-input-icon-left w-100 pe-2">
           <i class="pi pi-search"></i>
           <input
             type="text"
-            class="rounded-1 p-1 ps-4 w-100"
-            pInputText
+            placeholder="Nhập thông tin ..."
+            class="rounded-4 p-1 w-100"
             [(ngModel)]="searchValue"
+            (ngModelChange)="onUserSearched()"
+            pInputText
           />
         </span>
       </div>
@@ -49,13 +51,21 @@
     </div>
   </div>
   <div class="pet-list col-9 col-sm-10 col-lg-10">
+    <div
+      *ngIf="isLoading"
+      class="loading w-100 h-25 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+    >
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Đang tải...</span>
+      </div>
+      <p style="opacity: 0.7">Đang tải</p>
+    </div>
     <p-dataView
       class="w-100"
       [value]="pets"
       layout="grid"
       [rows]="20"
       [paginator]="true"
-      loadingIcon="https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-Default_Dog_pfp.png?alt=media&token=6c221a3b-fd92-49f3-8ce8-7fd1dfe82194"
       [sortField]="sortField"
       emptyMessage="Không có bé cần tìm"
       filterBy="animalName,animalAge,animalGender,animalBreed,shelterName"

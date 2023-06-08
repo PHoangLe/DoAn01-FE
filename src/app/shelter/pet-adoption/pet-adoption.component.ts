@@ -103,4 +103,13 @@ export class PetAdoptionComponent implements OnDestroy {
     }
     this.pets = this.pets.filter(pet => pet.animalSpecie === this.selectedSpecie)
   }
+
+  onUserSearched() {
+    if (this.searchValue === "")
+      this.pets = [...this.defaultPets]
+    this.pets = this.pets.filter((pet) => {
+      return Object.values(pet).some((value) => String(value).includes(this.searchValue))
+    })
+    console.log(this.pets)
+  }
 }

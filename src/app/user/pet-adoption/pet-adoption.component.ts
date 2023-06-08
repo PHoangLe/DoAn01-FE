@@ -14,6 +14,7 @@ import { ShelterService } from 'src/app/services/shelter.service';
 export class PetAdoptionComponent implements OnInit {
 
   protected pets;
+  protected isLoading = true;
   protected defaultPets;
   protected listShelter: Shelter[];
   protected selectedShelter: string;
@@ -56,14 +57,18 @@ export class PetAdoptionComponent implements OnInit {
       }
   }
 
-  getAllPets() {
-    this.PetService.getAllPets().subscribe(response => {
+  async getAllPets() {
+    this.isLoading = true
+    await this.PetService.getAllPets().then(response => {
       this.pets = this.PetService.convertToPets(response)
       this.defaultPets = [...this.pets]
-    }),
+    }).catch(err => {
       err => {
         console.log(err.error.message)
       }
+    })
+    this.isLoading = false
+
   }
 
   onCheckboxShelterChange(event) {
@@ -86,4 +91,12 @@ export class PetAdoptionComponent implements OnInit {
 
   }
 
+  onUserSearched() {
+    if (this.searchValue === "")
+      this.pets = [...this.defaultPets]
+    this.pets = this.pets.filter((pet) => {
+      return Object.values(pet).some((value) => String(value).includes(this.searchValue))
+    })
+    console.log(this.pets)
+  }
 }
