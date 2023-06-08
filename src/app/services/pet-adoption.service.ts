@@ -68,6 +68,7 @@ export class PetAdoptionService {
   }
   async declineAdoption(applicationID: string) {
     let headers = this.getHttpHeader();
+    console.log(headers.get('Authorization'))
     return await (this.http.post(this.baseUrl + `/declineAdoptionRequest/${applicationID}`, { headers })).toPromise()
   }
 

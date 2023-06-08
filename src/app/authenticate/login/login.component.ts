@@ -14,7 +14,7 @@ import { UploadFileService } from 'src/app/services/upload-file.service';
 })
 export class LoginComponent implements OnInit {
 
-  loggedIn: any;
+  loginWithgg: any;
   private accessToken = '';
   userData: any;
   isSubmitted = false;
@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
   async loginWithGoogle() {
     await this.socialLoginService.authState.subscribe(
       (user) => {
+        console.log(user)
         this.authService.loginGoogle(user).subscribe(
           response => {
             this.setLocalUser(response)
@@ -80,7 +81,6 @@ export class LoginComponent implements OnInit {
 
 
   setLocalUser(inputData: any) {
-    console.log(inputData)
     this.authService.setTimeResetToken("jwtToken", inputData.jwtToken)
     this.authService.setTimeResetToken("userRoles", inputData.userRoles);
     this.authService.setTimeResetToken("userID", inputData.userID);

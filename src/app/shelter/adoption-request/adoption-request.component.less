@@ -52,10 +52,11 @@
     }
   }
   p-table {
-    margin-top: 3rem;
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
     table-layout: auto;
+    height: fit-content;
   }
 
   .p-paginator-bottom {
@@ -66,16 +67,28 @@
 }
 
 .content {
+  min-height: 400px;
   height: 67vh;
-  min-height: 350px;
 }
 .p-selectable-row {
   cursor: pointer;
 }
-
-@media (max-width: 768px) {
-  .content {
-    height: 80vh;
-    min-height: 400px;
+:host::ng-deep {
+  @media (max-width: 768px) {
+    .content {
+      height: 80vh;
+      min-height: 400px;
+      p-table {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        table-layout: auto;
+        height: fit-content;
+        .p-datatable {
+          width: 100%;
+        }
+      }
+    }
   }
 }

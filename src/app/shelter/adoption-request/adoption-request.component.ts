@@ -20,7 +20,10 @@ export class AdoptionRequestComponent implements OnInit {
     this.getAdoptionRequest()
     this.breadcrumbItimes = [
       {
-        label: 'Nhận nuôi'
+        label: 'Nhận nuôi',
+        command: () => {
+          this.router.navigate(['/shelter/adopt'])
+        }
       },
       {
         label: 'Yêu cầu nhận nuôi'

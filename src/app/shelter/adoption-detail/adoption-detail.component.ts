@@ -21,22 +21,27 @@ export class AdoptionDetailComponent implements OnInit {
     private messageService: MessageService,
     private petAdoptionService: PetAdoptionService,
     private chat: ChatComponent,
-    private route: Router) {
+    private router: Router) {
 
   }
 
   async getPageData() {
     this.requestInfo = await this.petAdoptionService.getStorageAdoption();
-    console.log(this.requestInfo)
-    console.log(this.requestInfo.animal.onlineAdopters)
-
+    console.log(this.requestInfo.applicationID)
 
     this.breadcrumbItimes = [
       {
-        label: 'Nhận nuôi'
+        label: 'Nhận nuôi',
+        command: () => {
+          this.router.navigate(['/shelter/adopt'])
+        }
+
       },
       {
-        label: 'Yêu cầu nhận nuôi'
+        label: 'Yêu cầu nhận nuôi',
+        command: () => {
+          this.router.navigate(['/shelter/adopt/adoption-request'])
+        }
       },
       {
         label: this.requestInfo.animal.animalName
@@ -52,6 +57,7 @@ export class AdoptionDetailComponent implements OnInit {
   }
 
   rejectRequest() {
+    console.log(this.requestInfo.applicationID)
     this.petAdoptionService.declineAdoption(this.requestInfo.applicationID).then((response) => {
       console.log(response)
       this.messageService.add({ key: "messageService", severity: 'warning', detail: 'Từ chối yêu cầu' })
@@ -64,7 +70,7 @@ export class AdoptionDetailComponent implements OnInit {
     setTimeout(() => {
       this.chat.setReceipientID(this.requestInfo.user.userID);
       this.chat.sendValue("Bắt đầu trò chuyện")
-      this.route.navigate(['/chat']);
+      this.router.navigate(['/chat']);
     }, 1000);
 
   }
