@@ -25,10 +25,10 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th style="min-width: 10%" class="py-3 ps-4">Tên thú cưng</th>
-        <th style="min-width: 150px" class="py-3">Tên người nhận nuôi</th>
-        <th style="min-width: 10%" class="py-3">Ngày gửi yêu cầu</th>
-        <th style="min-width: 120px" class="py-3 text-center">Tình trạng</th>
+        <th pSortableColumn="animal.animalName" style="min-width: 10%" class="py-3 ps-4">Tên thú cưng</th>
+        <th pSortableColumn="user.userFirstName" style="min-width: 150px" class="py-3">Tên người nhận nuôi</th>
+        <th pSortableColumn="date" style="min-width: 10%" class="py-3">Ngày gửi yêu cầu</th>
+        <th pSortableColumn="applicationStatus" style="min-width: 120px" class="py-3 text-center">Tình trạng</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-request>
