@@ -30,24 +30,6 @@ export class HeaderComponent implements OnInit {
   private stompClient = null;
 
 
-  protected navbar = [
-    {
-      navID: 'home',
-      isActive: false
-    },
-    {
-      navID: 'rescue',
-      isActive: false
-    },
-    {
-      navID: 'adopt',
-      isActive: false
-    },
-    {
-      navID: 'donate',
-      isActive: false
-    }
-  ]
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -99,7 +81,6 @@ export class HeaderComponent implements OnInit {
   async getUnreadMessages() {
     await this.chatService.getChatRooom().then((chatRoom) => {
       this.listChatRoom = chatRoom;
-      console.log(this.listChatRoom);
     })
       .catch(err => {
         console.log(err);
@@ -108,7 +89,6 @@ export class HeaderComponent implements OnInit {
     await this.listChatRoom.map((chatRoom) => {
       let recipientID = chatRoom.user1.userID === this.userID ? chatRoom.user2.userID : chatRoom.user1.userID;
       this.chatService.getUnreadMessageByRecipientID(this.userID, recipientID).then((count) => {
-        console.log(count);
         if (count !== 0)
           this.unreadMessage++;
       })
@@ -121,11 +101,14 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  onNavbarClick(id: string) {
-    this.navbar.map((nav) => {
-      nav.navID === id ? nav.isActive = true : nav.isActive = false;
+  onNavbarClick(element: any) {
+    const items = document.querySelectorAll(".nav-link");
+    items.forEach((item) => {
+      item.classList.remove("active")
+      item.removeAttribute("style");
     })
-    console.log(this.navbar)
+    element.target.classList.add("active")
+
   }
 
   routeToAdoptPage() {
