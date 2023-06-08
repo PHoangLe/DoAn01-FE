@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
   async loginWithGoogle() {
     await this.socialLoginService.authState.subscribe(
       (user) => {
-        console.log("user ", user)
         this.authService.loginGoogle(user).subscribe(
           response => {
             this.setLocalUser(response)
@@ -51,7 +50,6 @@ export class LoginComponent implements OnInit {
   async login() {
     this.isSubmitted = true;
     this.isWrongLogin = false
-    console.log(this.loginForm.value)
     await this.authService.logIn(this.loginForm.value).then(
       (response) => {
         this.setLocalUser(response)

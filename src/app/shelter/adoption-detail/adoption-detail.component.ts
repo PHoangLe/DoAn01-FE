@@ -28,6 +28,10 @@ export class AdoptionDetailComponent implements OnInit {
   async getPageData() {
     this.requestInfo = await this.petAdoptionService.getStorageAdoption();
     console.log(this.requestInfo)
+    console.log(this.requestInfo.shelter.shelterName)
+    console.log(this.requestInfo.user.userAvatar)
+
+
     this.breadcrumbItimes = [
       {
         label: 'Nhận nuôi'
@@ -56,6 +60,7 @@ export class AdoptionDetailComponent implements OnInit {
   }
 
   contactRequestor() {
+    sessionStorage.setItem("reciepientID", this.requestInfo.user.userID)
     this.chat.connect();
     setTimeout(() => {
       this.chat.setReceipientID(this.requestInfo.user.userID);
