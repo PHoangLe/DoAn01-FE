@@ -27,8 +27,6 @@ import { MessageModule } from 'primeng/message';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxSpinnerModule } from "ngx-spinner";
 
 import { EditPetComponent } from './pet-detail/edit-pet/edit-pet.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -57,8 +55,6 @@ import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.compo
   ],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
-    NgxSpinnerModule,
     AppSharedModule,
     ShelterRoutingModule,
     FormsModule,
