@@ -10,8 +10,10 @@
     <div class="pet-info my-auto">
       <div class="pet-info-header d-flex">
         <h1 class="ps-4 py-2">{{ requestInfo.animal.animalName }}</h1>
-        <p-divider layout="vertical"></p-divider>
-        <h4 class="ps-4 py-2 my-auto">
+        <div class="divider py-4 px-4">
+          <div class="vr h-100"></div>
+        </div>
+        <h4 class="py-2 my-auto">
           Trại: {{ requestInfo.shelter.shelterName }}
         </h4>
       </div>
@@ -25,12 +27,12 @@
         <h5><b>Màu sắc:</b> {{ requestInfo.animal.animalColor }}</h5>
       </div>
 
-      <p-divider align="left" class="pt-2">
+      <p-divider align="left" class="pt-4">
         <div class="inline-flex align-items-center">
           <b>Tình trạng</b>
         </div>
       </p-divider>
-      <div class="status-info ps-4 pt-2">
+      <div class="status-info ps-4 py-2">
         <h5>
           <b>Tiêm phòng:</b>
           {{ requestInfo.animal.vaccinated ? "Đã tiêm" : "Chưa" }}
@@ -51,8 +53,17 @@
         </div>
       </p-divider>
 
-      <div class="ps-4" *ngFor="let user of requestInfo.animal.onlineAdaptors">
-        <p-avatar image="{{ user }}" size="large" shape="circle"></p-avatar>
+      <div
+        class="ps-4 adopted-user"
+        *ngFor="let user of requestInfo.animal.onlineAdopters"
+        [attr.data-name]="user.userFirstName + ' ' + user.userLastName"
+      >
+        <p-avatar
+          image="{{ user.userAvatar }}"
+          size="large"
+          shape="circle"
+        ></p-avatar>
+        <br />
       </div>
       <div class="ps-4 p-2" *ngIf="!requestInfo.animal.onlineAdopters">
         Hiện tại chưa có người nhận nuôi
@@ -87,7 +98,7 @@
         alt=""
       />
 
-      <div class="col-8 ps-4 ps-4">
+      <div class="ps-4 ps-4">
         <h5>
           <b>{{
             requestInfo.user.userFirstName + " " + requestInfo.user.userLastName

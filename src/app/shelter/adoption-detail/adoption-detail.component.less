@@ -21,14 +21,25 @@
   h5 {
     font-weight: 345;
   }
+  .pet-info {
+    .adopted-user {
+      width: fit-content;
+      // &:hover::after {
+      //   position: absolute;
+      //   z-index: 2;
+      //   background-color: white;
+      //   content: attr(data-name);
+      // }
+    }
+  }
   .pet-img {
     max-height: 400px;
     margin: auto;
     img {
       object-fit: cover;
-      max-height: 400px;
+      max-height: 350px;
       min-height: 300px;
-      max-width: 500px;
+      max-width: 350px;
     }
   }
   .user {
@@ -60,6 +71,16 @@
       display: grid !important;
       grid-template-columns: repeat(1, 1fr);
       gap: 5px;
+    }
+
+    .pet-info {
+      .pet-info-header {
+        h1,
+        h4 {
+          height: 100%;
+          margin: auto 0px;
+        }
+      }
     }
     .user {
       .user-info {

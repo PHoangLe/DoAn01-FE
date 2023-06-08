@@ -63,8 +63,16 @@
   .p-divider.p-divider-horizontal {
     margin: 0;
   }
-  .p-divider-vertical {
-    min-height: 10%;
+  .p-divider {
+    display: flex;
+    align-items: center;
+    .p-divider-vertical.p-divider-center {
+      height: 1rem !important;
+    }
+    .p-divider-vertical {
+      height: 1rem !important;
+      min-height: none;
+    }
   }
   .p-toast .p-toast-message {
     background-color: transparent;
