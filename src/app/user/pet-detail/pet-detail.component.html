@@ -127,5 +127,16 @@
         <h5><b>Tình trạng sức khoẻ</b></h5>
       </div>
     </p-divider>
+    <div>
+      <textarea
+      class="w-100"
+      name=""
+      id="textarea"
+      pInputTextarea
+      [autoResize]="true"
+      [(ngModel)]="pet.animalStatus"
+      disabled="true"
+    ></textarea>
+    </div>
   </div>
 </div>

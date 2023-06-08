@@ -1,4 +1,18 @@
 :host::ng-deep {
+  .p-inputtext,
+  .inputtext {
+    // border: solid 2px;
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    &:focus {
+      box-shadow: none;
+      border-color: var(--primary-color);
+    }
+    &:disabled{
+      opacity: 1;
+    }
+  }
   .p-breadcrumb {
     width: fit-content;
     border: none;
