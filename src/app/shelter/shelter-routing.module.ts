@@ -7,6 +7,7 @@ import { AdoptionRequestComponent } from './adoption-request/adoption-request.co
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 import { ChatComponent } from './chat/chat.component';
 import { ShelterPageComponent } from './shelter-page/shelter-page.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'adopt/adoption-detail/:id',
         component: AdoptionDetailComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
       },
       {
         path: 'chat',

@@ -86,16 +86,22 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     ]
 
     await this.petAdopt.isAdoptedPet(this.pet.animalID, this.userID).then(response => {
-      console.log(response);
-      this.isSendAdoption = true;
-
+      this.adoption = response;
+      if (this.adoption.applicationStatus === "REJECTED")
+        this.isSendAdoption = false;
+      else
+        this.isSendAdoption = true;
     })
       .catch(error => {
         this.isSendAdoption = false;
       })
 
     await this.petAdopt.isOnlineAdoptedPet(this.pet.animalID, this.userID).then(response => {
-      this.isSendOnlAdoption = true;
+      this.adoption = response;
+      if (this.adoption.applicationStatus === "REJECTED")
+        this.isSendOnlAdoption = false;
+      else
+        this.isSendOnlAdoption = true;
     })
       .catch(error => {
         this.isSendOnlAdoption = false;

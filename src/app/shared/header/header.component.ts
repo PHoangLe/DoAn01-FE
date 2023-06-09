@@ -56,7 +56,11 @@ export class HeaderComponent implements OnInit {
         label: 'Thông tin cá nhân',
         icon: 'pi pi-user',
         command: () => {
-          this.router.navigate(['/user/profile']);
+          if (this.isShelter)
+            this.router.navigate(['/shelter/profile']);
+          else
+            this.router.navigate(['/user/profile']);
+
         }
       },
       {

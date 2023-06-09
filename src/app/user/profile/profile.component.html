@@ -78,11 +78,17 @@
       <div class="card bg-secondary shadow">
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
-            <div class="col-8">
+            <div class="col-6">
               <h3 class="mb-0">Tài khoản</h3>
             </div>
-            <div class="col-4 text-right">
+            <div class="col-lg-6 text-right d-flex gap-2">
               <button class="btn btn-primary">Sửa thông tin</button>
+              <button
+                class="btn btn-secondary"
+                (click)="registerShelterAccount()"
+              >
+                Đăng ký trại cứu trợ
+              </button>
             </div>
           </div>
         </div>

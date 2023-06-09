@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'src/app/model/User';
 import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
@@ -13,7 +14,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private petAdoptionService: PetAdoptionService) {
+    private petAdoptionService: PetAdoptionService,
+    private router: Router) {
     this.getProfile();
   }
 
@@ -37,6 +39,10 @@ export class ProfileComponent implements OnInit {
     this.isLoading = false;
     console.log(this.user);
 
+  }
+
+  registerShelterAccount() {
+    this.router.navigate(['/user/request-account']);
   }
 
 }
