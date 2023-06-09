@@ -60,22 +60,22 @@ export class PetAdoptionService {
 
   async acceptOnlineAdoption(applicationID: string) {
     let headers = this.getHttpHeader();
-    return await (this.http.post(this.baseUrl + `/confirmOnlineAdoptionRequest/${applicationID}`, { headers })).toPromise()
+    return await (this.http.get(this.baseUrl + `/confirmOnlineAdoptionRequest/${applicationID}`, { headers })).toPromise()
   }
   async acceptAdoption(applicationID: string) {
     let headers = this.getHttpHeader();
-    return await (this.http.post(this.baseUrl + `/confirmAdoptionRequest/${applicationID}`, { headers })).toPromise()
+    return await (this.http.get(this.baseUrl + `/confirmAdoptionRequest/${applicationID}`, { headers })).toPromise()
 
   }
 
   async declineOnlineAdoption(applicationID: string) {
     let headers = this.getHttpHeader();
-    return await (this.http.post(this.baseUrl + `/declineOnlineAdoptionRequest/${applicationID}`, { headers })).toPromise()
+    return await (this.http.get(this.baseUrl + `/declineOnlineAdoptionRequest/${applicationID}`, { headers })).toPromise()
   }
   async declineAdoption(applicationID: string) {
     let headers = this.getHttpHeader();
     console.log(headers.get('Authorization'))
-    return await (this.http.post(this.baseUrl + `/declineAdoptionRequest/${applicationID}`, { headers })).toPromise()
+    return await (this.http.get(this.baseUrl + `/declineAdoptionRequest/${applicationID}`, { headers })).toPromise()
   }
 
   setStorageAdoption(adoption: any) {

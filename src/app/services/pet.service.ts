@@ -118,7 +118,7 @@ export class PetService {
       JSON.parse(petJson)._sterilized,
       JSON.parse(petJson)._friendly,
       JSON.parse(petJson)._othersImg,
-      JSON.parse(petJson)._onlineAdaptors,
+      JSON.parse(petJson)._onlineAdopters,
       JSON.parse(petJson)._adopted
     )
   }
@@ -129,9 +129,6 @@ export class PetService {
       return null;
     }
   }
-
-
-
 
   convertToPets(input: any): Pet[] {
     var petList = new Array<Pet>
@@ -154,7 +151,7 @@ export class PetService {
           item.sterilized,
           item.friendly,
           item.othersImg,
-          item.onlineAdaptors,
+          item.onlineAdopters,
           item.adopted)
 
         petList.push(pet)

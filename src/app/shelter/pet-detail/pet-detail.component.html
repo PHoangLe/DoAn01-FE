@@ -61,10 +61,16 @@
         </div>
       </p-divider>
 
-      <div class="ps-4" *ngFor="let user of listUserImg">
-        <p-avatar image="{{ user }}" size="large" shape="circle"></p-avatar>
+      <div class="ps-4" *ngFor="let user of listOnlineAdopter">
+        <p-avatar
+          image="{{ user.userAvatar }}"
+          size="large"
+          shape="circle"
+          pTooltip="{{ user.userFirstName + ' ' + user.userLastName }}"
+          tooltipPosition="bottom"
+        ></p-avatar>
       </div>
-      <div class="ps-4 p-2" *ngIf="listUserImg">
+      <div class="ps-4 p-2" *ngIf="!listOnlineAdopter">
         Hiện tại chưa có người nhận nuôi
       </div>
       <div class="button-group pt-2 ps-4 d-flex">

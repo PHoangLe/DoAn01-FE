@@ -111,7 +111,7 @@ export class AuthService {
     return false
   }
 
-  setTimeResetToken(key: string, value: any, expiryTime: number = 86400000) {
+  setTimeResetToken(key: string, value: any, expiryTime: number = 56400000) {
     const now = new Date();
     const item = {
       value: value,
@@ -142,6 +142,6 @@ export class AuthService {
   init() {
     setInterval(() => {
       this.clearExpiredItems();
-    }, 1000 * 60 * 60 * 8);
+    }, 1000 * 60 * 60 * 2);
   }
 }

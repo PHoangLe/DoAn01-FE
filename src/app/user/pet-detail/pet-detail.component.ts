@@ -23,7 +23,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   protected breadcrumbItimes: MenuItem[];
   protected listImg = new Array<string>();
   protected responsiveOptions: any[];
-  protected listUserImg = new Array<string>();
+  protected listOnlineAdopter = new Array<any>();
   protected isSendOnlAdoption = false;
   protected isSendAdoption = false;
 
@@ -54,9 +54,10 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.pet = await this.petService.getStoragePet();
     this.shelterName = await this.shelterSerivce.getShelterByShelterID(this.pet.shelterID)
+    this.userID = JSON.parse(localStorage.getItem('userID')).value;
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
-    this.userID = JSON.parse(localStorage.getItem('userID')).value;
+    this.listOnlineAdopter.push(...this.pet.onlineAdopters)
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -85,7 +86,9 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     ]
 
     await this.petAdopt.isAdoptedPet(this.pet.animalID, this.userID).then(response => {
+      console.log(response);
       this.isSendAdoption = true;
+
     })
       .catch(error => {
         this.isSendAdoption = false;
@@ -116,16 +119,21 @@ export class PetDetailComponent implements OnInit, OnDestroy {
       this.messageService.add({ key: 'adoptPet', severity: 'success', summary: 'Đã gửi yêu cầu!' })
       this.isSendOnlAdoption = true;
       setTimeout(() => {
-        this.ref = this.dialogService.open(BankingComponent, {
-          data: this.pet,
-          width: '50%',
-          contentStyle: { overflow: 'auto' },
-          baseZIndex: 10000,
-          maximizable: false,
-          header: 'Ví điện tử MOMO'
-        })
+        this.openBankingComponent();
+
       }, 1500);
     })
+  }
+
+  openBankingComponent() {
+    this.ref = this.dialogService.open(BankingComponent, {
+      data: this.pet,
+      width: '50%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: false,
+      header: 'Ví điện tử MOMO'
+    });
   }
 
   onReject() {

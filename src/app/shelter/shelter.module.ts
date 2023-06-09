@@ -37,7 +37,7 @@ import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
-
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -79,7 +79,8 @@ import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.compo
     MessageModule,
     MessagesModule,
     TagModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TooltipModule
   ],
   providers: [MessageService, ConfirmationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

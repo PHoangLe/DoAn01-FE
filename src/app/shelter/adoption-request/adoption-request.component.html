@@ -48,7 +48,7 @@
               request.applicationStatus === 'PENDING'
                 ? 'Đang chờ'
                 : request.applicationStatus === 'COMPLETED'
-                ? 'Đã xác nhận'
+                ? 'Xác nhận'
                 : 'Từ chối'
             "
             [severity]="getSeverity(request.applicationStatus)"
