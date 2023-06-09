@@ -1,9 +1,10 @@
+:host ::ng-deep {
+  display: block;
+}
+
 * {
   padding: 0;
   margin: 0;
-}
-.container-fluid {
-  height: 100vh;
 }
 #form-container {
   min-width: 300px;
@@ -111,9 +112,6 @@ input[type="file"] {
 }
 
 @media (min-width: 576px) {
-  #form-container {
-    height: 100%;
-  }
   .custom-file-upload {
     height: 180px;
     width: 180px;
