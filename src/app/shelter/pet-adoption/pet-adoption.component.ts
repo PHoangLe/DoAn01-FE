@@ -7,7 +7,8 @@ import { PetService } from 'src/app/services/pet.service';
 import { ShelterService } from 'src/app/services/shelter.service';
 import { AddPetComponent } from './add-pet/add-pet.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-pet-adoption',
   templateUrl: './pet-adoption.component.html',
@@ -39,9 +40,11 @@ export class PetAdoptionComponent implements OnDestroy {
   constructor(
     private shelterService: ShelterService,
     private PetService: PetService,
+    private AuthService: AuthService,
     public dialogService: DialogService,
     public messageService: MessageService,
-    private spinner: NgxSpinnerService
+    private router: Router,
+    private spinner: NgxSpinnerService,
   ) {
   }
 
@@ -110,5 +113,13 @@ export class PetAdoptionComponent implements OnDestroy {
       return Object.values(pet).some((value) => String(value).includes(this.searchValue))
     })
     console.log(this.pets)
+  }
+  routeToPetDetail(pet: Pet) {
+    this.PetService.setStoragePet(pet);
+    if (this.AuthService.getDataFromCookie("userRoles").includes("ROLE_SHELTER_MANAGER"))
+      this.router.navigate([`/shelter/pet-detail/${pet.animalID}`])
+    else {
+      this.router.navigate([`/user/pet-detail/${pet.animalID}`])
+    }
   }
 }
