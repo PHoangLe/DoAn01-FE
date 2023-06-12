@@ -61,15 +61,18 @@
         </div>
       </p-divider>
 
-      <div class="ps-4" *ngFor="let user of listOnlineAdopter">
-        <p-avatar
-          image="{{ user.userAvatar }}"
-          size="large"
-          shape="circle"
-          pTooltip="{{ user.userFirstName + ' ' + user.userLastName }}"
-          tooltipPosition="bottom"
-        ></p-avatar>
+      <div class="my-2">
+        <div class="ps-4 d-inline" *ngFor="let user of listOnlineAdopter">
+          <p-avatar
+            image="{{ user.userAvatar }}"
+            size="large"
+            shape="circle"
+            pTooltip="{{ user.userFirstName + ' ' + user.userLastName }}"
+            tooltipPosition="bottom"
+          ></p-avatar>
+        </div>
       </div>
+      
       <div class="ps-4 p-2" *ngIf="!listOnlineAdopter">
         Hiện tại chưa có người nhận nuôi
       </div>
@@ -77,9 +80,9 @@
         <button class="btn btn-primary" (click)="editPet()">
           Sửa thông tin
         </button>
-        <!-- <button class="btn btn-secondary" (click)="deletePet()">
+        <button class="btn btn-secondary" (click)="deletePet()">
           Xoá thú cưng
-        </button> -->
+        </button>
       </div>
       <p-toast key="deletePet" [preventOpenDuplicates]="true"></p-toast>
       <p-confirmDialog #cd position="bottom" [style]="{ width: '50vw' }">

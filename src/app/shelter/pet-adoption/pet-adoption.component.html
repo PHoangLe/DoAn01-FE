@@ -3,23 +3,7 @@
   [img]="'https://i.ibb.co/TkTFnmM/jamie-street-s9-Tf1e-BDFqw-unsplash.jpg'"
   title="Danh sách thú cưng"
 ></app-widget>
-<div class="container d-flex m-0 p-0">
-  <div
-    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-2 col-lg-2 m-2">
-    <div class="pet-type w-100 p-2">
-      <h4>Loại</h4>
-      <div *ngFor="let pet of petSpecie" class="field-checkbox p-1">
-        <p-radioButton
-          name="group"
-          [value]="pet.id"
-          [inputId]="pet.id"
-          [(ngModel)]="selectedSpecie"
-          (onClick)="onCheckboxBreedChange($event)"
-        ></p-radioButton>
-        <label [for]="pet.id">{{ pet.value }}</label>
-      </div>
-    </div>
-  </div>
+<div class="container d-flex w-100 justify-content-center">
   <div class="pet-list col-9 col-sm-10 col-lg-10">
     <div
       *ngIf="isLoading"
@@ -48,7 +32,7 @@
           <div class="flex pt-2">Có tổng cộng {{ pets ? pets.length : 0 }} bé thú cưng trong trại.</div>
           <span class="p-input-icon-right float-end">
               <i class="pi pi-search"></i>
-              <input pInputText class="ps-2 pe-3" type="text" #textInput (input)="dt.filterGlobal(textInput.value, 'contains')" placeholder="Nhập thông tin" />
+              <input pInputText class="ps-2 pe-4" type="text" #textInput (input)="dt.filterGlobal(textInput.value, 'contains')" placeholder="Nhập thông tin" />
           </span>
         </div>
     </ng-template>
