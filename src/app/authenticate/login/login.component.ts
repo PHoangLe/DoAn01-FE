@@ -87,6 +87,7 @@ export class LoginComponent implements OnInit {
     this.authService.setTimeResetToken("userName", inputData.userFullName);
     this.authService.setTimeResetToken("userEmail", inputData.userEmail);
     this.authService.setTimeResetToken("userAvatar", inputData.userAvatar);
+    localStorage.setItem("userAvatar", inputData.userAvatar)
 
   }
 

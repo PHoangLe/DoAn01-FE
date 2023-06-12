@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Shelter } from '../model/Shelter';
 import { list } from 'firebase/storage';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ShelterService {
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/shelter";
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getAllShelter() {
     let headers = this.getHttpHeader()
@@ -19,7 +20,7 @@ export class ShelterService {
 
   async getShelterIDByUserID(): Promise<any> {
     let headers = this.getHttpHeader();
-    const response = await this.http.get(this.baseUrl + `/getShelterByUserID/${JSON.parse(localStorage.getItem("userID")).value}`, { headers }).toPromise();
+    const response = await this.http.get(this.baseUrl + `/getShelterByUserID/${this.authService.getDataFromCookie("userID")}`, { headers }).toPromise();
     return this.toShelter(response).shelterID;
   }
 
@@ -67,7 +68,7 @@ export class ShelterService {
 
   getHttpHeader(): HttpHeaders {
     return new HttpHeaders({
-      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
+      'Authorization': `Bearer ${this.authService.getDataFromCookie("jwtToken")}`,
     });
   }
 }

@@ -7,6 +7,7 @@ import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
 import { PetService } from 'src/app/services/pet.service';
 import { BankingComponent } from './banking/banking.component';
 import { ShelterService } from 'src/app/services/shelter.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-pet-detail',
@@ -23,7 +24,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   protected breadcrumbItimes: MenuItem[];
   protected listImg = new Array<string>();
   protected responsiveOptions: any[];
-  protected listUserImg = new Array<string>();
+  protected listOnlineAdopter = new Array<any>();
   protected isSendOnlAdoption = false;
   protected isSendAdoption = false;
 
@@ -36,7 +37,8 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     private petAdopt: PetAdoptionService,
     private messageService: MessageService,
     private dialogService: DialogService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
   }
   ngOnDestroy(): void {
@@ -54,9 +56,10 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.pet = await this.petService.getStoragePet();
     this.shelterName = await this.shelterSerivce.getShelterByShelterID(this.pet.shelterID)
+    this.userID = this.authService.getDataFromCookie("userID");;
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
-    this.userID = JSON.parse(localStorage.getItem('userID')).value;
+    this.listOnlineAdopter.push(...this.pet.onlineAdopters)
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -85,14 +88,22 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     ]
 
     await this.petAdopt.isAdoptedPet(this.pet.animalID, this.userID).then(response => {
-      this.isSendAdoption = true;
+      this.adoption = response;
+      if (this.adoption.applicationStatus === "REJECTED")
+        this.isSendAdoption = false;
+      else
+        this.isSendAdoption = true;
     })
       .catch(error => {
         this.isSendAdoption = false;
       })
 
     await this.petAdopt.isOnlineAdoptedPet(this.pet.animalID, this.userID).then(response => {
-      this.isSendOnlAdoption = true;
+      this.adoption = response;
+      if (this.adoption.applicationStatus === "REJECTED")
+        this.isSendOnlAdoption = false;
+      else
+        this.isSendOnlAdoption = true;
     })
       .catch(error => {
         this.isSendOnlAdoption = false;
@@ -116,23 +127,28 @@ export class PetDetailComponent implements OnInit, OnDestroy {
       this.messageService.add({ key: 'adoptPet', severity: 'success', summary: 'Đã gửi yêu cầu!' })
       this.isSendOnlAdoption = true;
       setTimeout(() => {
-        this.ref = this.dialogService.open(BankingComponent, {
-          data: this.pet,
-          width: '50%',
-          contentStyle: { overflow: 'auto' },
-          baseZIndex: 10000,
-          maximizable: false,
-          header: 'Ví điện tử MOMO'
-        })
+        this.openBankingComponent();
+
       }, 1500);
     })
+  }
+
+  openBankingComponent() {
+    this.ref = this.dialogService.open(BankingComponent, {
+      data: this.pet,
+      width: '50%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: false,
+      header: 'Ví điện tử MOMO'
+    });
   }
 
   onReject() {
     this.messageService.clear('confirmAdoption')
   }
   onConfirm() {
-    this.petAdopt.sendAdoptionRequest(this.pet.animalID, this.pet.shelterID, JSON.parse(localStorage.getItem("userID")).value).then(value => {
+    this.petAdopt.sendAdoptionRequest(this.pet.animalID, this.pet.shelterID, this.authService.getDataFromCookie("userID")).then(value => {
       console.log(value);
       this.isSendAdoption = true;
       this.messageService.add({ key: 'adoptPet', severity: 'info', summary: 'Gửi yêu cầu thành công!' })

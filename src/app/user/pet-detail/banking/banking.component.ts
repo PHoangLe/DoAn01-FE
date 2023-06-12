@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Pet } from 'src/app/model/Pet';
 import { Shelter } from 'src/app/model/Shelter';
+import { AuthService } from 'src/app/services/auth.service';
 import { PetService } from 'src/app/services/pet.service';
 import { ShelterService } from 'src/app/services/shelter.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
@@ -19,7 +20,7 @@ export class BankingComponent implements OnInit {
   userEmail: string;
   shelterName: any;
   async ngOnInit() {
-    this.userEmail = JSON.parse(localStorage.getItem("userEmail")).value;
+    this.userEmail = this.authService.getDataFromCookie("userEmail");;
     this.shelterName = await this.shelterService.getShelterByShelterID(this.pet.shelterID);
   }
 
@@ -28,7 +29,8 @@ export class BankingComponent implements OnInit {
     private shelterService: ShelterService,
     public ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private authService: AuthService) {
     this.pet = this.config.data
     console.log(this.pet)
   }

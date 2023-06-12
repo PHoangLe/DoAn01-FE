@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../model/User';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { User } from '../model/User';
 export class UserService {
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/user";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
 
   async getUser(userID: string): Promise<any> {
@@ -33,7 +34,7 @@ export class UserService {
   }
   getHttpHeader(): HttpHeaders {
     return new HttpHeaders({
-      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
+      'Authorization': `Bearer ${this.authService.getDataFromCookie("jwtToken")}`,
     });
   }
 }

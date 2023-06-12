@@ -3,6 +3,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -12,7 +13,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ChatComponent implements OnInit, AfterViewInit {
   constructor(
     private chatService: ChatService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private authService: AuthService) {
   }
 
 
@@ -30,12 +32,12 @@ export class ChatComponent implements OnInit, AfterViewInit {
   message: string;
   recipientID: string;
 
-  senderID = JSON.parse(localStorage.getItem("userID")).value;
-  senderAvatar = JSON.parse(localStorage.getItem("userAvatar")).value;
+  senderID = this.authService.getDataFromCookie("userID");
+  senderAvatar = localStorage.getItem("userAvatar");
 
   private stompClient = null;
   private messageData = {
-    senderID: JSON.parse(localStorage.getItem("userID")).value,
+    senderID: this.authService.getDataFromCookie("userID"),
     recipientID: '',
     message: ''
   }
@@ -226,7 +228,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   onConnected = () => {
     this.stompClient.subscribe('/private-message', this.onMessageSend);
-    this.stompClient.subscribe('/user/' + JSON.parse(localStorage.getItem("userID")).value + '/private', this.onPrivateMessage);
+    this.stompClient.subscribe('/user/' + this.authService.getDataFromCookie("userID") + '/private', this.onPrivateMessage);
   }
 
   onMessageSend = (payload) => {

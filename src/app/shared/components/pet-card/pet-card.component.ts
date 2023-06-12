@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Pet } from 'src/app/model/Pet';
+import { AuthService } from 'src/app/services/auth.service';
 import { PetService } from 'src/app/services/pet.service';
 
 @Component({
@@ -11,14 +12,14 @@ import { PetService } from 'src/app/services/pet.service';
 export class PetCardComponent implements OnInit {
   @Input() pet: any;
 
-  constructor(private router: Router, private petService: PetService) { }
+  constructor(private router: Router, private petService: PetService, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   routeToPetDetail(pet: Pet) {
     this.petService.setStoragePet(pet);
-    if (JSON.parse(localStorage.getItem("userRoles")).value.includes("ROLE_SHELTER_MANAGER"))
+    if (this.authService.getDataFromCookie("userRoles").includes("ROLE_SHELTER_MANAGER"))
       this.router.navigate([`/shelter/pet-detail/${pet.animalID}`])
     else {
       this.router.navigate([`/user/pet-detail/${pet.animalID}`])

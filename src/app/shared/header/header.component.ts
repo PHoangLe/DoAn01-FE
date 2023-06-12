@@ -37,10 +37,11 @@ export class HeaderComponent implements OnInit {
     private chatService: ChatService,
     private loginComponent: LoginComponent) {
     try {
-      if (this.userID = JSON.parse(localStorage.getItem("userID")).value) {
+      if (this.userID = this.authService.getDataFromCookie("userID")) {
         this.isLoggin = true
-        this.imageUrl = (JSON.parse(localStorage.getItem("userAvatar")).value)
-        this.isShelter = JSON.parse(localStorage.getItem("userRoles")).value.includes('ROLE_SHELTER_MANAGER')
+        this.imageUrl = (localStorage.getItem("userAvatar"))
+        console.log(this.imageUrl)
+        this.isShelter = this.authService.getDataFromCookie("userRoles").includes('ROLE_SHELTER_MANAGER')
       }
     }
     catch {
@@ -56,7 +57,11 @@ export class HeaderComponent implements OnInit {
         label: 'Thông tin cá nhân',
         icon: 'pi pi-user',
         command: () => {
-          this.router.navigate(['/user/profile']);
+          if (this.isShelter)
+            this.router.navigate(['/shelter/profile']);
+          else
+            this.router.navigate(['/user/profile']);
+
         }
       },
       {
@@ -95,7 +100,7 @@ export class HeaderComponent implements OnInit {
     })
   }
   signOut() {
-    localStorage.clear();
+    document.cookie.split(";").forEach(function (c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
     this.loginComponent.signOut();
     this.router.navigate(['/login'])
   }
@@ -140,7 +145,7 @@ export class HeaderComponent implements OnInit {
 
   onConnected = () => {
     this.stompClient.subscribe('/private-message', this.onMessageSend);
-    this.stompClient.subscribe('/user/' + JSON.parse(localStorage.getItem("userID")).value + '/private', this.onPrivateMessage);
+    this.stompClient.subscribe('/user/' + this.authService.getDataFromCookie("userID") + '/private', this.onPrivateMessage);
   }
 
   onMessageSend = (payload) => {

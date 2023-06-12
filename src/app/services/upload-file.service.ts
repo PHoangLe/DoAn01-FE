@@ -10,6 +10,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import * as firebase from 'firebase/compat';
 import { FileUpload } from 'primeng/fileupload';
 import { ShelterService } from './shelter.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,22 +26,23 @@ export class UploadFileService {
   constructor(
     private db: AngularFireDatabase,
     private storage: AngularFireStorage,
-    private shelterService: ShelterService) { }
+    private shelterService: ShelterService,
+    private authService: AuthService) { }
 
   async pushFileToStorage(fileUpload: File, fileType: string): Promise<any> {
     let basePath = '/RelatedDocuments';
-    let filePath = `${basePath}/${JSON.parse(localStorage.getItem("userID")).value}/${fileUpload.name}`;
+    let filePath = `${basePath}/${this.authService.getDataFromCookie("userID")}/${fileUpload.name}`;
     if (fileType === "avatar") {
       basePath = '/Avatar'
-      filePath = `${basePath}/ava-${JSON.parse(localStorage.getItem("userID")).value}`;
+      filePath = `${basePath}/ava-${this.authService.getDataFromCookie("userID")}`;
     }
     else if (fileType === "logo") {
       basePath = '/Avatar'
-      filePath = `${basePath}/logo-${JSON.parse(localStorage.getItem("userID")).value}`;
+      filePath = `${basePath}/logo-${this.authService.getDataFromCookie("userID")}`;
     }
     else if (fileType === "pet" || fileType === "petImgs") {
       basePath = '/Pet'
-      filePath = `${basePath}/shelter-${JSON.parse(localStorage.getItem("userID")).value}/${fileUpload.name}`;
+      filePath = `${basePath}/shelter-${this.authService.getDataFromCookie("userID")}/${fileUpload.name}`;
     }
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, fileUpload);

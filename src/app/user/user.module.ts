@@ -25,6 +25,7 @@ import { BankingComponent } from './pet-detail/banking/banking.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -57,7 +58,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     ToastModule,
     MessageModule,
     MessagesModule,
-    InputTextareaModule
+    InputTextareaModule,
+    TooltipModule
   ]
 })
 export class UserModule { }

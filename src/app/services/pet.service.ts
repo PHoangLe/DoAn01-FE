@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ShelterService } from './shelter.service';
 import { Pet } from '../model/Pet';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class PetService {
 
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/animal";
   pet: Pet;
-  constructor(private http: HttpClient, private shelterService: ShelterService) { }
+  constructor(private http: HttpClient, private shelterService: ShelterService, private authService: AuthService) { }
 
   async getAllPets() {
     let headers = this.getHttpHeader();
@@ -118,7 +119,7 @@ export class PetService {
       JSON.parse(petJson)._sterilized,
       JSON.parse(petJson)._friendly,
       JSON.parse(petJson)._othersImg,
-      JSON.parse(petJson)._onlineAdaptors,
+      JSON.parse(petJson)._onlineAdopters,
       JSON.parse(petJson)._adopted
     )
   }
@@ -129,9 +130,6 @@ export class PetService {
       return null;
     }
   }
-
-
-
 
   convertToPets(input: any): Pet[] {
     var petList = new Array<Pet>
@@ -154,7 +152,7 @@ export class PetService {
           item.sterilized,
           item.friendly,
           item.othersImg,
-          item.onlineAdaptors,
+          item.onlineAdopters,
           item.adopted)
 
         petList.push(pet)
@@ -190,7 +188,7 @@ export class PetService {
 
   getHttpHeader(): HttpHeaders {
     return new HttpHeaders({
-      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
+      'Authorization': `Bearer ${this.authService.getDataFromCookie("jwtToken")}`,
     });
   }
 

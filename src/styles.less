@@ -144,6 +144,12 @@
       border-radius: 15px;
       tr > td {
         border: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      tr > td:last-child > p-tag > span {
+        width: 80px;
       }
     }
     .p-paginator-pages {

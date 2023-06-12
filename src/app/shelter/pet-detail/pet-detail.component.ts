@@ -6,6 +6,7 @@ import { Pet } from 'src/app/model/Pet';
 import { PetService } from 'src/app/services/pet.service';
 import { EditPetComponent } from './edit-pet/edit-pet.component';
 import { ShelterService } from 'src/app/services/shelter.service';
+import { User } from 'src/app/model/User';
 
 @Component({
   selector: 'app-pet-detail',
@@ -20,7 +21,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   protected listImg = new Array<string>();
   protected responsiveOptions: any[];
   protected listUserImg = new Array<string>();
-  protected listOnlineAdoptor = new Array<string>();
+  protected listOnlineAdopter = new Array<any>();
   private ref: DynamicDialogRef;
   constructor(
     private shelterService: ShelterService,
@@ -68,7 +69,9 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     ];
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
-    this.listOnlineAdoptor.push(...this.pet.onlineAdaptors)
+    this.listOnlineAdopter.push(...this.pet.onlineAdopters)
+    console.log(this.listOnlineAdopter)
+
 
   }
 
