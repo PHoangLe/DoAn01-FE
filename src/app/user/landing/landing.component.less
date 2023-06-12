@@ -1,11 +1,9 @@
 .container {
-  height: 100vh;
-  min-height: 100%;
   width: 100vw;
   .content {
     height: fit-content;
-    position: absolute;
-    margin-top: 25vh;
+    position: relative;
+    margin-top: 15vh;
     z-index: 1;
     left: 0;
     width: 100%;
@@ -21,8 +19,9 @@
       width: 40vw;
       text-align: center;
     }
+
     .content_button {
-      margin-top: 5rem;
+      margin: 10rem 0 5rem 0;
       button {
         padding: 0.5rem 2rem;
         width: fit-content;
@@ -34,6 +33,37 @@
         gap: 1rem;
       }
     }
+    .content_card {
+      .card_container {
+        position: relative;
+        width: 160px;
+        height: 150px;
+        .card_icon {
+          z-index: 1;
+          padding: 0.5rem;
+          width: fit-content;
+          height: fit-content;
+          background-color: #ebf1fa;
+        }
+        .card_border {
+          width: 100%;
+          position: absolute;
+          background-color: white;
+
+          top: 1.5rem;
+          border: solid 1px #193a6a;
+          border-radius: 10px;
+          padding: 2rem 2rem 0.5rem 2rem;
+          p {
+            width: fit-content;
+            height: fit-content;
+            font-size: 1.15rem;
+            font-weight: 700;
+            overflow: hidden;
+          }
+        }
+      }
+    }
   }
   .background {
     margin: 0;
@@ -41,6 +71,8 @@
     height: max(90vh, 576px);
     width: 100%;
     left: 0;
+    top: 0;
+    z-index: -1;
     .background_shape {
       height: 100%;
       position: absolute;
@@ -49,19 +81,19 @@
     }
     .background_dog {
       left: 5vw;
-      top: 35vh;
+      top: 30vh;
       position: absolute;
 
-      width: 20vw;
+      width: 22vw;
       min-width: 250px;
       height: auto;
     }
     .background_cat {
       right: 5vw;
-      top: 37vh;
+      top: 30vh;
       position: absolute;
 
-      width: 25vw;
+      width: 27vw;
       min-width: 270px;
 
       height: auto;
@@ -72,6 +104,11 @@
 @media (max-width: 768.9px) {
   .container {
     .content {
+      display: flex;
+      align-items: stretch;
+      flex-direction: column;
+      margin-top: 3rem;
+      height: 100%;
       .content_slogan {
         padding: 1rem 3rem;
         h1 {
@@ -82,6 +119,33 @@
       .content_subslogan {
         width: 70vw;
         text-align: center;
+      }
+      .content_button {
+        margin: 3rem 0 2rem 0;
+      }
+      .content_card {
+        padding: 0 2rem;
+        bottom: 1rem;
+        position: relative;
+        .card_container {
+          .card_border {
+            width: 100%;
+            position: absolute;
+            background-color: white;
+
+            top: 1.5rem;
+            border: solid 1px #193a6a;
+            border-radius: 10px;
+            padding: 1.75rem 0.35rem 0.1rem 0.5rem;
+            p {
+              width: fit-content;
+              height: fit-content;
+              font-size: 0.8rem;
+              font-weight: 700;
+              overflow: hidden;
+            }
+          }
+        }
       }
     }
     .background {

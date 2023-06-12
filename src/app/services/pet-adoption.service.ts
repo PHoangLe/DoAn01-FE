@@ -84,7 +84,7 @@ export class PetAdoptionService {
   }
 
   getStorageAdoption(): any {
-    return this.authService.getDataFromCookie("currentAdoption")
+    return JSON.parse(sessionStorage.getItem("currentAdoption")).value
   }
   getHttpHeader(): HttpHeaders {
     return new HttpHeaders({

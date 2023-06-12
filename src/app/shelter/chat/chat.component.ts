@@ -201,7 +201,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   onUserSearched() {
     this.listUsers = [...this.listUsersBackup]
     this.listUsers = this.listUsers.filter((room) => {
-      if (room.userName.includes(this.userSearch))
+      if (room.userName.toLocaleLowerCase().includes(this.userSearch.toLocaleLowerCase()))
         return room;
       else
         return 0;
