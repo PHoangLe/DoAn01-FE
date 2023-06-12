@@ -1,4 +1,15 @@
 :host::ng-deep {
+  .search-bar{
+    justify-content: space-between;
+  }
+
+  .search-bar > .p-input-icon-right > input{
+    height: 2rem;
+    border-radius: 13px;
+    background-color: #f5f5f5;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+
   p-tag > span {
     font-size: 0.8rem;
     width: 7rem;
@@ -8,7 +19,6 @@
     justify-content: center;
   }
   .p-datatable {
-    padding: 20px;
     width: 80%;
     .p-datatable-header {
       border: none;
@@ -61,7 +71,6 @@
     }
   }
   p-table {
-    margin-top: 2rem;
     display: flex;
     justify-content: center;
     table-layout: auto;
@@ -77,7 +86,6 @@
 
 .content {
   min-height: 400px;
-  height: 67vh;
 }
 .p-selectable-row {
   cursor: pointer;
