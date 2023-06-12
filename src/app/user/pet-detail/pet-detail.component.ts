@@ -7,6 +7,7 @@ import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
 import { PetService } from 'src/app/services/pet.service';
 import { BankingComponent } from './banking/banking.component';
 import { ShelterService } from 'src/app/services/shelter.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-pet-detail',
@@ -36,7 +37,8 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     private petAdopt: PetAdoptionService,
     private messageService: MessageService,
     private dialogService: DialogService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
   }
   ngOnDestroy(): void {
@@ -54,7 +56,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.pet = await this.petService.getStoragePet();
     this.shelterName = await this.shelterSerivce.getShelterByShelterID(this.pet.shelterID)
-    this.userID = JSON.parse(localStorage.getItem('userID')).value;
+    this.userID = this.authService.getDataFromCookie("userID");;
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
     this.listOnlineAdopter.push(...this.pet.onlineAdopters)
@@ -146,7 +148,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     this.messageService.clear('confirmAdoption')
   }
   onConfirm() {
-    this.petAdopt.sendAdoptionRequest(this.pet.animalID, this.pet.shelterID, JSON.parse(localStorage.getItem("userID")).value).then(value => {
+    this.petAdopt.sendAdoptionRequest(this.pet.animalID, this.pet.shelterID, this.authService.getDataFromCookie("userID")).then(value => {
       console.log(value);
       this.isSendAdoption = true;
       this.messageService.add({ key: 'adoptPet', severity: 'info', summary: 'Gửi yêu cầu thành công!' })

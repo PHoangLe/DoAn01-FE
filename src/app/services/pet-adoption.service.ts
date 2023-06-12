@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { PetService } from './pet.service';
 import moment from 'moment';
 import { ShelterService } from './shelter.service';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -13,7 +14,7 @@ export class PetAdoptionService {
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/adopt";
   constructor(
     private http: HttpClient,
-    private petService: PetService,
+    private authService: AuthService,
     private shelterService: ShelterService) {
 
   }
@@ -83,11 +84,11 @@ export class PetAdoptionService {
   }
 
   getStorageAdoption(): any {
-    return JSON.parse(sessionStorage.getItem("currentAdoption"));
+    return this.authService.getDataFromCookie("currentAdoption")
   }
   getHttpHeader(): HttpHeaders {
     return new HttpHeaders({
-      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
+      'Authorization': `Bearer ${this.authService.getDataFromCookie("jwtToken")}`,
     });
   }
 

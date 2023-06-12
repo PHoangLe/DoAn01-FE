@@ -83,7 +83,7 @@ export class AuthService {
     this.setTimeResetToken("userRoles", JSON.stringify(userRoles))
   }
   getRoles(): [] {
-    return JSON.parse(localStorage.getItem('userRoles')).value
+    return this.getDataFromCookie("userRoles")
   }
 
   setToken(jwtToken: string) {
@@ -92,7 +92,7 @@ export class AuthService {
   }
 
   getToken(): string {
-    return JSON.parse(localStorage.getItem("jwtToken")).value
+    return this.getDataFromCookie("jwtToken")
   }
 
   clear() {
@@ -111,37 +111,22 @@ export class AuthService {
     return false
   }
 
-  setTimeResetToken(key: string, value: any, expiryTime: number = 56400000) {
-    const now = new Date();
-    const item = {
-      value: value,
-      expiry: now.getTime() + expiryTime
-    };
-    localStorage.setItem(key, JSON.stringify(item));
+  setTimeResetToken(key: string, value: any, expDays: number = 1) {
+    let date = new Date();
+    date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = key + "=" + value + "; " + expires + "; path=/";
   }
 
-  getItem(key: string) {
-    const item = localStorage.getItem(key);
-    if (!item) {
-      return null;
-    }
-    const parsedItem = JSON.parse(item);
-    if (parsedItem.expiry < new Date().getTime()) {
-      localStorage.removeItem(key);
-      return null;
-    }
-    return parsedItem.value;
+  getDataFromCookie(cName) {
+    const name = cName + "=";
+    const cDecoded = decodeURIComponent(document.cookie);
+    const cArr = cDecoded.split('; ');
+    let res;
+    cArr.forEach(val => {
+      if (val.indexOf(name) === 0) res = val.substring(name.length);
+    })
+    return res;
   }
 
-  clearExpiredItems() {
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      this.getItem(key);
-    }
-  }
-  init() {
-    setInterval(() => {
-      this.clearExpiredItems();
-    }, 1000 * 60 * 60 * 2);
-  }
 }

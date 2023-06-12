@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
 
 
 
@@ -9,13 +10,13 @@ import { Injectable } from '@angular/core';
 export class ChatService {
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/chat/";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
 
   async getChatRooom() {
     let headers = this.getHttpHeader();
-    return await this.http.get(this.baseUrl + "getAllChatRoomByUserID/" + `${JSON.parse(localStorage.getItem("userID")).value}`, { headers }).toPromise();
+    return await this.http.get(this.baseUrl + "getAllChatRoomByUserID/" + `${this.authService.getDataFromCookie("userID")}`, { headers }).toPromise();
   }
 
   async getMessageByChatRoom(chatRoom: string, senderID: string, recipientID: string) {
@@ -35,7 +36,7 @@ export class ChatService {
 
   getHttpHeader(): HttpHeaders {
     return new HttpHeaders({
-      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
+      'Authorization': `Bearer ${this.authService.getDataFromCookie("jwtToken")}`,
     });
   }
 

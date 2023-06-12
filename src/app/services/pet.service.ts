@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ShelterService } from './shelter.service';
 import { Pet } from '../model/Pet';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class PetService {
 
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/animal";
   pet: Pet;
-  constructor(private http: HttpClient, private shelterService: ShelterService) { }
+  constructor(private http: HttpClient, private shelterService: ShelterService, private authService: AuthService) { }
 
   async getAllPets() {
     let headers = this.getHttpHeader();
@@ -187,7 +188,7 @@ export class PetService {
 
   getHttpHeader(): HttpHeaders {
     return new HttpHeaders({
-      'Authorization': `Bearer ${JSON.parse(localStorage.getItem("jwtToken")).value}`,
+      'Authorization': `Bearer ${this.authService.getDataFromCookie("jwtToken")}`,
     });
   }
 

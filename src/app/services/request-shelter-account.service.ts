@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { UploadFileService } from './upload-file.service';
+import { AuthService } from './auth.service';
 
 
 let httpOptions = {
@@ -18,16 +19,16 @@ export class RequestShelterAccountService {
 
   private baseUrl = "https://doan01-be-production.up.railway.app/api/v1/shelter/";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   sendRequest(inputData: any, relatedDoc: string[], logo: string): Observable<any> {
-    const token = JSON.parse(localStorage.getItem("jwtToken")).value;
+    const token = this.authService.getDataFromCookie("jwtToken");
     let headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
     return this.http.post(this.baseUrl + 'registerShelter', {
-      userID: JSON.parse(localStorage.getItem("userID")).value,
-      representativeEmailAddress: JSON.parse(localStorage.getItem("userEmail")).value,
+      userID: this.authService.getDataFromCookie("userID"),
+      representativeEmailAddress: this.authService.getDataFromCookie("userEmail"),
       shelterName: inputData.shelterName,
       representativeFacebookLink: inputData.shelterFacebookUrl,
       unitNoAndStreet: inputData.shelterNo,
