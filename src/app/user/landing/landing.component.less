@@ -1,133 +1,55 @@
-.container {
-  width: 100vw;
-  .content {
-    height: fit-content;
-    position: relative;
-    margin-top: 15vh;
-    z-index: 1;
-    left: 0;
-    width: 100%;
-    .content_slogan {
-      padding: 1rem 5rem;
-      text-align: center;
-      h1 {
-        color: #193a6a;
-        font-weight: 800;
-      }
-    }
-    .content_subslogan {
-      width: 40vw;
-      text-align: center;
-    }
-
-    .content_button {
-      margin: 10rem 0 5rem 0;
-      button {
-        padding: 0.5rem 2rem;
-        width: fit-content;
-        color: #f5f5f5;
-        font-weight: 700;
-        font-size: 1.15rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-    }
-    .content_card {
-      .card_container {
-        position: relative;
-        width: 160px;
-        height: 150px;
-        .card_icon {
-          z-index: 1;
-          padding: 0.5rem;
-          width: fit-content;
-          height: fit-content;
-          background-color: #ebf1fa;
-        }
-        .card_border {
-          width: 100%;
-          position: absolute;
-          background-color: white;
-
-          top: 1.5rem;
-          border: solid 1px #193a6a;
-          border-radius: 10px;
-          padding: 2rem 2rem 0.5rem 2rem;
-          p {
-            width: fit-content;
-            height: fit-content;
-            font-size: 1.15rem;
-            font-weight: 700;
-            overflow: hidden;
-          }
-        }
-      }
-    }
-  }
-  .background {
-    margin: 0;
-    position: absolute;
-    height: max(90vh, 576px);
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: -1;
-    .background_shape {
-      height: 100%;
-      position: absolute;
-      right: 0;
-      z-index: -1;
-    }
-    .background_dog {
-      left: 5vw;
-      top: 30vh;
-      position: absolute;
-
-      width: 22vw;
-      min-width: 250px;
-      height: auto;
-    }
-    .background_cat {
-      right: 5vw;
-      top: 30vh;
-      position: absolute;
-
-      width: 27vw;
-      min-width: 270px;
-
-      height: auto;
-    }
-  }
+html {
+  scroll-behavior: smooth;
 }
 
-@media (max-width: 768.9px) {
-  .container {
+.container-p {
+  width: 100%;
+  box-sizing: border-box;
+  .container__landing {
     .content {
-      display: flex;
-      align-items: stretch;
-      flex-direction: column;
-      margin-top: 3rem;
-      height: 100%;
+      height: fit-content;
+      margin-top: 15vh;
+      z-index: 1;
+      left: 0;
+      width: 100%;
       .content_slogan {
-        padding: 1rem 3rem;
+        padding: 1rem 5rem;
+        text-align: center;
         h1 {
           color: #193a6a;
           font-weight: 800;
         }
       }
       .content_subslogan {
-        width: 70vw;
+        width: 40vw;
         text-align: center;
       }
+
       .content_button {
-        margin: 3rem 0 2rem 0;
+        margin: 10rem 0 5rem 0;
+        button {
+          padding: 0.5rem 2rem;
+          width: fit-content;
+          color: #f5f5f5;
+          font-weight: 700;
+          font-size: 1.15rem;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
       }
       .content_card {
-        padding: 0 2rem;
-        bottom: 1rem;
-        position: relative;
         .card_container {
+          position: relative;
+          width: 160px;
+          height: 150px;
+          .card_icon {
+            z-index: 1;
+            padding: 0.5rem;
+            width: fit-content;
+            height: fit-content;
+            background-color: #ebf1fa;
+          }
           .card_border {
             width: 100%;
             position: absolute;
@@ -136,22 +58,198 @@
             top: 1.5rem;
             border: solid 1px #193a6a;
             border-radius: 10px;
-            padding: 1.75rem 0.35rem 0.1rem 0.5rem;
+            padding: 2rem 2rem 0.5rem 2rem;
             p {
               width: fit-content;
               height: fit-content;
-              font-size: 0.8rem;
+              font-size: 1.15rem;
               font-weight: 700;
               overflow: hidden;
             }
           }
         }
       }
+
+      .carousel {
+        margin: 10rem 0 15rem;
+      }
     }
     .background {
-      .background_dog,
+      margin: 0;
+      position: absolute;
+      height: max(90vh, 576px);
+      width: 100%;
+      left: 0;
+      top: 0;
+      z-index: -1;
+      .background_shape {
+        height: 100%;
+        position: absolute;
+        right: 0;
+        z-index: -1;
+      }
+      .background_dog {
+        left: 5vw;
+        top: 30vh;
+        position: absolute;
+
+        width: 22vw;
+        min-width: 250px;
+        height: auto;
+      }
       .background_cat {
-        display: none;
+        right: 5vw;
+        top: 30vh;
+        position: absolute;
+
+        width: 27vw;
+        min-width: 270px;
+
+        height: auto;
+      }
+    }
+  }
+  .container__stat {
+    margin-top: 0.5rem;
+    height: 250px;
+    background-image: url(https://i.ibb.co/gm1ynjd/jametlene-reskp-h-GKXqee3-Zxw-unsplash.jpg);
+    padding: 2.5rem 5rem;
+    .content {
+      border-radius: 1.5rem;
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+
+      background: rgba(255, 255, 255, 0.39);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(6.2px);
+      -webkit-backdrop-filter: blur(6.2px);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      .stat-info {
+        h1 {
+          color: var(--primary-color);
+          font-weight: 600;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .container__carousel {
+    background-color: #f5f5f5;
+    height: fit-content;
+    width: 100%;
+    padding: 1rem 1rem 0.25rem;
+    min-height: fit-content;
+    > h2 {
+      text-align: center;
+      color: #193a6a;
+      font-weight: 700;
+      margin: 2rem 0;
+    }
+    .carousel {
+      width: 90%;
+      .carousel-inner {
+        .carousel-item {
+          img {
+            height: max(90vh, 500px);
+            max-height: 90vh;
+            object-fit: cover;
+          }
+          .carousel-caption {
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            width: fit-content;
+            // background: rgba(255, 255, 255, 0.2);
+            background: rgba(121, 68, 31, 0.3);
+
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768.9px) {
+  .container-p {
+    .container__landing {
+      .content {
+        margin: 0;
+        padding-top: 4rem;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        .content_slogan {
+          padding: 1rem 3rem;
+          h1 {
+            color: #193a6a;
+            font-weight: 800;
+          }
+        }
+        .content_subslogan {
+          width: 70vw;
+          text-align: center;
+        }
+        .content_button {
+          margin: 3rem 0 2rem 0;
+        }
+        .content_card {
+          position: relative;
+          padding: 0 1rem;
+          bottom: 0;
+          .card_container {
+            .card_border {
+              padding: 1.75rem 0.35rem 0.1rem 0.5rem;
+              p {
+                font-size: 0.8rem;
+                font-weight: 700;
+              }
+            }
+          }
+        }
+      }
+      .background {
+        .background_dog,
+        .background_cat {
+          display: none;
+        }
+      }
+    }
+    .container__stat {
+      height: 160px;
+      padding: 1rem 1rem;
+      .content {
+        padding: 0.25rem 0.5rem;
+        .stat-info {
+          h1 {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.5rem;
+            text-align: center;
+          }
+          h4 {
+            font-size: 1em;
+          }
+        }
+      }
+    }
+    .container__carousel {
+      .carousel {
+        .carousel-inner {
+          .carousel-item {
+            img {
+              height: min(90vh, 300px);
+              max-height: 90vh;
+              object-fit: cover;
+            }
+          }
+        }
       }
     }
   }
