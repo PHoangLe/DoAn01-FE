@@ -1,4 +1,14 @@
 :host::ng-deep {
+  .search-bar{
+    justify-content: space-between;
+  }
+
+  .search-bar > .p-input-icon-right > input{
+    height: 100%;
+    border-radius: 13px;
+    background-color: #f5f5f5;
+  }
+
   .p-checkbox .p-checkbox-box.p-highlight,
   .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
     background-color: var(--primary-color);
@@ -13,9 +23,22 @@
     border-color: var(--primary-color);
     box-shadow: var(--primary-color);
   }
+
+  .p-datatable .p-datatable-header{
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-bottom: none;
+    border-radius: 0px;
+  }
+  
+  .p-datatable>.p-datatable-wrapper{
+    border-right: 2px solid rgba(0, 0, 0, 0.1);
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+  }
+
   .p-paginator-bottom {
-    border-radius: 15px;
-    border: none;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-top: none;
+    border-radius: 0px;
   }
 
   .p-paginator .p-paginator-first,
@@ -66,7 +89,8 @@
     }
   }
   .petlist-btn {
-    width: 100%;
+    width: 6rem;
+    height: 2rem;
   }
 
   .pet-list {
@@ -96,6 +120,7 @@
     }
   }
   .side-filter {
+    display: none;
     h4 {
       font-size: 16px;
     }
