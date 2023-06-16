@@ -18,7 +18,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   async logIn(inputData: any): Promise<any> {
-    console.log(inputData);
     return await (this.http.post(this.baseUrl + 'auth/authenticate', {
       userEmail: inputData.userEmail,
       userPassword: inputData.userPassword

@@ -56,10 +56,10 @@ export class LoginComponent implements OnInit {
         this.setLocalUser(response)
         const roles = response.userRoles
         if (roles.includes('ROLE_SHELTER_MANAGER')) {
-          this.router.navigate(['/shelter'])
+          this.router.navigate(['/shelter/landing'])
         }
         else {
-          this.router.navigate(['/user'])
+          this.router.navigate(['/user/landing'])
         }
       },
 

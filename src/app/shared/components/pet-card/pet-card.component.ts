@@ -19,12 +19,16 @@ export class PetCardComponent implements OnInit {
 
   routeToPetDetail(pet: Pet) {
     this.petService.setStoragePet(pet);
-    if (this.authService.getDataFromCookie("userRoles").includes("ROLE_SHELTER_MANAGER"))
-      this.router.navigate([`/shelter/pet-detail/${pet.animalID}`])
+    if (this.authService.getDataFromCookie("userRoles")) {
+      if (this.authService.getDataFromCookie("userRoles").includes("ROLE_SHELTER_MANAGER"))
+        this.router.navigate([`/shelter/pet-detail/${pet.animalID}`])
+
+    }
     else {
       this.router.navigate([`/user/pet-detail/${pet.animalID}`])
 
     }
+
   }
 
 }

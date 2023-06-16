@@ -14,8 +14,7 @@ export class PetService {
   constructor(private http: HttpClient, private shelterService: ShelterService, private authService: AuthService) { }
 
   async getAllPets() {
-    let headers = this.getHttpHeader();
-    return await this.http.get(this.baseUrl + '/getAllAnimals', { headers }).toPromise();
+    return await this.http.get(this.baseUrl + '/getAllAnimals').toPromise();
   }
 
   async getAllPetsByShelter() {
