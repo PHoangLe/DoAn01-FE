@@ -38,6 +38,7 @@ import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { DonateComponent } from './donate/donate.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { TooltipModule } from 'primeng/tooltip';
     ProfileComponent,
     ChatComponent,
     ShelterPageComponent,
+    DonateComponent,
   ],
   imports: [
     CommonModule,

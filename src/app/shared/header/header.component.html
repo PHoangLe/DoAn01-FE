@@ -47,7 +47,12 @@
           </ul>
         </li>
         <li class="nav-item p-3">
-          <a class="nav-link" (click)="onNavbarClick($event)">Ủng hộ</a>
+          <a
+            class="nav-link"
+            (click)="onNavbarClick($event)"
+            (click)="routeToDonatePage()"
+            >Ủng hộ</a
+          >
         </li>
         <span class="nav-indicator bg-primary"></span>
       </ul>
