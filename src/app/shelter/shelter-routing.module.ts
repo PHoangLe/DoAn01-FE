@@ -8,6 +8,7 @@ import { ChatComponent } from './chat/chat.component';
 import { ShelterPageComponent } from './shelter-page/shelter-page.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LandingComponent } from '../user/landing/landing.component';
+import { DonateComponent } from './donate/donate.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'chat',
         component: ChatComponent
+      },
+      {
+        path: 'donation',
+        component: DonateComponent
       }
     ]
   },

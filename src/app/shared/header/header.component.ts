@@ -127,11 +127,17 @@ export class HeaderComponent implements OnInit {
   }
 
   routeToHomePage() {
-    // if (this.isShelter)
-    //   this.router.navigate(['shelter'])
-    // else
-    //   this.router.navigate(['user'])
-    this.router.navigate(['user/landing'])
+    if (this.isShelter)
+      this.router.navigate(['shelter/landing'])
+    else
+      this.router.navigate(['user/landing'])
+  }
+
+  routeToDonatePage() {
+    if (this.isShelter)
+      this.router.navigate(['shelter/donation'])
+    else
+      this.router.navigate(['user/donation'])
   }
 
 

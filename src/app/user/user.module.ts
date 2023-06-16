@@ -26,6 +26,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TooltipModule } from 'primeng/tooltip';
+import { DonateComponent } from './donate/donate.component';
 
 
 
@@ -37,7 +38,8 @@ import { TooltipModule } from 'primeng/tooltip';
     PetDetailComponent,
     BankingComponent,
     ProfileComponent,
-    UserPageComponent
+    UserPageComponent,
+    DonateComponent
   ],
   imports: [
     CommonModule,
