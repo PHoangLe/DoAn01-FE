@@ -4,11 +4,14 @@ import { AuthGuard } from './authenticate/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/user/landing',
+    pathMatch: 'full'
+  },
+  {
     path: 'user',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule),
-    canActivate: [AuthGuard], data: {
-      userRoles: ['ROLE_USER']
-    }
+
   },
   {
     path: 'shelter',

@@ -14,8 +14,7 @@ export class ShelterService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getAllShelter() {
-    let headers = this.getHttpHeader()
-    return this.http.get(this.baseUrl + '/getAllShelter', { headers })
+    return this.http.get(this.baseUrl + '/getAllShelter')
   }
 
   async getShelterIDByUserID(): Promise<any> {

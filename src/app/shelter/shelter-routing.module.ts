@@ -1,6 +1,5 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LandingComponent } from './landing/landing.component';
 import { PetAdoptionComponent } from './pet-adoption/pet-adoption.component';
 import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { AdoptionRequestComponent } from './adoption-request/adoption-request.component';
@@ -8,6 +7,7 @@ import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.compo
 import { ChatComponent } from './chat/chat.component';
 import { ShelterPageComponent } from './shelter-page/shelter-page.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LandingComponent } from '../user/landing/landing.component';
 
 const routes: Routes = [
   {
