@@ -1,15 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { FundService } from 'src/app/services/fund.service';
+import { FundBankingComponent } from './fund-banking/fund-banking.component';
 
 @Component({
   selector: 'app-donate',
   templateUrl: './donate.component.html',
-  styleUrls: ['./donate.component.less']
-})
-export class DonateComponent {
-  constructor(private router: Router) {
+  styleUrls: ['./donate.component.less'],
+  providers: [DialogService, MessageService]
 
+})
+export class DonateComponent implements OnInit {
+
+  protected sortField = '';
+  protected listFunds;
+  protected isLoading = true;
+  protected searchValue;
+  protected selectedFund
+  private fund;
+  private ref: DynamicDialogRef;
+
+
+
+  constructor(
+    private router: Router,
+    private fundService: FundService,
+    private dialogService: DialogService,
+  ) {
+
+  }
+  ngOnInit(): void {
+    this.getAllFunds();
   }
 
   protected breadcrumbItimes = [
@@ -22,7 +45,46 @@ export class DonateComponent {
     {
       label: 'Danh sách quỹ cứu trợ',
     }
-
   ];
+
+  async getAllFunds() {
+    await this.fundService.getAllFunds().then((funds) => {
+      this.listFunds = funds;
+      console.log(this.listFunds);
+    }).catch((err) => {
+      console.log(err)
+    })
+    this.isLoading = false;
+  }
+
+  openBankingComponent() {
+    this.ref = this.dialogService.open(FundBankingComponent, {
+      data: this.fund,
+      width: '60%',
+
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      header: 'Ví điện tử MOMO'
+    });
+  }
+
+
+  onFundClick(fund: any) {
+    this.fund = fund;
+    this.openBankingComponent();
+  }
+
+  onCheckboxShelterChange(event) {
+    if (event.checked.length > 0) {
+    }
+    else {
+
+    }
+  }
+  onCheckboxFundChange(event) {
+
+  }
+  onUserSearched() { }
 
 }

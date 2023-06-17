@@ -54,12 +54,18 @@
 }
 
 @media (max-width: 649.98px) {
-  .side-filter {
-    h4 {
-      font-size: 16px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    .side-filter {
+      width: 100%;
+      h4 {
+        font-size: 16px;
+      }
     }
-  }
-  .pet-list {
-    width: 75vw;
+    .pet-list {
+      width: 100%;
+      padding-top: 0;
+    }
   }
 }

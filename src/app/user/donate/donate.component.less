@@ -1,0 +1,81 @@
+.container {
+  .search-bar {
+    input {
+      background-color: rgb(228, 230, 235);
+      border: none;
+      padding-left: 2.2rem !important;
+      &:focus {
+        outline: none;
+      }
+    }
+    i {
+      margin-left: 0.35rem;
+    }
+  }
+  .fund-list {
+    min-height: 51vh;
+    width: 80vw;
+    padding: 2rem 4rem;
+    box-sizing: border-box;
+  }
+
+  label {
+    padding-left: 5px;
+  }
+  .card-body {
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    cursor: pointer;
+    .card-img {
+      height: 180px;
+      width: fit-content;
+      img {
+        height: inherit;
+      }
+    }
+    .card-content {
+      width: calc(100% - 200px);
+      padding: 0 0.5rem;
+      .card-title {
+        h3 {
+          font-weight: 600;
+        }
+      }
+      .card-des {
+        p {
+          text-align: justify;
+        }
+      }
+    }
+    &:hover {
+    }
+  }
+}
+
+@media (max-width: 649.98px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    .side-filter {
+      width: 100%;
+      h4 {
+        font-size: 16px;
+      }
+    }
+    .fund-list {
+      width: 100%;
+      padding-top: 0;
+      .card-body {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        .card-content {
+          width: 100%;
+          h3 {
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
+}
