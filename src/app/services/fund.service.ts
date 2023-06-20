@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
+import { Fund } from '../model/Fund';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,23 @@ export class FundService {
     let headers = this.getHttpHeader();
 
     return await this.http.get(this.baseUrl, { headers: headers }).toPromise()
+  }
+
+  convertToFundType(input: any) {
+    var fundList = new Array<Fund>
+    input.forEach(item => {
+      const fund = new Fund(
+        item.fundID,
+        item.fundName,
+        item.fundCover,
+        item.fundDescription,
+        item.valuePerDonationPackage,
+        item.fundType,
+        item.fundBalance
+      )
+      fundList.push(fund)
+    });
+    return fundList
   }
 
   getHttpHeader(): HttpHeaders {

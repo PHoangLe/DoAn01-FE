@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.authService.loginGoogle(user).subscribe(
           response => {
             this.setLocalUser(response)
-            this.router.navigate(['/user'])
+            this.router.navigate(['/user/landing'])
           }
         )
       });

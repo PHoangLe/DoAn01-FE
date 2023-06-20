@@ -44,7 +44,6 @@ export class PetAdoptionComponent implements OnDestroy {
     public dialogService: DialogService,
     public messageService: MessageService,
     private router: Router,
-    private spinner: NgxSpinnerService,
   ) {
   }
 
