@@ -19,25 +19,46 @@
     #dt
     [value]="listRequest"
     [paginator]="true"
-    [globalFilterFields]="['animal.animalName', 'user.userFirstName', 'user.userLastName']"
+    [globalFilterFields]="[
+      'animal.animalName',
+      'user.userFirstName',
+      'user.userLastName'
+    ]"
     [rows]="10"
     selectionMode="single"
     [tableStyle]="{ 'min-width': '25rem' }"
-    stripedRows="true">
+    emptyMessage="Hiện chưa có yêu cầu nào"
+    stripedRows="true"
+  >
     <ng-template pTemplate="caption">
       <div class="search-bar w-100 d-flex justify-content-end">
         <span class="p-input-icon-right">
-            <i class="pi pi-search"></i>
-            <input pInputText class="ps-2 pe-4" type="text" #textInput (input)="dt.filterGlobal(textInput.value, 'contains')" placeholder="Nhập thông tin" />
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            class="ps-2 pe-4"
+            type="text"
+            #textInput
+            (input)="dt.filterGlobal(textInput.value, 'contains')"
+            placeholder="Nhập thông tin"
+          />
         </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="min-width: 10%" class="py-3 ps-4">Tên thú cưng </th>
+        <th style="min-width: 10%" class="py-3 ps-4">Tên thú cưng</th>
         <th style="min-width: 150px" class="py-3">Tên người nhận nuôi</th>
-        <th pSortableColumn="date" style="min-width: 10%" class="py-3">Ngày gửi yêu cầu <p-sortIcon field="date"></p-sortIcon></th>
-        <th pSortableColumn="applicationStatus" style="min-width: 120px" class="py-3 text-center">Tình trạng <p-sortIcon field="applicationStatus"></p-sortIcon></th>
+        <th pSortableColumn="date" style="min-width: 10%" class="py-3">
+          Ngày gửi yêu cầu <p-sortIcon field="date"></p-sortIcon>
+        </th>
+        <th
+          pSortableColumn="applicationStatus"
+          style="min-width: 120px"
+          class="py-3 text-center"
+        >
+          Tình trạng <p-sortIcon field="applicationStatus"></p-sortIcon>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-request>

@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit {
     }
   }
   async ngOnInit() {
+
     this.unreadMessage = 0;
     this.connect();
     await this.getUnreadMessages();
@@ -116,7 +117,17 @@ export class HeaderComponent implements OnInit {
       item.removeAttribute("style");
     })
     element.target.classList.add("active")
+  }
 
+  public setActiveNavitem(element: any) {
+    const items = document.querySelectorAll(".nav-link");
+    const actived = document.getElementById(element) as HTMLElement;
+    items.forEach((item) => {
+      item.classList.remove("active")
+      item.removeAttribute("style");
+    })
+
+    actived.classList.add("active")
   }
 
   routeToAdoptPage() {

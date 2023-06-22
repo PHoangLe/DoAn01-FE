@@ -69,7 +69,8 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     ];
     this.listImg.push(this.pet.animalImg);
     this.listImg.push(...this.pet.othersImg);
-    this.listOnlineAdopter.push(...this.pet.onlineAdopters)
+    if (this.pet.onlineAdopters)
+      this.listOnlineAdopter.push(...this.pet.onlineAdopters)
     console.log(this.listOnlineAdopter)
 
 

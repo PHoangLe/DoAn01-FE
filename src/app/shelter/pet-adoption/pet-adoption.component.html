@@ -15,45 +15,61 @@
       <p style="opacity: 0.7">Đang tải</p>
     </div>
     <p-table
-    #dt
-    [value]="pets"
-    [rows]="10"
-    [paginator]="true"
-    [globalFilterFields]="['animalName', 'animalBreed', 'animalAge', 'animalGender']"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [rowHover]="true"
-    dataKey="id"
-    styleClass="p-datatable-striped"
-    [tableStyle]="{ 'min-width': '25rem' }"
->
-    <ng-template pTemplate="caption">
+      #dt
+      [value]="pets"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="[
+        'animalName',
+        'animalBreed',
+        'animalAge',
+        'animalGender'
+      ]"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      styleClass="p-datatable-striped"
+      [tableStyle]="{ 'min-width': '25rem' }"
+    >
+      <ng-template pTemplate="caption">
         <div class="search-bar w-100 d-flex">
-          <button class="petlist-btn btn btn-primary" (click)="showDialog()">Thêm mới</button>
-          <div class="flex pt-2">Có tổng cộng {{ pets ? pets.length : 0 }} bé thú cưng trong trại.</div>
+          <button class="petlist-btn btn btn-primary" (click)="showDialog()">
+            Thêm mới
+          </button>
+          <div class="flex pt-2">
+            Có tổng cộng {{ pets ? pets.length : 0 }} bé thú cưng trong trại.
+          </div>
           <span class="p-input-icon-right float-end">
-              <i class="pi pi-search"></i>
-              <input pInputText class="ps-2 pe-4" type="text" #textInput (input)="dt.filterGlobal(textInput.value, 'contains')" placeholder="Nhập thông tin" />
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              class="ps-2 pe-4"
+              type="text"
+              #textInput
+              (input)="dt.filterGlobal(textInput.value, 'contains')"
+              placeholder="Nhập thông tin"
+            />
           </span>
         </div>
-    </ng-template>
-    <ng-template pTemplate="header">
+      </ng-template>
+      <ng-template pTemplate="header">
         <tr class="py-5">
-            <th style="min-width:6rem">Tên</th>
-            <th >Loại</th>
-            <th >Giống</th>
-            <th>Tuổi</th>
-            <th class="text-center">Giới tính</th>
+          <th class="ps-4" style="min-width: 6rem">Tên</th>
+          <th>Loại</th>
+          <th>Giống</th>
+          <th>Tuổi</th>
+          <th class="text-center">Giới tính</th>
         </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-pet>
+      </ng-template>
+      <ng-template pTemplate="body" let-pet>
         <tr (click)="routeToPetDetail(pet)">
-            <td>{{ pet.animalName }}</td>
-            <td>{{ pet.animalSpecie == "Dog" ? "Chó" : "Mèo"}}</td>
-            <td>{{ pet.animalBreed }}</td>
-            <td>{{ pet.animalAge }}</td>
-            <td class="text-center">{{ pet.animalGender ? "Đực" : "Cái" }}</td>
+          <td class="ps-4">{{ pet.animalName }}</td>
+          <td>{{ pet.animalSpecie == "Dog" ? "Chó" : "Mèo" }}</td>
+          <td>{{ pet.animalBreed }}</td>
+          <td>{{ pet.animalAge }}</td>
+          <td class="text-center">{{ pet.animalGender ? "Đực" : "Cái" }}</td>
         </tr>
-    </ng-template>
-</p-table>
+      </ng-template>
+    </p-table>
   </div>
 </div>

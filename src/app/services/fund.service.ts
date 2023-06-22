@@ -15,9 +15,19 @@ export class FundService {
 
   async getAllFunds() {
     let headers = this.getHttpHeader();
-
     return await this.http.get(this.baseUrl, { headers: headers }).toPromise()
   }
+
+  getFundTransactions(transactionID: string) {
+    let headers = this.getHttpHeader();
+    return this.http.get(`${this.baseUrl}/transactions/fund/${transactionID}`, { headers: headers }).toPromise();
+  }
+
+  getUserTransactions(transactionID: string) {
+    let headers = this.getHttpHeader();
+    return this.http.get(`${this.baseUrl}/transactions/user/${transactionID}`, { headers: headers }).toPromise();
+  }
+
 
   convertToFundType(input: any) {
     var fundList = new Array<Fund>

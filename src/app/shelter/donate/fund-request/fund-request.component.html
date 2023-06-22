@@ -1,0 +1,52 @@
+<form class="container" [formGroup]="requestFundForm">
+  <h2 class="text-center">Nhập thông tin yêu cầu</h2>
+  <div class="d-flex justify-content-start w-100">
+    <div class="detail-info m-4 my-2 w-100">
+      <span class="p-float-label">
+        <h6 class="addressLabel ps-0">Loại quỹ</h6>
+        <p-dropdown
+          [options]="fundTypeOptions"
+          optionLabel="fundName"
+          [autoDisplayFirst]="false"
+          formControlName="fundType"
+        >
+        </p-dropdown>
+      </span>
+      <span class="p-float-label mt-2">
+        <h6 class="addressLabel ps-0">Số tiền</h6>
+
+        <p-inputNumber
+          class="w-100"
+          inputId="integeronly"
+          formControlName="requestValue"
+        >
+        </p-inputNumber>
+      </span>
+    </div>
+  </div>
+  <div class="d-flex justify-content-start w-100">
+    <span class="m-4 my-2 w-100">
+      <h6 class="addressLabel ps-0">Lý do hỗ trợ</h6>
+      <textarea
+        formControlName="requestDescription"
+        class="w-100"
+        name=""
+        id="textarea"
+        pInputTextarea
+        [autoResize]="true"
+      ></textarea>
+    </span>
+  </div>
+
+  <div class="button-group d-flex justify-content-center mt-2">
+    <button
+      type="submit"
+      class="btn btn-primary text-nowrap"
+      [disabled]="requestFundForm.invalid"
+      (click)="sendRequest()"
+    >
+      Gửi yêu cầu
+    </button>
+  </div>
+</form>
+<p-toast key="fundReq" [preventOpenDuplicates]="true"></p-toast>

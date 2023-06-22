@@ -1,15 +1,17 @@
 export class Shelter {
-  private _shelterID : string;
+  private _shelterID: string;
   private _userID: string;
-  private _shelterName : string;
-  private _representativeFacebookLink : string;
-  private _representativeEmailAddress : string;
-  private _unitNoAndStreet : string;
-  private _ward : string;
-  private _district : string;
-  private _city : string;
-  private _shelterPhoneNo : string;
-  private _relatedDocuments : string[];
+  private _shelterName: string;
+  private _representativeFacebookLink: string;
+  private _representativeEmailAddress: string;
+  private _unitNoAndStreet: string;
+  private _ward: string;
+  private _district: string;
+  private _city: string;
+  private _shelterPhoneNo: string;
+  private _relatedDocuments: string[];
+  private _totalFundReceived: number;
+
 
   constructor(
     shelterID: string,
@@ -22,7 +24,8 @@ export class Shelter {
     district: string,
     city: string,
     shelterPhoneNo: string,
-    relatedDocuments: string[]
+    relatedDocuments: string[],
+    totalFundReceived: number
   ) {
     this._shelterID = shelterID;
     this._userID = userID;
@@ -35,6 +38,7 @@ export class Shelter {
     this._city = city;
     this._shelterPhoneNo = shelterPhoneNo;
     this._relatedDocuments = relatedDocuments;
+    this._totalFundReceived = totalFundReceived;
   }
 
   get shelterID(): string {
@@ -43,6 +47,14 @@ export class Shelter {
 
   set shelterID(value: string) {
     this._shelterID = value;
+  }
+
+  get totalFundReceived(): number {
+    return this._totalFundReceived;
+  }
+
+  set totalFundReceived(value: number) {
+    this._totalFundReceived = value;
   }
 
   get userID(): string {

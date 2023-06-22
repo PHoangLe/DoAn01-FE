@@ -119,7 +119,8 @@ export class PetService {
       JSON.parse(petJson)._friendly,
       JSON.parse(petJson)._othersImg,
       JSON.parse(petJson)._onlineAdopters,
-      JSON.parse(petJson)._adopted
+      JSON.parse(petJson)._adopted,
+      JSON.parse(petJson)._isDelete,
     )
   }
 
@@ -152,7 +153,9 @@ export class PetService {
           item.friendly,
           item.othersImg,
           item.onlineAdopters,
-          item.adopted)
+          item.adopted,
+          item.isDelete,
+        )
 
         petList.push(pet)
       });
@@ -180,7 +183,8 @@ export class PetService {
       data.friendly,
       data.othersImg,
       data.onlineAdaptors,
-      data.adopted
+      data.adopted,
+      data.isDelete
     )
   }
 

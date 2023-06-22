@@ -39,6 +39,7 @@ import { AdoptionRequestComponent } from './adoption-request/adoption-request.co
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { DonateComponent } from './donate/donate.component';
+import { FundRequestComponent } from './donate/fund-request/fund-request.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { DonateComponent } from './donate/donate.component';
     ChatComponent,
     ShelterPageComponent,
     DonateComponent,
+    FundRequestComponent,
   ],
   imports: [
     CommonModule,
