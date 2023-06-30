@@ -28,6 +28,11 @@ export class PetService {
     return await this.http.get(this.baseUrl + `/getAnimalByAnimalID/${id}`, { headers }).toPromise();
   }
 
+  async getOnlineAdopters(id: string) {
+    const headers = this.getHttpHeader();
+    return await this.http.get(this.baseUrl + `/getOnlineAdoptersByAnimalID/${id}`, { headers }).toPromise();
+  }
+
 
   async addPet(petData: any, avatarUrl: string, otherImgUrl: string[]): Promise<any> {
     let headers = this.getHttpHeader();
@@ -118,7 +123,6 @@ export class PetService {
       JSON.parse(petJson)._sterilized,
       JSON.parse(petJson)._friendly,
       JSON.parse(petJson)._othersImg,
-      JSON.parse(petJson)._onlineAdopters,
       JSON.parse(petJson)._adopted,
       JSON.parse(petJson)._isDelete,
     )
@@ -152,7 +156,6 @@ export class PetService {
           item.sterilized,
           item.friendly,
           item.othersImg,
-          item.onlineAdopters,
           item.adopted,
           item.isDelete,
         )
@@ -182,7 +185,6 @@ export class PetService {
       data.sterilized,
       data.friendly,
       data.othersImg,
-      data.onlineAdaptors,
       data.adopted,
       data.isDelete
     )

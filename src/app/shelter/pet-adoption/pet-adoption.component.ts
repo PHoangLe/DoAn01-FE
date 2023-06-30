@@ -121,4 +121,13 @@ export class PetAdoptionComponent implements OnDestroy {
       this.router.navigate([`/user/pet-detail/${pet.animalID}`])
     }
   }
+
+  getSeverity(status: boolean) {
+    switch (status) {
+      case true:
+        return 'success';
+      default:
+        return 'danger';
+    }
+  }
 }

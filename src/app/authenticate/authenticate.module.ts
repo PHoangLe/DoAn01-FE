@@ -18,6 +18,8 @@ import { VerifyComponent } from './verify/verify.component';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 
@@ -69,7 +71,9 @@ import { MessageService } from 'primeng/api';
   declarations: [
     LoginComponent,
     RegisterComponent,
-    VerifyComponent
+    VerifyComponent,
+    ChangePasswordComponent,
+    ForgotPasswordComponent
   ]
 })
 export class AuthenticateModule { }

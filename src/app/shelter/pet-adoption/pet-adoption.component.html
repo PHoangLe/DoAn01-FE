@@ -59,6 +59,7 @@
           <th>Giống</th>
           <th>Tuổi</th>
           <th class="text-center">Giới tính</th>
+          <th class="text-center">Tình trạng</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-pet>
@@ -68,6 +69,12 @@
           <td>{{ pet.animalBreed }}</td>
           <td>{{ pet.animalAge }}</td>
           <td class="text-center">{{ pet.animalGender ? "Đực" : "Cái" }}</td>
+          <td class="text-center">
+            <p-tag
+              [value]="pet.adopted ? 'Chưa có chủ' : 'Đã có chủ'"
+              [severity]="getSeverity(pet.adopted)"
+            ></p-tag>
+          </td>
         </tr>
       </ng-template>
     </p-table>

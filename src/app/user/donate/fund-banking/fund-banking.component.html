@@ -1,6 +1,10 @@
 <div class="container d-flex gap-2">
   <div class="container__qr col-4 d-flex justify-content-center">
-    <img src="https://i.ibb.co/N25C54w/qr-banking.png" alt="" />
+    <img
+      class="ratio ratio-1x1"
+      src="https://i.ibb.co/N25C54w/qr-banking.png"
+      alt=""
+    />
   </div>
   <div class="container__content col-8 pt-1">
     <div class="money d-flex gap-3 mb-2">
@@ -23,9 +27,7 @@
 
       <p class="my-auto ms-2">
         <b>Số tiền: </b>
-        {{
-          (fund.valuePerDonationPackage * numberOfFunds).toLocaleString()
-        }}
+        {{ (fund.valuePerDonationPackage * numberOfFunds).toLocaleString() }}
         VND
       </p>
     </div>

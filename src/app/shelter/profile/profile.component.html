@@ -41,7 +41,7 @@
           <div
             class="card-profile-image rounded-circle d-flex justify-content-center"
           >
-            <img src="{{ user.userAvatar }}" class="rounded-circle" />
+            <!-- <img src="{{ user.userAvatar }}" class="rounded-circle" /> -->
           </div>
         </div>
 
@@ -124,14 +124,14 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="input-first-name"
-                      >Số điện thoại</label
+                      >Giới tính</label
                     >
                     <input
                       type="text"
                       id="input-first-name"
                       class="form-control form-control-alternative"
+                      value="{{ user.gender }}"
                       placeholder="First name"
-                      value="{{ user.phoneNumber }}"
                     />
                   </div>
                 </div>
@@ -144,7 +144,8 @@
                       type="text"
                       id="input-last-name"
                       class="form-control form-control-alternative"
-                      placeholder="Last name"
+                      value="{{ user.phoneNumber }}"
+                      placeholder="Số điện thoại"
                     />
                   </div>
                 </div>

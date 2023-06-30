@@ -19,7 +19,7 @@
             placeholder="Nhập thông tin ..."
             class="rounded-4 p-1 w-100"
             [(ngModel)]="searchValue"
-            (ngModelChange)="onUserSearched()"
+            (ngModelChange)="onFundSearch()"
             pInputText
           />
         </span>
@@ -29,15 +29,18 @@
       <p-divider></p-divider>
       <div class="funds-type w-100 p-2">
         <h4>Loại quỹ</h4>
-        <div *ngFor="let funds of listFunds" class="field-checkbox p-1">
+        <div *ngFor="let fundTypes of listFundTypes" class="field-checkbox p-1">
           <p-radioButton
             name="group"
-            [value]="funds.id"
-            [inputId]="funds.id"
+            class="my-auto"
+            [value]="fundTypes.id"
+            [inputId]="fundTypes.id"
             [(ngModel)]="selectedFund"
-            (onClick)="onCheckboxFundChange($event)"
+            (onClick)="onCheckboxFundChange(fundTypes.id)"
           ></p-radioButton>
-          <label [for]="funds.id">{{ funds.value }}</label>
+          <label class="pt-2 my-auto" [for]="fundTypes.id">{{
+            fundTypes.value
+          }}</label>
         </div>
       </div>
     </div>
@@ -65,9 +68,9 @@
       <ng-template let-fund pTemplate="gridItem">
         <div
           (click)="onFundClick(fund)"
-          class="card-body my-3 p-3 ms-4 mx-auto d-flex flex-wrap"
+          class="card-body my-4 mx-auto ms-4 d-flex flex-wrap"
         >
-          <div class="card-img mx-auto">
+          <div class="card-img">
             <img
               class="my-auto"
               src="{{
@@ -78,15 +81,16 @@
               alt=""
             />
           </div>
-          <div class="card-content ps-2">
+          <div class="card-content ps-3">
             <div
               class="card-title mb-2 d-flex flex-wrap justify-content-between"
             >
-              <h3>{{ fund.fundName }}</h3>
+              <h3 class="my-auto">{{ fund.fundName }}</h3>
               <h5 class="pt-2">
                 {{ fund.valuePerDonationPackage.toLocaleString() }} VND/Gói
               </h5>
             </div>
+            <hr class="my-2" />
             <div class="card-des">
               <p>{{ fund.fundDescription }}</p>
             </div>

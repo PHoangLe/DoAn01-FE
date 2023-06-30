@@ -15,7 +15,6 @@ export class Pet {
   private _sterilized: boolean;
   private _friendly: boolean;
   private _othersImg: string[];
-  private _onlineAdopters: any[];
   private _adopted: boolean;
   private _isDelete: boolean;
 
@@ -36,7 +35,6 @@ export class Pet {
     sterilized = false,
     friendly = false,
     othersImg = [],
-    onlineAdopters = [],
     adopted = false,
     isDelete = false
   ) {
@@ -57,7 +55,6 @@ export class Pet {
     this._friendly = friendly;
     this._othersImg = othersImg;
     this._adopted = adopted;
-    this._onlineAdopters = onlineAdopters;
     this._isDelete = isDelete;
   }
 
@@ -190,14 +187,6 @@ export class Pet {
 
   set othersImg(othersImg: string[]) {
     this._othersImg = othersImg;
-  }
-
-  get onlineAdopters(): string[] {
-    return this._onlineAdopters;
-  }
-
-  set onlineAdopters(onlineAdopters: string[]) {
-    this._onlineAdopters = [...onlineAdopters];
   }
 
   get adopted(): boolean {

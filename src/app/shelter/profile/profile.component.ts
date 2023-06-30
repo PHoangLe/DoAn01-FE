@@ -26,6 +26,7 @@ export class ProfileComponent {
 
   async getProfile() {
     await this.userService.getUser(this.authService.getDataFromCookie("userID")).then(response => {
+      console.log(response)
       this.user = this.userService.convertToUser(response);
       this.user.userAvatar = localStorage.getItem("userAvatar");
     })

@@ -69,6 +69,7 @@ export class HeaderComponent implements OnInit {
         label: 'Đổi mật khẩu',
         icon: 'pi pi-replay',
         command: () => {
+          this.router.navigate(['/change-password/'])
         }
       },
       {
@@ -155,8 +156,6 @@ export class HeaderComponent implements OnInit {
 
   connect() {
     let Sock = new SockJS('https://doan01-be-production.up.railway.app/ws');
-    // let Sock = new SockJS('http://localhost:8080/ws');
-
     this.stompClient = over(Sock);
     this.stompClient.connect({}, this.onConnected, this.onError);
   }

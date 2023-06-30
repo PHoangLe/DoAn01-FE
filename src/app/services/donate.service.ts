@@ -12,10 +12,6 @@ export class DonateService {
 
 
   async completeDonation(userID, fundID, numsOfPackage) {
-    console.log(userID)
-    console.log(fundID)
-    console.log(numsOfPackage)
-
     let headers = this.getHttpHeader()
     return await this.http.post(this.baseUrl, {
       userID: userID,

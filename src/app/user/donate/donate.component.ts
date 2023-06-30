@@ -18,11 +18,30 @@ export class DonateComponent implements OnInit {
   protected listFunds;
   protected isLoading = true;
   protected searchValue;
-  protected selectedFund
+  protected selectedFund;
+  private fundCopied;
   private fund;
   private ref: DynamicDialogRef;
-
-
+  listFundTypes = [
+    {
+      id: 'ALL', value: 'Tất cả'
+    },
+    {
+      id: 'FOOD', value: 'Thực phẩm'
+    },
+    {
+      id: 'MEDICAL', value: 'Y tế'
+    },
+    {
+      id: 'ENTERTAINMENT', value: 'Giải trí'
+    },
+    {
+      id: 'FACILITY', value: 'Cơ sở vật chất'
+    },
+    {
+      id: 'MULTI_PURPOSE', value: 'Nhiều mục đích'
+    }
+  ]
 
   constructor(
     private router: Router,
@@ -55,13 +74,13 @@ export class DonateComponent implements OnInit {
       console.log(err)
     })
     this.isLoading = false;
+    this.fundCopied = this.listFunds
   }
 
   openBankingComponent() {
     this.ref = this.dialogService.open(FundBankingComponent, {
       data: this.fund,
       width: '60%',
-
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
       maximizable: true,
@@ -82,9 +101,12 @@ export class DonateComponent implements OnInit {
 
     }
   }
-  onCheckboxFundChange(event) {
-
+  onCheckboxFundChange(fundTypeID: string) {
+    this.listFunds = [...this.fundCopied];
+    if (fundTypeID !== 'ALL') {
+      this.listFunds = this.listFunds.filter(fund => fund.fundType === fundTypeID)
+    }
   }
-  onUserSearched() { }
+  onFundSearch() { }
 
 }

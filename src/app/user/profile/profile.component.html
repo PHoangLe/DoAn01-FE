@@ -7,32 +7,8 @@
   </div>
   <p style="opacity: 0.7">Đang tải</p>
 </div>
-<div
-  class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-  style="
-    max-height: 400px;
-    object-position: center;
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Logo%2Fuser_profile_cover.jpg?alt=media&token=d381e1f7-62d6-42c3-aca1-e587ae47ff25);
-    background-size: cover;
-    background-position: center top;
-  "
->
-  <!-- Mask -->
-  <span class="mask bg-gradient-primary opacity-8"></span>
-  <!-- Header container -->
-  <div class="container-fluid d-flex align-items-center">
-    <div class="row">
-      <div class="col-lg-7 col-md-10">
-        <h1 class="display-2 text-white">Hello Jesse</h1>
-        <p class="text-white mt-0 mb-5">
-          This is your profile page. You can see the progress you've made with
-          your work and manage your projects or assigned tasks
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container-fluid mt--7">
+
+<div class="container-fluid mt-4">
   <div class="row">
     <!-- card-info -->
     <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
@@ -78,11 +54,10 @@
       <div class="card bg-secondary shadow">
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
-            <div class="col-6">
-              <h3 class="mb-0">Tài khoản</h3>
+            <div class="col-8">
+              <h1 class="mb-0">Tài khoản</h1>
             </div>
-            <div class="col-lg-6 text-right d-flex gap-2">
-              <button class="btn btn-primary">Sửa thông tin</button>
+            <div class="col-lg-4 text-right d-flex gap-2">
               <button
                 class="btn btn-secondary"
                 (click)="registerShelterAccount()"
@@ -93,75 +68,113 @@
           </div>
         </div>
         <div class="card-body">
-          <form>
-            <h6 class="heading-small text-muted mb-4">Thông tin cá nhân</h6>
-            <div class="pl-lg-4">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-username"
-                      >Email</label
-                    >
-                    <input
-                      type="text"
-                      id="input-username"
-                      class="form-control form-control-alternative"
-                      placeholder="Username"
-                      value="{{ user.userEmail }}"
-                      disabled="true"
-                    />
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-email"
-                      >Họ và tên</label
-                    >
-                    <input
-                      type="email"
-                      id="input-email"
-                      class="form-control form-control-alternative"
-                      value="{{ user.userFirstName + ' ' + user.userLastName }}"
-                    />
-                  </div>
+          <h4 class="heading-small text-muted mb-4">Thông tin cá nhân</h4>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div>
+                  <h6>Email</h6>
+                  <input
+                    class="w-100 rounded-2 p-2 mb-3"
+                    type="text"
+                    placeholder="Username"
+                    [(ngModel)]="user.userEmail"
+                    disabled="true"
+                  />
                 </div>
               </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-first-name"
-                      >Số điện thoại</label
-                    >
-                    <input
-                      type="text"
-                      id="input-first-name"
-                      class="form-control form-control-alternative"
-                      placeholder="First name"
-                      value="{{ user.phoneNumber }}"
-                    />
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-last-name"
-                      >Số điện thoại</label
-                    >
-                    <input
-                      type="text"
-                      id="input-last-name"
-                      class="form-control form-control-alternative"
-                      placeholder="Last name"
-                    />
-                  </div>
+              <div class="col-lg-6">
+                <div>
+                  <h6>Họ và tên</h6>
+                  <input
+                    type="email"
+                    class="w-100 rounded-2 p-2 mb-3"
+                    id="input-email"
+                    [(ngModel)]="user.userFirstName + ' ' + user.userLastName"
+                  />
                 </div>
               </div>
             </div>
-            <hr class="my-4" />
-          </form>
-          <h6 class="heading-small text-muted mb-4">Thú cưng đang nhận nuôi</h6>
-          <div class="pl-lg-4">
             <div class="row">
-              <div class="col-lg-6"></div>
+              <div class="col-lg-6">
+                <div>
+                  <h6>Số điện thoại</h6>
+                  <input
+                    type="number"
+                    class="w-100 rounded-2 p-2 mb-3"
+                    placeholder="Số điện thoại"
+                    [(ngModel)]="user.phoneNumber"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div>
+                  <span class="p-float-label">
+                    <h6 class="addressLabel ps-0">Giới tính</h6>
+                    <p-dropdown
+                      [options]="genderOptions"
+                      optionLabel="value"
+                      class="mb-3"
+                      [autoDisplayFirst]="false"
+                      [(ngModel)]="selectedGender"
+                    >
+                    </p-dropdown>
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div>
+                  <span class="d-flex flex-column">
+                    <h6 class="addressLabel ps-0">Ngày sinh</h6>
+
+                    <p-calendar
+                      [(ngModel)]="dob"
+                      class="w-100 rounded-2 mb-3"
+                      [showIcon]="true"
+                      dateFormat="dd/mm/yy"
+                    ></p-calendar>
+                  </span>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div>
+                  <span class="d-flex flex-column"> </span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center mt-2">
+                <button
+                  class="btn btn-primary m-auto"
+                  (click)="updateUserProfile()"
+                >
+                  Cập nhật thông tin
+                </button>
+              </div>
+            </div>
+          </div>
+          <hr class="mt-4" />
+          <h4 class="heading-small text-muted mb-1">Thú cưng đang nhận nuôi</h4>
+          <div class="pl-lg-6">
+            <div class="row">
+              <div class="my-2">
+                <div
+                  class="ps-4 d-inline"
+                  *ngFor="let adoption of onlineAdoptionPet"
+                  (onClick)="routeToPetDetails(adoption.animal.animalID)"
+                >
+                  <p-avatar
+                    image="{{
+                      adoption.animal.animalImg
+                        ? adoption.animal.animalImg
+                        : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pet_pfp.png?alt=media&token=3fcf7cb9-a92b-402e-bc2c-08d632d62ae0'
+                    }}"
+                    size="large"
+                    shape="circle"
+                    pTooltip="{{ adoption.animal.animalName }}"
+                    tooltipPosition="bottom"
+                  ></p-avatar>
+                </div>
+              </div>
             </div>
           </div>
         </div>

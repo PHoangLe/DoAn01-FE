@@ -13,20 +13,22 @@ import { ChatComponent } from '../chat/chat.component';
 export class AdoptionDetailComponent implements OnInit {
   requestInfo: any;
   breadcrumbItimes: MenuItem[];
-  ngOnInit(): void {
-    this.getPageData();
+  async ngOnInit() {
+    await this.getPageData();
   }
 
   constructor(
     private messageService: MessageService,
     private petAdoptionService: PetAdoptionService,
     private chat: ChatComponent,
+    private location: Location,
     private router: Router) {
 
   }
 
   async getPageData() {
     this.requestInfo = await this.petAdoptionService.getStorageAdoption();
+    console.log(this.requestInfo)
     this.breadcrumbItimes = [
       {
         label: 'Nhận nuôi',
@@ -50,6 +52,7 @@ export class AdoptionDetailComponent implements OnInit {
   acceptRequest() {
     this.petAdoptionService.acceptAdoption(this.requestInfo.applicationID).then(() => {
       this.messageService.add({ key: "messageService", severity: 'success', detail: 'Chấp nhận yêu cầu' })
+      this.location.reload();
     })
   }
 
@@ -57,6 +60,7 @@ export class AdoptionDetailComponent implements OnInit {
     console.log(this.requestInfo.applicationID)
     this.petAdoptionService.declineAdoption(this.requestInfo.applicationID).then(() => {
       this.messageService.add({ key: "messageService", severity: 'warning', detail: 'Từ chối yêu cầu' })
+      this.location.reload();
     })
   }
 

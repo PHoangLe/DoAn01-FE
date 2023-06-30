@@ -29,6 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DonateComponent } from './donate/donate.component';
 import { FundBankingComponent } from './donate/fund-banking/fund-banking.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -64,7 +65,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     MessagesModule,
     InputTextareaModule,
     TooltipModule,
-    InputNumberModule
+    InputNumberModule,
+    CalendarModule,
+
   ]
 })
 export class UserModule { }
