@@ -1,0 +1,10 @@
+<div class="card" (click)="routeToRescueDetail(pet)">
+  <img [src]="pet.animalImg" alt="Pet image" />
+  <div class="card-content">
+    <h3>{{ pet.animalName }}</h3>
+    <p><b>Giống:</b> {{ pet.animalBreed }}</p>
+    <p><b>Tuổi:</b> {{ pet.animalAge }}</p>
+    <p><b>Giới tính</b>: {{ pet.animalGender ? "Đực" : "Cái" }}</p>
+    <p><b>Tiêm phòng:</b> {{ pet.vaccinated ? "Đã tiêm" : "Chưa" }}</p>
+  </div>
+</div>

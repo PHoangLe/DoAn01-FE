@@ -24,7 +24,7 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   protected breadcrumbItimes: MenuItem[];
   protected listImg = new Array<string>();
   protected responsiveOptions: any[];
-  protected listOnlineAdopter = new Array<any>();
+  protected listOnlineAdopter;
   protected isSendOnlAdoption = false;
   protected isSendAdoption = false;
 
@@ -58,8 +58,14 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     this.shelterName = await this.shelterSerivce.getShelterByShelterID(this.pet.shelterID)
     this.userID = this.authService.getDataFromCookie("userID");;
     this.listImg.push(this.pet.animalImg);
-    this.listImg.push(...this.pet.othersImg);
-    this.listOnlineAdopter.push(...this.pet.onlineAdopters)
+    if (this.pet.othersImg)
+      this.listImg.push(...this.pet.othersImg);
+    this.petService.getOnlineAdopters(this.pet.animalID).then((adopters) => {
+      this.listOnlineAdopter = adopters;
+    })
+      .catch(error => {
+        console.log(error);
+      })
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -109,7 +115,6 @@ export class PetDetailComponent implements OnInit, OnDestroy {
         this.isSendOnlAdoption = false;
       })
     this.isLoading = false;
-
   }
 
   requestAdoption() {

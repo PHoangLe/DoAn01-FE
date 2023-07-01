@@ -15,8 +15,8 @@ export class Pet {
   private _sterilized: boolean;
   private _friendly: boolean;
   private _othersImg: string[];
-  private _onlineAdopters: any[];
   private _adopted: boolean;
+  private _isDelete: boolean;
 
   constructor(
     animalID = '',
@@ -35,8 +35,8 @@ export class Pet {
     sterilized = false,
     friendly = false,
     othersImg = [],
-    onlineAdopters = [],
-    adopted = false
+    adopted = false,
+    isDelete = false
   ) {
     this._animalID = animalID;
     this._animalName = animalName;
@@ -55,7 +55,12 @@ export class Pet {
     this._friendly = friendly;
     this._othersImg = othersImg;
     this._adopted = adopted;
-    this._onlineAdopters = onlineAdopters;
+    this._isDelete = isDelete;
+  }
+
+
+  get isDelete(): boolean {
+    return this._isDelete;
   }
 
   get animalID(): string {
@@ -73,13 +78,15 @@ export class Pet {
   get shelterID(): string {
     return this._shelterID;
   }
-
+  get animalAge(): string {
+    return this._animalAge;
+  }
   set shelterID(shelterID: string) {
     this._shelterID = shelterID;
   }
 
-  get animalAge(): string {
-    return this._animalAge;
+  set isDelete(isDelete: boolean) {
+    this._isDelete = isDelete;
   }
 
   set animalAge(animalAge: string) {
@@ -180,14 +187,6 @@ export class Pet {
 
   set othersImg(othersImg: string[]) {
     this._othersImg = othersImg;
-  }
-
-  get onlineAdopters(): string[] {
-    return this._onlineAdopters;
-  }
-
-  set onlineAdopters(onlineAdopters: string[]) {
-    this._onlineAdopters = [...onlineAdopters];
   }
 
   get adopted(): boolean {

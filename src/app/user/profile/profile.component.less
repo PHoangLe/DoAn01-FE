@@ -1,3 +1,23 @@
+:host::ng-deep {
+  .p-dropdown,
+  input {
+    border: solid 1px;
+  }
+  .p-inputtext {
+    height: 2.5rem;
+  }
+  .p-calendar-w-btn .p-inputtext {
+    border: solid 1px;
+  }
+  .p-calendar {
+    width: 100%;
+  }
+  .p-button {
+    background-color: var(--primary-color);
+    border: none;
+  }
+}
+
 .container-fluid {
   .card-body {
     color: #525f7f;
@@ -11,5 +31,10 @@
         aspect-ratio: 1/1;
       }
     }
+  }
+
+  button {
+    width: max(fit-content, 20vw);
+    padding: 0.25rem 0.5rem;
   }
 }

@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit {
     }
   }
   async ngOnInit() {
+
     this.unreadMessage = 0;
     this.connect();
     await this.getUnreadMessages();
@@ -68,6 +69,7 @@ export class HeaderComponent implements OnInit {
         label: 'Đổi mật khẩu',
         icon: 'pi pi-replay',
         command: () => {
+          this.router.navigate(['/change-password/'])
         }
       },
       {
@@ -116,7 +118,17 @@ export class HeaderComponent implements OnInit {
       item.removeAttribute("style");
     })
     element.target.classList.add("active")
+  }
 
+  public setActiveNavitem(element: any) {
+    const items = document.querySelectorAll(".nav-link");
+    const actived = document.getElementById(element) as HTMLElement;
+    items.forEach((item) => {
+      item.classList.remove("active")
+      item.removeAttribute("style");
+    })
+
+    actived.classList.add("active")
   }
 
   routeToAdoptPage() {
@@ -140,12 +152,16 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['user/donation'])
   }
 
+  routeToRescuePage() {
+    if (this.isShelter)
+      this.router.navigate(['shelter/rescue'])
+    else
+      this.router.navigate(['user/rescue'])
+  }
 
 
   connect() {
     let Sock = new SockJS('https://doan01-be-production.up.railway.app/ws');
-    // let Sock = new SockJS('http://localhost:8080/ws');
-
     this.stompClient = over(Sock);
     this.stompClient.connect({}, this.onConnected, this.onError);
   }

@@ -27,7 +27,12 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TooltipModule } from 'primeng/tooltip';
 import { DonateComponent } from './donate/donate.component';
-
+import { FundBankingComponent } from './donate/fund-banking/fund-banking.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { CalendarModule } from 'primeng/calendar';
+import { RescueComponent } from './rescue/rescue.component';
+import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
+import { AddRescueComponent } from './rescue/add-rescue/add-rescue.component';
 
 
 @NgModule({
@@ -39,7 +44,11 @@ import { DonateComponent } from './donate/donate.component';
     BankingComponent,
     ProfileComponent,
     UserPageComponent,
-    DonateComponent
+    DonateComponent,
+    FundBankingComponent,
+    RescueComponent,
+    RescueDetailComponent,
+    AddRescueComponent
   ],
   imports: [
     CommonModule,
@@ -61,7 +70,10 @@ import { DonateComponent } from './donate/donate.component';
     MessageModule,
     MessagesModule,
     InputTextareaModule,
-    TooltipModule
+    TooltipModule,
+    InputNumberModule,
+    CalendarModule,
+
   ]
 })
 export class UserModule { }

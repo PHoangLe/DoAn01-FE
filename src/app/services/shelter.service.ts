@@ -43,7 +43,8 @@ export class ShelterService {
         item.district,
         item.city,
         item.shelterPhoneNo,
-        item.relatedDocuments)
+        item.relatedDocuments,
+        item.totalFundReceived)
 
       listShelter.push(shelter)
     });
@@ -62,7 +63,8 @@ export class ShelterService {
       item.district,
       item.city,
       item.shelterPhoneNo,
-      item.relatedDocuments)
+      item.relatedDocuments,
+      item.totalFundReceived)
   }
 
   getHttpHeader(): HttpHeaders {

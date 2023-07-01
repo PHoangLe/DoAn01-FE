@@ -22,6 +22,7 @@
       <ul class="navbar-nav m-auto mb-lg-0">
         <li class="nav-item p-3">
           <a
+            id="home"
             class="nav-link active"
             (click)="routeToHomePage()"
             (click)="onNavbarClick($event)"
@@ -29,10 +30,17 @@
           >
         </li>
         <li class="nav-item p-3">
-          <a class="nav-link" (click)="onNavbarClick($event)">Cứu trợ</a>
+          <a
+            id="rescue"
+            class="nav-link"
+            (click)="routeToRescuePage()"
+            (click)="onNavbarClick($event)"
+            >Cứu trợ</a
+          >
         </li>
         <li class="nav-item p-3">
           <a
+            id="pet"
             class="nav-link"
             (click)="routeToAdoptPage()"
             (click)="onNavbarClick($event)"
@@ -48,6 +56,7 @@
         </li>
         <li class="nav-item p-3">
           <a
+            id="donate"
             class="nav-link"
             (click)="onNavbarClick($event)"
             (click)="routeToDonatePage()"

@@ -22,12 +22,8 @@ export class PetCardComponent implements OnInit {
     if (this.authService.getDataFromCookie("userRoles")) {
       if (this.authService.getDataFromCookie("userRoles").includes("ROLE_SHELTER_MANAGER"))
         this.router.navigate([`/shelter/pet-detail/${pet.animalID}`])
-
     }
-    else {
-      this.router.navigate([`/user/pet-detail/${pet.animalID}`])
-
-    }
+    this.router.navigate([`/user/pet-detail/${pet.animalID}`])
 
   }
 

@@ -4,7 +4,8 @@ export class User {
   private _userFirstName: string;
   private _userLastName: string;
   private _phoneNumber: string;
-  private _dob: string;
+  private _dob: number;
+  private _gender: string;
   private _userAvatar: string;
   private _userRoles: string[];
   private _isLocked: boolean;
@@ -17,7 +18,8 @@ export class User {
     userFirstName: string,
     userLastName: string,
     phoneNumber: string,
-    dob: string,
+    dob: number,
+    gender: string,
     userAvatar: string,
     userRoles: string[],
     isLocked: boolean,
@@ -30,11 +32,19 @@ export class User {
     this._userLastName = userLastName;
     this._phoneNumber = phoneNumber;
     this._dob = dob;
+    this._gender = gender;
     this._userAvatar = userAvatar;
     this._userRoles = userRoles;
     this._isLocked = isLocked;
     this._isEnabled = isEnabled;
     this._isDeleted = isDeleted;
+  }
+
+  public get gender(): string {
+    return this._gender;
+  }
+  public set gender(value: string) {
+    this._gender = value;
   }
 
   get userID(): string {
@@ -44,10 +54,10 @@ export class User {
     this._userID = value;
   }
 
-  get dob(): string {
+  get dob(): number {
     return this._dob;
   }
-  set dob(value: string) {
+  set dob(value: number) {
     this._dob = value;
   }
 

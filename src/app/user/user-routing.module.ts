@@ -7,6 +7,7 @@ import { PetDetailComponent } from './pet-detail/pet-detail.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { DonateComponent } from './donate/donate.component';
+import { RescueComponent } from './rescue/rescue.component';
 
 const routes: Routes = [
 
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path: 'donation',
         component: DonateComponent
+      },
+      {
+        path: 'rescue',
+        component: RescueComponent
       }
     ]
   }

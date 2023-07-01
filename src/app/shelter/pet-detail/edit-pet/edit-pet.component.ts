@@ -1,6 +1,5 @@
 import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Pet } from 'src/app/model/Pet';
@@ -96,7 +95,10 @@ export class EditPetComponent implements OnInit {
       setTimeout(() => {
         this.ref.close()
       }, 1000);
+
     })
+
+
       .catch(error => {
         console.log(error.error.message);
         this.messageService.add({ key: 'updatePet', severity: 'error', summary: error.error.message });

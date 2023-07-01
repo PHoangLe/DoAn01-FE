@@ -1,0 +1,42 @@
+:host::ng-deep {
+  .p-inputnumber {
+    height: 2rem;
+  }
+  .p-inputnumber-buttons-horizontal .p-inputnumber-input {
+    width: 2rem;
+    text-align: center;
+  }
+}
+.container {
+  .container__qr {
+    img {
+      max-width: 220px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    .container__qr {
+      width: 100%;
+    }
+    .container__content {
+      width: 100%;
+
+      .money {
+        display: flex;
+        flex-wrap: wrap;
+        > p {
+          width: fit-content;
+          margin-left: 0 !important;
+        }
+      }
+      button {
+        width: fit-content;
+        padding: 0.25rem 1rem;
+      }
+    }
+  }
+}

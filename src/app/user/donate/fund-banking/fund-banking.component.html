@@ -1,0 +1,51 @@
+<div class="container d-flex gap-2">
+  <div class="container__qr col-4 d-flex justify-content-center">
+    <img
+      class="ratio ratio-1x1"
+      src="https://i.ibb.co/N25C54w/qr-banking.png"
+      alt=""
+    />
+  </div>
+  <div class="container__content col-8 pt-1">
+    <div class="money d-flex gap-3 mb-2">
+      <div class="fund-package d-flex">
+        <p class="my-auto me-2"><b>Số gói: </b></p>
+        <p-inputNumber
+          [(ngModel)]="numberOfFunds"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          spinnerMode="horizontal"
+          inputId="horizontal"
+          [min]="1"
+          [max]="10"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        ></p-inputNumber>
+      </div>
+
+      <p class="my-auto ms-2">
+        <b>Số tiền: </b>
+        {{ (fund.valuePerDonationPackage * numberOfFunds).toLocaleString() }}
+        VND
+      </p>
+    </div>
+
+    <p><b>Bước 1:</b> Mở ứng dụng <b>MoMo</b> để thanh toán.</p>
+    <p>
+      <b>Bước 2:</b> Chọn <b>“Thanh toán”</b> và quét mã QR tại hướng dẫn này.
+    </p>
+    <p>
+      <b>Bước 3:</b> Điền nội dung <b>“email của bạn_tên quỹ”</b> và hoàn thành
+      giao dịch theo hướng dẫn trên ứng dụng. <br />
+      Ví dụ: <b>user@gmail.com_{{ fund.fundName }}</b>
+    </p>
+    <div class="btn-container d-flex justify-content-center">
+      <button class="btn btn-primary m-auto" (click)="completeTransaction()">
+        Hoàn tất thanh toán
+      </button>
+    </div>
+  </div>
+</div>
+<p-toast key="completeTransaction"></p-toast>

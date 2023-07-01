@@ -1,0 +1,123 @@
+<form class="container" [formGroup]="addPostForm">
+  <h3 class="text-center mb-4 fw-semibold">Thêm bài đăng</h3>
+  <div class="d-flex flex-column justify-content-start w-100">
+    <p-divider align="left" class="ps-4">
+      <div class="inline-flex align-items-center">
+        <b>Thông tin</b>
+      </div>
+    </p-divider>
+    <div class="address-container m-4 ps-2 pe-4 my-2 w-100">
+      <span class="p-float-label">
+        <h6 class="addressLabel p-1 ps-0">Số nhà, tên đường</h6>
+        <input
+          class="inputtext ps-1 w-100"
+          type="text"
+          formControlName="shelterNo"
+        />
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel p-1 ps-0">Thành phố/Tỉnh</h6>
+        <p-dropdown
+          [options]="listProvince"
+          [filter]="true"
+          [autoDisplayFirst]="false"
+          filterBy="listProvince"
+          (onChange)="provinceSelectedChange($event.value)"
+          formControlName="shelterProvince"
+        >
+          <!-- <ng-template pTemplate="selectedItem">
+                <div class="flex align-items-center">
+                  <div>{{ selectedCountry.name }}</div>
+                </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                  <div>{{ country.name }}</div>
+                </div>
+             </ng-template> -->
+        </p-dropdown>
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel p-1 ps-0">Quận/Huyện</h6>
+        <p-dropdown
+          [filter]="true"
+          [autoDisplayFirst]="false"
+          [options]="listDistrict"
+          (onChange)="districtSelectedChange($event.value)"
+          formControlName="shelterDistrict"
+        >
+        </p-dropdown>
+      </span>
+      <span class="p-float-label">
+        <h6 class="addressLabel p-1 ps-0">Phường/Xã</h6>
+        <p-dropdown
+          [options]="listWard"
+          [autoDisplayFirst]="false"
+          [filter]="true"
+          filterBy="name"
+          formControlName="shelterWard"
+        >
+        </p-dropdown>
+      </span>
+    </div>
+    <div class="address-des mx-4 my-2 ps-2 pe-4 w-100">
+      <h6 class="addressLabel ps-0">Miêu tả địa điểm</h6>
+      <textarea
+        formControlName="petDetails"
+        class="w-100"
+        name=""
+        id="textarea"
+        pInputTextarea
+        [autoResize]="true"
+      ></textarea>
+    </div>
+    <div class="status-des mx-4 ps-2 pe-4 w-100">
+      <h6 class="ps-0">Tình trạng hiện tại của bé</h6>
+      <textarea
+        formControlName="petDetails"
+        class="w-100"
+        name=""
+        id="textarea"
+        pInputTextarea
+        [autoResize]="true"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="pet-image">
+    <div class="d-flex flex-column justify-content-center w-100">
+      <p-divider align="left" class="ps-4">
+        <div class="inline-flex align-items-center">
+          <b>Ảnh</b>
+        </div>
+      </p-divider>
+      <p-fileUpload
+        name="file[]"
+        class="w-100 m-4 my-1 pe-4"
+        name="demo[]"
+        [showUploadButton]="false"
+        [multiple]="true"
+        [maxFileSize]="10000000"
+        (onSelect)="onSelectFiles($event)"
+      >
+        <ng-template pTemplate="content">
+          <!-- <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">
+              {{ file.name }} - {{ file.size }} bytes
+            </li>
+          </ul> -->
+        </ng-template>
+      </p-fileUpload>
+    </div>
+  </div>
+  <div class="button-group d-flex justify-content-center mt-2">
+    <button
+      type="submit"
+      class="btn btn-primary text-nowrap"
+      (click)="addNewPet()"
+      [disabled]="addPostForm.invalid"
+    >
+      Thêm
+    </button>
+  </div>
+</form>

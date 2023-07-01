@@ -39,7 +39,8 @@ import { AdoptionRequestComponent } from './adoption-request/adoption-request.co
 import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { DonateComponent } from './donate/donate.component';
-
+import { FundRequestComponent } from './donate/fund-request/fund-request.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { DonateComponent } from './donate/donate.component';
     ChatComponent,
     ShelterPageComponent,
     DonateComponent,
+    FundRequestComponent,
   ],
   imports: [
     CommonModule,
@@ -82,7 +84,8 @@ import { DonateComponent } from './donate/donate.component';
     MessagesModule,
     TagModule,
     ConfirmDialogModule,
-    TooltipModule
+    TooltipModule,
+    CalendarModule
   ],
   providers: [MessageService, ConfirmationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

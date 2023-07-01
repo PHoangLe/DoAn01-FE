@@ -67,7 +67,6 @@ export class AddPetComponent {
     vaccinated: this.builder.control(''),
     deWormed: this.builder.control(''),
     sterilized: this.builder.control(''),
-
   })
 
   ngOnInit() {
