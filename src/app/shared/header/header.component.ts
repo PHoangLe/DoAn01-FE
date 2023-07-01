@@ -152,6 +152,12 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['user/donation'])
   }
 
+  routeToRescuePage() {
+    if (this.isShelter)
+      this.router.navigate(['shelter/rescue'])
+    else
+      this.router.navigate(['user/rescue'])
+  }
 
 
   connect() {

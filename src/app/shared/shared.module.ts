@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BadgeModule } from 'primeng/badge';
+import { RescueCardComponent } from './components/rescue-card/rescue-card.component';
 
 
 
@@ -31,7 +32,8 @@ import { BadgeModule } from 'primeng/badge';
     PetCardComponent,
     FooterComponent,
     WidgetComponent,
-    SidebarComponent
+    SidebarComponent,
+    RescueCardComponent
   ],
   exports: [
     HeaderComponent,

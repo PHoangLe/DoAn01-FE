@@ -30,6 +30,9 @@ import { DonateComponent } from './donate/donate.component';
 import { FundBankingComponent } from './donate/fund-banking/fund-banking.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
+import { RescueComponent } from './rescue/rescue.component';
+import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
+import { AddRescueComponent } from './rescue/add-rescue/add-rescue.component';
 
 
 @NgModule({
@@ -42,7 +45,10 @@ import { CalendarModule } from 'primeng/calendar';
     ProfileComponent,
     UserPageComponent,
     DonateComponent,
-    FundBankingComponent
+    FundBankingComponent,
+    RescueComponent,
+    RescueDetailComponent,
+    AddRescueComponent
   ],
   imports: [
     CommonModule,
