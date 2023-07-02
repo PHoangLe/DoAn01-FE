@@ -41,8 +41,8 @@ export class RescueService {
     sessionStorage.setItem("currentRescuePost", JSON.stringify(rescuePost));
   }
 
-  getStorageRescuePost(rescuePost) {
-    return sessionStorage.getItem("currentRescuePost");
+  getStorageRescuePost() {
+    return JSON.parse(sessionStorage.getItem("currentRescuePost"));
   }
 
   getHttpHeader(): HttpHeaders {

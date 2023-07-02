@@ -41,6 +41,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DonateComponent } from './donate/donate.component';
 import { FundRequestComponent } from './donate/fund-request/fund-request.component';
 import { CalendarModule } from 'primeng/calendar';
+import { RescueComponent } from './rescue/rescue.component';
+import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { CalendarModule } from 'primeng/calendar';
     ShelterPageComponent,
     DonateComponent,
     FundRequestComponent,
+    RescueComponent,
+    RescueDetailComponent,
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@
 ></app-widget>
 <div class="container d-flex m-0 p-0">
   <div
-    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 col-lg-3 m-2 px-2"
+    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 m-2 px-2 ps-4"
   >
     <button class="btn btn-primary w-100 my-2" (click)="addNewPost()">
       Thêm bài đăng
@@ -68,6 +68,7 @@
         [filter]="true"
         filterBy="wardName"
         optionLabel="wardName"
+        (onChange)="wardSelectedChange($event.value)"
       >
       </p-dropdown>
     </span>
@@ -85,14 +86,14 @@
           name="group"
           [value]="status.id"
           [inputId]="status.id"
-          [(ngModel)]="selectedSpecie"
-          (onClick)="onCheckboxBreedChange($event)"
+          [(ngModel)]="selectedStatus"
+          (onClick)="onCheckboxStatusChange($event)"
         ></p-radioButton>
         <label class="ps-2" [for]="status.id">{{ status.value }}</label>
       </div>
     </div>
   </div>
-  <div class="pet-list col-9 col-sm-10 col-lg-10">
+  <div class="pet-list col-9 col-sm-10">
     <div
       *ngIf="isLoading"
       class="loading w-100 h-25 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
@@ -106,10 +107,10 @@
       class="w-100"
       [value]="rescuePet"
       layout="grid"
-      [rows]="20"
+      [rows]="10"
       [paginator]="true"
       [sortField]="sortField"
-      emptyMessage="Không có bé cần tìm"
+      emptyMessage="Không cứu trợ cần tìm"
       filterBy="animalName,animalAge,animalGender,animalBreed,shelterName"
     >
       <ng-template let-pet pTemplate="gridItem">

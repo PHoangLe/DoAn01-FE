@@ -17,14 +17,13 @@ import { ApiAddressService } from 'src/app/services/api-address.service';
 })
 export class RescueComponent {
   protected rescuePet;
-  listProvince = new Array
-  listDistrict = new Array
-  listWard = new Array
+  listProvince = new Array;
+  listDistrict = new Array;
+  listWard = new Array;
+
   protected isLoading = true;
   protected defaultRescuePets;
-  protected listShelter: Shelter[];
-  protected selectedShelter: string;
-  protected selectedSpecie: string;
+  protected selectedStatus: string;
   protected sortField = '';
   protected searchValue;
   protected rescueStatus = [
@@ -229,6 +228,7 @@ export class RescueComponent {
         status: "WAITING"
       }
     ]
+    this.defaultRescuePets = [...this.rescuePet]
   }
 
   addNewPost() {
@@ -243,24 +243,14 @@ export class RescueComponent {
     })
   }
 
-  onCheckboxShelterChange(event) {
-    if (event.checked.length > 0) {
-      this.selectedShelter = event.checked[0].shelterID
-      this.rescuePet = this.rescuePet.filter(pet => pet.shelterID == this.selectedShelter)
-    }
-    else {
-      this.selectedShelter = null
-      this.rescuePet = [...this.defaultRescuePets]
-    }
-  }
 
-  onCheckboxBreedChange(event) {
+
+  onCheckboxStatusChange(event) {
     this.rescuePet = [...this.defaultRescuePets]
     if (event.value === "All") {
       return
     }
-    this.rescuePet = this.rescuePet.filter(pet => pet.animalSpecie === this.selectedSpecie)
-
+    this.rescuePet = this.rescuePet.filter(pet => pet.status === this.selectedStatus)
   }
 
   onUserSearched() {
@@ -269,7 +259,6 @@ export class RescueComponent {
     this.rescuePet = this.rescuePet.filter((pet) => {
       return Object.values(pet).some((value) => String(value).includes(this.searchValue))
     })
-    console.log(this.rescuePet)
   }
 
   bindProvinces() {
@@ -296,14 +285,14 @@ export class RescueComponent {
           distName: rListDistrict.name_with_type,
           distCode: rListDistrict.code
         }
-      }),
-        err => {
-          console.log(err.error.message)
-        }
+      })
     }),
       err => {
         console.log(err.error.message)
       }
+    this.rescuePet = [...this.defaultRescuePets]
+    this.rescuePet = this.rescuePet.filter(pet => pet.city === selectedValue.provName)
+
   }
 
   districtSelectedChange(selectedValue) {
@@ -319,5 +308,12 @@ export class RescueComponent {
       err => {
         console.log(err.error.message)
       }
+    this.rescuePet = [...this.defaultRescuePets]
+    this.rescuePet = this.rescuePet.filter(pet => pet.district === selectedValue.distName)
+  }
+
+  wardSelectedChange(selectedValue) {
+    this.rescuePet = [...this.defaultRescuePets]
+    this.rescuePet = this.rescuePet.filter(pet => pet.ward === selectedValue.wardName)
   }
 }

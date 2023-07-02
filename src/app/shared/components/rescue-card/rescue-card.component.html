@@ -6,9 +6,9 @@
       [severity]="getSeverity(pet.status)"
       >{{ getStatus(pet.status) }}</p-tag
     >
-    <div class="pet-position d-flex">
-      <p>{{ pet.ward }}, {{ pet.district }}</p>
-      <i class="bi bi-geo-alt-fill ps-1"></i>
+    <div class="pet-position d-flex flex-nowrap">
+      <p class="m-0 my-auto fw-semibold">{{ pet.ward }}, {{ pet.district }}</p>
+      <i style="color: #7a3d26" class="bi bi-geo-alt-fill ps-2 my-auto"></i>
     </div>
   </div>
   <p-galleria

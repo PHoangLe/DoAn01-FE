@@ -43,13 +43,13 @@ export class RescueCardComponent {
   getStatus(status: string) {
     switch (status) {
       case 'COMPLETED':
-        return 'Thành công';
+        return 'Giải cứu thành công bởi: ';
       case 'WAITING':
-        return 'Đang chờ';
+        return 'Đang chờ giải cứu';
       case 'PROCESSING':
-        return 'Đang giải cứu';
+        return 'Đang được giải cứu bởi: ';
       default:
-        return 'Không thành công';
+        return 'Giải cứu không thành công';
     }
   }
 
