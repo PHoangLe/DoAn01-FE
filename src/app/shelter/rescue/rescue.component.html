@@ -1,1 +1,139 @@
-<p>rescue works!</p>
+<app-widget
+  [breadcrumbItimes]="breadcrumbItimes"
+  [img]="'https://i.ibb.co/TkTFnmM/jamie-street-s9-Tf1e-BDFqw-unsplash.jpg'"
+  title="Danh sách cứu hộ"
+></app-widget>
+<div class="container d-flex m-0 p-0">
+  <div
+    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 m-2 px-2 ps-4"
+  >
+    <button class="btn btn-primary w-100 my-2" (click)="addNewPost()">
+      Thêm bài đăng
+    </button>
+    <div class="pet-type w-100 p-2">
+      <p-divider align="left">
+        <div class="inline-flex align-items-center">
+          <b>Tìm kiếm</b>
+        </div>
+      </p-divider>
+      <div class="search-bar w-100 d-flex flex-nowrap mt-2">
+        <span class="p-input-icon-left w-100 pe-2">
+          <i class="pi pi-search"></i>
+          <input
+            type="text"
+            placeholder="Nhập thông tin ..."
+            class="rounded-4 p-1 w-100"
+            [(ngModel)]="searchValue"
+            (ngModelChange)="onUserSearched()"
+            pInputText
+          />
+        </span>
+      </div>
+    </div>
+    <p-divider align="left" class="mt-2">
+      <div class="inline-flex align-items-center">
+        <b>Khu vực</b>
+      </div>
+    </p-divider>
+
+    <span class="p-float-label">
+      <h6 class="addressLabel p-1 ps-0 mb-0 mt-1">Thành phố/Tỉnh</h6>
+      <p-dropdown
+        [options]="listProvince"
+        [filter]="true"
+        [autoDisplayFirst]="false"
+        optionLabel="provName"
+        filterBy="provName"
+        (onChange)="provinceSelectedChange($event.value)"
+      >
+      </p-dropdown>
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel p-1 ps-0 mb-0 mt-1">Quận/Huyện</h6>
+      <p-dropdown
+        [filter]="true"
+        [autoDisplayFirst]="false"
+        [options]="listDistrict"
+        optionLabel="distName"
+        filterBy="distName"
+        (onChange)="districtSelectedChange($event.value)"
+      >
+      </p-dropdown>
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel p-1 ps-0 mb-0 mt-1">Phường/Xã</h6>
+      <p-dropdown
+        [options]="listWard"
+        [autoDisplayFirst]="false"
+        [filter]="true"
+        filterBy="wardName"
+        optionLabel="wardName"
+        (onChange)="wardSelectedChange($event.value)"
+      >
+      </p-dropdown>
+    </span>
+  </div>
+  <div class="pet-list col-6 col-sm-7 position-relative">
+    <div
+      *ngIf="isLoading"
+      class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+    >
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Đang tải...</span>
+      </div>
+      <p style="opacity: 0.7">Đang tải</p>
+    </div>
+    <p-dataView
+      class="w-100 text-center"
+      [value]="rescuePet"
+      layout="grid"
+      [rows]="10"
+      [paginator]="true"
+      [sortField]="sortField"
+      emptyMessage="Không cứu trợ cần tìm"
+      filterBy="animalName,animalAge,animalGender,animalBreed,shelterName"
+    >
+      <ng-template let-pet pTemplate="gridItem">
+        <app-rescue-card-shelter [rescuePost]="pet"></app-rescue-card-shelter>
+      </ng-template>
+    </p-dataView>
+  </div>
+  <div class="current-rescue col-3 col-sm-3 pt-2">
+    <h4>Các cứu trợ đang đảm nhận</h4>
+    <div class="processing-rescue" *ngFor="let process of processingRescue">
+      <div
+        class="card-content d-flex justify-content-between p-2"
+        (click)="routeToRescueDetail(process.rescuePostID)"
+      >
+        <div class="poster-info d-flex p-1 rounded-4">
+          <img
+            class="rounded-circle col-4 my-auto"
+            [src]="
+              process.poster.userAvatar
+                ? process.poster.userAvatar
+                : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963'
+            "
+            alt=""
+          />
+
+          <div class="ps-2 m-0 d-flex justify-content-start flex-column">
+            <h6>
+              <b>{{
+                process.poster.userFirstName + " " + process.poster.userLastName
+              }}</b>
+            </h6>
+            <button class="btn btn-primary ms-0" (click)="contactSender()">
+              Liên hệ
+            </button>
+          </div>
+        </div>
+        <div class="pet-position d-flex flex-nowrap">
+          <p class="m-0 my-auto fw-semibold">
+            {{ process.ward }}, {{ process.district }}
+          </p>
+          <i style="color: #7a3d26" class="bi bi-geo-alt-fill ps-2 my-auto"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

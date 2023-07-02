@@ -1,1 +1,155 @@
-<p>rescue-detail works!</p>
+<app-widget
+  [breadcrumbItimes]="breadcrumbItimes"
+  [img]="
+    'https://i.ibb.co/Khq1z5G/cristian-castillo-73py-V0-JJOm-E-unsplash.jpg'
+  "
+  title="Chi tiết bài cứu trợ"
+></app-widget>
+<div class="container p-4">
+  <div class="info p-4">
+    <div class="pet-info my-auto">
+      <div class="basic-info ps-4">
+        <h5>
+          <b>Ngày đăng bài:</b> {{ rescuePost.date | date : "dd/MM/yyyy" }}
+        </h5>
+      </div>
+
+      <p-divider align="left" class="pt-4">
+        <div class="inline-flex align-items-center">
+          <b>Khu vực</b>
+        </div>
+      </p-divider>
+      <div class="status-info ps-4 py-2">
+        <h5>
+          <b>Đường:</b>
+          {{ rescuePost.street }}
+        </h5>
+        <h5>
+          <b>{{ getFirstWord(rescuePost.ward) }}:</b>
+          {{ getLastWord(rescuePost.ward) }}
+        </h5>
+        <h5>
+          <b
+            >{{
+              rescuePost.district.includes("Thị xã")
+                ? getTwoFirstWords(rescuePost.district)
+                : getFirstWord(rescuePost.district)
+            }}:</b
+          >
+          {{
+            rescuePost.district.includes("Thị xã")
+              ? getDistrictName(rescuePost.district)
+              : getLastWord(rescuePost.district)
+          }}
+        </h5>
+        <h5>
+          <b
+            >{{
+              rescuePost.city.includes("Thành phố")
+                ? getTwoFirstWords(rescuePost.city)
+                : getFirstWord(rescuePost.city)
+            }}:</b
+          >
+          {{
+            rescuePost.city.includes("Thành phố")
+              ? getCityName(rescuePost.city)
+              : getLastWord(rescuePost.city)
+          }}
+        </h5>
+      </div>
+      <p-divider align="left" class="pt-2">
+        <div class="inline-flex align-items-center">
+          <b>Miêu tả khu vực</b>
+        </div>
+      </p-divider>
+
+      <h5 class="ps-4 pt-1 pb-2">
+        {{ rescuePost.locationDescription }}
+      </h5>
+      <p-divider align="left" class="pt-2">
+        <div class="inline-flex align-items-center">
+          <b>Miêu tả tình trạng</b>
+        </div>
+      </p-divider>
+
+      <h5 class="ps-4 pt-1 pb-2">
+        {{ rescuePost.animalDescription }}
+      </h5>
+    </div>
+    <div class="pet-img">
+      <p-galleria
+        [value]="rescuePost.images"
+        [showIndicators]="false"
+        [showItemNavigators]="false"
+        [autoPlay]="true"
+        [circular]="true"
+        [showThumbnails]="false"
+        [containerStyle]="{ 'max-width': '760px' }"
+      >
+        <ng-template pTemplate="item" let-item>
+          <img
+            [src]="item"
+            style="
+              width: 100%;
+              display: block;
+              height: 300px;
+              object-fit: cover;
+              border-radius: 0 0 5px 5px;
+            "
+          />
+        </ng-template>
+      </p-galleria>
+    </div>
+  </div>
+  <div class="inline-flex align-items-center mt-4">
+    <h5 class="fw-medium"><b>Thông tin người đăng</b></h5>
+  </div>
+  <div class="user pt-4 ps-4">
+    <div class="user-info d-flex p-3 rounded-4">
+      <img
+        class="rounded-circle col-4"
+        [src]="
+          rescuePost.poster.userAvatar
+            ? rescuePost.poster.userAvatar
+            : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963'
+        "
+        alt=""
+      />
+
+      <div class="ps-4 ps-4">
+        <h5>
+          <b>{{
+            rescuePost.poster.userFirstName +
+              " " +
+              rescuePost.poster.userLastName
+          }}</b>
+        </h5>
+        <h5>{{ rescuePost.poster.userEmail }}</h5>
+        <h5>
+          Số điện thoại:
+          {{
+            rescuePost.poster.userPhone
+              ? rescuePost.poster.userPhone
+              : "Chưa có"
+          }}
+        </h5>
+        <button class="btn btn-primary mx-auto" (click)="contactRequestor()">
+          Liên hệ
+        </button>
+      </div>
+    </div>
+    <div class="button" *ngIf="rescuePost.status === 'PROCESSING'">
+      <button class="btn btn-primary" (click)="acceptRequest()">
+        Đã hoàn thành việc cứu trợ
+      </button>
+      <button class="btn btn-secondary" (click)="rejectRequest()">
+        Không thể hoàn thành việc cứu trợ
+      </button>
+    </div>
+    <div class="button" *ngIf="rescuePost.status === 'WAITING'">
+      <button class="btn btn-primary" (click)="acceptRequest()">
+        Đảm nhận việc cứu trợ
+      </button>
+    </div>
+  </div>
+</div>

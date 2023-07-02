@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { PetService } from 'src/app/services/pet.service';
 import { RescueService } from 'src/app/services/rescue.service';
+import { RescueComponent } from 'src/app/shelter/rescue/rescue.component';
 
 @Component({
   selector: 'app-rescue-card',
@@ -43,11 +44,11 @@ export class RescueCardComponent {
   getStatus(status: string) {
     switch (status) {
       case 'COMPLETED':
-        return 'Giải cứu thành công bởi: ';
+        return 'Giải cứu thành công bởi: ' + this.pet.rescuer;
       case 'WAITING':
         return 'Đang chờ giải cứu';
       case 'PROCESSING':
-        return 'Đang được giải cứu bởi: ';
+        return 'Đang được giải cứu bởi: ' + this.pet.rescuer;
       default:
         return 'Giải cứu không thành công';
     }

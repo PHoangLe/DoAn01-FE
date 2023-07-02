@@ -16,6 +16,8 @@ import { BadgeModule } from 'primeng/badge';
 import { RescueCardComponent } from './components/rescue-card/rescue-card.component';
 import { TagModule } from 'primeng/tag';
 import { GalleriaModule } from 'primeng/galleria';
+import { RescueCardShelterComponent } from './components/rescue-card-shelter/rescue-card-shelter.component';
+import { ToastModule } from 'primeng/toast';
 
 
 
@@ -29,7 +31,8 @@ import { GalleriaModule } from 'primeng/galleria';
     BreadcrumbModule,
     BadgeModule,
     TagModule,
-    GalleriaModule
+    GalleriaModule,
+    ToastModule
   ],
   declarations: [
     HeaderComponent,
@@ -37,7 +40,8 @@ import { GalleriaModule } from 'primeng/galleria';
     FooterComponent,
     WidgetComponent,
     SidebarComponent,
-    RescueCardComponent
+    RescueCardComponent,
+    RescueCardShelterComponent
   ],
   exports: [
     HeaderComponent,
@@ -45,7 +49,8 @@ import { GalleriaModule } from 'primeng/galleria';
     FooterComponent,
     WidgetComponent,
     SidebarComponent,
-    RescueCardComponent
+    RescueCardComponent,
+    RescueCardShelterComponent
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

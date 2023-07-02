@@ -54,7 +54,7 @@ const routes: Routes = [
         component: RescueComponent
       },
       {
-        path: 'rescue/rescue-detail/:id',
+        path: 'rescue-detail/:id',
         component: RescueDetailComponent
       }
     ]
