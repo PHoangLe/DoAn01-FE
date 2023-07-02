@@ -35,9 +35,18 @@ export class RescueService {
       city: postInfo.rescuePetProvince.provName
     }, { headers: headers }).toPromise();
   }
-  async updateRescuePost(rescueID: string) {
+  async updateRescuePost(postInfo, listImgs) {
     let headers = this.getHttpHeader();
-    return await this.http.put(this.baseUrl + `${rescueID}`, null, { headers: headers }).toPromise();
+    return await this.http.put(this.baseUrl + `/${postInfo.rescuePostID}`, {
+      images: listImgs ? listImgs : postInfo.images,
+      userID: postInfo.poster.userID,
+      animalDescription: postInfo.animalDescription ? postInfo.animalDescription : "",
+      locationDescription: postInfo.locationDescription ? postInfo.locationDescription : "",
+      street: postInfo.street,
+      ward: postInfo.ward,
+      district: postInfo.district,
+      city: postInfo.city
+    }, { headers: headers }).toPromise();
   }
 
   async deleteRescuePost(rescueID: string) {

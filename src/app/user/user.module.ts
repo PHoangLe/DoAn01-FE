@@ -34,6 +34,7 @@ import { RescueComponent } from './rescue/rescue.component';
 import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
 import { AddRescueComponent } from './rescue/add-rescue/add-rescue.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { EditRescueComponent } from './rescue/edit-rescue/edit-rescue.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     FundBankingComponent,
     RescueComponent,
     RescueDetailComponent,
-    AddRescueComponent
+    AddRescueComponent,
+    EditRescueComponent
   ],
   imports: [
     CommonModule,

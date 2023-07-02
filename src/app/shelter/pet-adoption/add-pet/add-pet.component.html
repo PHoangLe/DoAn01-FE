@@ -10,7 +10,12 @@
           id="avatarInput"
           (change)="selectedAvatar($event)"
         />
-        <img src="https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fimage-holder-icon.png?alt=media&token=2bc0bac5-ea17-4dd9-8c9e-4813316da679" alt="" id="imgInput" class="w-100 rounded-3" />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fimage-holder-icon.png?alt=media&token=2bc0bac5-ea17-4dd9-8c9e-4813316da679"
+          alt=""
+          id="imgInput"
+          class="w-100 rounded-3"
+        />
         <!-- <i class="pi pi-image" style="font-size: 2.5rem"></i> -->
       </label>
     </span>
@@ -142,6 +147,8 @@
         name="file[]"
         class="w-100 m-4 my-1"
         name="demo[]"
+        chooseLabel="Chọn ảnh"
+        cancelLabel="Huỷ bỏ"
         [showUploadButton]="false"
         [multiple]="true"
         [maxFileSize]="10000000"

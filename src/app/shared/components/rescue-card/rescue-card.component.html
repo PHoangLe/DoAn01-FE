@@ -1,4 +1,4 @@
-<div class="card" (click)="routeToRescueDetail()">
+<div class="card">
   <div class="card-content d-flex justify-content-between p-2">
     <p-tag
       [rounded]="true"
@@ -7,8 +7,14 @@
       >{{ getStatus(pet.status) }}</p-tag
     >
     <div class="pet-position d-flex flex-nowrap">
+      <i style="color: #7a3d26" class="bi bi-geo-alt-fill my-auto pe-1"></i>
       <p class="m-0 my-auto fw-semibold">{{ pet.ward }}, {{ pet.district }}</p>
-      <i style="color: #7a3d26" class="bi bi-geo-alt-fill ps-2 my-auto"></i>
+      <i
+        (click)="updateRescueDetail()"
+        style="color: #7a3d26; cursor: pointer"
+        *ngIf="pet.status === 'WAITING'"
+        class="bi bi-three-dots ps-2"
+      ></i>
     </div>
   </div>
   <p-galleria
@@ -18,6 +24,8 @@
     [autoPlay]="true"
     [circular]="true"
     [showThumbnails]="false"
+    style="cursor: pointer"
+    (click)="routeToRescueDetail()"
     [containerStyle]="{ 'max-width': '760px' }"
   >
     <ng-template pTemplate="item" let-item>

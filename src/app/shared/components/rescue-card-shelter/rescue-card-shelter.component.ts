@@ -29,7 +29,7 @@ export class RescueCardShelterComponent {
 
   routeToRescueDetail() {
     this.rescueService.setStorageRescuePost(this.rescuePost)
-    this.router.navigate([`rescue/rescue-detail/${this.rescuePost.rescuePostID}`])
+    this.router.navigate([`shelter/rescue-detail/${this.rescuePost.rescuePostID}`])
   }
 
   contactSender() {

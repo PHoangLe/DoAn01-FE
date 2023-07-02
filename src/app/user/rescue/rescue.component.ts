@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Shelter } from 'src/app/model/Shelter';
 import { ShelterService } from 'src/app/services/shelter.service';
@@ -15,7 +15,7 @@ import { ApiAddressService } from 'src/app/services/api-address.service';
   styleUrls: ['./rescue.component.less'],
   providers: [DialogService, MessageService]
 })
-export class RescueComponent {
+export class RescueComponent implements OnInit {
   protected rescuePet;
   listProvince = new Array;
   listDistrict = new Array;
@@ -47,8 +47,7 @@ export class RescueComponent {
 
   ngOnInit(): void {
 
-    // this.getAllRescuePost();
-    this.getAlLPost();
+    this.getAllRescuePost();
     this.bindProvinces();
     this.breadcrumbItimes = [
       {
@@ -64,9 +63,9 @@ export class RescueComponent {
   }
 
 
-  getAllRescuePost() {
+  async getAllRescuePost() {
     this.isLoading = true
-    this.rescueService.getAllRescuePosts().then(response => {
+    await this.rescueService.getAllRescuePosts().then(response => {
       this.rescuePet = response
       this.defaultRescuePets = [...this.rescuePet]
     }).catch(err => {
@@ -76,159 +75,6 @@ export class RescueComponent {
     })
     this.isLoading = false
     console.log(this.rescuePet)
-  }
-
-  getAlLPost() {
-    this.isLoading = false
-
-    this.rescuePet = [
-      {
-        rescuePostID: "64a05c8349b0966ebf9e77d6",
-        images: [
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fbe-meo-cham-soc-cho-04.jpg?alt=media&token=d6bbbccd-c87c-4c7a-be3f-ba2361eaea3b",
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fchu-cho-cho-chu-ve-1.jpg?alt=media&token=b1247283-8057-4ed4-9ad7-f7204a656066"
-        ],
-        poster: {
-          userID: "642840900320f50fc8617a06",
-          userEmail: "anhquandangho1@gmail.com",
-          userFirstName: "Đặng",
-          userLastName: "Hồ Anh Quân",
-          phoneNo: "",
-          dob: 1054425600,
-          userGender: "MALE",
-          userAvatar: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963&_gl=1*ogemi8*_ga*OTI1NDQxNDAzLjE2Nzc2MzY3NTY.*_ga_CW55HF8NVT*MTY4NTkyOTYzNS4zMi4xLjE2ODU5Mjk2ODcuMC4wLjA.",
-          userRoles: [
-            "ROLE_USER"
-          ]
-        },
-        rescuer: null,
-        animalDescription: "Hơi nhát, hoạt động bình thường",
-        locationDescription: "Gần siêu thị Lotte",
-        street: "Nguyễn Văn Lượng",
-        ward: "Phường 7",
-        district: "Quận Gò Vấp",
-        city: "Thành phố Hồ Chí Minh",
-        date: 1688231043030,
-        status: "WAITING"
-      },
-      {
-        rescuePostID: "64a05c8349b0966ebf9e77d6",
-        images: [
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fbe-meo-cham-soc-cho-04.jpg?alt=media&token=d6bbbccd-c87c-4c7a-be3f-ba2361eaea3b",
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fchu-cho-cho-chu-ve-1.jpg?alt=media&token=b1247283-8057-4ed4-9ad7-f7204a656066"
-        ],
-        poster: {
-          userID: "642840900320f50fc8617a06",
-          userEmail: "anhquandangho1@gmail.com",
-          userFirstName: "Đặng",
-          userLastName: "Hồ Anh Quân",
-          phoneNo: "",
-          dob: 1054425600,
-          userGender: "MALE",
-          userAvatar: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963&_gl=1*ogemi8*_ga*OTI1NDQxNDAzLjE2Nzc2MzY3NTY.*_ga_CW55HF8NVT*MTY4NTkyOTYzNS4zMi4xLjE2ODU5Mjk2ODcuMC4wLjA.",
-          userRoles: [
-            "ROLE_USER"
-          ]
-        },
-        rescuer: null,
-        animalDescription: "Hơi nhát, hoạt động bình thường",
-        locationDescription: "Gần siêu thị Lotte",
-        street: "Nguyễn Văn Lượng",
-        ward: "Phường 6",
-        district: "Quận 1",
-        city: "Thành phố Hồ Chí Minh",
-        date: 1688231043030,
-        status: "COMPLETED"
-      },
-      {
-        rescuePostID: "64a05c8349b0966ebf9e77d6",
-        images: [
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fbe-meo-cham-soc-cho-04.jpg?alt=media&token=d6bbbccd-c87c-4c7a-be3f-ba2361eaea3b",
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fchu-cho-cho-chu-ve-1.jpg?alt=media&token=b1247283-8057-4ed4-9ad7-f7204a656066"
-        ],
-        poster: {
-          userID: "642840900320f50fc8617a06",
-          userEmail: "anhquandangho1@gmail.com",
-          userFirstName: "Đặng",
-          userLastName: "Hồ Anh Quân",
-          phoneNo: "",
-          dob: 1054425600,
-          userGender: "MALE",
-          userAvatar: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963&_gl=1*ogemi8*_ga*OTI1NDQxNDAzLjE2Nzc2MzY3NTY.*_ga_CW55HF8NVT*MTY4NTkyOTYzNS4zMi4xLjE2ODU5Mjk2ODcuMC4wLjA.",
-          userRoles: [
-            "ROLE_USER"
-          ]
-        },
-        rescuer: null,
-        animalDescription: "Hơi nhát, hoạt động bình thường",
-        locationDescription: "Gần siêu thị Lotte",
-        street: "Nguyễn Văn Lượng",
-        ward: "Phường 6",
-        district: "Quận Gò Vấp",
-        city: "Thành phố Hồ Chí Minh",
-        date: 1688231043030,
-        status: "PROCESSING"
-      },
-      {
-        rescuePostID: "64a05c8349b0966ebf9e77d6",
-        images: [
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fbe-meo-cham-soc-cho-04.jpg?alt=media&token=d6bbbccd-c87c-4c7a-be3f-ba2361eaea3b",
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fchu-cho-cho-chu-ve-1.jpg?alt=media&token=b1247283-8057-4ed4-9ad7-f7204a656066"
-        ],
-        poster: {
-          userID: "642840900320f50fc8617a06",
-          userEmail: "anhquandangho1@gmail.com",
-          userFirstName: "Đặng",
-          userLastName: "Hồ Anh Quân",
-          phoneNo: "",
-          dob: 1054425600,
-          userGender: "MALE",
-          userAvatar: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963&_gl=1*ogemi8*_ga*OTI1NDQxNDAzLjE2Nzc2MzY3NTY.*_ga_CW55HF8NVT*MTY4NTkyOTYzNS4zMi4xLjE2ODU5Mjk2ODcuMC4wLjA.",
-          userRoles: [
-            "ROLE_USER"
-          ]
-        },
-        rescuer: null,
-        animalDescription: "Hơi nhát, hoạt động bình thường",
-        locationDescription: "Gần siêu thị Lotte",
-        street: "Nguyễn Văn Lượng",
-        ward: "Phường 6",
-        district: "Quận Gò Vấp",
-        city: "Thành phố Hồ Chí Minh",
-        date: 1688231043030,
-        status: "ABORTED"
-      },
-      {
-        rescuePostID: "64a05c8349b0966ebf9e77d6",
-        images: [
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fbe-meo-cham-soc-cho-04.jpg?alt=media&token=d6bbbccd-c87c-4c7a-be3f-ba2361eaea3b",
-          "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/RescuePetImgs%2Frescue-642840900320f50fc8617a06%2Fchu-cho-cho-chu-ve-1.jpg?alt=media&token=b1247283-8057-4ed4-9ad7-f7204a656066"
-        ],
-        poster: {
-          userID: "642840900320f50fc8617a06",
-          userEmail: "anhquandangho1@gmail.com",
-          userFirstName: "Đặng",
-          userLastName: "Hồ Anh Quân",
-          phoneNo: "",
-          dob: 1054425600,
-          userGender: "MALE",
-          userAvatar: "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963&_gl=1*ogemi8*_ga*OTI1NDQxNDAzLjE2Nzc2MzY3NTY.*_ga_CW55HF8NVT*MTY4NTkyOTYzNS4zMi4xLjE2ODU5Mjk2ODcuMC4wLjA.",
-          userRoles: [
-            "ROLE_USER"
-          ]
-        },
-        rescuer: null,
-        animalDescription: "Hơi nhát, hoạt động bình thường",
-        locationDescription: "Gần siêu thị Lotte",
-        street: "Nguyễn Văn Lượng",
-        ward: "Phường 6",
-        district: "Quận Gò Vấp",
-        city: "Thành phố Hồ Chí Minh",
-        date: 1688231043030,
-        status: "WAITING"
-      }
-    ]
-    this.defaultRescuePets = [...this.rescuePet]
   }
 
   addNewPost() {
@@ -243,7 +89,11 @@ export class RescueComponent {
     })
   }
 
-
+  public reloadPage() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['user/rescue']);
+    });
+  }
 
   onCheckboxStatusChange(event) {
     this.rescuePet = [...this.defaultRescuePets]
