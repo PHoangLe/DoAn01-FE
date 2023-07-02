@@ -67,7 +67,8 @@
               [options]="listProvince"
               [filter]="true"
               [autoDisplayFirst]="false"
-              filterBy="listProvince"
+              optionLabel="provName"
+              filterBy="provName"
               (onChange)="provinceSelectedChange($event.value)"
               formControlName="shelterProvince"
             >
@@ -88,6 +89,8 @@
             <p-dropdown
               [filter]="true"
               [autoDisplayFirst]="false"
+              optionLabel="distName"
+              filterBy="distName"
               [options]="listDistrict"
               (onChange)="districtSelectedChange($event.value)"
               formControlName="shelterDistrict"
@@ -99,8 +102,8 @@
             <p-dropdown
               [options]="listWard"
               [autoDisplayFirst]="false"
-              [filter]="true"
-              filterBy="name"
+              filterBy="wardName"
+              optionLabel="wardName"
               formControlName="shelterWard"
             >
             </p-dropdown>

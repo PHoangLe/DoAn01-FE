@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { PetService } from 'src/app/services/pet.service';
+import { RescueService } from 'src/app/services/rescue.service';
 
 @Component({
   selector: 'app-rescue-card',
@@ -12,12 +13,44 @@ export class RescueCardComponent {
 
   @Input() pet: any;
 
-  constructor(private router: Router, private petService: PetService, private authService: AuthService) { }
+
+  constructor(
+    private router: Router,
+    private rescueService: RescueService,
+  ) { }
 
   ngOnInit() {
   }
 
-  routeToRescueDetail(pet) {
-
+  routeToRescueDetail() {
+    this.rescueService.setStorageRescuePost(this.pet)
+    this.router.navigate([`rescue/rescue-detail/${this.pet.rescuePostID}`])
   }
+
+  getSeverity(status: string) {
+    switch (status) {
+      case 'COMPLETED':
+        return 'success';
+      case 'WAITING':
+        return 'info';
+      case 'PROCESSING':
+        return 'warning';
+      default:
+        return 'danger';
+    }
+  }
+
+  getStatus(status: string) {
+    switch (status) {
+      case 'COMPLETED':
+        return 'Thành công';
+      case 'WAITING':
+        return 'Đang chờ';
+      case 'PROCESSING':
+        return 'Đang giải cứu';
+      default:
+        return 'Không thành công';
+    }
+  }
+
 }

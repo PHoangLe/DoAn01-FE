@@ -5,7 +5,7 @@
 ></app-widget>
 <div class="container d-flex m-0 p-0">
   <div
-    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-2 col-lg-2 m-2"
+    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 col-lg-3 m-2 px-2"
   >
     <button class="btn btn-primary w-100 my-2" (click)="addNewPost()">
       Thêm bài đăng
@@ -30,29 +30,67 @@
         </span>
       </div>
     </div>
-    <p-divider align="left">
+    <p-divider align="left" class="mt-2">
       <div class="inline-flex align-items-center">
         <b>Khu vực</b>
       </div>
     </p-divider>
 
-    <div class="pet-type w-100 p-2">
-      <div *ngFor="let pet of petSpecie" class="field-checkbox p-1">
-        <p-radioButton
-          name="group"
-          [value]="pet.id"
-          [inputId]="pet.id"
-          [(ngModel)]="selectedSpecie"
-          (onClick)="onCheckboxBreedChange($event)"
-        ></p-radioButton>
-        <label [for]="pet.id">{{ pet.value }}</label>
-      </div>
-    </div>
-    <p-divider align="left">
+    <span class="p-float-label">
+      <h6 class="addressLabel p-1 ps-0 mb-0 mt-1">Thành phố/Tỉnh</h6>
+      <p-dropdown
+        [options]="listProvince"
+        [filter]="true"
+        [autoDisplayFirst]="false"
+        optionLabel="provName"
+        filterBy="provName"
+        (onChange)="provinceSelectedChange($event.value)"
+      >
+      </p-dropdown>
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel p-1 ps-0 mb-0 mt-1">Quận/Huyện</h6>
+      <p-dropdown
+        [filter]="true"
+        [autoDisplayFirst]="false"
+        [options]="listDistrict"
+        optionLabel="distName"
+        filterBy="distName"
+        (onChange)="districtSelectedChange($event.value)"
+      >
+      </p-dropdown>
+    </span>
+    <span class="p-float-label">
+      <h6 class="addressLabel p-1 ps-0 mb-0 mt-1">Phường/Xã</h6>
+      <p-dropdown
+        [options]="listWard"
+        [autoDisplayFirst]="false"
+        [filter]="true"
+        filterBy="wardName"
+        optionLabel="wardName"
+      >
+      </p-dropdown>
+    </span>
+    <p-divider align="left" class="mt-4">
       <div class="inline-flex align-items-center">
         <b>Tình trạng</b>
       </div>
     </p-divider>
+    <div class="pet-type w-100 p-2">
+      <div
+        *ngFor="let status of rescueStatus"
+        class="field-checkbox p-1 d-flex align-items-center"
+      >
+        <p-radioButton
+          name="group"
+          [value]="status.id"
+          [inputId]="status.id"
+          [(ngModel)]="selectedSpecie"
+          (onClick)="onCheckboxBreedChange($event)"
+        ></p-radioButton>
+        <label class="ps-2" [for]="status.id">{{ status.value }}</label>
+      </div>
+    </div>
   </div>
   <div class="pet-list col-9 col-sm-10 col-lg-10">
     <div
@@ -66,7 +104,7 @@
     </div>
     <p-dataView
       class="w-100"
-      [value]="pets"
+      [value]="rescuePet"
       layout="grid"
       [rows]="20"
       [paginator]="true"
@@ -75,7 +113,7 @@
       filterBy="animalName,animalAge,animalGender,animalBreed,shelterName"
     >
       <ng-template let-pet pTemplate="gridItem">
-        <app-pet-card [pet]="pet"></app-pet-card>
+        <app-rescue-card [pet]="pet"></app-rescue-card>
       </ng-template>
     </p-dataView>
   </div>

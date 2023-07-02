@@ -12,7 +12,7 @@
         <input
           class="inputtext ps-1 w-100"
           type="text"
-          formControlName="shelterNo"
+          formControlName="rescuePetNo"
         />
       </span>
       <span class="p-float-label">
@@ -21,20 +21,11 @@
           [options]="listProvince"
           [filter]="true"
           [autoDisplayFirst]="false"
-          filterBy="listProvince"
+          optionLabel="provName"
+          filterBy="provName"
           (onChange)="provinceSelectedChange($event.value)"
-          formControlName="shelterProvince"
+          formControlName="rescuePetProvince"
         >
-          <!-- <ng-template pTemplate="selectedItem">
-                <div class="flex align-items-center">
-                  <div>{{ selectedCountry.name }}</div>
-                </div>
-              </ng-template>
-              <ng-template let-country pTemplate="item">
-                <div class="flex align-items-center gap-2">
-                  <div>{{ country.name }}</div>
-                </div>
-             </ng-template> -->
         </p-dropdown>
       </span>
       <span class="p-float-label">
@@ -43,8 +34,10 @@
           [filter]="true"
           [autoDisplayFirst]="false"
           [options]="listDistrict"
+          optionLabel="distName"
+          filterBy="distName"
           (onChange)="districtSelectedChange($event.value)"
-          formControlName="shelterDistrict"
+          formControlName="rescuePetDistrict"
         >
         </p-dropdown>
       </span>
@@ -54,8 +47,9 @@
           [options]="listWard"
           [autoDisplayFirst]="false"
           [filter]="true"
-          filterBy="name"
-          formControlName="shelterWard"
+          filterBy="wardName"
+          optionLabel="wardName"
+          formControlName="rescuePetWard"
         >
         </p-dropdown>
       </span>
@@ -63,7 +57,7 @@
     <div class="address-des mx-4 my-2 ps-2 pe-4 w-100">
       <h6 class="addressLabel ps-0">Miêu tả địa điểm</h6>
       <textarea
-        formControlName="petDetails"
+        formControlName="rescuePetPosition"
         class="w-100"
         name=""
         id="textarea"
@@ -74,7 +68,7 @@
     <div class="status-des mx-4 ps-2 pe-4 w-100">
       <h6 class="ps-0">Tình trạng hiện tại của bé</h6>
       <textarea
-        formControlName="petDetails"
+        formControlName="rescuePetDetail"
         class="w-100"
         name=""
         id="textarea"
@@ -114,8 +108,7 @@
     <button
       type="submit"
       class="btn btn-primary text-nowrap"
-      (click)="addNewPet()"
-      [disabled]="addPostForm.invalid"
+      (click)="addNewRescuePost()"
     >
       Thêm
     </button>

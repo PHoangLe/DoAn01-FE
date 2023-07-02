@@ -14,6 +14,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BadgeModule } from 'primeng/badge';
 import { RescueCardComponent } from './components/rescue-card/rescue-card.component';
+import { TagModule } from 'primeng/tag';
+import { GalleriaModule } from 'primeng/galleria';
 
 
 
@@ -25,7 +27,9 @@ import { RescueCardComponent } from './components/rescue-card/rescue-card.compon
     DividerModule,
     FontAwesomeModule,
     BreadcrumbModule,
-    BadgeModule
+    BadgeModule,
+    TagModule,
+    GalleriaModule
   ],
   declarations: [
     HeaderComponent,
@@ -40,7 +44,9 @@ import { RescueCardComponent } from './components/rescue-card/rescue-card.compon
     PetCardComponent,
     FooterComponent,
     WidgetComponent,
-    SidebarComponent
+    SidebarComponent,
+    RescueCardComponent
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

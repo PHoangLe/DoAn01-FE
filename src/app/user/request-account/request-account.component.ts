@@ -19,9 +19,7 @@ export class RequestAccountComponent implements OnInit {
   documentList: Array<File> = new Array
   relatedDoc: string[] = new Array
   listProvince = new Array
-  listProvinceWithCode = new Array
   listDistrict = new Array
-  listDistrictWithCode = new Array
   listWard = new Array
 
   constructor(
@@ -87,14 +85,13 @@ export class RequestAccountComponent implements OnInit {
   bindProvinces() {
     this.apiAddress.getProvinces().subscribe(response => {
       const rListProvince = response.data.data
-      this.listProvinceWithCode = rListProvince.map(rListProvince => {
+      this.listProvince = rListProvince.map(rListProvince => {
         return {
           provName: rListProvince.name_with_type,
           provCode: rListProvince.code
         }
       })
-
-      this.listProvince = rListProvince.map(rListProvince => rListProvince.name_with_type)
+      console.log(this.listProvince)
     }),
       err => {
         console.log(err.error.message)
@@ -102,21 +99,18 @@ export class RequestAccountComponent implements OnInit {
   }
 
   provinceSelectedChange(selectedValue) {
-    console.log(this.requestForm.controls.shelterProvince.value)
-    let foundProvince = this.listProvinceWithCode.find(item => item.provName == selectedValue);
+    let foundProvince = this.listProvince.find(item => item.provName == selectedValue.provName);
     this.apiAddress.getDisctrictsByProvince(foundProvince.provCode).subscribe(response => {
       const rListDistrict = response.data.data
-      this.listDistrictWithCode = rListDistrict.map(rListDistrict => {
+      this.listDistrict = rListDistrict.map(rListDistrict => {
         return {
-          provName: rListDistrict.name_with_type,
-          provCode: rListDistrict.code
+          distName: rListDistrict.name_with_type,
+          distCode: rListDistrict.code
         }
       }),
         err => {
           console.log(err.error.message)
         }
-
-      this.listDistrict = rListDistrict.map(rListDistrict => rListDistrict.name_with_type)
     }),
       err => {
         console.log(err.error.message)
@@ -124,10 +118,14 @@ export class RequestAccountComponent implements OnInit {
   }
 
   districtSelectedChange(selectedValue) {
-    let foundWard = this.listDistrictWithCode.find(item => item.provName == selectedValue);
-    this.apiAddress.getWardsByDistrict(foundWard.provCode).subscribe(response => {
+    this.apiAddress.getWardsByDistrict(selectedValue.distCode).subscribe(response => {
       const rListWard = response.data.data
-      this.listWard = rListWard.map(rListWard => rListWard.name_with_type)
+      this.listWard = rListWard.map(rListWard => {
+        return {
+          wardName: rListWard.name_with_type,
+          wardCode: rListWard.code
+        }
+      })
     }),
       err => {
         console.log(err.error.message)
