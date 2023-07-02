@@ -72,7 +72,6 @@ export class AdoptionDetailComponent implements OnInit {
       this.chat.sendValue("Bắt đầu trò chuyện")
       this.router.navigate(['/chat']);
     }, 1000);
-
   }
 
 }

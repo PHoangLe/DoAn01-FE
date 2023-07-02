@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { Shelter } from 'src/app/model/Shelter';
-import { ShelterService } from 'src/app/services/shelter.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { RescueService } from 'src/app/services/rescue.service';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AddRescueComponent } from './add-rescue/add-rescue.component';
+import { MenuItem, MessageService } from 'primeng/api';
+import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { ApiAddressService } from 'src/app/services/api-address.service';
-
+import { RescueService } from 'src/app/services/rescue.service';
+import { AddRescueComponent } from 'src/app/user/rescue/add-rescue/add-rescue.component';
 
 @Component({
   selector: 'app-rescue',
   templateUrl: './rescue.component.html',
   styleUrls: ['./rescue.component.less'],
   providers: [DialogService, MessageService]
+
 })
-export class RescueComponent implements OnInit {
+export class RescueComponent {
   protected rescuePet;
+  protected processingRescue;
+  private apiRes;
   listProvince = new Array;
   listDistrict = new Array;
   listWard = new Array;
@@ -46,7 +46,6 @@ export class RescueComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.getAllRescuePost();
     this.bindProvinces();
     this.breadcrumbItimes = [
@@ -65,8 +64,11 @@ export class RescueComponent implements OnInit {
 
   async getAllRescuePost() {
     this.isLoading = true
-    await this.rescueService.getAllRescuePosts().then(response => {
-      this.rescuePet = response
+    await this.rescueService.getAllRescueByShelter().then(response => {
+      this.apiRes = response
+      this.rescuePet = this.apiRes[0]
+      this.processingRescue = this.apiRes[1]
+      console.log(this.processingRescue)
       this.defaultRescuePets = [...this.rescuePet]
     }).catch(err => {
       err => {
@@ -74,9 +76,12 @@ export class RescueComponent implements OnInit {
       }
     })
     this.isLoading = false
-    console.log(this.rescuePet)
   }
 
+
+  routeToRescueDetail(rescueID) {
+    this.router.navigate([`shelter/rescue-detail/${rescueID}`])
+  }
   addNewPost() {
     this.ref = this.dialogService.open(AddRescueComponent, {
       width: '50%',
@@ -89,19 +94,7 @@ export class RescueComponent implements OnInit {
     })
   }
 
-  public reloadPage() {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['user/rescue']);
-    });
-  }
 
-  onCheckboxStatusChange(event) {
-    this.rescuePet = [...this.defaultRescuePets]
-    if (event.value === "All") {
-      return
-    }
-    this.rescuePet = this.rescuePet.filter(pet => pet.status === this.selectedStatus)
-  }
 
   onUserSearched() {
     if (this.searchValue === "")
@@ -109,6 +102,16 @@ export class RescueComponent implements OnInit {
     this.rescuePet = this.rescuePet.filter((pet) => {
       return Object.values(pet).some((value) => String(value).includes(this.searchValue))
     })
+  }
+
+  public reloadPage() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['shelter/rescue']);
+    });
+  }
+
+  contactSender() {
+
   }
 
   bindProvinces() {

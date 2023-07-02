@@ -1,19 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ChatComponent } from '../chat/chat.component';
 import { Router } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
-import { ChatService } from 'src/app/services/chat.service';
-import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
+import { MenuItem } from 'primeng/api';
 import { RescueService } from 'src/app/services/rescue.service';
-import { ChatComponent } from 'src/app/shelter/chat/chat.component';
 
 @Component({
   selector: 'app-rescue-detail',
   templateUrl: './rescue-detail.component.html',
   styleUrls: ['./rescue-detail.component.less'],
   providers: [ChatComponent]
-
 })
-export class RescueDetailComponent implements OnInit {
+export class RescueDetailComponent {
   rescuePost: any;
   breadcrumbItimes: MenuItem[];
   async ngOnInit() {
@@ -84,5 +81,4 @@ export class RescueDetailComponent implements OnInit {
   getCityName(string: string) {
     return string.slice(9)
   }
-
 }

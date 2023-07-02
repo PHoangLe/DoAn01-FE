@@ -9,6 +9,8 @@ import { ShelterPageComponent } from './shelter-page/shelter-page.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LandingComponent } from '../user/landing/landing.component';
 import { DonateComponent } from './donate/donate.component';
+import { RescueComponent } from './rescue/rescue.component';
+import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
 
 const routes: Routes = [
   {
@@ -46,6 +48,14 @@ const routes: Routes = [
       {
         path: 'donation',
         component: DonateComponent
+      },
+      {
+        path: 'rescue',
+        component: RescueComponent
+      },
+      {
+        path: 'rescue-detail/:id',
+        component: RescueDetailComponent
       }
     ]
   },

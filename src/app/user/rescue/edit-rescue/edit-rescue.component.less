@@ -1,0 +1,70 @@
+:host::ng-deep {
+  .p-dropdown,
+  input {
+    border: solid 1px;
+  }
+  .p-inputtext {
+    height: 2.5rem;
+  }
+  .p-fileupload {
+    border-radius: 10px;
+    .p-fileupload-buttonbar {
+      display: flex;
+      justify-content: end;
+    }
+    .p-fileupload-buttonbar .p-button {
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 5px;
+    }
+    .p-button {
+      background-color: red;
+      border: none;
+      border-radius: 7px;
+    }
+  }
+}
+
+.address-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 10px;
+}
+h6 {
+  margin: 0.1rem;
+  font-weight: 600;
+}
+.inputtext {
+  height: 40px;
+  border-radius: 7px;
+}
+.img-container {
+  box-sizing: border-box;
+  .img-content {
+    width: fit-content;
+    position: relative;
+    .btn-delete {
+      position: absolute;
+      right: -7px;
+      top: -7px;
+      width: 20px;
+      height: 20px;
+
+      background-color: red;
+
+      cursor: pointer;
+    }
+    img {
+      border-radius: 5px;
+      max-width: 150px;
+      max-height: 150px;
+      height: 100px;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .detail-info {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

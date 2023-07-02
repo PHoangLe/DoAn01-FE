@@ -101,4 +101,55 @@
       </p-galleria>
     </div>
   </div>
+  <div class="inline-flex align-items-center mt-4">
+    <h5 class="fw-medium"><b>Thông tin người đăng</b></h5>
+  </div>
+  <div class="user pt-4 ps-4">
+    <div class="user-info d-flex p-3 rounded-4">
+      <img
+        class="rounded-circle col-4"
+        [src]="
+          rescuePost.poster.userAvatar
+            ? rescuePost.poster.userAvatar
+            : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963'
+        "
+        alt=""
+      />
+
+      <div class="ps-4 ps-4">
+        <h5>
+          <b>{{
+            rescuePost.poster.userFirstName +
+              " " +
+              rescuePost.poster.userLastName
+          }}</b>
+        </h5>
+        <h5>{{ rescuePost.poster.userEmail }}</h5>
+        <h5>
+          Số điện thoại:
+          {{
+            rescuePost.poster.userPhone
+              ? rescuePost.poster.userPhone
+              : "Chưa có"
+          }}
+        </h5>
+        <button class="btn btn-primary mx-auto" (click)="contactRequestor()">
+          Liên hệ
+        </button>
+      </div>
+    </div>
+    <div class="button" *ngIf="rescuePost.status === 'PROCESSING'">
+      <button class="btn btn-primary" (click)="acceptRequest()">
+        Đã hoàn thành việc cứu trợ
+      </button>
+      <button class="btn btn-secondary" (click)="rejectRequest()">
+        Không thể hoàn thành việc cứu trợ
+      </button>
+    </div>
+    <div class="button" *ngIf="rescuePost.status === 'WAITING'">
+      <button class="btn btn-primary" (click)="acceptRequest()">
+        Đảm nhận việc cứu trợ
+      </button>
+    </div>
+  </div>
 </div>

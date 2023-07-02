@@ -1,0 +1,65 @@
+<div class="card">
+  <div class="card-content d-flex justify-content-between p-2">
+    <div class="poster-info d-flex p-1 rounded-4">
+      <img
+        class="rounded-circle col-4 my-auto"
+        [src]="
+          rescuePost.poster.userAvatar
+            ? rescuePost.poster.userAvatar
+            : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963'
+        "
+        alt=""
+      />
+
+      <div class="ps-2 m-0 d-flex justify-content-start flex-column">
+        <h5>
+          <b>{{
+            rescuePost.poster.userFirstName +
+              " " +
+              rescuePost.poster.userLastName
+          }}</b>
+        </h5>
+        <button class="btn btn-primary ms-0" (click)="contactSender()">
+          Liên hệ
+        </button>
+      </div>
+    </div>
+    <div class="pet-position d-flex flex-nowrap">
+      <p class="m-0 my-auto fw-semibold">
+        {{ rescuePost.ward }}, {{ rescuePost.district }}
+      </p>
+      <i style="color: #7a3d26" class="bi bi-geo-alt-fill ps-2 my-auto"></i>
+    </div>
+  </div>
+  <p-galleria
+    [value]="rescuePost.images"
+    [showIndicators]="false"
+    [showItemNavigators]="false"
+    [autoPlay]="true"
+    [circular]="true"
+    [showThumbnails]="false"
+    [containerStyle]="{ 'max-width': '760px' }"
+    style="cursor: pointer"
+    (click)="routeToRescueDetail()"
+  >
+    <ng-template pTemplate="item" let-item>
+      <img
+        [src]="item"
+        style="
+          width: 100%;
+          display: block;
+          height: 300px;
+          object-fit: cover;
+          border-radius: 0 0 5px 5px;
+        "
+      />
+    </ng-template>
+  </p-galleria>
+  <button
+    class="rescue-pet w-100 position-absolute bottom-0"
+    (click)="processRescue()"
+  >
+    Đảm nhận việc cứu trợ
+  </button>
+</div>
+<p-toast key="toast"></p-toast>

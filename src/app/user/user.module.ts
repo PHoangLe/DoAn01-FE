@@ -33,6 +33,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { RescueComponent } from './rescue/rescue.component';
 import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
 import { AddRescueComponent } from './rescue/add-rescue/add-rescue.component';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { EditRescueComponent } from './rescue/edit-rescue/edit-rescue.component';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { AddRescueComponent } from './rescue/add-rescue/add-rescue.component';
     FundBankingComponent,
     RescueComponent,
     RescueDetailComponent,
-    AddRescueComponent
+    AddRescueComponent,
+    EditRescueComponent
   ],
   imports: [
     CommonModule,
@@ -74,6 +77,8 @@ import { AddRescueComponent } from './rescue/add-rescue/add-rescue.component';
     InputNumberModule,
     CalendarModule,
 
-  ]
+  ],
+  providers: [MessageService, ConfirmationService],
+
 })
 export class UserModule { }

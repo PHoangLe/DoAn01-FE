@@ -72,28 +72,8 @@
       >
       </p-dropdown>
     </span>
-    <p-divider align="left" class="mt-4">
-      <div class="inline-flex align-items-center">
-        <b>Tình trạng</b>
-      </div>
-    </p-divider>
-    <div class="pet-type w-100 p-2">
-      <div
-        *ngFor="let status of rescueStatus"
-        class="field-checkbox p-1 d-flex align-items-center"
-      >
-        <p-radioButton
-          name="group"
-          [value]="status.id"
-          [inputId]="status.id"
-          [(ngModel)]="selectedStatus"
-          (onClick)="onCheckboxStatusChange($event)"
-        ></p-radioButton>
-        <label class="ps-2" [for]="status.id">{{ status.value }}</label>
-      </div>
-    </div>
   </div>
-  <div class="pet-list col-9 col-sm-10 position-relative">
+  <div class="pet-list col-6 col-sm-7 position-relative">
     <div
       *ngIf="isLoading"
       class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
@@ -104,7 +84,7 @@
       <p style="opacity: 0.7">Đang tải</p>
     </div>
     <p-dataView
-      class="w-100"
+      class="w-100 text-center"
       [value]="rescuePet"
       layout="grid"
       [rows]="10"
@@ -114,8 +94,46 @@
       filterBy="animalName,animalAge,animalGender,animalBreed,shelterName"
     >
       <ng-template let-pet pTemplate="gridItem">
-        <app-rescue-card [pet]="pet"></app-rescue-card>
+        <app-rescue-card-shelter [rescuePost]="pet"></app-rescue-card-shelter>
       </ng-template>
     </p-dataView>
+  </div>
+  <div class="current-rescue col-3 col-sm-3 pt-2">
+    <h4>Các cứu trợ đang đảm nhận</h4>
+    <div class="processing-rescue" *ngFor="let process of processingRescue">
+      <div
+        class="card-content d-flex justify-content-between p-2"
+        (click)="routeToRescueDetail(process.rescuePostID)"
+      >
+        <div class="poster-info d-flex p-1 rounded-4">
+          <img
+            class="rounded-circle col-4 my-auto"
+            [src]="
+              process.poster.userAvatar
+                ? process.poster.userAvatar
+                : 'https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963'
+            "
+            alt=""
+          />
+
+          <div class="ps-2 m-0 d-flex justify-content-start flex-column">
+            <h6>
+              <b>{{
+                process.poster.userFirstName + " " + process.poster.userLastName
+              }}</b>
+            </h6>
+            <button class="btn btn-primary ms-0" (click)="contactSender()">
+              Liên hệ
+            </button>
+          </div>
+        </div>
+        <div class="pet-position d-flex flex-nowrap">
+          <p class="m-0 my-auto fw-semibold">
+            {{ process.ward }}, {{ process.district }}
+          </p>
+          <i style="color: #7a3d26" class="bi bi-geo-alt-fill ps-2 my-auto"></i>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

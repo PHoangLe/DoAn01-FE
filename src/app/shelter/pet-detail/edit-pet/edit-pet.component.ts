@@ -89,7 +89,6 @@ export class EditPetComponent implements OnInit {
     await this.pushFileToCloud();
     await this.removeImgFromStorage();
     let uploadedDocUrl = this.fileUpload.getFileUrl()
-    console.log(this.inputPet)
     this.petService.updatePet(this.inputPet, this.avatarUrl, uploadedDocUrl).then(() => {
       this.messageService.add({ key: 'updatePet', severity: 'success', summary: 'Cập nhật thành công' });
       setTimeout(() => {
