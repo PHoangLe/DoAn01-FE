@@ -34,6 +34,10 @@ export class UploadFileService {
       basePath = '/Avatar'
       filePath = `${basePath}/logo-${this.authService.getDataFromCookie("userID")}`;
     }
+    else if (fileType === "rescuePetImgs") {
+      basePath = '/RescuePetImgs'
+      filePath = `${basePath}/rescue-${this.authService.getDataFromCookie("userID")}/${fileUpload.name}`;
+    }
     else if (fileType === "pet" || fileType === "petImgs") {
       basePath = '/Pet'
       filePath = `${basePath}/shelter-${this.authService.getDataFromCookie("userID")}/${fileUpload.name}`;
@@ -45,7 +49,7 @@ export class UploadFileService {
       uploadTask.snapshotChanges().pipe(
         finalize(async () => {
           await storageRef.getDownloadURL().subscribe(downloadURL => {
-            if (fileType !== "document" && fileType !== "petImgs") {
+            if (fileType !== "document" && fileType !== "petImgs" && fileType !== "rescuePetImgs") {
               this.avatarUrl = (downloadURL)
             }
             else {

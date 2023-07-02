@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { DonateComponent } from './donate/donate.component';
 import { RescueComponent } from './rescue/rescue.component';
+import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
 
 const routes: Routes = [
 
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: 'rescue',
         component: RescueComponent
+      },
+      {
+        path: 'rescue/rescue-detail/:id',
+        component: RescueDetailComponent
       }
     ]
   }

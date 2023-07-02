@@ -4,6 +4,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Pet } from 'src/app/model/Pet';
 import { ApiAddressService } from 'src/app/services/api-address.service';
 import { PetService } from 'src/app/services/pet.service';
+import { RescueService } from 'src/app/services/rescue.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 
 @Component({
@@ -18,63 +19,34 @@ export class AddRescueComponent {
   listDistrict = new Array
   listDistrictWithCode = new Array
   listWard = new Array
-  genderOptions = [
-    {
-      id: '0', value: 'Cái'
-    },
-    {
-      id: '1', value: 'Đực'
-    }
-  ]
-
-  specieOptions = [
-    {
-      id: 'Dog', value: 'Chó'
-    },
-    {
-      id: 'Cat', value: 'Mèo'
-    }
-  ]
-  listStatus = [
-    {
-      id: 'sterilized', value: 'Xổ giun', checked: false
-    },
-    {
-      id: 'deWormed', value: 'Triệt sản', checked: false
-    },
-    {
-      id: 'vaccinated', value: 'Tiêm phòng', checked: false
-    },
-    {
-      id: 'friendly', value: 'Thân thiện', checked: false
-    }
-  ]
   avatarFile: any;
   avatarUrl: any;
   othersImg: Array<File> = new Array
 
-  constructor(private petService: PetService,
+  constructor(private rescueService: RescueService,
     public ref: DynamicDialogRef,
     private builder: FormBuilder,
     private apiAddress: ApiAddressService,
     private fileUpload: UploadFileService) { }
 
   addPostForm = this.builder.group({
-    shelterProvince: this.builder.control('', Validators.required),
-    shelterDistrict: this.builder.control('', Validators.required),
-    shelterWard: this.builder.control('', Validators.required),
+    rescuePetProvince: this.builder.control('', Validators.required),
+    rescuePetDistrict: this.builder.control('', Validators.required),
+    rescuePetWard: this.builder.control('', Validators.required),
+    rescuePetNo: this.builder.control('', Validators.required),
+    rescuePetDetail: this.builder.control(''),
+    rescuePetPosition: this.builder.control(''),
   })
 
   ngOnInit() {
     this.bindProvinces()
-
   }
 
-  async addNewPet() {
+  async addNewRescuePost() {
     await this.pushFileToCloud();
     let uploadedDocUrl = this.fileUpload.getFileUrl()
-    this.petService.addPet(this.addPostForm.value, this.avatarUrl, uploadedDocUrl).then(value => {
-      console.log("add new pet successfully")
+    this.rescueService.createNewPost(this.addPostForm.value, uploadedDocUrl).then(value => {
+      console.log("add new post successfully")
       setTimeout(() => {
         this.ref.close()
       }, 1500);
@@ -86,16 +58,8 @@ export class AddRescueComponent {
 
   async pushFileToCloud() {
     for (let i = 0; i < this.othersImg.length; i++) {
-      await this.fileUpload.pushFileToStorage(this.othersImg[i], "petImgs")
+      await this.fileUpload.pushFileToStorage(this.othersImg[i], "rescuePetImgs")
     }
-  }
-
-  async selectedAvatar(event) {
-    this.avatarFile = event.target.files;
-    const imgInput = <HTMLImageElement>document.getElementById("imgInput")
-    await this.fileUpload.pushFileToStorage(this.avatarFile[0], "pet")
-    this.avatarUrl = this.fileUpload.getAvatarUrl()
-    imgInput.src = this.avatarUrl
   }
 
   public onSelectFiles(event) {
@@ -107,14 +71,12 @@ export class AddRescueComponent {
   bindProvinces() {
     this.apiAddress.getProvinces().subscribe(response => {
       const rListProvince = response.data.data
-      this.listProvinceWithCode = rListProvince.map(rListProvince => {
+      this.listProvince = rListProvince.map(rListProvince => {
         return {
           provName: rListProvince.name_with_type,
           provCode: rListProvince.code
         }
       })
-
-      this.listProvince = rListProvince.map(rListProvince => rListProvince.name_with_type)
     }),
       err => {
         console.log(err.error.message)
@@ -122,21 +84,18 @@ export class AddRescueComponent {
   }
 
   provinceSelectedChange(selectedValue) {
-    console.log(this.addPostForm.controls.shelterProvince.value)
-    let foundProvince = this.listProvinceWithCode.find(item => item.provName == selectedValue);
+    let foundProvince = this.listProvince.find(item => item.provName == selectedValue.provName);
     this.apiAddress.getDisctrictsByProvince(foundProvince.provCode).subscribe(response => {
       const rListDistrict = response.data.data
-      this.listDistrictWithCode = rListDistrict.map(rListDistrict => {
+      this.listDistrict = rListDistrict.map(rListDistrict => {
         return {
-          provName: rListDistrict.name_with_type,
-          provCode: rListDistrict.code
+          distName: rListDistrict.name_with_type,
+          distCode: rListDistrict.code
         }
       }),
         err => {
           console.log(err.error.message)
         }
-
-      this.listDistrict = rListDistrict.map(rListDistrict => rListDistrict.name_with_type)
     }),
       err => {
         console.log(err.error.message)
@@ -144,10 +103,14 @@ export class AddRescueComponent {
   }
 
   districtSelectedChange(selectedValue) {
-    let foundWard = this.listDistrictWithCode.find(item => item.provName == selectedValue);
-    this.apiAddress.getWardsByDistrict(foundWard.provCode).subscribe(response => {
+    this.apiAddress.getWardsByDistrict(selectedValue.distCode).subscribe(response => {
       const rListWard = response.data.data
-      this.listWard = rListWard.map(rListWard => rListWard.name_with_type)
+      this.listWard = rListWard.map(rListWard => {
+        return {
+          wardName: rListWard.name_with_type,
+          wardCode: rListWard.code
+        }
+      })
     }),
       err => {
         console.log(err.error.message)

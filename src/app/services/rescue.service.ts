@@ -15,7 +15,34 @@ export class RescueService {
 
   getAllRescuePosts() {
     let headers = this.getHttpHeader();
-    return this.http.get(this.baseUrl + `/${this.authService.getDataFromCookie('userID')}`).toPromise();
+    return this.http.get(this.baseUrl + `/user/${this.authService.getDataFromCookie('userID')}`, { headers: headers }).toPromise();
+  }
+
+  createNewPost(postInfo, listImgs) {
+    let headers = this.getHttpHeader();
+    const userID = this.authService.getDataFromCookie('userID');
+    console.log(`createNewPost`, postInfo)
+    console.log(`listImgs`, listImgs)
+
+    return this.http.post(this.baseUrl, {
+      images: listImgs,
+      userID: userID,
+      animalDescription: postInfo.rescuePetDetail ? postInfo.rescuePetDetail : "",
+      locationDescription: postInfo.rescuePetPosition ? postInfo.rescuePetPosition : "",
+      street: postInfo.rescuePetNo,
+      ward: postInfo.rescuePetWard.wardName,
+      district: postInfo.rescuePetDistrict.distName,
+      city: postInfo.rescuePetProvince.provName
+    }, { headers: headers }).toPromise();
+
+  }
+
+  setStorageRescuePost(rescuePost) {
+    sessionStorage.setItem("currentRescuePost", JSON.stringify(rescuePost));
+  }
+
+  getStorageRescuePost(rescuePost) {
+    return sessionStorage.getItem("currentRescuePost");
   }
 
   getHttpHeader(): HttpHeaders {

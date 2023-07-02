@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit {
       if (this.userID = this.authService.getDataFromCookie("userID")) {
         this.isLoggin = true
         this.imageUrl = (localStorage.getItem("userAvatar"))
-        console.log(this.imageUrl)
         this.isShelter = this.authService.getDataFromCookie("userRoles").includes('ROLE_SHELTER_MANAGER')
       }
     }
