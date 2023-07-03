@@ -45,10 +45,29 @@ export class AuthService {
     }, httpOptions
     )).toPromise();
   }
+
+  async sendOTPForgotPassword(inputData: any): Promise<any> {
+    return await (this.http.post(this.baseUrl + 'otp/sendOTPForgotPassword', {
+      emailAddress: inputData.email,
+    }, httpOptions
+    )).toPromise();
+  }
   async verifyEmail(inputData: any): Promise<any> {
     return await (this.http.post(this.baseUrl + 'otp/validateOTPConfirmEmail', {
       emailAddress: this.userEmail,
       otp: inputData.otp
+    }, httpOptions
+    )).toPromise();
+  }
+
+  async verifyNewPassword(inputData: any): Promise<any> {
+    console.log(inputData)
+    console.log(localStorage.getItem("validatedEmail"))
+    const email = localStorage.getItem("validatedEmail")
+    return await (this.http.post(this.baseUrl + 'otp/validateOTPForgotPassword', {
+      emailAddress: email,
+      otp: inputData.otp,
+      newPassword: inputData.newPassword
     }, httpOptions
     )).toPromise();
   }
