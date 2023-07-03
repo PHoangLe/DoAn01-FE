@@ -7,9 +7,6 @@
   <div
     class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 m-2 px-2 ps-4"
   >
-    <button class="btn btn-primary w-100 my-2" (click)="addNewPost()">
-      Thêm bài đăng
-    </button>
     <div class="pet-type w-100 p-2">
       <p-divider align="left">
         <div class="inline-flex align-items-center">
@@ -73,7 +70,7 @@
       </p-dropdown>
     </span>
   </div>
-  <div class="pet-list col-6 col-sm-7 position-relative">
+  <div class="pet-list col-5 col-sm-6 position-relative">
     <div
       *ngIf="isLoading"
       class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
@@ -98,11 +95,11 @@
       </ng-template>
     </p-dataView>
   </div>
-  <div class="current-rescue col-3 col-sm-3 pt-2">
+  <div class="current-rescue col-4 col-sm-3 pt-2">
     <h4>Các cứu trợ đang đảm nhận</h4>
     <div class="processing-rescue" *ngFor="let process of processingRescue">
       <div
-        class="card-content d-flex justify-content-between p-2"
+        class="card-content d-flex justify-content-between p-2 my-3"
         (click)="routeToRescueDetail(process.rescuePostID)"
       >
         <div class="poster-info d-flex p-1 rounded-4">
@@ -128,8 +125,8 @@
           </div>
         </div>
         <div class="pet-position d-flex flex-nowrap">
-          <p class="m-0 my-auto fw-semibold">
-            {{ process.ward }}, {{ process.district }}
+          <p class="m-0 my-auto fw-semibold text-end">
+            {{ process.ward }} <br> {{ process.district }}
           </p>
           <i style="color: #7a3d26" class="bi bi-geo-alt-fill ps-2 my-auto"></i>
         </div>

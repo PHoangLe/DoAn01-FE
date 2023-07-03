@@ -11,7 +11,7 @@
         alt=""
       />
 
-      <div class="ps-2 m-0 d-flex justify-content-start flex-column">
+      <div class="ps-2 m-0 d-flex justify-content-start flex-column text-start">
         <h5>
           <b>{{
             rescuePost.poster.userFirstName +
@@ -25,8 +25,8 @@
       </div>
     </div>
     <div class="pet-position d-flex flex-nowrap">
-      <p class="m-0 my-auto fw-semibold">
-        {{ rescuePost.ward }}, {{ rescuePost.district }}
+      <p class="m-0 my-auto fw-semibold text-end">
+        {{ rescuePost.ward }} <br> {{ rescuePost.district }}
       </p>
       <i style="color: #7a3d26" class="bi bi-geo-alt-fill ps-2 my-auto"></i>
     </div>
