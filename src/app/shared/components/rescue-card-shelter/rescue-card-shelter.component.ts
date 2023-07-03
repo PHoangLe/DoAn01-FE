@@ -13,7 +13,7 @@ import { RescueComponent } from 'src/app/shelter/rescue/rescue.component';
 })
 export class RescueCardShelterComponent {
   @Input() rescuePost: any;
-
+  isLoading = false;
 
   constructor(
     private router: Router,
@@ -25,6 +25,7 @@ export class RescueCardShelterComponent {
   ) { }
 
   ngOnInit() {
+    this.isLoading = false;
   }
 
   routeToRescueDetail() {
@@ -42,8 +43,9 @@ export class RescueCardShelterComponent {
     }, 1000);
   }
 
-  processRescue() {
-    this.rescueService.processRescue(this.rescuePost.rescuePostID).then(response => {
+  async processRescue() {
+    this.isLoading = true;
+    await this.rescueService.processRescue(this.rescuePost.rescuePostID).then(response => {
       this.messageService.add({ key: "toast", severity: 'success', detail: 'Nhận thành công' })
       this.rescuePage.reloadPage();
     })
@@ -51,6 +53,8 @@ export class RescueCardShelterComponent {
         console.log(error);
         this.messageService.add({ key: "toast", severity: 'error', detail: 'Có lỗi xảy ra' })
       })
+    this.isLoading = false;
+
   }
 
 }

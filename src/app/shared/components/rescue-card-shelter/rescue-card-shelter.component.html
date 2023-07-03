@@ -1,4 +1,13 @@
 <div class="card">
+  <div
+    *ngIf="isLoading"
+    class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+  >
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Đang tải...</span>
+    </div>
+    <p style="opacity: 0.7">Đang tải</p>
+  </div>
   <div class="card-content d-flex justify-content-between p-2">
     <div class="poster-info d-flex p-1 rounded-4">
       <img
@@ -26,7 +35,8 @@
     </div>
     <div class="pet-position d-flex flex-nowrap">
       <p class="m-0 my-auto fw-semibold text-end">
-        {{ rescuePost.ward }} <br> {{ rescuePost.district }}
+        {{ rescuePost.ward }} <br />
+        {{ rescuePost.district }}
       </p>
       <i style="color: #7a3d26" class="bi bi-geo-alt-fill ps-2 my-auto"></i>
     </div>

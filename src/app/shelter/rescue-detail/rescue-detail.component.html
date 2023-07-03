@@ -31,13 +31,16 @@
         <h5>
           <b
             >{{
-              rescuePost.district.includes("Thị xã")
+              rescuePost.district.includes("Thành phố")
+                ? "Quận"
+                : rescuePost.district.includes("Thị xã")
                 ? getTwoFirstWords(rescuePost.district)
                 : getFirstWord(rescuePost.district)
             }}:</b
           >
           {{
-            rescuePost.district.includes("Thị xã")
+            rescuePost.district.includes("Thị xã") ||
+            rescuePost.district.includes("Thành phố")
               ? getDistrictName(rescuePost.district)
               : getLastWord(rescuePost.district)
           }}
@@ -139,17 +142,18 @@
       </div>
     </div>
     <div class="button" *ngIf="rescuePost.status === 'PROCESSING'">
-      <button class="btn btn-primary" (click)="acceptRequest()">
+      <button class="btn btn-primary" (click)="completeRescuePost()">
         Đã hoàn thành việc cứu trợ
       </button>
-      <button class="btn btn-secondary" (click)="rejectRequest()">
+      <button class="btn btn-secondary" (click)="abortRescuePost()">
         Không thể hoàn thành việc cứu trợ
       </button>
     </div>
     <div class="button" *ngIf="rescuePost.status === 'WAITING'">
-      <button class="btn btn-primary" (click)="acceptRequest()">
+      <button class="btn btn-primary" (click)="acceptRescuePost()">
         Đảm nhận việc cứu trợ
       </button>
     </div>
   </div>
 </div>
+<p-toast key="toast" [preventOpenDuplicates]="true"></p-toast>

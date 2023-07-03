@@ -51,7 +51,7 @@ export class RescueService {
 
   async deleteRescuePost(rescueID: string) {
     let headers = this.getHttpHeader();
-    return await this.http.delete(this.baseUrl + `${rescueID}`, { headers: headers }).toPromise();
+    return await this.http.delete(this.baseUrl + `/${rescueID}`, { headers: headers }).toPromise();
   }
 
   async getAllRescueByShelter() {

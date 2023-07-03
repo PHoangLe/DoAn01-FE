@@ -3,7 +3,7 @@
   [img]="'https://i.ibb.co/TkTFnmM/jamie-street-s9-Tf1e-BDFqw-unsplash.jpg'"
   title="Danh sách cứu hộ"
 ></app-widget>
-<div class="container d-flex m-0 p-0">
+<div class="page-container d-flex m-0 p-0">
   <div
     class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 m-2 px-2 ps-4"
   >
@@ -70,7 +70,7 @@
       </p-dropdown>
     </span>
   </div>
-  <div class="pet-list col-5 col-sm-6 position-relative">
+  <div class="pet-list col-5 col-sm-5 position-relative">
     <div
       *ngIf="isLoading"
       class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
@@ -95,12 +95,12 @@
       </ng-template>
     </p-dataView>
   </div>
-  <div class="current-rescue col-4 col-sm-3 pt-2">
+  <div class="current-rescue col-4 col-sm-3 pt-2 mx-auto">
     <h4>Các cứu trợ đang đảm nhận</h4>
     <div class="processing-rescue" *ngFor="let process of processingRescue">
       <div
         class="card-content d-flex justify-content-between p-2 my-3"
-        (click)="routeToRescueDetail(process.rescuePostID)"
+        (click)="routeToRescueDetail(process)"
       >
         <div class="poster-info d-flex p-1 rounded-4">
           <img
@@ -126,7 +126,8 @@
         </div>
         <div class="pet-position d-flex flex-nowrap">
           <p class="m-0 my-auto fw-semibold text-end">
-            {{ process.ward }} <br> {{ process.district }}
+            {{ process.ward }} <br />
+            {{ process.district }}
           </p>
           <i style="color: #7a3d26" class="bi bi-geo-alt-fill ps-2 my-auto"></i>
         </div>

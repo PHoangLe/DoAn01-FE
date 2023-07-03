@@ -62,6 +62,7 @@ export class RescueComponent {
   }
 
 
+
   async getAllRescuePost() {
     this.isLoading = true
     await this.rescueService.getAllRescueByShelter().then(response => {
@@ -79,8 +80,9 @@ export class RescueComponent {
   }
 
 
-  routeToRescueDetail(rescueID) {
-    this.router.navigate([`shelter/rescue-detail/${rescueID}`])
+  routeToRescueDetail(rescue) {
+    this.rescueService.setStorageRescuePost(rescue)
+    this.router.navigate([`shelter/rescue-detail/${rescue.rescuePostID}`])
   }
   addNewPost() {
     this.ref = this.dialogService.open(AddRescueComponent, {
