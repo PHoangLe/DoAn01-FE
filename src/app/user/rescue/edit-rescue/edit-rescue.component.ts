@@ -70,7 +70,9 @@ export class EditRescueComponent {
     this.rescueService.deleteRescuePost(this.rescuePost.rescuePostID).then(value => {
       this.messageService.add({ key: 'toast', severity: 'success', summary: 'Xoá thành công' });
       this.rescue.reloadPage();
-
+      setTimeout(() => {
+        this.ref.close()
+      }, 1000);
     })
       .catch(error => {
         console.log(error);

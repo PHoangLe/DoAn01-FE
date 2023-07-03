@@ -10,6 +10,7 @@ import { ChatComponent } from 'src/app/shelter/chat/chat.component';
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
 import { LoginComponent } from 'src/app/authenticate/login/login.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -35,6 +36,7 @@ export class HeaderComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private chatService: ChatService,
+    private location: Location,
     private loginComponent: LoginComponent) {
     try {
       if (this.userID = this.authService.getDataFromCookie("userID")) {
@@ -48,7 +50,7 @@ export class HeaderComponent implements OnInit {
     }
   }
   async ngOnInit() {
-
+    this.setActiveNavItem();
     this.unreadMessage = 0;
     this.connect();
     await this.getUnreadMessages();
@@ -79,8 +81,19 @@ export class HeaderComponent implements OnInit {
         }
 
       }
-
     ];
+  }
+
+  setActiveNavItem() {
+    const path = this.location.path();
+    if (path.includes('landing'))
+      this.setActiveNavitem('home')
+    else if (path.includes('rescue'))
+      this.setActiveNavitem('rescue')
+    else if (path.includes('adopt'))
+      this.setActiveNavitem('pet')
+    else if (path.includes('donation'))
+      this.setActiveNavitem('donate')
   }
 
 

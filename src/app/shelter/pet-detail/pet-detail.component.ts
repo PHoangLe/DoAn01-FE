@@ -14,7 +14,7 @@ import { User } from 'src/app/model/User';
   styleUrls: ['./pet-detail.component.less'],
   providers: [DialogService, MessageService]
 })
-export class PetDetailComponent implements OnInit, OnDestroy {
+export class PetDetailComponent implements OnInit {
 
   protected pet: Pet
   protected breadcrumbItimes: MenuItem[];
@@ -30,11 +30,6 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService,
     private router: Router,
     private dialogService: DialogService) {
-  }
-  ngOnDestroy(): void {
-    if (this.ref) {
-      this.ref.close();
-    }
   }
   async ngOnInit() {
     await this.getPageData()
@@ -82,8 +77,9 @@ export class PetDetailComponent implements OnInit, OnDestroy {
   }
 
   editPet() {
+    const petTemp = this.petService.convertToPet(this.pet);
     this.ref = this.dialogService.open(EditPetComponent, {
-      data: this.pet,
+      data: petTemp,
       width: '50%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
@@ -117,5 +113,11 @@ export class PetDetailComponent implements OnInit, OnDestroy {
       }
     })
     this.router.navigate(['/shelter/adopt']);
+  }
+
+  public reloadPage() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([`shelter/pet-detail/${this.pet.animalID}`]);
+    });
   }
 }

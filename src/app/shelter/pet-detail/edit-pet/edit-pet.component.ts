@@ -5,11 +5,12 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Pet } from 'src/app/model/Pet';
 import { PetService } from 'src/app/services/pet.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
+import { PetDetailComponent } from '../pet-detail.component';
 
 @Component({
   selector: 'app-edit-pet',
   templateUrl: './edit-pet.component.html',
-  styleUrls: ['./edit-pet.component.less']
+  styleUrls: ['./edit-pet.component.less'],
 })
 export class EditPetComponent implements OnInit {
   pet: Pet;
@@ -59,6 +60,7 @@ export class EditPetComponent implements OnInit {
     private builder: FormBuilder,
     private fileUpload: UploadFileService,
     private config: DynamicDialogConfig,
+    private petComponent: PetDetailComponent,
     private messageService: MessageService) {
     this.pet = this.config.data
   }
@@ -91,13 +93,12 @@ export class EditPetComponent implements OnInit {
     let uploadedDocUrl = this.fileUpload.getFileUrl()
     this.petService.updatePet(this.inputPet, this.avatarUrl, uploadedDocUrl).then(() => {
       this.messageService.add({ key: 'updatePet', severity: 'success', summary: 'Cập nhật thành công' });
+      this.petService.setStoragePet(this.inputPet)
+      this.petComponent.reloadPage();
       setTimeout(() => {
         this.ref.close()
       }, 1000);
-
     })
-
-
       .catch(error => {
         console.log(error.error.message);
         this.messageService.add({ key: 'updatePet', severity: 'error', summary: error.error.message });
