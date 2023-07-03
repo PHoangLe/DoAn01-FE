@@ -31,6 +31,15 @@ export class UserService {
   }
 
 
+  async changPassword(input) {
+    let headers = this.getHttpHeader();
+    return await this.http.put(this.baseUrl + '/changePassword', {
+      userEmail: this.authService.getDataFromCookie("userEmail"),
+      userNewPassword: input.newPassword,
+      userOldPassword: input.oldPassword
+    }, { headers }).toPromise();
+  }
+
 
   convertToUser(input: any): User {
     return new User(

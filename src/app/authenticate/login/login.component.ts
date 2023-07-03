@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
   isWrongLogin = false;
   constructor(
     private socialLoginService: SocialAuthService,
-    private authService: AuthService,
     private builder: FormBuilder,
     private fileUpload: UploadFileService,
+    private authService: AuthService,
     private router: Router,
   ) { }
 

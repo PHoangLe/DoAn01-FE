@@ -25,10 +25,7 @@ export class VerifyComponent implements OnInit {
   }
   async verifyEmail() {
     this.isSubmitted = true
-    console.log('verifyEmail')
     await this.otpCheck();
-    console.log('verified')
-    console.log(!this.isWrongOtp);
     if (!this.isWrongOtp) {
       this.messageService.add({ key: 'verifySuccess', severity: 'success', summary: 'Tạo tài khoản thành công' });
       setTimeout(() => {
