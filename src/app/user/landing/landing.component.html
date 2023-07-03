@@ -96,70 +96,20 @@
   <div class="container__stat">
     <div class="content">
       <div class="stat-info m-auto">
-        <h1>10+</h1>
+        <h1>{{ stat.shelterCount }}</h1>
         <h4>Trại cứu trợ thành viên</h4>
       </div>
       <div class="stat-info m-auto">
-        <h1>122+</h1>
+        <h1>{{ stat.notAdoptedAnimalCount }}</h1>
         <h4>Bé đang được chăm sóc</h4>
       </div>
       <div class="stat-info m-auto">
-        <h1>92+</h1>
+        <h1>{{ stat.adoptedAnimalCount }}</h1>
         <h4>Bé đã được về nhà mới</h4>
       </div>
     </div>
   </div>
-  <!-- <div class="container__carousel">
-    <h2>Pescue - Trung tâm hỗ trợ cứu trợ động vật</h2>
-    <div
-      id="carouselExampleAutoplaying"
-      class="carousel slide mx-auto"
-      data-bs-ride="carousel"
-    >
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Pet%2Fshelter-642842c33fc47402c13d9ffb%2Fcatman.jpg?alt=media&token=c3e6fe4d-1e26-4904-928c-354ab9b129bc&_gl=1*hldvrh*_ga*OTI1NDQxNDAzLjE2Nzc2MzY3NTY.*_ga_CW55HF8NVT*MTY4NjYzMDk2OC4zNi4xLjE2ODY2MzEwOTYuMC4wLjA."
-            class="d-block w-100"
-            alt="..."
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h2>Sẵn sàng</h2>
-            <p>Chúng tôi luôn sẵn sàng giúp đỡ cho những bé cần hỗ trợ.</p>
-          </div>
-        </div>
-        <div *ngFor="let image of images" class="carousel-item">
-          <img
-            src="{{ image.previewImageSrc }}"
-            class="d-block w-100"
-            alt="..."
-          />
-          <div class="carousel-caption d-none d-md-block">
-            <h2>{{ image.title }}</h2>
-            <p>{{ image.alt }}</p>
-          </div>
-        </div>
-      </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleAutoplaying"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleAutoplaying"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-  </div> -->
+
   <div class="container__pet">
     <div class="pet_img">
       <div class="pet_1 mx-auto me-3"></div>
@@ -177,65 +127,15 @@
   </div>
   <div class="container__fund">
     <h2 class="text-center">Quỹ cứu trợ</h2>
-
     <div class="fund-list d-flex gap-5 justify-content-center flex-wrap pt-4">
-      <div class="fund-card">
+      <div class="fund-card" *ngFor="let fundCard of listFunds">
         <div class="card-img">
-          <img
-            src="https://i.ibb.co/Dz6M5DY/richard-brutyo-Sg3-Xwu-Epyb-U-unsplash.jpg"
-            alt=""
-          />
+          <img src="{{ fundCard.fundCover }}" alt="" />
         </div>
         <div class="card-content rounded-4 px-4">
-          <h4 class="text-center">Quỹ chung</h4>
+          <h4 class="text-center">{{ fundCard.fundName }}</h4>
           <p>
-            Chi phí để duy trì cho mọi sinh hoạt thường ngày của các trại cứu
-            trợ
-          </p>
-        </div>
-      </div>
-      <div class="fund-card">
-        <div class="card-img">
-          <img
-            src="https://i.ibb.co/Dz6M5DY/richard-brutyo-Sg3-Xwu-Epyb-U-unsplash.jpg"
-            alt=""
-          />
-        </div>
-        <div class="card-content rounded-4 px-4">
-          <h4 class="text-center">Quỹ chung</h4>
-          <p>
-            Chi phí để duy trì cho mọi sinh hoạt thường ngày của các trại cứu
-            trợ
-          </p>
-        </div>
-      </div>
-      <div class="fund-card">
-        <div class="card-img">
-          <img
-            src="https://i.ibb.co/Dz6M5DY/richard-brutyo-Sg3-Xwu-Epyb-U-unsplash.jpg"
-            alt=""
-          />
-        </div>
-        <div class="card-content rounded-4 px-4">
-          <h4 class="text-center">Quỹ chung</h4>
-          <p>
-            Chi phí để duy trì cho mọi sinh hoạt thường ngày của các trại cứu
-            trợ
-          </p>
-        </div>
-      </div>
-      <div class="fund-card">
-        <div class="card-img">
-          <img
-            src="https://i.ibb.co/Dz6M5DY/richard-brutyo-Sg3-Xwu-Epyb-U-unsplash.jpg"
-            alt=""
-          />
-        </div>
-        <div class="card-content rounded-4 px-4">
-          <h4 class="text-center">Quỹ chung</h4>
-          <p>
-            Chi phí để duy trì cho mọi sinh hoạt thường ngày của các trại cứu
-            trợ
+            {{ fundCard.fundDescription }}
           </p>
         </div>
       </div>
