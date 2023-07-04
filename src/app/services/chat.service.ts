@@ -15,23 +15,22 @@ export class ChatService {
 
 
   async getChatRooom() {
-    let headers = this.getHttpHeader();
-    return await this.http.get(this.baseUrl + "getAllChatRoomByUserID/" + `${this.authService.getDataFromCookie("userID")}`, { headers }).toPromise();
+    return await this.http.get(this.baseUrl + "getAllChatRoomByUserID/" + `${this.authService.getDataFromCookie("userID")}`).toPromise();
   }
 
   async getMessageByChatRoom(chatRoom: string, senderID: string, recipientID: string) {
     let headers = this.getHttpHeader();
-    return await this.http.get(this.baseUrl + "getAllMessageBySenderIDAndRecipientID/" + `${chatRoom}/` + `${senderID}/` + `${recipientID}`, { headers }).toPromise();
+    return await this.http.get(this.baseUrl + "getAllMessageBySenderIDAndRecipientID/" + `${chatRoom}/` + `${senderID}/` + `${recipientID}`).toPromise();
   }
 
   async getUnreadMessageByRecipientID(recipientID: string, senderID: string) {
     let headers = this.getHttpHeader();
-    return await this.http.get(this.baseUrl + "messages/" + `${senderID}/` + `${recipientID}/count`, { headers }).toPromise();
+    return await this.http.get(this.baseUrl + "messages/" + `${senderID}/` + `${recipientID}/count`).toPromise();
   }
 
   putSeenMessage(senderID: string, recipientID: string) {
     let headers = this.getHttpHeader();
-    return this.http.put(this.baseUrl + "seenMessage/" + `${senderID}/` + `${recipientID}`, { headers }).toPromise();
+    return this.http.put(this.baseUrl + "seenMessage/" + `${senderID}/` + `${recipientID}`, null).toPromise();
   }
 
   getHttpHeader(): HttpHeaders {

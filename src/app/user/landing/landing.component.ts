@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { FundService } from 'src/app/services/fund.service';
 import { StatisticService } from 'src/app/services/statistic.service';
@@ -14,12 +15,13 @@ export class LandingComponent implements OnInit {
   protected listFunds;
   constructor(
     private autheSerive: AuthService,
+    private router: Router,
     private fundService: FundService,
     private statisticService: StatisticService) { }
 
-  ngOnInit() {
-    this.getLandingStat();
-    this.getAllFunds();
+  async ngOnInit() {
+    await this.getLandingStat();
+    await this.getAllFunds();
   }
 
   getLandingStat() {
@@ -34,7 +36,10 @@ export class LandingComponent implements OnInit {
       console.log(err)
     })
     this.listFunds = this.listFunds.slice(0, 4)
-    console.log(this.listFunds)
+  }
+
+  routeToRegisterPage() {
+    this.router.navigate(['/register'])
   }
 
 }

@@ -13,7 +13,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ChatComponent implements OnInit, AfterViewInit {
   constructor(
     private chatService: ChatService,
-    private spinner: NgxSpinnerService,
     private authService: AuthService) {
   }
 
