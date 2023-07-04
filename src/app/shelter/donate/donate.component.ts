@@ -43,11 +43,14 @@ export class DonateComponent implements OnInit {
     this.getShelterFundTransactions();
   }
 
-  getShelterFundTransactions() {
-    this.fundService.getUserTransactions(this.authService.getDataFromCookie("userID")).then((transactions) => {
+  async getShelterFundTransactions() {
+    this.isLoading = true;
+    await this.fundService.getUserTransactions(this.authService.getDataFromCookie("userID")).then((transactions) => {
       this.listFunds = transactions;
       console.log(this.listFunds);
     })
+    this.isLoading = false;
+
   }
 
   requestFund() {

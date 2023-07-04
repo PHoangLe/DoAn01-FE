@@ -22,10 +22,11 @@
       [rows]="10"
       [paginator]="true"
       [globalFilterFields]="[
-        'animalName',
-        'animalBreed',
-        'animalAge',
-        'animalGender'
+        'fund.fundName',
+        'fund.value',
+        'user.userFirstName',
+        'user.userLastName',
+        'user.userEmail'
       ]"
       [tableStyle]="{ 'min-width': '75rem' }"
       [rowHover]="true"
@@ -45,7 +46,7 @@
             <i class="pi pi-search"></i>
             <input
               pInputText
-              class="ps-2 pe-2"
+              class="px-2"
               type="text"
               #textInput
               (input)="dt.filterGlobal(textInput.value, 'contains')"
@@ -56,15 +57,15 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr class="py-5">
-          <th style="min-width: 6rem">Tên quỹ</th>
+          <th style="min-width: 6rem" class="ps-4">Tên quỹ</th>
           <th>Số tiền</th>
           <th>Ngày gửi</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-fund>
         <tr>
-          <td>{{ fund.fund.fundName }}</td>
-          <td>{{ fund.value }}</td>
+          <td class="ps-4">{{ fund.fund.fundName }}</td>
+          <td>{{ fund.value.toLocaleString() + " VND" }}</td>
           <td>{{ fund.date | date : "dd/MM/yyyy" }}</td>
         </tr>
       </ng-template>

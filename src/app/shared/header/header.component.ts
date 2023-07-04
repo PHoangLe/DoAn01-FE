@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Menu, MenuItemContent } from 'primeng/menu';
@@ -18,7 +18,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./header.component.less'],
   providers: [LoginComponent]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
 
   imageUrl: string
   userID: string
@@ -46,11 +46,14 @@ export class HeaderComponent implements OnInit {
       }
     }
     catch {
-      console.log("There are no user")
     }
   }
+  ngAfterViewInit(): void {
+    if (this.isLoggin)
+      this.setActiveNavItem();
+  }
   async ngOnInit() {
-    this.setActiveNavItem();
+
     this.unreadMessage = 0;
     this.connect();
     await this.getUnreadMessages();
@@ -85,7 +88,7 @@ export class HeaderComponent implements OnInit {
   }
 
   setActiveNavItem() {
-    const path = this.location.path();
+    let path = this.location.path();
     if (path.includes('landing'))
       this.setActiveNavitem('home')
     else if (path.includes('rescue'))
@@ -94,6 +97,8 @@ export class HeaderComponent implements OnInit {
       this.setActiveNavitem('pet')
     else if (path.includes('donation'))
       this.setActiveNavitem('donate')
+
+
   }
 
 
@@ -188,7 +193,6 @@ export class HeaderComponent implements OnInit {
 
   onPrivateMessage = (payload) => {
     this.unreadMessage++;
-    console.log(this.unreadMessage);
   }
 
   onError = (err) => {
