@@ -47,7 +47,7 @@ export class UserService {
       input.userEmail,
       input.userFirstName,
       input.userLastName,
-      input.phoneNumber ? input.phoneNumber : '',
+      input.phoneNo ? input.phoneNo : '',
       input.dob,
       input.userGender,
       input.userAvatar ? input.userAvatar : "https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/Avatar%2Fava-default_pfp.png?alt=media&token=f0abd1ae-d5c5-4b0f-b138-f3708619a963",

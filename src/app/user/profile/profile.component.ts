@@ -65,8 +65,6 @@ export class ProfileComponent implements OnInit {
     const date = new Date(this.dob);
     this.user.dob = date.getTime();
     this.user.gender = this.selectedGender.id;
-
-    this.user.dob = 1054425600;
     this.userService.updateUserProfile(this.user).then(response => {
       console.log(response);
     })
