@@ -21,7 +21,6 @@ export class AdoptionDetailComponent implements OnInit {
     private messageService: MessageService,
     private petAdoptionService: PetAdoptionService,
     private chat: ChatComponent,
-    private location: Location,
     private router: Router) {
 
   }
@@ -52,7 +51,7 @@ export class AdoptionDetailComponent implements OnInit {
   acceptRequest() {
     this.petAdoptionService.acceptAdoption(this.requestInfo.applicationID).then(() => {
       this.messageService.add({ key: "messageService", severity: 'success', detail: 'Chấp nhận yêu cầu' })
-      this.location.reload();
+      this.router.navigate([`/shelter/adoption-detail/${this.requestInfo.applicationID}`])
     })
   }
 
@@ -60,7 +59,8 @@ export class AdoptionDetailComponent implements OnInit {
     console.log(this.requestInfo.applicationID)
     this.petAdoptionService.declineAdoption(this.requestInfo.applicationID).then(() => {
       this.messageService.add({ key: "messageService", severity: 'warning', detail: 'Từ chối yêu cầu' })
-      this.location.reload();
+      this.router.navigate([`/shelter/adoption-detail/${this.requestInfo.applicationID}`])
+
     })
   }
 
