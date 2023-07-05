@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
     userEmail: this.builder.control('', [Validators.required, Validators.email]),
     userPassword: this.builder.control('', [Validators.required, Validators.minLength(6), this.validatePassword]),
     userName: this.builder.control('', [Validators.required]),
-    phoneNumber: this.builder.control('', [Validators.required, Validators.pattern(/^\d{10}$/)])
+    phoneNumber: this.builder.control('', [Validators.required, Validators.pattern(/^\d{9}$/)])
   })
 
   ngOnInit() {
