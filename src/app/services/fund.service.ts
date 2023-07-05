@@ -14,8 +14,7 @@ export class FundService {
 
 
   async getAllFunds() {
-    let headers = this.getHttpHeader();
-    return await this.http.get(this.baseUrl, { headers: headers }).toPromise()
+    return await this.http.get(this.baseUrl).toPromise()
   }
 
   getFundTransactions(transactionID: string) {
