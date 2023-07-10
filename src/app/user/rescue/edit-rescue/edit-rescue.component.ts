@@ -31,7 +31,6 @@ export class EditRescueComponent {
     public ref: DynamicDialogRef,
     private builder: FormBuilder,
     private rescue: RescueComponent,
-
     private apiAddress: ApiAddressService,
     private config: DynamicDialogConfig,
     private messageService: MessageService,
@@ -116,7 +115,6 @@ export class EditRescueComponent {
       err => {
         console.log(err.error.message)
       }
-
   }
 
   provinceSelectedChange(selectedValue) {

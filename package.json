@@ -1,12 +1,11 @@
 {
   "name": "app",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "ng": "ng",
-
     "start": "ng serve --open --host 0.0.0.0 --port $PORT --disable-host-check",
     "build": "ng build",
-
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -27,6 +26,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@types/socket.io": "^3.0.2",
+    "chart.js": "^4.3.0",
     "cors": "^2.8.5",
     "firebase": "^9.19.1",
     "i": "^0.3.7",

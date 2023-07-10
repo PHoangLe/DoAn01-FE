@@ -29,6 +29,29 @@ export class ShelterService {
     return this.toShelter(response).shelterName;
   }
 
+  async getShelterInfoByUserID() {
+    let headers = this.getHttpHeader();
+    const response = await this.http.get(this.baseUrl + `/getShelterByUserID/${this.authService.getDataFromCookie("userID")}`, { headers }).toPromise();
+    return this.toShelter(response);
+  }
+
+  async updateShelterProfile(shelter: Shelter) {
+    let headers = this.getHttpHeader();
+    await this.http.put(this.baseUrl + `/updateShelter/${shelter.shelterID}`, {
+      userID: shelter.userID,
+      shelterName: shelter.shelterName,
+      representativeFacebookLink: shelter.representativeFacebookLink,
+      representativeEmailAddress: shelter.representativeEmailAddress,
+      unitNoAndStreet: shelter.unitNoAndStreet,
+      ward: shelter.ward,
+      district: shelter.district,
+      city: shelter.city,
+      shelterPhoneNo: shelter.shelterPhoneNo,
+      shelterLogo: shelter.shelterLogo,
+      relatedDocuments: shelter.relatedDocuments
+    }, { headers: headers }).toPromise();
+  }
+
   convertToShelter(input: any): Shelter[] {
     var listShelter = new Array<Shelter>
     input.forEach(item => {
@@ -43,6 +66,7 @@ export class ShelterService {
         item.district,
         item.city,
         item.shelterPhoneNo,
+        item.shelterLogo,
         item.relatedDocuments,
         item.totalFundReceived)
 
@@ -63,6 +87,7 @@ export class ShelterService {
       item.district,
       item.city,
       item.shelterPhoneNo,
+      item.shelterLogo,
       item.relatedDocuments,
       item.totalFundReceived)
   }

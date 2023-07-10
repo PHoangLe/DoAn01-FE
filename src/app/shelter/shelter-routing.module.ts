@@ -7,10 +7,11 @@ import { AdoptionDetailComponent } from './adoption-detail/adoption-detail.compo
 import { ChatComponent } from './chat/chat.component';
 import { ShelterPageComponent } from './shelter-page/shelter-page.component';
 import { ProfileComponent } from './profile/profile.component';
-import { LandingComponent } from '../user/landing/landing.component';
 import { DonateComponent } from './donate/donate.component';
 import { RescueComponent } from './rescue/rescue.component';
 import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
+import { ShelterProfileComponent } from './shelter-profile/shelter-profile.component';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
   {
@@ -56,7 +57,11 @@ const routes: Routes = [
       {
         path: 'rescue-detail/:id',
         component: RescueDetailComponent
-      }
+      },
+      {
+        path: 'shelter-profile',
+        component: ShelterProfileComponent
+      },
     ]
   },
 

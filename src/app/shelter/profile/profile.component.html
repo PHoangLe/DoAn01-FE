@@ -17,19 +17,32 @@
           <div
             class="card-profile-image rounded-circle d-flex justify-content-center"
           >
-            <img src="{{ user.userAvatar }}" class="rounded-circle" />
+            <img
+              id="imgInput"
+              src="{{ user.userAvatar }}"
+              class="rounded-circle"
+            />
           </div>
         </div>
-
+        <div class="change-logo d-flex justify-content-center my-2">
+          <button
+            (click)="avatarInput.click()"
+            style="width: fit-content; padding: 0.25rem 1.5rem"
+            class="btn btn-primary"
+          >
+            Chọn ảnh
+          </button>
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            #avatarInput
+            (change)="selectedAvatar($event)"
+            style="display: none"
+          />
+        </div>
         <!-- card-info -->
         <div class="card-body pt-0 pt-md-4">
-          <div class="row">
-            <div class="col">
-              <div
-                class="card-profile-stats d-flex justify-content-center mt-md-5"
-              ></div>
-            </div>
-          </div>
+          <div class="row"></div>
           <div class="text-center">
             <h3>
               {{ user.userFirstName + " " + user.userLastName }}
@@ -38,9 +51,6 @@
               <h5>
                 {{ user.userEmail }}
               </h5>
-            </div>
-            <div>
-              Số thú cưng đang nhận nuôi online: {{ onlineAdoptionPet.length }}
             </div>
           </div>
         </div>
@@ -54,11 +64,28 @@
             <div class="col-8">
               <h1 class="mb-0">Tài khoản</h1>
             </div>
+            <div class="col-lg-4 text-right d-flex gap-2">
+              <button
+                class="btn btn-secondary"
+                (click)="routeToShelterProfile()"
+              >
+                Thông tin trại cứu trợ
+              </button>
+            </div>
           </div>
         </div>
         <div class="card-body">
           <h4 class="heading-small text-muted mb-4">Thông tin cá nhân</h4>
-          <div class="pl-lg-4">
+          <div class="pl-lg-4 position-relative">
+            <div
+              *ngIf="isLoadingProfile"
+              class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+            >
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Đang tải...</span>
+              </div>
+              <p style="opacity: 0.7">Đang tải</p>
+            </div>
             <div class="row">
               <div class="col-lg-6">
                 <div>
@@ -79,7 +106,7 @@
                     type="email"
                     class="w-100 rounded-2 p-2 mb-3"
                     id="input-email"
-                    [(ngModel)]="user.userFirstName + ' ' + user.userLastName"
+                    [(ngModel)]="userFullName"
                   />
                 </div>
               </div>
@@ -89,7 +116,10 @@
                 <div>
                   <h6>Số điện thoại</h6>
                   <input
-                    type="number"
+                    type="text"
+                    pattern="[0-9]+"
+                    minlength="10"
+                    maxlength="11"
                     class="w-100 rounded-2 p-2 mb-3"
                     placeholder="Số điện thoại"
                     [(ngModel)]="user.phoneNumber"
@@ -141,9 +171,9 @@
               </div>
             </div>
           </div>
-          <hr class="mt-4" />
         </div>
       </div>
     </div>
   </div>
 </div>
+<p-toast key="toast"></p-toast>

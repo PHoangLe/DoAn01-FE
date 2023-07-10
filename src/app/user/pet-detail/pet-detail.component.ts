@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./pet-detail.component.less'],
   providers: [DialogService, MessageService]
 })
-export class PetDetailComponent implements OnInit, OnDestroy {
+export class PetDetailComponent implements OnInit {
   protected pet: Pet
   protected shelterName: string;
   protected isLoading = true;
@@ -40,21 +40,22 @@ export class PetDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService
   ) {
+    this.breadcrumbItimes = [
+      {
+        label: 'Danh sách thú cưng',
+        command: () => {
+          this.router.navigate(['/user/adopt']);
+        }
+      }
+    ]
   }
-  ngOnDestroy(): void {
-    if (this.ref) {
-      this.ref.close();
-    }
-  }
-
-
   ngOnInit(): void {
     this.getPageData()
   }
 
   async getPageData() {
     this.isLoading = true;
-    this.pet = await this.petService.getStoragePet();
+    this.pet = this.petService.getStoragePet();
     this.shelterName = await this.shelterSerivce.getShelterByShelterID(this.pet.shelterID)
     this.userID = this.authService.getDataFromCookie("userID");;
     this.listImg.push(this.pet.animalImg);
@@ -66,32 +67,6 @@ export class PetDetailComponent implements OnInit, OnDestroy {
       .catch(error => {
         console.log(error);
       })
-    this.responsiveOptions = [
-      {
-        breakpoint: '1024px',
-        numVisible: 5
-      },
-      {
-        breakpoint: '768px',
-        numVisible: 3
-      },
-      {
-        breakpoint: '560px',
-        numVisible: 1
-      }
-    ];
-    this.breadcrumbItimes = [
-
-      {
-        label: 'Danh sách thú cưng',
-        command: () => {
-          this.router.navigate(['/user/adopt']);
-        }
-      },
-      {
-        label: `${this.pet.animalName}`
-      }
-    ]
 
     await this.petAdopt.isAdoptedPet(this.pet.animalID, this.userID).then(response => {
       this.adoption = response;

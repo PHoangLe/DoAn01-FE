@@ -71,7 +71,7 @@
           <td class="text-center">{{ pet.animalGender ? "Đực" : "Cái" }}</td>
           <td class="text-center">
             <p-tag
-              [value]="pet.adopted ? 'Chưa có chủ' : 'Đã có chủ'"
+              [value]="pet.adopted ? 'Đã có chủ' : 'Chưa có chủ'"
               [severity]="getSeverity(pet.adopted)"
             ></p-tag>
           </td>
