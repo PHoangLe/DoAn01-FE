@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { Pet } from 'src/app/model/Pet';
 import { User } from 'src/app/model/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { FundService } from 'src/app/services/fund.service';
 import { PetAdoptionService } from 'src/app/services/pet-adoption.service';
 import { PetService } from 'src/app/services/pet.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
     private petService: PetService,
     private messageService: MessageService,
     private fileUpload: UploadFileService,
+    private fundService: FundService,
     private authService: AuthService) {
   }
 
@@ -34,6 +36,7 @@ export class ProfileComponent implements OnInit {
   protected avatarFile: FileList
   protected selectedGender;
   protected dob: Date;
+  protected listTransactions;
   private pet: Pet;
   protected onlineAdoptionPet;
   protected genderOptions = [
@@ -49,6 +52,7 @@ export class ProfileComponent implements OnInit {
   ]
   ngOnInit() {
     this.getProfile();
+    this.getShelterFundTransactions();
   }
 
   async getProfile() {
@@ -114,5 +118,14 @@ export class ProfileComponent implements OnInit {
     })
     this.petService.setStoragePet(this.pet)
     this.router.navigate([`/user/pet-detail/${petID}`])
+  }
+
+  async getShelterFundTransactions() {
+    this.isLoading = true;
+    await this.fundService.getUserTransactions(this.authService.getDataFromCookie("userID")).then((transactions) => {
+      this.listTransactions = transactions;
+      console.log(this.listTransactions);
+    })
+    this.isLoading = false;
   }
 }

@@ -22,7 +22,7 @@ export class StatisticService {
   async getShelterLandingStatistic() {
     let headers = this.getHttpHeader();
     const shelterID = await this.shelterService.getShelterIDByUserID();
-    return await this.http.get(this.baseUrl + `shelter-dashboard/${shelterID}`).toPromise();
+    return await this.http.get(this.baseUrl + `shelter-dashboard/${shelterID}`, { headers: headers }).toPromise();
 
   }
 

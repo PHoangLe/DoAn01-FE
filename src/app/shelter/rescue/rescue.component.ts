@@ -5,22 +5,23 @@ import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { ApiAddressService } from 'src/app/services/api-address.service';
 import { RescueService } from 'src/app/services/rescue.service';
 import { AddRescueComponent } from 'src/app/user/rescue/add-rescue/add-rescue.component';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-rescue',
   templateUrl: './rescue.component.html',
   styleUrls: ['./rescue.component.less'],
-  providers: [DialogService, MessageService]
+  providers: [DialogService, MessageService, ChatComponent]
 
 })
 export class RescueComponent {
   protected rescuePet;
   protected processingRescue;
   private apiRes;
-  listProvince = new Array;
-  listDistrict = new Array;
-  listWard = new Array;
-
+  protected listProvince = new Array;
+  protected listDistrict = new Array;
+  protected listWard = new Array;
+  protected listPost;
   protected isLoading = true;
   protected defaultRescuePets;
   protected selectedStatus: string;
@@ -41,7 +42,7 @@ export class RescueComponent {
     public dialogService: DialogService,
     public messageService: MessageService,
     private apiAddress: ApiAddressService,
-
+    private chat: ChatComponent,
     private router: Router) {
   }
 
@@ -61,13 +62,12 @@ export class RescueComponent {
     ]
   }
 
-
-
   async getAllRescuePost() {
     this.isLoading = true
     await this.rescueService.getAllRescueByShelter().then(response => {
       this.apiRes = response
       this.rescuePet = this.apiRes[0]
+      this.listPost = this.apiRes[0]
       this.processingRescue = this.apiRes[1]
       console.log(this.processingRescue)
       this.defaultRescuePets = [...this.rescuePet]
@@ -96,7 +96,14 @@ export class RescueComponent {
     })
   }
 
-
+  onRefreshFilter() {
+    this.rescuePet = [...this.listPost]
+    const dropdowns = document.querySelectorAll(".dropdown") as NodeListOf<HTMLSelectElement>;
+    dropdowns.forEach((dropdown) => {
+      let selectedOption = dropdown.selectedIndex;
+      dropdown.options[selectedOption].remove();
+    });
+  }
 
   onUserSearched() {
     if (this.searchValue === "")
@@ -106,14 +113,20 @@ export class RescueComponent {
     })
   }
 
-  public reloadPage() {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['shelter/rescue']);
-    });
+  public removePostFromList(postID: string) {
+    this.rescuePet = this.rescuePet.filter((post) => {
+      return post.rescuePostID !== postID
+    })
   }
 
-  contactSender() {
-
+  contactSender(senderID: string) {
+    sessionStorage.setItem("reciepientID", senderID)
+    this.chat.connect();
+    setTimeout(() => {
+      this.chat.setReceipientID(senderID);
+      this.chat.sendValue("Bắt đầu trò chuyện")
+      this.router.navigate(['/chat']);
+    }, 1000);
   }
 
   bindProvinces() {

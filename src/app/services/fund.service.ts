@@ -22,9 +22,9 @@ export class FundService {
     return this.http.get(`${this.baseUrl}/transactions/fund/${transactionID}`, { headers: headers }).toPromise();
   }
 
-  getUserTransactions(transactionID: string) {
+  getUserTransactions(userID: string) {
     let headers = this.getHttpHeader();
-    return this.http.get(`${this.baseUrl}/transactions/user/${transactionID}`, { headers: headers }).toPromise();
+    return this.http.get(`${this.baseUrl}/transactions/user/${userID}`, { headers: headers }).toPromise();
   }
 
 

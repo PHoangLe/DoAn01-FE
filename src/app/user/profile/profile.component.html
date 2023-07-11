@@ -1,6 +1,6 @@
 <div
   *ngIf="isLoading"
-  class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+  class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body z-3"
 >
   <div class="spinner-border" role="status">
     <span class="sr-only">Đang tải...</span>
@@ -42,7 +42,6 @@
         </div>
         <!-- card-info -->
         <div class="card-body pt-0 pt-md-4">
-          <div class="row"></div>
           <div class="text-center">
             <h3>
               {{ user.userFirstName + " " + user.userLastName }}
@@ -61,7 +60,7 @@
     </div>
     <!-- detail-info -->
     <div class="col-xl-8 order-xl-1">
-      <div class="card bg-secondary shadow">
+      <div class="card bg-secondary shadow mb-3">
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
             <div class="col-8">
@@ -79,7 +78,7 @@
         </div>
         <div class="card-body">
           <h4 class="heading-small text-muted mb-4">Thông tin cá nhân</h4>
-          <div class="pl-lg-4 position-relative">
+          <div class="pl-lg-4 position-relative px-4">
             <div
               *ngIf="isLoadingProfile"
               class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
@@ -175,7 +174,9 @@
             </div>
           </div>
           <hr class="mt-4" />
-          <h4 class="heading-small text-muted mb-1">Thú cưng đang nhận nuôi</h4>
+          <h4 class="heading-small text-muted mb-1">
+            Thú cưng đang nhận nuôi online
+          </h4>
           <div class="pl-lg-6">
             <div class="row">
               <div class="my-2">
@@ -201,11 +202,43 @@
                       Tên thú cưng: {{ adoption.animal.animalName }}
                     </p>
                     <p class="m-0">
-                      Ngày hết hạn: {{ adoption.date | date : "dd/mm/yyy" }}
+                      Ngày hết hạn: {{ adoption.expiry | date : "dd/MM/yyyy" }}
                     </p>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <hr class="mt-4" />
+          <h4 class="heading-small text-muted mb-1">Lịch sử ủng hộ</h4>
+          <div class="pl-lg-6">
+            <div class="row">
+              <p-table
+                #dt
+                [value]="listTransactions"
+                [rows]="5"
+                [paginator]="true"
+                [tableStyle]="{ 'min-width': '75rem' }"
+                [rowHover]="true"
+                dataKey="id"
+                styleClass="p-datatable-striped"
+                [tableStyle]="{ 'min-width': '25rem' }"
+              >
+                <ng-template pTemplate="header">
+                  <tr class="py-5">
+                    <th style="min-width: 6rem" class="ps-4">Tên quỹ</th>
+                    <th>Số tiền</th>
+                    <th>Ngày gửi</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-fund>
+                  <tr>
+                    <td class="ps-4">{{ fund.fund.fundName }}</td>
+                    <td>{{ fund.value.toLocaleString() + " VND" }}</td>
+                    <td>{{ fund.date | date : "dd/MM/yyyy" }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
             </div>
           </div>
         </div>

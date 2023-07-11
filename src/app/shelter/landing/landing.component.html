@@ -9,7 +9,7 @@
     <p style="opacity: 0.7">Đang tải</p>
   </div>
   <div class="container p-4">
-    <div class="page-stat p-4 d-flex justify-content-between">
+    <div class="page-stat p-4 d-flex justify-content-between" *ngIf="pageStat">
       <div class="card px-3 py-3">
         <h3>{{ pageStat.totalNumbersOfAnimal }}</h3>
         <h3>Thú cưng trong trại</h3>

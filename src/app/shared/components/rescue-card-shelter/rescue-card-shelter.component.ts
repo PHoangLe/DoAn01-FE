@@ -47,14 +47,13 @@ export class RescueCardShelterComponent {
     this.isLoading = true;
     await this.rescueService.processRescue(this.rescuePost.rescuePostID).then(response => {
       this.messageService.add({ key: "toast", severity: 'success', detail: 'Nhận thành công' })
-      this.rescuePage.reloadPage();
+      this.rescuePage.removePostFromList(this.rescuePost.rescuePostID);
     })
       .catch(error => {
         console.log(error);
         this.messageService.add({ key: "toast", severity: 'error', detail: 'Có lỗi xảy ra' })
       })
     this.isLoading = false;
-
   }
 
 }

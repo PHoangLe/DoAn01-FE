@@ -21,36 +21,13 @@ export class LandingComponent implements OnInit {
     this.getPageData();
   }
 
-  getPageData() {
-    // this.statisticService.getShelterLandingStatistic().then(response => {
-    //   this.pageDate = response;
-    //   console.log(this.pageDate);
-    // })
-    this.pageStat = {
-      "totalNumbersOfAnimal": 9,
-      "totalNumberOfAdoptedAnimal": 2,
-      "totalNumberOfRescuePostCompleted": 2,
-      "adoptedAnimalByMonth": {
-        "6": 1,
-        "7": 1
-      },
-      "adoptionRequestByMonth": {
-        "6": 1,
-        "7": 2
-      },
-      "totalNumberOfRescuePostCompletedByMonth": {
-        "7": 2
-      },
-      "totalOfFundReceivedByMonth": {
-        "6": {
-          "count": 1,
-          "sum": 15000,
-          "min": 15000,
-          "max": 15000,
-          "average": 15000.0
-        }
-      }
-    }
+  async getPageData() {
+    this.isLoading = true;
+    await this.statisticService.getShelterLandingStatistic().then(response => {
+      this.pageStat = response;
+    })
+    this.isLoading = false;
+
     this.fundChartData = {
       title: 'Main chart',
       labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
