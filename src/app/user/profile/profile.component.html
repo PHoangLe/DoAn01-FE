@@ -1,6 +1,6 @@
 <div
   *ngIf="isLoading"
-  class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+  class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body z-3"
 >
   <div class="spinner-border" role="status">
     <span class="sr-only">Đang tải...</span>
@@ -8,7 +8,7 @@
   <p style="opacity: 0.7">Đang tải</p>
 </div>
 
-<div class="container-fluid mt-4">
+<div class="container-fluid mt-4" *ngIf="!isLoading">
   <div class="row">
     <!-- card-info -->
     <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
@@ -17,19 +17,31 @@
           <div
             class="card-profile-image rounded-circle d-flex justify-content-center"
           >
-            <img src="{{ user.userAvatar }}" class="rounded-circle" />
+            <img
+              id="imgInput"
+              src="{{ user.userAvatar }}"
+              class="rounded-circle"
+            />
           </div>
         </div>
-
+        <div class="change-logo d-flex justify-content-center my-2">
+          <button
+            (click)="avatarInput.click()"
+            style="width: fit-content; padding: 0.25rem 1.5rem"
+            class="btn btn-primary"
+          >
+            Chọn ảnh
+          </button>
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            #avatarInput
+            (change)="selectedAvatar($event)"
+            style="display: none"
+          />
+        </div>
         <!-- card-info -->
         <div class="card-body pt-0 pt-md-4">
-          <div class="row">
-            <div class="col">
-              <div
-                class="card-profile-stats d-flex justify-content-center mt-md-5"
-              ></div>
-            </div>
-          </div>
           <div class="text-center">
             <h3>
               {{ user.userFirstName + " " + user.userLastName }}
@@ -48,7 +60,7 @@
     </div>
     <!-- detail-info -->
     <div class="col-xl-8 order-xl-1">
-      <div class="card bg-secondary shadow">
+      <div class="card bg-secondary shadow mb-3">
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
             <div class="col-8">
@@ -66,7 +78,16 @@
         </div>
         <div class="card-body">
           <h4 class="heading-small text-muted mb-4">Thông tin cá nhân</h4>
-          <div class="pl-lg-4">
+          <div class="pl-lg-4 position-relative px-4">
+            <div
+              *ngIf="isLoadingProfile"
+              class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+            >
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Đang tải...</span>
+              </div>
+              <p style="opacity: 0.7">Đang tải</p>
+            </div>
             <div class="row">
               <div class="col-lg-6">
                 <div>
@@ -87,7 +108,7 @@
                     type="email"
                     class="w-100 rounded-2 p-2 mb-3"
                     id="input-email"
-                    [(ngModel)]="user.userFirstName + ' ' + user.userLastName"
+                    [(ngModel)]="userFullName"
                   />
                 </div>
               </div>
@@ -97,7 +118,10 @@
                 <div>
                   <h6>Số điện thoại</h6>
                   <input
-                    type="number"
+                    type="text"
+                    pattern="[0-9]+"
+                    minlength="10"
+                    maxlength="11"
                     class="w-100 rounded-2 p-2 mb-3"
                     placeholder="Số điện thoại"
                     [(ngModel)]="user.phoneNumber"
@@ -150,14 +174,17 @@
             </div>
           </div>
           <hr class="mt-4" />
-          <h4 class="heading-small text-muted mb-1">Thú cưng đang nhận nuôi</h4>
+          <h4 class="heading-small text-muted mb-1">
+            Thú cưng đang nhận nuôi online
+          </h4>
           <div class="pl-lg-6">
             <div class="row">
               <div class="my-2">
                 <div
-                  class="ps-4 d-inline"
+                  class="ps-4 d-inline d-flex my-2"
+                  style="cursor: pointer"
                   *ngFor="let adoption of onlineAdoptionPet"
-                  (onClick)="routeToPetDetails(adoption.animal.animalID)"
+                  (click)="routeToPetDetails(adoption.animal.animalID)"
                 >
                   <p-avatar
                     image="{{
@@ -170,8 +197,52 @@
                     pTooltip="{{ adoption.animal.animalName }}"
                     tooltipPosition="bottom"
                   ></p-avatar>
+                  <div class="pet-detail ms-2">
+                    <p class="m-0">
+                      Tên thú cưng: {{ adoption.animal.animalName }}
+                    </p>
+                    <p class="m-0">
+                      Ngày hết hạn: {{ adoption.expiry | date : "dd/MM/yyyy" }}
+                    </p>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <hr class="mt-4" />
+          <h4 class="heading-small text-muted mb-1">Lịch sử ủng hộ</h4>
+          <div class="pl-lg-6">
+            <div class="row">
+              <p-table
+                #dt
+                [value]="listTransactions"
+                [rows]="5"
+                [paginator]="true"
+                [tableStyle]="{ 'min-width': '75rem' }"
+                [rowHover]="true"
+                dataKey="id"
+                styleClass="p-datatable-striped"
+                [tableStyle]="{ 'min-width': '25rem' }"
+              >
+                <ng-template pTemplate="header">
+                  <tr class="py-5">
+                    <th style="min-width: 6rem" class="ps-4">Tên quỹ</th>
+                    <th pSortableColumn="value">
+                      Số tiền <p-sortIcon field="value"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="date">
+                      Ngày gửi <p-sortIcon field="date"></p-sortIcon>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-fund>
+                  <tr>
+                    <td class="ps-4">{{ fund.fund.fundName }}</td>
+                    <td>{{ fund.value.toLocaleString() + " VND" }}</td>
+                    <td>{{ fund.date | date : "dd/MM/yyyy" }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
             </div>
           </div>
         </div>
@@ -179,3 +250,4 @@
     </div>
   </div>
 </div>
+<p-toast key="toast"></p-toast>

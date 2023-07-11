@@ -8,7 +8,7 @@
     </p-divider>
     <div class="address-container m-4 ps-2 pe-4 my-2 w-100">
       <span class="p-float-label">
-        <h6 class="addressLabel p-1 ps-0">Số nhà, tên đường</h6>
+        <h6 class="addressLabel p-1 ps-0">Tên đường</h6>
         <input
           class="inputtext ps-2 w-100"
           type="text"
@@ -85,7 +85,10 @@
           <b>Ảnh</b>
         </div>
       </p-divider>
-      <div class="img-container m-4 my-1 d-flex" *ngIf="rescuePost.images">
+      <div
+        class="img-container m-4 my-1 d-flex flex-wrap"
+        *ngIf="rescuePost.images"
+      >
         <div class="img-content m-2" *ngFor="let img of rescuePost.images">
           <div
             class="btn-delete rounded-circle d-flex justify-content-center"

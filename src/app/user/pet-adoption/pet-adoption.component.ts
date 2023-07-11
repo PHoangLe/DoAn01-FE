@@ -17,8 +17,8 @@ export class PetAdoptionComponent implements OnInit {
   protected isLoading = true;
   protected defaultPets;
   protected listShelter: Shelter[];
-  protected selectedShelter: string;
-  protected selectedSpecie: string;
+  protected selectedShelter;
+  protected selectedSpecie = "All";
   protected currentPage = 1;
   protected pageSize = 20;
   protected sortField = '';
@@ -72,22 +72,40 @@ export class PetAdoptionComponent implements OnInit {
   }
 
   onCheckboxShelterChange(event) {
-    if (event.checked.length > 0) {
-      this.selectedShelter = event.checked[0].shelterID
-      this.pets = this.pets.filter(pet => pet.shelterID == this.selectedShelter)
+    this.pets = [...this.defaultPets]
+    if (this.selectedSpecie === "All") {
+      this.pets = this.pets.filter(pet => {
+        return pet.shelterID === event.value.shelterID
+      })
     }
     else {
-      this.selectedShelter = null
-      this.pets = [...this.defaultPets]
+      this.pets = this.pets.filter(pet => {
+        return pet.shelterID === event.value.shelterID &&
+          pet.animalSpecie === this.selectedSpecie
+      })
     }
   }
 
   onCheckboxBreedChange(event) {
     this.pets = [...this.defaultPets]
+    console.log(event)
+
     if (event.value === "All") {
-      return
+      if (this.selectedShelter === "All")
+        return
+      else
+        this.pets = this.pets.filter(pet => {
+          return pet.shelterID === this.selectedShelter.shelterID
+        })
+
     }
-    this.pets = this.pets.filter(pet => pet.animalSpecie === this.selectedSpecie)
+    else if (this.selectedShelter)
+      this.pets = this.pets.filter(pet => {
+        return pet.shelterID === this.selectedShelter.shelterID &&
+          pet.animalSpecie === event.value
+      })
+    else
+      this.pets = this.pets.filter(pet => pet.animalSpecie === event.value)
 
   }
 

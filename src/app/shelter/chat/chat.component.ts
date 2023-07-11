@@ -93,7 +93,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     }
     setTimeout(() => {
       this.autoScrollToNewMessage();
-    }, 10);
+    }, 50);
 
   }
 
@@ -244,6 +244,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
       if (user.userID === payloadData.senderID)
         user.isRead = false
     })
+    setTimeout(() => {
+      this.autoScrollToNewMessage();
+    }, 10);
   }
 
   onError = (err) => {

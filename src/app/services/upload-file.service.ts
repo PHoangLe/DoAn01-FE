@@ -66,12 +66,7 @@ export class UploadFileService {
 
   async deleteFile(fileName: string) {
     let fileRef = this.storage.refFromURL(fileName)
-    let shelterID = await this.shelterService.getShelterIDByUserID();
-    // let filePath = `Pet/shelter-${shelterID}/${fileName}`;
-    // let fileRef = this.storage.ref(filePath);
-
     fileRef.delete().subscribe(() => {
-      console.log('File deleted successfully');
     }, error => {
       console.log('Error deleting file:', error);
     });

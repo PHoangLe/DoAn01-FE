@@ -43,12 +43,13 @@
     <div class="shelter-type w-100 p-2">
       <h4>Trại cứu trợ</h4>
       <div *ngFor="let shelter of listShelter" class="field-checkbox p-1">
-        <p-checkbox
+        <p-radioButton
           name="group"
           [value]="shelter"
           [inputId]="shelter.shelterID"
-          (onChange)="onCheckboxShelterChange($event)"
-        ></p-checkbox>
+          [(ngModel)]="selectedShelter"
+          (onClick)="onCheckboxShelterChange($event)"
+        ></p-radioButton>
         <label [for]="shelter.shelterID">{{ shelter.shelterName }}</label>
       </div>
     </div>

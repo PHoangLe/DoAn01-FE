@@ -7,6 +7,8 @@ export class Shelter {
   private _unitNoAndStreet: string;
   private _ward: string;
   private _district: string;
+  private _shelterLogo: string;
+
   private _city: string;
   private _shelterPhoneNo: string;
   private _relatedDocuments: string[];
@@ -24,6 +26,7 @@ export class Shelter {
     district: string,
     city: string,
     shelterPhoneNo: string,
+    shelterLogo: string,
     relatedDocuments: string[],
     totalFundReceived: number
   ) {
@@ -37,6 +40,7 @@ export class Shelter {
     this._district = district;
     this._city = city;
     this._shelterPhoneNo = shelterPhoneNo;
+    this._shelterLogo = shelterLogo;
     this._relatedDocuments = relatedDocuments;
     this._totalFundReceived = totalFundReceived;
   }
@@ -49,6 +53,12 @@ export class Shelter {
     this._shelterID = value;
   }
 
+  public get shelterLogo(): string {
+    return this._shelterLogo;
+  }
+  public set shelterLogo(value: string) {
+    this._shelterLogo = value;
+  }
   get totalFundReceived(): number {
     return this._totalFundReceived;
   }

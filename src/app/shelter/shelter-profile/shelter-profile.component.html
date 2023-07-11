@@ -8,7 +8,7 @@
   <p style="opacity: 0.7">Đang tải</p>
 </div>
 
-<div class="container-fluid mt-4">
+<div class="container-fluid mt-4" *ngIf="shelter">
   <div class="row">
     <!-- card-info -->
     <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
@@ -19,7 +19,7 @@
           >
             <img
               id="imgInput"
-              src="{{ user.userAvatar }}"
+              src="{{ shelter.shelterLogo }}"
               class="rounded-circle"
             />
           </div>
@@ -30,7 +30,7 @@
             style="width: fit-content; padding: 0.25rem 1.5rem"
             class="btn btn-primary"
           >
-            Chọn ảnh
+            Chọn logo
           </button>
           <input
             type="file"
@@ -42,14 +42,21 @@
         </div>
         <!-- card-info -->
         <div class="card-body pt-0 pt-md-4">
-          <div class="row"></div>
           <div class="text-center">
             <h3>
-              {{ user.userFirstName + " " + user.userLastName }}
+              {{ shelter.shelterName }}
             </h3>
             <div>
               <h5>
-                {{ user.userEmail }}
+                {{
+                  shelter.unitNoAndStreet +
+                    ", " +
+                    shelter.ward +
+                    ", " +
+                    shelter.district +
+                    ", " +
+                    shelter.city
+                }}
               </h5>
             </div>
           </div>
@@ -58,24 +65,16 @@
     </div>
     <!-- detail-info -->
     <div class="col-xl-8 order-xl-1">
-      <div class="card bg-secondary shadow">
+      <div class="card bg-secondary shadow mb-4">
         <div class="card-header bg-white border-0">
           <div class="row align-items-center">
             <div class="col-8">
               <h1 class="mb-0">Tài khoản</h1>
             </div>
-            <div class="col-lg-4 text-right d-flex gap-2">
-              <button
-                class="btn btn-secondary"
-                (click)="routeToShelterProfile()"
-              >
-                Thông tin trại cứu trợ
-              </button>
-            </div>
           </div>
         </div>
         <div class="card-body">
-          <h4 class="heading-small text-muted mb-4">Thông tin cá nhân</h4>
+          <h4 class="heading-small text-muted mb-4">Thông tin trại cứu trợ</h4>
           <div class="pl-lg-4 position-relative">
             <div
               *ngIf="isLoadingProfile"
@@ -94,19 +93,18 @@
                     class="w-100 rounded-2 p-2 mb-3"
                     type="text"
                     placeholder="Username"
-                    [(ngModel)]="user.userEmail"
-                    disabled="true"
+                    [(ngModel)]="shelter.representativeEmailAddress"
                   />
                 </div>
               </div>
               <div class="col-lg-6">
                 <div>
-                  <h6>Họ và tên</h6>
+                  <h6>Tên trại</h6>
                   <input
                     type="email"
                     class="w-100 rounded-2 p-2 mb-3"
                     id="input-email"
-                    [(ngModel)]="userFullName"
+                    [(ngModel)]="shelter.shelterName"
                   />
                 </div>
               </div>
@@ -122,53 +120,89 @@
                     maxlength="11"
                     class="w-100 rounded-2 p-2 mb-3"
                     placeholder="Số điện thoại"
-                    [(ngModel)]="user.phoneNumber"
+                    [(ngModel)]="shelter.shelterPhoneNo"
                   />
                 </div>
               </div>
-              <div class="col-lg-6">
-                <div>
-                  <span class="p-float-label">
-                    <h6 class="addressLabel ps-0">Giới tính</h6>
-                    <p-dropdown
-                      [options]="genderOptions"
-                      optionLabel="value"
-                      class="mb-3"
-                      [autoDisplayFirst]="false"
-                      [(ngModel)]="selectedGender"
-                    >
-                    </p-dropdown>
-                  </span>
-                </div>
-              </div>
 
               <div class="col-lg-6">
                 <div>
-                  <span class="d-flex flex-column">
-                    <h6 class="addressLabel ps-0">Ngày sinh</h6>
-
-                    <p-calendar
-                      [(ngModel)]="dob"
-                      class="w-100 rounded-2 mb-3"
-                      [showIcon]="true"
-                      dateFormat="dd/mm/yy"
-                    ></p-calendar>
-                  </span>
+                  <h6>Facebook</h6>
+                  <input
+                    type="text"
+                    class="w-100 rounded-2 p-2 mb-3"
+                    placeholder="Số điện thoại"
+                    [(ngModel)]="shelter.representativeFacebookLink"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-lg-6">
+                <div>
+                  <h6>Thành phố/Tỉnh</h6>
+                  <p-dropdown
+                    [options]="listProvince"
+                    [filter]="true"
+                    [autoDisplayFirst]="false"
+                    optionLabel="provName"
+                    [(ngModel)]="selectedProvince"
+                    filterBy="provName"
+                    (onChange)="provinceSelectedChange($event.value)"
+                  >
+                  </p-dropdown>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div>
-                  <span class="d-flex flex-column"> </span>
+                  <h6>Quận/Huyện</h6>
+                  <p-dropdown
+                    [filter]="true"
+                    [autoDisplayFirst]="false"
+                    [options]="listDistrict"
+                    [(ngModel)]="selectedDistrict"
+                    optionLabel="distName"
+                    filterBy="distName"
+                    (onChange)="districtSelectedChange($event.value)"
+                  >
+                  </p-dropdown>
                 </div>
               </div>
-              <div class="d-flex justify-content-center mt-2">
-                <button
-                  class="btn btn-primary m-auto"
-                  (click)="updateUserProfile()"
-                >
-                  Cập nhật thông tin
-                </button>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div>
+                  <h6>Phường/Xã</h6>
+                  <p-dropdown
+                    [options]="listWard"
+                    [autoDisplayFirst]="false"
+                    [filter]="true"
+                    [(ngModel)]="selectedWard"
+                    filterBy="wardName"
+                    optionLabel="wardName"
+                  >
+                  </p-dropdown>
+                </div>
               </div>
+              <div class="col-lg-6">
+                <div>
+                  <h6>Số nhà, tên đường</h6>
+                  <input
+                    class="w-100 rounded-2 p-2 mb-3"
+                    type="text"
+                    [(ngModel)]="shelter.unitNoAndStreet"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-2">
+              <button
+                class="btn btn-primary m-auto"
+                (click)="updateUserProfile()"
+              >
+                Cập nhật thông tin
+              </button>
             </div>
           </div>
         </div>

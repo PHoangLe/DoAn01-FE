@@ -41,11 +41,15 @@ export class LandingComponent implements OnInit {
   routeToRegisterPage() {
     const userRoles = localStorage.getItem('userRoles');
     if (!userRoles)
-      this.router.navigate(['/register'])
-    if (userRoles.includes('ROLE_SHELTER_MANAGER'))
-      this.router.navigate(['/shelter/adopt']);
+      this.router.navigate(['/login'])
     this.router.navigate(['/user/adopt']);
+  }
 
+  routeToDetailPage() {
+    const userRoles = localStorage.getItem('userRoles');
+    if (!userRoles)
+      this.router.navigate(['/login'])
+    this.router.navigate(['/user/rescue']);
   }
 
 }

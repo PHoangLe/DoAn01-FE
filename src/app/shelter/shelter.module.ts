@@ -27,7 +27,8 @@ import { MessageModule } from 'primeng/message';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
+import { ChartModule } from 'primeng/chart';
+import { SkeletonModule } from 'primeng/skeleton';
 import { EditPetComponent } from './pet-detail/edit-pet/edit-pet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChatComponent } from './chat/chat.component';
@@ -43,6 +44,7 @@ import { FundRequestComponent } from './donate/fund-request/fund-request.compone
 import { CalendarModule } from 'primeng/calendar';
 import { RescueComponent } from './rescue/rescue.component';
 import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
+import { ShelterProfileComponent } from './shelter-profile/shelter-profile.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,7 @@ import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
     FundRequestComponent,
     RescueComponent,
     RescueDetailComponent,
+    ShelterProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -89,7 +92,9 @@ import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
     TagModule,
     ConfirmDialogModule,
     TooltipModule,
-    CalendarModule
+    CalendarModule,
+    ChartModule,
+    SkeletonModule
   ],
   providers: [MessageService, ConfirmationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -35,7 +35,8 @@ import { RescueDetailComponent } from './rescue-detail/rescue-detail.component';
 import { AddRescueComponent } from './rescue/add-rescue/add-rescue.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { EditRescueComponent } from './rescue/edit-rescue/edit-rescue.component';
-
+import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { EditRescueComponent } from './rescue/edit-rescue/edit-rescue.component'
     TooltipModule,
     InputNumberModule,
     CalendarModule,
-
+    TableModule,
+    SkeletonModule
   ],
   providers: [MessageService, ConfirmationService],
 

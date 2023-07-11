@@ -30,13 +30,6 @@ export class PetDetailComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private router: Router,
     private dialogService: DialogService) {
-  }
-  async ngOnInit() {
-    await this.getPageData()
-  }
-
-  async getPageData() {
-    this.pet = await this.petService.getStoragePet();
     this.breadcrumbItimes = [
       {
         label: 'Danh sách thú cưng',
@@ -62,6 +55,14 @@ export class PetDetailComponent implements OnInit {
         numVisible: 1
       }
     ];
+  }
+  async ngOnInit() {
+    await this.getPageData()
+  }
+
+  async getPageData() {
+    this.pet = await this.petService.getStoragePet();
+
     this.listImg.push(this.pet.animalImg);
     if (this.pet.othersImg)
       this.listImg.push(...this.pet.othersImg);

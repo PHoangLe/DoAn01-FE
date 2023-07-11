@@ -1,15 +1,101 @@
 import { Component, OnInit } from '@angular/core';
+import { StatisticService } from 'src/app/services/statistic.service';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+  styleUrls: ['./landing.component.less']
 })
 export class LandingComponent implements OnInit {
-
-  constructor() { }
+  protected pageStat: any;
+  protected fundChartData;
+  protected rescuePost;
+  protected petChartData;
+  protected isLoading: boolean = false;
+  receivedFund = Array.from({ length: 12 }).fill(0);
+  constructor(
+    private statisticService: StatisticService
+  ) { }
 
   ngOnInit() {
+    this.getPageData();
   }
 
+  async getPageData() {
+    this.isLoading = true;
+    await this.statisticService.getShelterLandingStatistic().then(response => {
+      this.pageStat = response;
+    })
+    this.isLoading = false;
+
+    this.fundChartData = {
+      title: 'Main chart',
+      labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+      datasets: [
+        {
+          label: "Quỹ vào",
+          backgroundColor: '#3399ff',
+          data: this.getfundChartData(this.pageStat.totalOfFundReceivedByMonth)
+        }
+
+      ]
+    }
+
+    this.rescuePost = {
+      title: 'Main chart',
+      labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+      datasets: [
+        {
+          label: "Giải cứu thành công",
+          backgroundColor: '#2eb85c',
+          data: this.getBasicStat(this.pageStat.totalNumberOfRescuePostCompletedByMonth)
+        }
+      ],
+
+    }
+
+    this.petChartData = {
+      title: 'Main chart',
+      labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+      datasets: [
+
+        {
+          label: "Yêu cầu nhận nuôi",
+          backgroundColor: '#3399ff',
+          data: this.getBasicStat(this.pageStat.adoptionRequestByMonth)
+        },
+        {
+          label: "Thú cưng được nhận nuôi",
+          backgroundColor: '#2eb85c',
+          data: this.getBasicStat(this.pageStat.adoptedAnimalByMonth)
+        },
+      ]
+    }
+
+  }
+
+  getfundChartData(object) {
+    let fundMap = new Map(Object.entries(object));
+    let data = Array.from({ length: 12 }).fill(0);
+
+    for (let i = 0; i < 12; i++) {
+      if (fundMap.get((i + 1).toString()) !== undefined) {
+        let fund = new Map(Object.entries(fundMap.get((i + 1).toString())));
+        data[i] = fund.get("sum")
+      }
+    }
+    return data
+  }
+
+  getBasicStat(object) {
+    let fundMap = new Map(Object.entries(object));
+    let data = Array.from({ length: 12 }).fill(0);
+
+    for (let i = 0; i < 12; i++) {
+      if (fundMap.get((i + 1).toString()) !== undefined) {
+        data[i] = (fundMap.get((i + 1).toString()));
+      }
+    }
+    return data
+  }
 }

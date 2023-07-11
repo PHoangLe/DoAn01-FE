@@ -50,7 +50,6 @@ export class DonateComponent implements OnInit {
       console.log(this.listFunds);
     })
     this.isLoading = false;
-
   }
 
   requestFund() {

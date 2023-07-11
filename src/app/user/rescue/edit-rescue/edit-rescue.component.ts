@@ -12,6 +12,7 @@ import { RescueComponent } from '../rescue.component';
   selector: 'app-edit-rescue',
   templateUrl: './edit-rescue.component.html',
   styleUrls: ['./edit-rescue.component.less'],
+  providers: [RescueComponent]
 })
 export class EditRescueComponent {
   rescuePost;
@@ -29,9 +30,7 @@ export class EditRescueComponent {
 
   constructor(private rescueService: RescueService,
     public ref: DynamicDialogRef,
-    private builder: FormBuilder,
     private rescue: RescueComponent,
-
     private apiAddress: ApiAddressService,
     private config: DynamicDialogConfig,
     private messageService: MessageService,
@@ -46,23 +45,30 @@ export class EditRescueComponent {
 
   async updateRescuePost() {
     await this.pushFileToCloud();
-    await this.removeImgFromStorage();
+    console.log(this.removedImgs)
+    if (this.removedImgs)
+      await this.removeImgFromStorage();
 
     this.rescuePost.city = this.selectedProvince.provName;
     this.rescuePost.district = this.selectedDistrict.distName;
     this.rescuePost.ward = this.selectedWard.wardName;
 
     let uploadedDocUrl = this.fileUpload.getFileUrl()
-    this.rescueService.updateRescuePost(this.rescuePost, uploadedDocUrl).then(value => {
+    let listImgs = this.rescuePost.images.filter((img) => !this.removedImgs.includes(img))
+    console.log(listImgs)
+    if (uploadedDocUrl.length > 0)
+      var updatedImg = [...listImgs, ...uploadedDocUrl]
+    this.rescueService.updateRescuePost(this.rescuePost, updatedImg).then(() => {
       this.messageService.add({ key: 'toast', severity: 'success', summary: 'Cập nhật thành công' });
       this.rescue.reloadPage();
-
       setTimeout(() => {
         this.ref.close()
-      }, 1500);
+      }, 1000);
     })
       .catch(error => {
         console.log(error);
+        this.messageService.add({ key: 'toast', severity: 'error', summary: 'Có lỗi xảy ra! Vui lòng thử lại sau' });
+
       });
   }
 
@@ -116,7 +122,6 @@ export class EditRescueComponent {
       err => {
         console.log(err.error.message)
       }
-
   }
 
   provinceSelectedChange(selectedValue) {

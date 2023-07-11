@@ -51,7 +51,7 @@ export class AdoptionDetailComponent implements OnInit {
   acceptRequest() {
     this.petAdoptionService.acceptAdoption(this.requestInfo.applicationID).then(() => {
       this.messageService.add({ key: "messageService", severity: 'success', detail: 'Chấp nhận yêu cầu' })
-      this.router.navigate([`/shelter/adoption-detail/${this.requestInfo.applicationID}`])
+      this.router.navigate([`/shelter/adopt`])
     })
   }
 
@@ -59,7 +59,7 @@ export class AdoptionDetailComponent implements OnInit {
     console.log(this.requestInfo.applicationID)
     this.petAdoptionService.declineAdoption(this.requestInfo.applicationID).then(() => {
       this.messageService.add({ key: "messageService", severity: 'warning', detail: 'Từ chối yêu cầu' })
-      this.router.navigate([`/shelter/adoption-detail/${this.requestInfo.applicationID}`])
+      this.router.navigate([`/shelter/adopt`])
 
     })
   }
