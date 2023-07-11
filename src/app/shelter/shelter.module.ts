@@ -28,7 +28,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ChartModule } from 'primeng/chart';
-
+import { SkeletonModule } from 'primeng/skeleton';
 import { EditPetComponent } from './pet-detail/edit-pet/edit-pet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChatComponent } from './chat/chat.component';
@@ -93,7 +93,8 @@ import { ShelterProfileComponent } from './shelter-profile/shelter-profile.compo
     ConfirmDialogModule,
     TooltipModule,
     CalendarModule,
-    ChartModule
+    ChartModule,
+    SkeletonModule
   ],
   providers: [MessageService, ConfirmationService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

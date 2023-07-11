@@ -89,6 +89,15 @@ export class RescueComponent implements OnInit {
     })
   }
 
+  onRefreshFilter() {
+    this.rescuePet = [...this.defaultRescuePets]
+    const dropdowns = document.querySelectorAll(".dropdown") as NodeListOf<HTMLSelectElement>;
+    dropdowns.forEach((dropdown) => {
+      let selectedOption = dropdown.selectedIndex;
+      dropdown.options[selectedOption].remove();
+    });
+  }
+
   public reloadPage() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate(['user/rescue']);

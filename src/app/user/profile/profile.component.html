@@ -181,7 +181,7 @@
             <div class="row">
               <div class="my-2">
                 <div
-                  class="ps-4 d-inline d-flex"
+                  class="ps-4 d-inline d-flex my-2"
                   style="cursor: pointer"
                   *ngFor="let adoption of onlineAdoptionPet"
                   (click)="routeToPetDetails(adoption.animal.animalID)"
@@ -227,8 +227,12 @@
                 <ng-template pTemplate="header">
                   <tr class="py-5">
                     <th style="min-width: 6rem" class="ps-4">Tên quỹ</th>
-                    <th>Số tiền</th>
-                    <th>Ngày gửi</th>
+                    <th pSortableColumn="value">
+                      Số tiền <p-sortIcon field="value"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="date">
+                      Ngày gửi <p-sortIcon field="date"></p-sortIcon>
+                    </th>
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-fund>

@@ -48,7 +48,7 @@
           [value]="shelter"
           [inputId]="shelter.shelterID"
           [(ngModel)]="selectedShelter"
-          (onClick)="onCheckboxBreedChange($event)"
+          (onClick)="onCheckboxShelterChange($event)"
         ></p-radioButton>
         <label [for]="shelter.shelterID">{{ shelter.shelterName }}</label>
       </div>

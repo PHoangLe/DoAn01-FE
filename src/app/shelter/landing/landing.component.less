@@ -2,11 +2,26 @@
   background-color: #efedeb;
 }
 .container {
+  min-height: 92vh;
   .page-stat {
     .card {
       width: fit-content;
-      background-color: red;
+      font-size: 0.75rem;
       color: #fff;
+      &:nth-child(1) {
+        background-color: #f9b115;
+      }
+      &:nth-child(2) {
+        background-color: #3399ff;
+      }
+      &:nth-child(3) {
+        background-color: #2eb85c;
+      }
+    }
+  }
+  .page-stat-skel {
+    .card-skel {
+      width: 20vw;
     }
   }
   .page-chart {

@@ -125,9 +125,9 @@ export class PetAdoptionComponent implements OnDestroy {
   getSeverity(status: boolean) {
     switch (status) {
       case true:
-        return 'success';
-      default:
         return 'danger';
+      default:
+        return 'success';
     }
   }
 }

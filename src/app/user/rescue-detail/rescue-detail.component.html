@@ -75,6 +75,14 @@
       <h5 class="ps-4 pt-1 pb-2">
         {{ rescuePost.animalDescription }}
       </h5>
+      <div
+        class="button-group d-flex gap-2 justify-content-center"
+        *ngIf="rescuePost.status === 'WAITING'"
+      >
+        <button class="btn btn-primary" (click)="editPost()">
+          Sửa bài đăng
+        </button>
+      </div>
     </div>
     <div class="pet-img">
       <p-galleria

@@ -2,11 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AuthService } from 'src/app/services/auth.service';
-import { PetService } from 'src/app/services/pet.service';
+
 import { RescueService } from 'src/app/services/rescue.service';
-import { RescueComponent } from 'src/app/shelter/rescue/rescue.component';
-import { AddRescueComponent } from 'src/app/user/rescue/add-rescue/add-rescue.component';
 import { EditRescueComponent } from 'src/app/user/rescue/edit-rescue/edit-rescue.component';
 
 @Component({
@@ -26,7 +23,6 @@ export class RescueCardComponent {
     private router: Router,
     private rescueService: RescueService,
     public dialogService: DialogService,
-    public messageService: MessageService,
   ) { }
 
   ngOnInit() {
@@ -45,9 +41,7 @@ export class RescueCardComponent {
       baseZIndex: 10000,
       maximizable: true
     })
-    this.ref.onMaximize.subscribe((value) => {
-      this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
-    })
+
   }
 
   getSeverity(status: string) {

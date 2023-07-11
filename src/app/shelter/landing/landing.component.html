@@ -1,7 +1,7 @@
 <div class="page position-relative">
   <div
     *ngIf="isLoading"
-    class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body rounded-3 z-3"
+    class="loading w-100 h-100 position-absolute d-flex d-flex justify-content-center align-items-center flex-column gap-2 bg-body z-3"
   >
     <div class="spinner-border" role="status">
       <span class="sr-only">Đang tải...</span>
@@ -12,15 +12,15 @@
     <div class="page-stat p-4 d-flex justify-content-between" *ngIf="pageStat">
       <div class="card px-3 py-3">
         <h3>{{ pageStat.totalNumbersOfAnimal }}</h3>
-        <h3>Thú cưng trong trại</h3>
+        <h4>Thú cưng trong trại</h4>
       </div>
       <div class="card px-3 py-3">
         <h3>{{ pageStat.totalNumberOfAdoptedAnimal }}</h3>
-        <h3>Bé đã được nhận nuôi</h3>
+        <h4>Bé đã được nhận nuôi</h4>
       </div>
       <div class="card px-3 py-3">
         <h3>{{ pageStat.totalNumberOfRescuePostCompleted }}</h3>
-        <h3>Bé đã được giải cứu</h3>
+        <h4>Bé đã được giải cứu</h4>
       </div>
     </div>
     <div class="page-chart p-4">
