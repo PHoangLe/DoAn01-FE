@@ -76,15 +76,15 @@
           >
           <div
             *ngIf="
+              registerForm.get('userPassword').hasError('invalidPassword') ||
               (registerForm.get('userPassword').invalid &&
                 (registerForm.get('userPassword').dirty ||
-                  registerForm.get('userPassword').touched)) ||
-              registerForm.get('userPassword').hasError('invalidPassword')
+                  registerForm.get('userPassword').touched))
             "
           >
             <small class="text-danger"
-              >Mật khẩu cần ít nhất 6 ký tự chữ và số</small
-            >
+              >Mật khẩu cần ít nhất 6 ký tự chữ la tinh và số
+            </small>
           </div>
         </span>
       </div>
@@ -129,7 +129,9 @@
                 registerForm.get('phoneNumber').touched)
             "
           >
-            <small class="text-danger">Số điện thoại phải đủ 10 số</small>
+            <small class="text-danger"
+              >Số điện thoại phải đủ 10 hoặc 11 số</small
+            >
           </div>
         </span>
       </div>
