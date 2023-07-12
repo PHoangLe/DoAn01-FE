@@ -110,11 +110,20 @@ export class PetAdoptionComponent implements OnInit {
   }
 
   onUserSearched() {
+    this.pets = [...this.defaultPets]
+
     if (this.searchValue === "")
-      this.pets = [...this.defaultPets]
+      return
+    const formatedValue = this.searchValue.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    console.log(formatedValue)
     this.pets = this.pets.filter((pet) => {
-      return Object.values(pet).some((value) => String(value).includes(this.searchValue))
+      return Object.values(pet).some(value =>
+        String(value)
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .includes(formatedValue)
+      )
     })
-    console.log(this.pets)
   }
 }

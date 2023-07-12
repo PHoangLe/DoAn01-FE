@@ -111,7 +111,7 @@
       type="submit"
       class="btn btn-primary text-nowrap"
       (click)="addNewRescuePost()"
-      [disabled]="addPostForm.invalid"
+      [disabled]="addPostForm.invalid || othersImg.length === 0"
     >
       Thêm
     </button>

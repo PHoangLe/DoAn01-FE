@@ -7,6 +7,7 @@ import { RescueService } from 'src/app/services/rescue.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddRescueComponent } from './add-rescue/add-rescue.component';
 import { ApiAddressService } from 'src/app/services/api-address.service';
+import _ from 'lodash';
 
 
 @Component({
@@ -113,11 +114,21 @@ export class RescueComponent implements OnInit {
   }
 
   onUserSearched() {
+    this.rescuePet = [...this.defaultRescuePets]
     if (this.searchValue === "")
-      this.rescuePet = [...this.defaultRescuePets]
+      return
+    const formatedValue = this.searchValue.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    console.log(formatedValue)
     this.rescuePet = this.rescuePet.filter((pet) => {
-      return Object.values(pet).some((value) => String(value).includes(this.searchValue))
+      return Object.values(pet).some(value =>
+        String(value)
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .includes(formatedValue)
+      )
     })
+
   }
 
   bindProvinces() {

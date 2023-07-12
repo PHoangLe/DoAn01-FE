@@ -45,7 +45,6 @@ export class EditRescueComponent {
 
   async updateRescuePost() {
     await this.pushFileToCloud();
-    console.log(this.removedImgs)
     if (this.removedImgs)
       await this.removeImgFromStorage();
 
@@ -55,8 +54,7 @@ export class EditRescueComponent {
 
     let uploadedDocUrl = this.fileUpload.getFileUrl()
     let listImgs = this.rescuePost.images.filter((img) => !this.removedImgs.includes(img))
-    console.log(listImgs)
-    if (uploadedDocUrl.length > 0)
+    if (uploadedDocUrl)
       var updatedImg = [...listImgs, ...uploadedDocUrl]
     this.rescueService.updateRescuePost(this.rescuePost, updatedImg).then(() => {
       this.messageService.add({ key: 'toast', severity: 'success', summary: 'Cập nhật thành công' });

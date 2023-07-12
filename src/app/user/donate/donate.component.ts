@@ -107,6 +107,20 @@ export class DonateComponent implements OnInit {
       this.listFunds = this.listFunds.filter(fund => fund.fundType === fundTypeID)
     }
   }
-  onFundSearch() { }
+  onFundSearch() {
+    this.fund = [...this.fundCopied]
+    if (this.searchValue === "")
+      return
+    const formatedValue = this.searchValue.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    this.fund = this.fund.filter((fund) => {
+      return Object.values(fund).some(value =>
+        String(value)
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .includes(formatedValue)
+      )
+    })
+  }
 
 }
