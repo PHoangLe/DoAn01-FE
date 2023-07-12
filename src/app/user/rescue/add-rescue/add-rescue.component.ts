@@ -38,8 +38,8 @@ export class AddRescueComponent {
     rescuePetDistrict: this.builder.control('', Validators.required),
     rescuePetWard: this.builder.control('', Validators.required),
     rescuePetNo: this.builder.control('', Validators.required),
-    rescuePetDetail: this.builder.control(''),
-    rescuePetPosition: this.builder.control(''),
+    rescuePetDetail: this.builder.control('', Validators.required),
+    rescuePetPosition: this.builder.control('', Validators.required),
   })
 
   ngOnInit() {

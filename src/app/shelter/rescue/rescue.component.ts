@@ -106,10 +106,19 @@ export class RescueComponent {
   }
 
   onUserSearched() {
+    this.rescuePet = [...this.defaultRescuePets]
     if (this.searchValue === "")
-      this.rescuePet = [...this.defaultRescuePets]
+      return
+    const formatedValue = this.searchValue.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    console.log(formatedValue)
     this.rescuePet = this.rescuePet.filter((pet) => {
-      return Object.values(pet).some((value) => String(value).includes(this.searchValue))
+      return Object.values(pet).some(value =>
+        String(value)
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .includes(formatedValue)
+      )
     })
   }
 

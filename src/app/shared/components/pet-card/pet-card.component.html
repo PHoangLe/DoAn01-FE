@@ -1,6 +1,8 @@
 <div class="card" (click)="routeToPetDetail(pet)">
-  <img [src]="pet.animalImg" alt="Pet image" />
-  <div class="card-content">
+  <div class="card-image">
+    <img [src]="pet.animalImg" alt="Pet image" class="mx-auto w-100" />
+  </div>
+  <div class="card-content z-1">
     <h3>{{ pet.animalName }}</h3>
     <p><b>Giống:</b> {{ pet.animalBreed }}</p>
     <p><b>Tuổi:</b> {{ pet.animalAge }}</p>

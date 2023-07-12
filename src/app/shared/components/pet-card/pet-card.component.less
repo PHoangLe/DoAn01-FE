@@ -15,18 +15,19 @@
   margin: 10px;
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    img {
-      transform: scale(1.2);
+    .card-image {
+      overflow: hidden;
+      img {
+        transform: scale(1.2);
+      }
     }
   }
-  img {
-    border-radius: 7px;
-    margin: 10px;
-    max-height: 280px;
-    height: 100px;
-    object-fit: contain;
+  .card-image {
     overflow: hidden;
-    transition: 0.5s all ease-in-out;
+    img {
+      border-radius: 7px;
+      transition: 0.5s all ease-in-out;
+    }
   }
   .card-content {
     z-index: 1;

@@ -32,9 +32,9 @@ export class RegisterComponent implements OnInit {
 
   registerForm = this.builder.group({
     userEmail: this.builder.control('', [Validators.required, Validators.email]),
-    userPassword: this.builder.control('', [Validators.required, Validators.minLength(6), this.validatePassword]),
+    userPassword: this.builder.control('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)]),
     userName: this.builder.control('', [Validators.required]),
-    phoneNumber: this.builder.control('', [Validators.required, Validators.pattern(/^\d{9}$/)])
+    phoneNumber: this.builder.control('', [Validators.required, Validators.pattern(/^(?:\d{9}|\d{10})$/)])
   })
 
   ngOnInit() {
@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
 
   validatePassword(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+      const pattern = /^(?=.*[A-Za-z])(?=.*\d){6,}$/;
       const valid = pattern.test(control.value);
       return valid ? null : { invalidPassword: true };
     };

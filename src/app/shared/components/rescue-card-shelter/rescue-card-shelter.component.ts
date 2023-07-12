@@ -26,6 +26,7 @@ export class RescueCardShelterComponent {
 
   ngOnInit() {
     this.isLoading = false;
+
   }
 
   routeToRescueDetail() {
