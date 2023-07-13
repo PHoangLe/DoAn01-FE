@@ -137,7 +137,15 @@ label {
       flex-direction: column;
     }
     p-table {
-      width: 100%;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      table-layout: auto;
+      height: fit-content;
+      .p-datatable {
+        width: 100%;
+      }
     }
   }
   input {
