@@ -27,6 +27,7 @@ export class AuthService {
 
   async registerNewUser(inputData: any): Promise<any> {
     this.setUserEmail(inputData.userEmail)
+    console.log(inputData)
     return await (this.http.post(this.baseUrl + 'auth/userRegister', {
       userEmail: inputData.userEmail,
       userPassword: inputData.userPassword,

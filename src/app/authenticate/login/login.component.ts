@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 import { UploadFileService } from 'src/app/services/upload-file.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
     private fileUpload: UploadFileService,
     private authService: AuthService,
     private router: Router,
+    private userService: UserService,
   ) { }
 
   loginForm = this.builder.group({
@@ -38,11 +40,15 @@ export class LoginComponent implements OnInit {
   async loginWithGoogle() {
     await this.socialLoginService.authState.subscribe(
       (user) => {
-        console.log(user)
         this.authService.loginGoogle(user).subscribe(
           response => {
+            const user = this.userService.convertToUser(response)
             this.setLocalUser(response)
-            this.router.navigate(['/user/landing'])
+            console.log(user.userRoles.includes("ROLE_SHELTER_MANAGER"))
+            if (user.userRoles.includes("ROLE_SHELTER_MANAGER"))
+              this.router.navigate(['/shelter/landing'])
+            else
+              this.router.navigate(['/user/landing'])
           }
         )
       });
@@ -96,9 +102,7 @@ export class LoginComponent implements OnInit {
       const email = control.value;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      if (email === exceptionEmail) {
-        return null;
-      } else if (!emailRegex.test(email)) {
+      if (!emailRegex.test(email)) {
         return { invalidEmail: true };
       } else {
         return null;
