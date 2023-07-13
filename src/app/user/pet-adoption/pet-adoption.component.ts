@@ -16,8 +16,9 @@ export class PetAdoptionComponent implements OnInit {
   protected pets;
   protected isLoading = true;
   protected defaultPets;
-  protected listShelter: Shelter[];
-  protected selectedShelter;
+  private sortedPets;
+  protected listShelter;
+  protected selectedShelter = "All";
   protected selectedSpecie = "All";
   protected currentPage = 1;
   protected pageSize = 20;
@@ -49,8 +50,9 @@ export class PetAdoptionComponent implements OnInit {
 
   getAllShelter() {
     this.shelterService.getAllShelter().subscribe(response => {
-      this.listShelter = this.shelterService.convertToShelter(response)
-
+      const shelter = this.shelterService.convertToShelter(response);
+      this.listShelter = shelter.map(shelter => ({ id: shelter.shelterID, value: shelter.shelterName }))
+      this.listShelter.unshift({ id: "All", value: "Tất cả" })
     }),
       err => {
         console.log(err.error.message)
@@ -73,47 +75,61 @@ export class PetAdoptionComponent implements OnInit {
 
   onCheckboxShelterChange(event) {
     this.pets = [...this.defaultPets]
-    if (this.selectedSpecie === "All") {
-      this.pets = this.pets.filter(pet => {
-        return pet.shelterID === event.value.shelterID
-      })
+    if (event.value === "All") {
+      if (this.selectedSpecie === "All")
+        return
+      else {
+        this.pets = this.pets.filter(pet => {
+          return pet.animalSpecie === this.selectedSpecie
+        })
+      }
     }
     else {
-      this.pets = this.pets.filter(pet => {
-        return pet.shelterID === event.value.shelterID &&
-          pet.animalSpecie === this.selectedSpecie
-      })
+      if (this.selectedSpecie === "All")
+        this.pets = this.pets.filter(pet => {
+          return pet.shelterID === event.value
+        })
+      else
+        this.pets = this.pets.filter(pet => {
+          return pet.shelterID === event.value &&
+            pet.animalSpecie === this.selectedSpecie
+        })
     }
+    this.sortedPets = [...this.pets]
+
   }
 
   onCheckboxBreedChange(event) {
     this.pets = [...this.defaultPets]
-    console.log(event)
-
     if (event.value === "All") {
       if (this.selectedShelter === "All")
         return
+      else {
+        this.pets = this.pets.filter(pet => {
+          return pet.shelterID === this.selectedShelter
+        })
+      }
+    }
+    else {
+      if (this.selectedShelter === "All")
+        this.pets = this.pets.filter(pet => {
+          return pet.animalSpecie === event.value
+        })
       else
         this.pets = this.pets.filter(pet => {
-          return pet.shelterID === this.selectedShelter.shelterID
+          return pet.animalSpecie === event.value &&
+            pet.shelterID === this.selectedShelter
         })
-
     }
-    else if (this.selectedShelter)
-      this.pets = this.pets.filter(pet => {
-        return pet.shelterID === this.selectedShelter.shelterID &&
-          pet.animalSpecie === event.value
-      })
-    else
-      this.pets = this.pets.filter(pet => pet.animalSpecie === event.value)
+    this.sortedPets = [...this.pets]
 
   }
 
   onUserSearched() {
-    this.pets = [...this.defaultPets]
-
-    if (this.searchValue === "")
+    if (this.searchValue === "") {
+      this.pets = [...this.sortedPets]
       return
+    }
     const formatedValue = this.searchValue.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     console.log(formatedValue)
     this.pets = this.pets.filter((pet) => {

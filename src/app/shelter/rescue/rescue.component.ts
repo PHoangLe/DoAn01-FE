@@ -21,6 +21,9 @@ export class RescueComponent {
   protected listProvince = new Array;
   protected listDistrict = new Array;
   protected listWard = new Array;
+  protected selectedProvince;
+  protected selectedDistrict;
+  protected selectedWard;
   protected listPost;
   protected isLoading = true;
   protected defaultRescuePets;
@@ -98,11 +101,10 @@ export class RescueComponent {
 
   onRefreshFilter() {
     this.rescuePet = [...this.listPost]
-    const dropdowns = document.querySelectorAll(".dropdown") as NodeListOf<HTMLSelectElement>;
-    dropdowns.forEach((dropdown) => {
-      let selectedOption = dropdown.selectedIndex;
-      dropdown.options[selectedOption].remove();
-    });
+    this.searchValue = null;
+    this.selectedProvince = null;
+    this.selectedDistrict = null;
+    this.selectedWard = null;
   }
 
   onUserSearched() {

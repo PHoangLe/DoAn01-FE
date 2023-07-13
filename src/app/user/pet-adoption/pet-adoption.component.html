@@ -45,12 +45,12 @@
       <div *ngFor="let shelter of listShelter" class="field-checkbox p-1">
         <p-radioButton
           name="group"
-          [value]="shelter"
-          [inputId]="shelter.shelterID"
+          [value]="shelter.id"
+          [inputId]="shelter.id"
           [(ngModel)]="selectedShelter"
           (onClick)="onCheckboxShelterChange($event)"
         ></p-radioButton>
-        <label [for]="shelter.shelterID">{{ shelter.shelterName }}</label>
+        <label [for]="shelter.id">{{ shelter.value }}</label>
       </div>
     </div>
   </div>

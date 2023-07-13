@@ -42,11 +42,11 @@
             </button>
             Có tổng cộng {{ listFunds ? listFunds.length : 0 }} giao dịch.
           </div>
-          <span class="p-input-icon-right float-end">
+          <span class="p-input-icon-right float-end my-auto">
             <i class="pi pi-search"></i>
             <input
               pInputText
-              class="px-2"
+              class="p-2"
               type="text"
               #textInput
               (input)="dt.filterGlobal(textInput.value, 'contains')"
