@@ -84,10 +84,10 @@ export class RescueDetailComponent {
   }
 
   contactRequestor() {
-    sessionStorage.setItem("reciepientID", this.rescuePost.user.userID)
+    sessionStorage.setItem("reciepientID", this.rescuePost.poster.userID)
     this.chat.connect();
     setTimeout(() => {
-      this.chat.setReceipientID(this.rescuePost.user.userID);
+      this.chat.setReceipientID(this.rescuePost.poster.userID);
       this.chat.sendValue("Bắt đầu trò chuyện")
       this.router.navigate(['/chat']);
     }, 1000);
