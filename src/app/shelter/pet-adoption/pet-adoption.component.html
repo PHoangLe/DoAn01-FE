@@ -77,7 +77,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-pet>
-        <tr (click)="routeToPetDetail(pet)">
+        <tr (click)="routeToPetDetail(pet)" style="cursor: pointer">
           <td class="ps-4">{{ pet.animalName }}</td>
           <td>{{ pet.animalSpecie == "Dog" ? "Chó" : "Mèo" }}</td>
           <td>{{ pet.animalBreed }}</td>

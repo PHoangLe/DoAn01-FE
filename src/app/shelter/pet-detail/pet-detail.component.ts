@@ -36,9 +36,6 @@ export class PetDetailComponent implements OnInit {
         command: () => {
           this.router.navigate(['/shelter/adopt'])
         }
-      },
-      {
-        label: this.pet.animalName
       }
     ]
     this.responsiveOptions = [
@@ -72,9 +69,6 @@ export class PetDetailComponent implements OnInit {
       .catch(error => {
         console.log(error);
       })
-    console.log(this.listOnlineAdopter)
-
-
   }
 
   editPet() {
@@ -95,25 +89,28 @@ export class PetDetailComponent implements OnInit {
     this.confirmationService.confirm({
       message: `Bạn có chắc muốn xoá ${this.pet.animalName}?`,
       icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.petService.deletePet(this.pet.animalID).then(() => {
+      accept: async () => {
+        await this.petService.deletePet(this.pet.animalID).then(() => {
           this.messageService.add({ key: 'deletePet', severity: 'success', summary: 'Xoá thành công' });
         }).catch(error => {
           this.messageService.add({ key: 'deletePet', severity: 'error', summary: error.error.message });
         })
+        setTimeout(() => {
+          this.router.navigate(['/shelter/adopt']);
+        }, 1000);
+
       },
       reject: (type) => {
         switch (type) {
           case ConfirmEventType.REJECT:
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Bạn đã từ chối' });
             break;
           case ConfirmEventType.CANCEL:
-            this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+            this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'Bạn đã từ chối' });
             break;
         }
       }
     })
-    this.router.navigate(['/shelter/adopt']);
   }
 
   public reloadPage() {
