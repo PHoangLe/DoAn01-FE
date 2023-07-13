@@ -4,9 +4,7 @@
   title="Danh sách cứu hộ"
 ></app-widget>
 <div class="container d-flex m-0 p-0">
-  <div
-    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 m-2 px-2 ps-4"
-  >
+  <div class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 m-2 px-4">
     <button class="btn btn-primary w-100 my-2" (click)="addNewPost()">
       Thêm bài đăng
     </button>
@@ -113,7 +111,7 @@
       <p style="opacity: 0.7">Đang tải</p>
     </div>
     <p-dataView
-      class="w-100"
+      class="w-100 px-2"
       [value]="rescuePet"
       layout="grid"
       [rows]="4"

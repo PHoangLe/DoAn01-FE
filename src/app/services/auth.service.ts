@@ -61,8 +61,6 @@ export class AuthService {
   }
 
   async verifyNewPassword(inputData: any): Promise<any> {
-    console.log(inputData)
-    console.log(localStorage.getItem("validatedEmail"))
     const email = localStorage.getItem("validatedEmail")
     return await (this.http.post(this.baseUrl + 'otp/validateOTPForgotPassword', {
       emailAddress: email,

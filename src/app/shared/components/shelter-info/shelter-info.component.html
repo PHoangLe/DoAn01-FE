@@ -1,0 +1,73 @@
+<div class="card-body px-4">
+  <h3 class="heading-small text-muted mb-4 text-center">
+    <b>Thông tin trại cứu trợ</b>
+  </h3>
+  <div class="rounded-circle d-flex justify-content-center mb-4">
+    <img class="rounded-circle" src="{{ shelter.shelterLogo }}" alt="" />
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div>
+        <h6 class="mb-1">Tên trại</h6>
+        <input
+          class="w-100 rounded-2 p-2 mb-3"
+          [value]="shelter.shelterName"
+          readonly="true"
+          type="text"
+          placeholder="Username"
+        />
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div>
+        <h6 class="mb-1">Số điện thoại</h6>
+        <input
+          type="text"
+          readonly="true"
+          class="w-100 rounded-2 p-2 mb-3"
+          [value]="shelter.shelterPhoneNo"
+          placeholder="Số điện thoại"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <div>
+        <h6 class="mb-1">Email</h6>
+        <input
+          class="w-100 rounded-2 p-2 mb-3"
+          [value]="shelter.representativeEmailAddress"
+          readonly="true"
+          type="text"
+          placeholder="Username"
+        />
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div>
+        <h6 class="mb-1">Facebook</h6>
+        <input
+          type="text"
+          [value]="shelter.representativeFacebookLink"
+          readonly="true"
+          class="w-100 rounded-2 p-2 mb-3"
+          placeholder="Số điện thoại"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div>
+      <h6 class="mb-1">Số nhà, tên đường</h6>
+      <input
+        class="w-100 rounded-2 p-2 mb-3"
+        [value]="shelterAddress"
+        readonly="true"
+        type="text"
+      />
+    </div>
+  </div>
+</div>

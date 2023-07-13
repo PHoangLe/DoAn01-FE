@@ -18,6 +18,7 @@ import { TagModule } from 'primeng/tag';
 import { GalleriaModule } from 'primeng/galleria';
 import { RescueCardShelterComponent } from './components/rescue-card-shelter/rescue-card-shelter.component';
 import { ToastModule } from 'primeng/toast';
+import { ShelterInfoComponent } from './components/shelter-info/shelter-info.component';
 
 
 
@@ -41,7 +42,8 @@ import { ToastModule } from 'primeng/toast';
     WidgetComponent,
     SidebarComponent,
     RescueCardComponent,
-    RescueCardShelterComponent
+    RescueCardShelterComponent,
+    ShelterInfoComponent
   ],
   exports: [
     HeaderComponent,

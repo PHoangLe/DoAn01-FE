@@ -19,7 +19,7 @@ export class ResetPasswordComponent {
   isWrongOtp: boolean
   resetPassForm = this.builder.group({
     otp: this.builder.control('', Validators.required),
-    newPassword: this.builder.control('', Validators.required),
+    newPassword: this.builder.control('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)]),
   })
   ngOnInit() {
   }

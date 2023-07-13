@@ -49,8 +49,9 @@ export class RescueCardShelterComponent {
   async processRescue() {
     this.isLoading = true;
     await this.rescueService.processRescue(this.rescuePost.rescuePostID).then(response => {
-      this.messageService.add({ key: "toast", severity: 'success', detail: 'Nhận thành công' })
       this.rescuePage.removePostFromList(this.rescuePost.rescuePostID);
+      this.messageService.add({ key: "toast", severity: 'success', detail: 'Nhận thành công' })
+
     })
       .catch(error => {
         console.log(error);

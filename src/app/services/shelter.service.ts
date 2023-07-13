@@ -34,6 +34,11 @@ export class ShelterService {
     const response = await this.http.get(this.baseUrl + `/getShelterByUserID/${this.authService.getDataFromCookie("userID")}`, { headers }).toPromise();
     return this.toShelter(response);
   }
+  async getShelterInfoByShelterID(shelterID: string) {
+    let headers = this.getHttpHeader();
+    const response = await this.http.get(this.baseUrl + `/getShelterByShelterID/${shelterID}`, { headers }).toPromise();
+    return this.toShelter(response);
+  }
 
   async updateShelterProfile(shelter: Shelter) {
     let headers = this.getHttpHeader();
