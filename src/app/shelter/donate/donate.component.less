@@ -29,6 +29,7 @@
     width: 80%;
     .p-datatable-header {
       border: none;
+      padding: 0.5rem 0 !important;
       border-radius: 15px;
       background-color: #fff;
     }
@@ -78,6 +79,7 @@
     }
   }
   p-table {
+    width: 100%;
     display: flex;
     justify-content: center;
     table-layout: auto;
@@ -99,18 +101,8 @@
 }
 
 @media (max-width: 649.98px) {
-  .widget {
-    height: 100px;
-    .content {
-      width: fit-content;
-      padding-top: 10px;
-      margin-left: 10px;
-      h1 {
-        width: fit-content;
-        color: #fffafa;
-        font-weight: 600;
-      }
-    }
+  .container {
+    width: 100vw !important;
   }
   .side-filter {
     display: none;
@@ -127,6 +119,12 @@
       flex-direction: column;
     }
     p-table {
+      width: 100%;
+    }
+    .p-datatable {
+      width: 100%;
+    }
+    input {
       width: 100%;
     }
   }
