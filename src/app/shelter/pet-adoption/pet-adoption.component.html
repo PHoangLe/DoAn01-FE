@@ -55,15 +55,23 @@
       <ng-template pTemplate="header">
         <tr class="py-5">
           <th class="ps-4" style="min-width: 6rem">Tên</th>
-          <th>Loại</th>
-          <th>Giống</th>
-          <th pSortableColumn="animalAge">
+          <th style="min-width: 100px">Loại</th>
+          <th style="min-width: 100px">Giống</th>
+          <th pSortableColumn="animalAge" style="min-width: 100px">
             Tuổi <p-sortIcon field="animalAge"></p-sortIcon>
           </th>
-          <th class="text-center" pSortableColumn="animalGender">
+          <th
+            class="text-center"
+            pSortableColumn="animalGender"
+            style="min-width: 100px"
+          >
             Giới tính <p-sortIcon field="animalGender"></p-sortIcon>
           </th>
-          <th class="text-center" pSortableColumn="adopted">
+          <th
+            class="text-center"
+            pSortableColumn="adopted"
+            style="min-width: 100px"
+          >
             Tình trạng <p-sortIcon field="adopted"></p-sortIcon>
           </th>
         </tr>
