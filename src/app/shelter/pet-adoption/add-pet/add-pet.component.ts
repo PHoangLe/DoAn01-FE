@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { percentage } from '@angular/fire/storage';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { catchError } from 'rxjs';
 import { Pet } from 'src/app/model/Pet';
 import { PetService } from 'src/app/services/pet.service';
 import { UploadFileService } from 'src/app/services/upload-file.service';
+import { PetAdoptionComponent } from '../pet-adoption.component';
 
 @Component({
   selector: 'app-add-pet',
@@ -52,6 +54,8 @@ export class AddPetComponent {
   constructor(private petService: PetService,
     public ref: DynamicDialogRef,
     private builder: FormBuilder,
+    private petPage: PetAdoptionComponent,
+    private messageService: MessageService,
     private fileUpload: UploadFileService) { }
 
   addPetForm = this.builder.group({
@@ -76,13 +80,15 @@ export class AddPetComponent {
     await this.pushFileToCloud();
     let uploadedDocUrl = this.fileUpload.getFileUrl()
     this.petService.addPet(this.addPetForm.value, this.avatarUrl, uploadedDocUrl).then(value => {
-      console.log("add new pet successfully")
+      this.messageService.add({ key: "toast", severity: "success", detail: "Thêm thành công" })
+      this.petPage.getAllPets();
       setTimeout(() => {
         this.ref.close()
       }, 1500);
     })
       .catch(error => {
         console.log(error);
+        this.messageService.add({ key: "toast", severity: "error", detail: error.error.message })
       });
   }
 

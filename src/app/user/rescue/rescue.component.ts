@@ -98,6 +98,8 @@ export class RescueComponent implements OnInit {
     this.selectedProvince = null;
     this.selectedDistrict = null;
     this.selectedWard = null;
+    this.listDistrict = null;
+    this.listWard = null;
   }
 
   public reloadPage() {

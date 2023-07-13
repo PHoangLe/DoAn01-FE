@@ -85,7 +85,7 @@ export class PetAdoptionComponent implements OnDestroy {
     })
   }
 
-  async getAllPets() {
+  public async getAllPets() {
     this.isLoading = true;
     await this.PetService.getAllPetsByShelter().then(response => {
       this.pets = this.PetService.convertToPets(response)

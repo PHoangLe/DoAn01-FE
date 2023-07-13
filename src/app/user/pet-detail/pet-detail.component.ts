@@ -141,7 +141,7 @@ export class PetDetailComponent implements OnInit {
     this.petAdopt.sendAdoptionRequest(this.pet.animalID, this.pet.shelterID, this.authService.getDataFromCookie("userID")).then(value => {
       console.log(value);
       this.isSendAdoption = true;
-      this.messageService.add({ key: 'adoptPet', severity: 'info', summary: 'Gửi yêu cầu thành công!' })
+      this.messageService.add({ key: 'adoptPet', severity: 'success', summary: 'Gửi yêu cầu thành công!' })
     })
       .catch(error => {
         console.log(error.error.message);

@@ -107,6 +107,8 @@ export class RescueComponent {
     this.selectedProvince = null;
     this.selectedDistrict = null;
     this.selectedWard = null;
+    this.listDistrict = null;
+    this.listWard = null;
   }
 
   onUserSearched() {
