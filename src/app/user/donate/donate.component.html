@@ -5,9 +5,9 @@
   "
   title="Danh sách quỹ cứu trợ"
 ></app-widget>
-<div class="container d-flex m-0 p-0">
+<div class="container-page d-flex">
   <div
-    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-2 col-lg-2 m-2"
+    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-2 col-lg-2 p-2"
   >
     <div class="fund-type w-100 p-2">
       <h4>Tìm kiếm</h4>
@@ -68,7 +68,7 @@
       <ng-template let-fund pTemplate="gridItem">
         <div
           (click)="onFundClick(fund)"
-          class="card-body my-4 mx-auto ms-4 d-flex flex-wrap"
+          class="card-body my-4 ms-4 d-flex flex-wrap"
         >
           <div class="card-img">
             <img
