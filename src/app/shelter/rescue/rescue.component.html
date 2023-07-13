@@ -4,9 +4,7 @@
   title="Danh sách cứu hộ"
 ></app-widget>
 <div class="page-container d-flex m-0 p-0">
-  <div
-    class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 m-2 px-2 ps-4"
-  >
+  <div class="side-filter rounded-3 d-flex flex-column col-3 col-sm-3 m-2 px-4">
     <div class="pet-type w-100 p-2">
       <p-divider align="left">
         <div class="inline-flex align-items-center">
@@ -38,6 +36,7 @@
       <p-dropdown
         [options]="listProvince"
         class="dropdown"
+        [(ngModel)]="selectedProvince"
         [filter]="true"
         [autoDisplayFirst]="false"
         optionLabel="provName"
@@ -50,6 +49,7 @@
       <h6 class="addressLabel p-1 ps-0 mb-0 mt-1">Quận/Huyện</h6>
       <p-dropdown
         [filter]="true"
+        [(ngModel)]="selectedDistrict"
         class="dropdown"
         [autoDisplayFirst]="false"
         [options]="listDistrict"
@@ -63,6 +63,7 @@
       <h6 class="addressLabel p-1 ps-0 mb-0 mt-1">Phường/Xã</h6>
       <p-dropdown
         [options]="listWard"
+        [(ngModel)]="selectedWard"
         class="dropdown"
         [autoDisplayFirst]="false"
         [filter]="true"
@@ -72,7 +73,10 @@
       >
       </p-dropdown>
     </span>
-    <button class="btn btn-primary mx-auto mt-4" (click)="onRefreshFilter()">
+    <button
+      class="btn btn-primary mx-auto mt-4 w-100"
+      (click)="onRefreshFilter()"
+    >
       Làm mới
     </button>
   </div>
@@ -90,7 +94,7 @@
       class="w-100 text-center"
       [value]="rescuePet"
       layout="grid"
-      [rows]="10"
+      [rows]="5"
       [paginator]="true"
       [sortField]="sortField"
       emptyMessage="Không cứu trợ cần tìm"

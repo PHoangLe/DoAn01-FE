@@ -6,6 +6,7 @@ import { ApiAddressService } from 'src/app/services/api-address.service';
 import { RescueService } from 'src/app/services/rescue.service';
 import { AddRescueComponent } from 'src/app/user/rescue/add-rescue/add-rescue.component';
 import { ChatComponent } from '../chat/chat.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-rescue',
@@ -21,6 +22,9 @@ export class RescueComponent {
   protected listProvince = new Array;
   protected listDistrict = new Array;
   protected listWard = new Array;
+  protected selectedProvince;
+  protected selectedDistrict;
+  protected selectedWard;
   protected listPost;
   protected isLoading = true;
   protected defaultRescuePets;
@@ -41,6 +45,7 @@ export class RescueComponent {
     private rescueService: RescueService,
     public dialogService: DialogService,
     public messageService: MessageService,
+    private location: Location,
     private apiAddress: ApiAddressService,
     private chat: ChatComponent,
     private router: Router) {
@@ -98,11 +103,10 @@ export class RescueComponent {
 
   onRefreshFilter() {
     this.rescuePet = [...this.listPost]
-    const dropdowns = document.querySelectorAll(".dropdown") as NodeListOf<HTMLSelectElement>;
-    dropdowns.forEach((dropdown) => {
-      let selectedOption = dropdown.selectedIndex;
-      dropdown.options[selectedOption].remove();
-    });
+    this.searchValue = null;
+    this.selectedProvince = null;
+    this.selectedDistrict = null;
+    this.selectedWard = null;
   }
 
   onUserSearched() {
@@ -126,6 +130,8 @@ export class RescueComponent {
     this.rescuePet = this.rescuePet.filter((post) => {
       return post.rescuePostID !== postID
     })
+    const post = this.rescuePet.find((post) => post.rescuePostID !== postID)
+    this.processingRescue.push(post)
   }
 
   contactSender(senderID: string) {

@@ -18,9 +18,10 @@ export class DonateComponent implements OnInit {
   protected listFunds;
   protected isLoading = true;
   protected searchValue;
-  protected selectedFund;
+  protected selectedFund = "ALL";
   private fundCopied;
   private fund;
+  private sortedFund
   private ref: DynamicDialogRef;
   listFundTypes = [
     {
@@ -69,12 +70,12 @@ export class DonateComponent implements OnInit {
   async getAllFunds() {
     await this.fundService.getAllFunds().then((funds) => {
       this.listFunds = funds;
-      console.log(this.listFunds);
     }).catch((err) => {
       console.log(err)
     })
     this.isLoading = false;
     this.fundCopied = this.listFunds
+    this.sortedFund = [...this.listFunds]
   }
 
   openBankingComponent() {
@@ -106,13 +107,15 @@ export class DonateComponent implements OnInit {
     if (fundTypeID !== 'ALL') {
       this.listFunds = this.listFunds.filter(fund => fund.fundType === fundTypeID)
     }
+    this.sortedFund = [...this.listFunds]
   }
   onFundSearch() {
-    this.fund = [...this.fundCopied]
-    if (this.searchValue === "")
+    if (this.searchValue === "") {
+      this.listFunds = [...this.sortedFund];
       return
+    }
     const formatedValue = this.searchValue.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    this.fund = this.fund.filter((fund) => {
+    this.listFunds = this.listFunds.filter((fund) => {
       return Object.values(fund).some(value =>
         String(value)
           .toLowerCase()

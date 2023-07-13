@@ -21,7 +21,9 @@ export class RescueComponent implements OnInit {
   listProvince = new Array;
   listDistrict = new Array;
   listWard = new Array;
-
+  protected selectedProvince;
+  protected selectedDistrict;
+  protected selectedWard;
   protected isLoading = true;
   protected defaultRescuePets;
   protected selectedStatus: string;
@@ -92,11 +94,10 @@ export class RescueComponent implements OnInit {
 
   onRefreshFilter() {
     this.rescuePet = [...this.defaultRescuePets]
-    const dropdowns = document.querySelectorAll(".dropdown") as NodeListOf<HTMLSelectElement>;
-    dropdowns.forEach((dropdown) => {
-      let selectedOption = dropdown.selectedIndex;
-      dropdown.options[selectedOption].remove();
-    });
+    this.searchValue = null;
+    this.selectedProvince = null;
+    this.selectedDistrict = null;
+    this.selectedWard = null;
   }
 
   public reloadPage() {

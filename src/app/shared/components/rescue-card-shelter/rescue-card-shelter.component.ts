@@ -26,7 +26,9 @@ export class RescueCardShelterComponent {
 
   ngOnInit() {
     this.isLoading = false;
-
+    if (this.rescuePost.images.length == 0) {
+      this.rescuePost.images = ["https://firebasestorage.googleapis.com/v0/b/advance-totem-350103.appspot.com/o/General%2Ferror_img.jpg?alt=media&token=9a5285d5-8aae-421f-ad9f-e794f2524b31"]
+    }
   }
 
   routeToRescueDetail() {
@@ -47,8 +49,9 @@ export class RescueCardShelterComponent {
   async processRescue() {
     this.isLoading = true;
     await this.rescueService.processRescue(this.rescuePost.rescuePostID).then(response => {
-      this.messageService.add({ key: "toast", severity: 'success', detail: 'Nhận thành công' })
       this.rescuePage.removePostFromList(this.rescuePost.rescuePostID);
+      this.messageService.add({ key: "toast", severity: 'success', detail: 'Nhận thành công' })
+
     })
       .catch(error => {
         console.log(error);

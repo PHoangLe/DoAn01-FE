@@ -19,7 +19,7 @@ export class FundBankingComponent {
     private authService: AuthService,
     private donateService: DonateService) {
     this.fund = this.config.data
-    console.log(this.fund)
+
   }
 
 

@@ -33,7 +33,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private chatService: ChatService,
     private location: Location,

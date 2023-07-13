@@ -27,7 +27,7 @@ export class ChangePasswordComponent {
 
   changePassForm = this.builder.group({
     oldPassword: this.builder.control('', [Validators.required]),
-    newPassword: this.builder.control('', [Validators.required, Validators.minLength(6), this.validatePassword]),
+    newPassword: this.builder.control('', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)]),
   })
   ngOnInit(): void {
   }

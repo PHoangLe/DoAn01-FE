@@ -11,15 +11,17 @@
   <div class="container p-4">
     <div class="page-stat p-4 d-flex justify-content-between" *ngIf="pageStat">
       <div class="card px-3 py-3">
-        <h3>{{ pageStat.totalNumbersOfAnimal }}</h3>
+        <h3 class="text-center">{{ pageStat.totalNumbersOfAnimal }}</h3>
         <h4>Thú cưng trong trại</h4>
       </div>
       <div class="card px-3 py-3">
-        <h3>{{ pageStat.totalNumberOfAdoptedAnimal }}</h3>
+        <h3 class="text-center">{{ pageStat.totalNumberOfAdoptedAnimal }}</h3>
         <h4>Bé đã được nhận nuôi</h4>
       </div>
       <div class="card px-3 py-3">
-        <h3>{{ pageStat.totalNumberOfRescuePostCompleted }}</h3>
+        <h3 class="text-center">
+          {{ pageStat.totalNumberOfRescuePostCompleted }}
+        </h3>
         <h4>Bé đã được giải cứu</h4>
       </div>
     </div>

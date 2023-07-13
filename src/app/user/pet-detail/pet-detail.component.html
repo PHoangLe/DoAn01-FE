@@ -51,7 +51,13 @@
           <div class="divider py-4 px-4">
             <div class="vr h-100"></div>
           </div>
-          <h4 class="py-2 my-auto">Trại: {{ shelterName }}</h4>
+          <h4
+            style="cursor: pointer"
+            class="py-2 my-auto"
+            (click)="openShelterInfo()"
+          >
+            Trại: {{ shelterName }}
+          </h4>
         </div>
 
         <h5><b>Giống:</b> {{ pet.animalBreed }}</h5>

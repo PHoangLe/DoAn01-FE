@@ -52,10 +52,10 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      console.log("after view init")
       if (sessionStorage.getItem("reciepientID")) {
+        console.log(this.listUsers)
         this.currentUser = this.listUsers.filter((user) => {
-          if (user.userID === sessionStorage.getItem("reciepientID")) {
+          if (user.userID == sessionStorage.getItem("reciepientID")) {
             return user
           }
           else
@@ -63,9 +63,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
         })
         this.selectUser(this.currentUser[0])
       }
-    }, 2500);
-
-
+    }, 3500);
   }
 
   async sendMessage() {

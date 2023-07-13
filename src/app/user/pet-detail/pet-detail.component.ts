@@ -8,6 +8,7 @@ import { PetService } from 'src/app/services/pet.service';
 import { BankingComponent } from './banking/banking.component';
 import { ShelterService } from 'src/app/services/shelter.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ShelterInfoComponent } from 'src/app/shared/components/shelter-info/shelter-info.component';
 
 @Component({
   selector: 'app-pet-detail',
@@ -57,7 +58,7 @@ export class PetDetailComponent implements OnInit {
     this.isLoading = true;
     this.pet = this.petService.getStoragePet();
     this.shelterName = await this.shelterSerivce.getShelterByShelterID(this.pet.shelterID)
-    this.userID = this.authService.getDataFromCookie("userID");;
+    this.userID = this.authService.getDataFromCookie("userID");
     this.listImg.push(this.pet.animalImg);
     if (this.pet.othersImg)
       this.listImg.push(...this.pet.othersImg);
@@ -112,6 +113,15 @@ export class PetDetailComponent implements OnInit {
       }, 1500);
     })
   }
+  openShelterInfo() {
+    this.ref = this.dialogService.open(ShelterInfoComponent, {
+      data: this.pet.shelterID,
+      width: '50%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: false,
+    });
+  }
 
   openBankingComponent() {
     this.ref = this.dialogService.open(BankingComponent, {
@@ -138,7 +148,6 @@ export class PetDetailComponent implements OnInit {
         this.messageService.add({ key: 'adoptPet', severity: 'error', summary: 'Có lỗi xảy ra! Xin liên hệ trại nuôi để được hỗ trợ' })
       })
     this.messageService.clear('confirmAdoption')
-
   }
 
 }
