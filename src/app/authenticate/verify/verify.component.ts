@@ -17,7 +17,7 @@ export class VerifyComponent implements OnInit {
     private messageService: MessageService) { }
 
   isSubmitted = false
-  isWrongOtp: boolean
+  isWrongOtp = false
   verifyForm = this.builder.group({
     otp: this.builder.control(''),
   })
@@ -32,13 +32,11 @@ export class VerifyComponent implements OnInit {
         this.router.navigate(['/login'])
       }, 2000);
     }
-
   }
 
   async otpCheck() {
     await this.authService.verifyEmail(this.verifyForm.value).then(response => {
       this.isWrongOtp = false
-      console.log('verifying')
       return
     }).catch(error => {
       console.log(error);
