@@ -81,8 +81,19 @@
         <button class="btn btn-primary" (click)="editPet()">
           Sửa thông tin
         </button>
-        <button class="btn btn-secondary" (click)="deletePet()">
-          Xoá thú cưng
+        <button
+          class="btn btn-secondary"
+          (click)="deletePet()"
+          *ngIf="!pet.isDelete"
+        >
+          Ẩn thú cưng
+        </button>
+        <button
+          class="btn btn-secondary"
+          (click)="reavealPet()"
+          *ngIf="pet.isDelete"
+        >
+          Khôi phục thú cưng
         </button>
       </div>
       <p-toast key="deletePet" [preventOpenDuplicates]="true"></p-toast>

@@ -74,6 +74,15 @@
           >
             Tình trạng <p-sortIcon field="adopted"></p-sortIcon>
           </th>
+          <th
+            class="text-center"
+            pSortableColumn="isDelete"
+            style="min-width: 100px"
+          >
+            Trạng thái
+
+            <p-sortIcon field="isDelete"></p-sortIcon>
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-pet>
@@ -87,6 +96,12 @@
             <p-tag
               [value]="pet.adopted ? 'Đã có chủ' : 'Chưa có chủ'"
               [severity]="getSeverity(pet.adopted)"
+            ></p-tag>
+          </td>
+          <td class="text-center">
+            <p-tag
+              [value]="pet.isDelete ? 'Ẩn' : 'Hiện'"
+              [severity]="pet.isDelete ? 'danger' : 'success'"
             ></p-tag>
           </td>
         </tr>
