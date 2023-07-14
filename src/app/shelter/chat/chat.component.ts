@@ -48,6 +48,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     await this.getListUsers();
     await this.getUnreadMessage();
     this.isLoadingChatRoom = false;
+
   }
 
   ngAfterViewInit(): void {
@@ -128,7 +129,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
           userID: chatRoom.user1.userID,
           userName: chatRoom.user1.userFirstName + " " + chatRoom.user1.userLastName,
           userAvatar: chatRoom.user1.userAvatar,
-          isRead: true
+          isRead: false
         };
       }
       else {
@@ -137,7 +138,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
           userID: chatRoom.user2.userID,
           userName: chatRoom.user2.userFirstName + " " + chatRoom.user2.userLastName,
           userAvatar: chatRoom.user2.userAvatar,
-          isRead: true
+          isRead: false
         };
       }
     })
@@ -181,9 +182,9 @@ export class ChatComponent implements OnInit, AfterViewInit {
     })
   }
 
-  getUnreadMessage() {
-    this.listUsers.map((user) => {
-      this.chatService.getUnreadMessageByRecipientID(user.userID, this.senderID).then((messageCount) => {
+  async getUnreadMessage() {
+    await this.listUsers.map(async (user) => {
+      await this.chatService.getUnreadMessageByRecipientID(user.userID, this.senderID).then((messageCount) => {
         if (messageCount === 0)
           user.isRead = true
       })

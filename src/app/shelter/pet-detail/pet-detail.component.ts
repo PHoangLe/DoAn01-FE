@@ -54,7 +54,8 @@ export class PetDetailComponent implements OnInit {
     ];
   }
   async ngOnInit() {
-    await this.getPageData()
+    await this.getPageData();
+    console.log(this.pet)
   }
 
   async getPageData() {
@@ -87,11 +88,11 @@ export class PetDetailComponent implements OnInit {
 
   deletePet() {
     this.confirmationService.confirm({
-      message: `Bạn có chắc muốn xoá ${this.pet.animalName}?`,
+      message: `Bạn có chắc muốn ẩn ${this.pet.animalName}?`,
       icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         await this.petService.deletePet(this.pet.animalID).then(() => {
-          this.messageService.add({ key: 'deletePet', severity: 'success', summary: 'Xoá thành công' });
+          this.messageService.add({ key: 'deletePet', severity: 'success', summary: 'Ẩn thành công' });
         }).catch(error => {
           this.messageService.add({ key: 'deletePet', severity: 'error', summary: error.error.message });
         })
@@ -111,6 +112,19 @@ export class PetDetailComponent implements OnInit {
         }
       }
     })
+  }
+
+  reavealPet() {
+    this.petService.reavealPet(this.pet.animalID).then(() => {
+      this.messageService.add({ key: 'deletePet', severity: 'success', detail: 'Khôi phục thành công' });
+      setTimeout(() => {
+        this.router.navigate(['/shelter/adopt']);
+      }, 1000);
+    })
+      .catch(err => {
+        this.messageService.add({ key: 'deletePet', severity: 'error', detail: 'Có lỗi xảy ra, vui lòng thử lại sau' });
+
+      })
   }
 
   public reloadPage() {

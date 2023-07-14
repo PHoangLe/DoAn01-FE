@@ -68,6 +68,11 @@ export class PetService {
     return await this.http.delete(this.baseUrl + `/deleteAnimal/${petId}`, { headers }).toPromise();
   }
 
+  async reavealPet(petID: string) {
+    let headers = this.getHttpHeader()
+    return await this.http.put(this.baseUrl + `/restoreAnimal/${petID}`, null, { headers: headers }).toPromise();
+  }
+
   async updatePet(petData: any, avatarUrl: string, otherImgUrl: string[]) {
     let headers = this.getHttpHeader();
     return await this.http.put(this.baseUrl + '/updateAnimal', {
@@ -157,7 +162,7 @@ export class PetService {
           item.friendly,
           item.othersImg,
           item.adopted,
-          item.isDelete,
+          item.deleted,
         )
 
         petList.push(pet)
